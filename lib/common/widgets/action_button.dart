@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streamkeys/common/theme/custom/action_button_theme.dart';
 import 'package:streamkeys/windows/models/action.dart';
 
 class ActionButton extends StatefulWidget {
@@ -22,6 +23,8 @@ class _ActionButtonState extends State<ActionButton> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = ActionButtonTheme(context: context);
+
     return Tooltip(
       message: widget.action.name,
       child: _settingInkWell(
@@ -29,15 +32,7 @@ class _ActionButtonState extends State<ActionButton> {
           duration: const Duration(milliseconds: 20),
           width: widget.size,
           height: widget.size,
-          decoration: BoxDecoration(
-            color: const Color(0xFFF5F5F5),
-            border: Border.all(
-              color: const Color(0xFF2F2F2F),
-              width: 1,
-            ),
-            boxShadow: _boxShadow,
-            borderRadius: BorderRadius.circular(5),
-          ),
+          decoration: theme.getDecoration(isPressed: _isPressed),
           transform: Matrix4.translationValues(
             _isPressed ? 2 : 0,
             _isPressed ? 2 : 0,
@@ -71,15 +66,6 @@ class _ActionButtonState extends State<ActionButton> {
       },
       child: child,
     );
-  }
-
-  List<BoxShadow> get _boxShadow {
-    const boxShadow = BoxShadow(
-      offset: Offset(2, 2),
-      blurRadius: 0,
-      color: Colors.black,
-    );
-    return _isPressed ? [] : [boxShadow];
   }
 
   Widget _buildButtonActionContent() {

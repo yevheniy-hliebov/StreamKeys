@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'StreamKeys',
+      themeMode: ThemeMode.light,
       theme: STheme.light,
       darkTheme: STheme.dark,
       home: const WindowsHomePage(),
