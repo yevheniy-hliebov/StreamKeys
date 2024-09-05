@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streamkeys/common/widgets/action_button.dart';
 import 'package:streamkeys/windows/models/action.dart';
 import 'package:streamkeys/windows/server.dart';
 import 'package:streamkeys/windows/services/action_json_handler.dart';
@@ -12,10 +13,18 @@ class WindowsHomePage extends StatefulWidget {
 }
 
 class _WindowsHomePageState extends State<WindowsHomePage> {
+  final double widthPage = 380;
+  final double heightPage = 252;
   String ipv4 = '';
   int actionsCount = 28;
 
   List<ButtonAction> actions = [];
+
+  double get actionButtonSize {
+    final width = (widthPage - ((7 + 2) * 10)) / 7;
+    final height = (heightPage - 16 - ((4 + 2) * 10)) / 4;
+    return width > height ? height : width;
+  }
 
   @override
   void initState() {
@@ -25,6 +34,10 @@ class _WindowsHomePageState extends State<WindowsHomePage> {
         ipv4 = ip;
       });
     });
+    readActionsAndSet();
+  }
+
+  Future<void> readActionsAndSet() async {
     ButtonActionJsonHandler.readActions().then((list) {
       setState(() {
         actions = list;
@@ -35,6 +48,7 @@ class _WindowsHomePageState extends State<WindowsHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           Text("IPv4 - $ipv4"),
@@ -45,7 +59,7 @@ class _WindowsHomePageState extends State<WindowsHomePage> {
               runSpacing: 10,
               children: [
                 for (var i = 0; i < actions.length; i++) ...[
-                  InkWell(
+                  ActionButton(
                     onTap: () async {
                       final result = await Navigator.push(
                         context,
@@ -56,27 +70,11 @@ class _WindowsHomePageState extends State<WindowsHomePage> {
                         ),
                       );
                       if (result != null && result == 'Updated') {
-                        ButtonActionJsonHandler.readActions().then((list) {
-                          setState(() {
-                            actions = list;
-                          });
-                        });
+                        readActionsAndSet();
                       }
                     },
-                    child: Tooltip(
-                      message: actions[i].name,
-                      child: Container(
-                        width: 41.5,
-                        height: 41.5,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black,
-                          ),
-                        ),
-                        padding: const EdgeInsets.all(5),
-                        child: _buildButtonActionContent(i),
-                      ),
-                    ),
+                    size: actionButtonSize,
+                    action: actions[i],
                   ),
                 ],
               ],
@@ -84,17 +82,6 @@ class _WindowsHomePageState extends State<WindowsHomePage> {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildButtonActionContent(int index) {
-    if (actions[index].imagePath == '') {
-      return const Icon(Icons.add);
-    }
-    return SizedBox(
-      width: double.infinity,
-      height: double.infinity,
-      child: Image.file(actions[index].getImageFile()),
     );
   }
 }

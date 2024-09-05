@@ -37,72 +37,74 @@ class _SettingActionPageState extends State<SettingActionPage> {
           icon: const Icon(Icons.arrow_back),
         ),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Form(
-              child: Column(
-                children: [
-                  Text('id: ${widget.action.id}'),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Name',
-                      hintText: 'Enter the name...',
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              Form(
+                child: Column(
+                  children: [
+                    Text('id: ${widget.action.id}'),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Name',
+                        hintText: 'Enter the name...',
+                      ),
+                      controller: nameController,
                     ),
-                    controller: nameController,
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Image Path',
-                      hintText: 'Enter the image path...',
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Image Path',
+                        hintText: 'Enter the image path...',
+                      ),
+                      controller: imagePathController,
                     ),
-                    controller: imagePathController,
-                  ),
-                  IconButton.filled(
-                    onPressed: () {
-                      widget.action.pickImage().then(
-                        (_) {
-                          imagePathController.text = widget.action.imagePath;
-                        },
-                      );
-                    },
-                    icon: const Icon(Icons.drive_folder_upload_outlined),
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'File Path',
-                      hintText: 'Enter the file path...',
+                    IconButton.filled(
+                      onPressed: () {
+                        widget.action.pickImage().then(
+                          (_) {
+                            imagePathController.text = widget.action.imagePath;
+                          },
+                        );
+                      },
+                      icon: const Icon(Icons.drive_folder_upload_outlined),
                     ),
-                    controller: filePathController,
-                  ),
-                  IconButton.filled(
-                    onPressed: () {
-                      widget.action.pickFile().then(
-                        (_) {
-                          filePathController.text = widget.action.filePath;
-                        },
-                      );
-                    },
-                    icon: const Icon(Icons.drive_folder_upload_outlined),
-                  ),
-                  FilledButton(
-                    onPressed: () {
-                      ButtonAction action = ButtonAction(
-                        id: widget.action.id,
-                        name: nameController.text,
-                        imagePath: imagePathController.text,
-                        filePath: filePathController.text,
-                      );
-                      action.update().then((_) {
-                        Navigator.of(context).pop('Updated');
-                      });
-                    },
-                    child: const Text('Update'),
-                  )
-                ],
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'File Path',
+                        hintText: 'Enter the file path...',
+                      ),
+                      controller: filePathController,
+                    ),
+                    IconButton.filled(
+                      onPressed: () {
+                        widget.action.pickFile().then(
+                          (_) {
+                            filePathController.text = widget.action.filePath;
+                          },
+                        );
+                      },
+                      icon: const Icon(Icons.drive_folder_upload_outlined),
+                    ),
+                    FilledButton(
+                      onPressed: () {
+                        ButtonAction action = ButtonAction(
+                          id: widget.action.id,
+                          name: nameController.text,
+                          imagePath: imagePathController.text,
+                          filePath: filePathController.text,
+                        );
+                        action.update().then((_) {
+                          Navigator.of(context).pop('Updated');
+                        });
+                      },
+                      child: const Text('Update'),
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
