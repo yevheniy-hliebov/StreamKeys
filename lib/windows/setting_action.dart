@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streamkeys/common/theme/theme.dart';
 import 'package:streamkeys/windows/models/action.dart';
 
 class SettingActionPage extends StatefulWidget {
@@ -30,6 +31,8 @@ class _SettingActionPageState extends State<SettingActionPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isLight = STheme.isLight(context);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -54,7 +57,10 @@ class _SettingActionPageState extends State<SettingActionPage> {
             children: [
               Row(
                 children: [
-                  _selectImage(),
+                  Tooltip(
+                    message: widget.action.imagePath != '' ? 'Change image' : '',
+                    child: _selectImage(),
+                  ),
                   const SizedBox(width: 10),
                   Flexible(
                     child: TextFormField(
@@ -94,19 +100,38 @@ class _SettingActionPageState extends State<SettingActionPage> {
                         ),
                       ),
                       const SizedBox(width: 5),
-                      IconButton.outlined(
-                        onPressed: () async {
-                          await widget.action.pickFile();
-                          setState(() {
-                            filePathController.text = widget.action.filePath;
-                          });
-                        },
-                        icon: const Icon(Icons.drive_folder_upload_outlined),
+                      Tooltip(
+                        message: 'Browse',
+                        child: InkWell(
+                          onTap: () async {
+                            await widget.action.pickFile();
+                            setState(() {
+                              filePathController.text = widget.action.filePath;
+                            });
+                          },
+                          child: Container(
+                            width: 48,
+                            height: 48,
+                            decoration: BoxDecoration(
+                              color:
+                                  isLight ? Colors.grey[50] : Colors.grey[800],
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                color: isLight
+                                    ? const Color(0xFF424242)
+                                    : const Color(0xFFFAFAFA),
+                                width: 1,
+                              ),
+                            ),
+                            child:
+                                const Icon(Icons.drive_folder_upload_outlined),
+                          ),
+                        ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 10),
-                  FilledButton(
+                  OutlinedButton(
                     onPressed: () async {
                       ButtonAction updatedAction = ButtonAction(
                         id: widget.action.id,
@@ -115,7 +140,9 @@ class _SettingActionPageState extends State<SettingActionPage> {
                         filePath: filePathController.text,
                       );
                       await updatedAction.update();
-                      Navigator.of(context).pop('Updated');
+                      if (context.mounted) {
+                        Navigator.of(context).pop('Updated');
+                      }
                     },
                     child: const Text('Update'),
                   ),
@@ -135,10 +162,13 @@ class _SettingActionPageState extends State<SettingActionPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(Icons.drive_folder_upload_outlined),
+          Icon(
+            Icons.drive_folder_upload_outlined,
+            size: 22,
+          ),
           Text(
             'Image',
-            style: TextStyle(),
+            style: TextStyle(fontSize: 12),
           ),
         ],
       );
@@ -157,19 +187,25 @@ class _SettingActionPageState extends State<SettingActionPage> {
           imagePath = widget.action.imagePath;
         });
       },
-      child: Container(
-        width: 48,
-        height: 48,
-        decoration: BoxDecoration(
-          color: Colors.grey[50],
-          borderRadius: BorderRadius.circular(5),
-          border: Border.all(
-            color: const Color(0xFF2F2F2F),
-            width: 1,
+      splashColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      child: Builder(builder: (context) {
+        final isLight = STheme.isLight(context);
+        return Container(
+          width: 48,
+          height: 48,
+          decoration: BoxDecoration(
+            color: isLight ? Colors.grey[50] : Colors.grey[800],
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(
+              color:
+                  isLight ? const Color(0xFF424242) : const Color(0xFFFAFAFA),
+              width: 1,
+            ),
           ),
-        ),
-        child: child,
-      ),
+          child: child,
+        );
+      }),
     );
   }
 }

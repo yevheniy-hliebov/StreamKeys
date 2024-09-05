@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/theme/custom/app_bar_theme.dart';
+import 'package:streamkeys/common/theme/custom/outlined_button_theme.dart';
 import 'package:streamkeys/common/theme/custom/text_theme.dart';
 
 class STheme {
@@ -11,6 +12,7 @@ class STheme {
       scaffoldBackgroundColor: Colors.white,
       appBarTheme: SAppBarTheme.light,
       textTheme: STextTheme.light,
+      outlinedButtonTheme: SOutlinedButtonTheme.light
     );
   }
 
@@ -20,6 +22,7 @@ class STheme {
       scaffoldBackgroundColor: const Color(0xFF333333),
       appBarTheme: SAppBarTheme.dark,
       textTheme: STextTheme.dark,
+      outlinedButtonTheme: SOutlinedButtonTheme.dark,
     );
   }
 
