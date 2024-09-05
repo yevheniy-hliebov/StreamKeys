@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:streamkeys/windows/windows_home_page.dart';
+import 'package:streamkeys/windows/server.dart';
 
-void main() {
-  runApp(const MainApp());
+Future<void> main() async {
+  Server.routerHandler();
+  await Server.start();
+  runApp(const MyApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+      title: 'StreamKeys',
+      home: WindowsHomePage(),
     );
   }
 }
