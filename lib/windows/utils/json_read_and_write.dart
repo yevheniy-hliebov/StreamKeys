@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 
 class JsonReadAndWrite {
@@ -10,9 +11,19 @@ class JsonReadAndWrite {
   });
 
   Future<String> get _localJsonPath async {
-    final directory = await getApplicationDocumentsDirectory();
-
-    return directory.path;
+    if (Platform.isWindows) {
+      final directory = Directory('${Platform.environment['APPDATA']}\\StreamKeys');
+      if (!await directory.exists()) {
+        await directory.create(recursive: true);
+      }
+      if (kDebugMode) {
+        print(directory.path);
+      }
+      return directory.path;
+    } else {
+      final directory = await getApplicationDocumentsDirectory();
+      return directory.path;
+    }
   }
 
   Future<File> get _localJson async {
