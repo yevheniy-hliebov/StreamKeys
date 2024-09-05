@@ -24,7 +24,7 @@ class _ActionButtonState extends State<ActionButton> {
   Widget build(BuildContext context) {
     return Tooltip(
       message: widget.action.name,
-      child: _settingGestureDetector(
+      child: _settingInkWell(
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 20),
           width: widget.size,
@@ -49,9 +49,11 @@ class _ActionButtonState extends State<ActionButton> {
     );
   }
 
-  GestureDetector _settingGestureDetector({required Widget child}) {
-    return GestureDetector(
+  InkWell _settingInkWell({required Widget child}) {
+    return InkWell(
       onTap: widget.onTap,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onTapDown: (_) {
         setState(() {
           _isPressed = true;
