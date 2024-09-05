@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streamkeys/common/theme/custom/app_bar_theme.dart';
 import 'package:streamkeys/common/theme/custom/text_theme.dart';
 
 class STheme {
@@ -8,6 +9,7 @@ class STheme {
     return ThemeData(
       brightness: Brightness.light,
       scaffoldBackgroundColor: Colors.white,
+      appBarTheme: SAppBarTheme.light,
       textTheme: STextTheme.light,
     );
   }
@@ -16,6 +18,7 @@ class STheme {
     return ThemeData(
       brightness: Brightness.dark,
       scaffoldBackgroundColor: const Color(0xFF333333),
+      appBarTheme: SAppBarTheme.dark,
       textTheme: STextTheme.dark,
     );
   }

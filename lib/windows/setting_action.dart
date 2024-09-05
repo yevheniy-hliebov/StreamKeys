@@ -45,9 +45,6 @@ class _SettingActionPageState extends State<SettingActionPage> {
             fontWeight: FontWeight.w500,
           ),
         ),
-        titleSpacing: 0,
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.white,
       ),
       body: Form(
         child: Padding(
