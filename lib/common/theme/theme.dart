@@ -6,7 +6,7 @@ class STheme {
 
   static ThemeData get light {
     return ThemeData(
-      brightness: Brightness.dark,
+      brightness: Brightness.light,
       scaffoldBackgroundColor: Colors.white,
       textTheme: STextTheme.light,
     );
@@ -14,9 +14,13 @@ class STheme {
 
   static ThemeData get dark {
     return ThemeData(
-      brightness: Brightness.light,
+      brightness: Brightness.dark,
       scaffoldBackgroundColor: const Color(0xFF333333),
       textTheme: STextTheme.dark,
     );
+  }
+
+  static bool isLight(BuildContext context) {
+    return Theme.of(context).brightness == Brightness.light;
   }
 }
