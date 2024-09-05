@@ -48,7 +48,6 @@ class _WindowsHomePageState extends State<WindowsHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Column(
         children: [
           Text("IPv4 - $ipv4"),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streamkeys/common/theme/theme.dart';
 import 'package:streamkeys/windows/windows_home_page.dart';
 import 'package:streamkeys/windows/server.dart';
 import 'package:window_manager/window_manager.dart';
@@ -34,9 +35,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'StreamKeys',
-      home: WindowsHomePage(),
+      theme: STheme.light,
+      darkTheme: STheme.dark,
+      home: const WindowsHomePage(),
     );
   }
 }
