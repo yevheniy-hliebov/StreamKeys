@@ -36,7 +36,7 @@ class _WindowsHomePageState extends State<WindowsHomePage> {
     });
     readActionsAndSet();
   }
-
+  
   Future<void> readActionsAndSet() async {
     ButtonActionJsonHandler.readActions().then((list) {
       setState(() {
@@ -73,7 +73,7 @@ class _WindowsHomePageState extends State<WindowsHomePage> {
                       }
                     },
                     size: actionButtonSize,
-                    action: actions[i],
+                    child: _buildButtonActionContent(actions[i]),
                   ),
                 ],
               ],
@@ -81,6 +81,17 @@ class _WindowsHomePageState extends State<WindowsHomePage> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildButtonActionContent(ButtonAction action) {
+    if (action.imagePath == '') {
+      return const Icon(Icons.add);
+    }
+    return SizedBox(
+      width: double.infinity,
+      height: double.infinity,
+      child: Image.file(action.getImageFile()),
     );
   }
 }

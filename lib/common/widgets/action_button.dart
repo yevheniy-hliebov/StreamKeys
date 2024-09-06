@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/theme/custom/action_button_theme.dart';
-import 'package:streamkeys/windows/models/action.dart';
 
 class ActionButton extends StatefulWidget {
-  final ButtonAction action;
+  final String tooltipMessage;
   final double size;
   final void Function()? onTap;
+  final Widget? child;
 
   const ActionButton({
     super.key,
-    required this.action,
+    this.tooltipMessage = '',
     required this.size,
     this.onTap,
+    this.child,
   });
 
   @override
@@ -26,7 +27,7 @@ class _ActionButtonState extends State<ActionButton> {
     final theme = ActionButtonTheme(context: context);
 
     return Tooltip(
-      message: widget.action.name,
+      message: widget.tooltipMessage,
       child: _settingInkWell(
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 20),
@@ -38,7 +39,7 @@ class _ActionButtonState extends State<ActionButton> {
             _isPressed ? 2 : 0,
             0,
           ),
-          child: _buildButtonActionContent(),
+          child: widget.child,
         ),
       ),
     );
@@ -65,17 +66,6 @@ class _ActionButtonState extends State<ActionButton> {
         });
       },
       child: child,
-    );
-  }
-
-  Widget _buildButtonActionContent() {
-    if (widget.action.imagePath == '') {
-      return const Icon(Icons.add);
-    }
-    return SizedBox(
-      width: double.infinity,
-      height: double.infinity,
-      child: Image.file(widget.action.getImageFile()),
     );
   }
 }
