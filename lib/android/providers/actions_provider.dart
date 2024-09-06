@@ -19,8 +19,6 @@ class ActionsProvider extends LoadingProvider {
     final prefs = await SharedPreferences.getInstance();
     final lastOctet = prefs.getString('lastOctet');
 
-    print("lastOctet: $lastOctet");
-
     if ((lastOctet == null || lastOctet == '') && context.mounted) {
       await showMyDialog(context, lastOctet: actionRequestService.lastOctet);
     } else {

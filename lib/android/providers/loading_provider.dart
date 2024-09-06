@@ -7,7 +7,7 @@ class LoadingProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
   }
-  
+
   void stopLoading() {
     isLoading = false;
     notifyListeners();

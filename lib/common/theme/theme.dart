@@ -8,12 +8,11 @@ class STheme {
 
   static ThemeData get light {
     return ThemeData(
-      brightness: Brightness.light,
-      scaffoldBackgroundColor: Colors.white,
-      appBarTheme: SAppBarTheme.light,
-      textTheme: STextTheme.light,
-      outlinedButtonTheme: SOutlinedButtonTheme.light
-    );
+        brightness: Brightness.light,
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: SAppBarTheme.light,
+        textTheme: STextTheme.light,
+        outlinedButtonTheme: SOutlinedButtonTheme.light);
   }
 
   static ThemeData get dark {

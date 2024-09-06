@@ -12,7 +12,8 @@ class JsonReadAndWrite {
 
   Future<String> get _localJsonPath async {
     if (Platform.isWindows) {
-      final directory = Directory('${Platform.environment['APPDATA']}\\StreamKeys');
+      final directory =
+          Directory('${Platform.environment['APPDATA']}\\StreamKeys');
       if (!await directory.exists()) {
         await directory.create(recursive: true);
       }

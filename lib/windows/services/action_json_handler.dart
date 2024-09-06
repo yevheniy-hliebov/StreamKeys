@@ -4,7 +4,8 @@ import 'package:streamkeys/windows/models/action.dart';
 import 'package:streamkeys/windows/utils/json_read_and_write.dart';
 
 class ButtonActionJsonHandler {
-  static const JsonReadAndWrite jsonReadAndWrite = JsonReadAndWrite(fileName: 'actions.json');
+  static const JsonReadAndWrite jsonReadAndWrite =
+      JsonReadAndWrite(fileName: 'actions.json');
   static const int actionsCount = 28;
 
   ButtonActionJsonHandler();

@@ -70,32 +70,7 @@ class _MyAppState extends State<MyApp> {
     if (Platform.isWindows) {
       return const WindowsHomePage();
     } else {
-      return AndroidHomePage();
-      // return FutureBuilder(
-      //   future: SharedPreferences.getInstance(),
-      //   builder: (context, snapshot) {
-      //     if (snapshot.connectionState == ConnectionState.waiting) {
-      //       return const CircularProgressIndicator();
-      //     } else if (snapshot.hasError) {
-      //       return Text(
-      //         'Error: ${snapshot.error}',
-      //       );
-      //     } else if (snapshot.hasData) {
-      //       final prefs = snapshot.data as SharedPreferences;
-      //       lastOctet = prefs.getString('lastOctet');
-      //       if (lastOctet == null || lastOctet == '') {
-      //         return const LastOctetPage();
-      //       }
-
-      //       final lastOctetInt = int.parse(lastOctet!);
-      //       return AndroidHomePage(
-      //         lastOctet: lastOctetInt,
-      //       );
-      //     } else {
-      //       return const Scaffold();
-      //     }
-      //   },
-      // );
+      return const AndroidHomePage();
     }
   }
 }

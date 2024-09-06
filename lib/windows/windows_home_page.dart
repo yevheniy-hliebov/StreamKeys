@@ -36,7 +36,7 @@ class _WindowsHomePageState extends State<WindowsHomePage> {
     });
     readActionsAndSet();
   }
-  
+
   Future<void> readActionsAndSet() async {
     ButtonActionJsonHandler.readActions().then((list) {
       setState(() {

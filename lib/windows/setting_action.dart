@@ -58,7 +58,8 @@ class _SettingActionPageState extends State<SettingActionPage> {
               Row(
                 children: [
                   Tooltip(
-                    message: widget.action.imagePath != '' ? 'Change image' : '',
+                    message:
+                        widget.action.imagePath != '' ? 'Change image' : '',
                     child: _selectImage(),
                   ),
                   const SizedBox(width: 10),

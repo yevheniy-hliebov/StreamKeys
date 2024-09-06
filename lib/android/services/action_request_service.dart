@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:streamkeys/android/models/action.dart';
 
@@ -34,7 +34,9 @@ class ActionRequestService {
 
     if (response.statusCode == 200) {
       final data = response.body;
-      print(data);
+      if (kDebugMode) {
+        print(data);
+      }
     } else {
       throw Exception(response.body);
     }

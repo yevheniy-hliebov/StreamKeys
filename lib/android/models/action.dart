@@ -21,8 +21,10 @@ class ButtonAction {
   }
 
   static List<ButtonAction> fromArrayJson(List<dynamic> list) {
-    return list.map((action) {
-      return fromJson(action);
-    },).toList();
+    return list.map(
+      (action) {
+        return fromJson(action);
+      },
+    ).toList();
   }
 }
