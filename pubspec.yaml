@@ -14,6 +14,7 @@ dependencies:
   shelf: ^1.4.1
   shelf_router: ^1.1.4
   window_manager: ^0.4.2
+  http: ^1.2.2
 
 dev_dependencies:
   flutter_test:
