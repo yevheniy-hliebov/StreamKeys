@@ -1,46 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:streamkeys/android/last_octet_page.dart';
-import 'package:streamkeys/android/models/action.dart';
-import 'package:streamkeys/android/services/action_request_service.dart';
+import 'package:provider/provider.dart';
+import 'package:streamkeys/android/providers/actions_provider.dart';
 import 'package:streamkeys/common/widgets/action_button.dart';
 
-class AndroidHomePage extends StatefulWidget {
-  final int lastOctet;
-
+class AndroidHomePage extends StatelessWidget {
   const AndroidHomePage({
     super.key,
-    required this.lastOctet,
   });
 
   @override
-  State<AndroidHomePage> createState() => _AndroidHomePageState();
-}
-
-class _AndroidHomePageState extends State<AndroidHomePage> {
-  late ActionRequestService actionRequestService;
-  List<ButtonAction> actions = [];
-
-  @override
-  void initState() {
-    super.initState();
-    actionRequestService = ActionRequestService(lastOctet: widget.lastOctet);
-    getActions();
-  }
-
-  Future<void> getActions() async {
-    actionRequestService.getActions().then(
-      (list) {
-        setState(() {
-          actions = list;
-        });
-      },
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (_) => ActionsProvider(context),
+      child: const HomePage(),
     );
   }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
   Widget build(BuildContext context) {
+    final actionProvider = Provider.of<ActionsProvider>(context);
+
     return buildScaffold(
+      actionProvider: actionProvider,
       body: OrientationBuilder(builder: (context, orientation) {
         // Determine the number of columns and rows based on orientation
         int crossAxisCount;
@@ -75,27 +65,24 @@ class _AndroidHomePageState extends State<AndroidHomePage> {
             mainAxisSpacing: 10.0,
             crossAxisSpacing: 10.0,
           ),
-          itemCount: actions.length,
+          itemCount: actionProvider.actionsLength,
           itemBuilder: (context, index) {
-            final action = actions[index];
+            final action = actionProvider.actions[index];
             return IgnorePointer(
               ignoring: action.disabled,
               child: ActionButton(
-                onTap: () {
-                  HapticFeedback.vibrate();
-                  actionRequestService.clickAction(action.id);
-                },
+                onTap: () => actionProvider.clickAction(action.id),
                 tooltipMessage: action.name,
                 size: buttonSize,
                 child: Builder(
                   builder: (context) {
                     if (action.hasImage) {
                       return Image.network(
-                        "${actionRequestService.url}/${action.id}/image",
+                        actionProvider.getImageUrl(action.id),
                         fit: BoxFit.contain,
                       );
                     } else {
-                      return const SizedBox();
+                      return const Icon(Icons.lock);
                     }
                   },
                 ),
@@ -107,7 +94,8 @@ class _AndroidHomePageState extends State<AndroidHomePage> {
     );
   }
 
-  Widget buildScaffold({required Widget body}) {
+  Widget buildScaffold(
+      {required Widget body, required ActionsProvider actionProvider}) {
     return OrientationBuilder(
       builder: (context, orientation) {
         if (orientation == Orientation.portrait) {
@@ -115,28 +103,26 @@ class _AndroidHomePageState extends State<AndroidHomePage> {
             appBar: AppBar(
               title: const Text('StreamKeys'),
               centerTitle: true,
-              leading: IconButton(
-                onPressed: () {
-                  getActions();
-                },
-                icon: const Icon(Icons.refresh),
-              ),
+              leading: Builder(builder: (context) {
+                if (actionProvider.isLoading) {
+                  return Container(
+                    width: 16,
+                    height: 16,
+                    padding: const EdgeInsets.all(16),
+                    child: const CircularProgressIndicator(
+                      strokeWidth: 2,
+                    ),
+                  );
+                }
+                return IconButton(
+                  onPressed: actionProvider.getActions,
+                  icon: const Icon(Icons.refresh),
+                );
+              }),
               actions: [
                 IconButton(
-                  onPressed: () async {
-                    final lastOctet = await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LastOctetPage(
-                          isFirstPage: false,
-                          lastOctet: actionRequestService.lastOctet,
-                        ),
-                      ),
-                    );
-                    setState(() {
-                      actionRequestService.lastOctet = int.parse(lastOctet);
-                    });
-                  },
+                  onPressed: () async =>
+                      actionProvider.updateLastOctet(context),
                   icon: const Icon(Icons.settings),
                 ),
               ],

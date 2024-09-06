@@ -5,12 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:streamkeys/android/models/action.dart';
 
 class ActionRequestService {
-  int lastOctet;
+  String lastOctet = '1';
   final int port = 8080;
-
-  ActionRequestService({
-    required this.lastOctet,
-  });
 
   String get host => "192.168.1.$lastOctet";
 
@@ -24,7 +20,6 @@ class ActionRequestService {
 
     if (response.statusCode == 200) {
       final data = _decodeResponse(response.bodyBytes);
-      print(data);
       return ButtonAction.fromArrayJson(data);
     } else {
       throw Exception(response.body);
