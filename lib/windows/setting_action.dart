@@ -105,8 +105,25 @@ class _SettingActionPageState extends State<SettingActionPage> {
                   ),
                   const SizedBox(height: 10),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      OutlinedButton(
+                        onPressed: () async {
+                          ButtonAction clearAction = ButtonAction(
+                            id: widget.action.id,
+                            name: '',
+                            imagePath: '',
+                            filePath: '',
+                          );
+                          setState(() {
+                            imagePath = '';
+                            nameController.text = '';
+                            filePathController.text = '';
+                          });
+                          await clearAction.update();
+                        },
+                        child: const Icon(Icons.delete_forever),
+                      ),
                       OutlinedButton(
                         onPressed: () async {
                           ButtonAction updatedAction = ButtonAction(

@@ -48,6 +48,7 @@ class _ActionButtonState extends State<ActionButton> {
   InkWell _settingInkWell({required Widget child}) {
     return InkWell(
       onTap: widget.onTap,
+      hoverColor: Colors.transparent,
       highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
       onTapDown: (_) {
