@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:streamkeys/android/models/action.dart';
 import 'package:streamkeys/android/providers/loading_provider.dart';
 import 'package:streamkeys/android/services/action_request_service.dart';
+import 'package:streamkeys/android/widgets/form_ip_address_dialog.dart';
 
 class ActionsProvider extends LoadingProvider {
   ActionRequestService actionRequestService = ActionRequestService();
@@ -51,45 +52,16 @@ class ActionsProvider extends LoadingProvider {
   }
 
   Future<void> showMyDialog(BuildContext context, {String? lastOctet}) async {
-    TextEditingController lastOctetController =
-        TextEditingController(text: lastOctet ?? '');
-
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Update host IPv4'),
-          content: SingleChildScrollView(
-            child: TextFormField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: Color(0xFF2F2F2F),
-                  ),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                labelText: 'Last octet',
-                prefixText: '192.168.1.',
-              ),
-              controller: lastOctetController,
-            ),
-          ),
-          actions: <Widget>[
-            OutlinedButton(
-              onPressed: () async {
-                Navigator.of(context).pop();
-                actionRequestService.lastOctet = lastOctetController.text;
-                final prefs = await SharedPreferences.getInstance();
-                await prefs.setString('lastOctet', lastOctetController.text);
-                await getActions();
-              },
-              child: const Text(
-                'Save',
-                style: TextStyle(fontSize: 18),
-              ),
-            ),
-          ],
+        return FormIpAddressDialog(
+          lastOctet: lastOctet,
+          onPressed: (newLastOctet) async {
+            actionRequestService.lastOctet = newLastOctet;
+            await getActions();
+          },
         );
       },
     );
