@@ -1,12 +1,11 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:streamkeys/android/providers/actions_provider.dart';
 import 'package:streamkeys/common/widgets/action_button.dart';
 
 class AndroidHomePage extends StatelessWidget {
-  const AndroidHomePage({
-    super.key,
-  });
+  const AndroidHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,115 +24,169 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool isPortrait(Orientation orientation) =>
+      orientation == Orientation.portrait;
+
+  int calculateCountInRow(Orientation orientation) =>
+      isPortrait(orientation) ? 4 : 7;
+
+  int calculateCountInColumn(Orientation orientation) =>
+      isPortrait(orientation) ? 7 : 4;
+
   @override
   Widget build(BuildContext context) {
     final actionProvider = Provider.of<ActionsProvider>(context);
+    final orientation = MediaQuery.of(context).orientation;
+    final countInRow = calculateCountInRow(orientation);
+    final countInColumn = calculateCountInColumn(orientation);
 
-    return buildScaffold(
-      actionProvider: actionProvider,
-      body: OrientationBuilder(builder: (context, orientation) {
-        // Determine the number of columns and rows based on orientation
-        int crossAxisCount;
-        int mainAxisCount;
+    return Scaffold(
+      appBar: _buildAppBar(actionProvider, orientation),
+      body: SafeArea(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final buttonSize = _calculateButtonSize(
+              constraints,
+              countInRow,
+              countInColumn,
+            );
 
-        if (orientation == Orientation.portrait) {
-          crossAxisCount = 4; // Number of columns in portrait
-          mainAxisCount = 7; // Number of rows in portrait
-        } else {
-          crossAxisCount = 7; // Number of columns in landscape
-          mainAxisCount = 4; // Number of rows in landscape
-        }
-
-        // Calculate the size of each button to fit the screen
-        double screenWidth = MediaQuery.of(context).size.width;
-        double screenHeight = MediaQuery.of(context).size.height;
-
-        final width =
-            (screenWidth - ((crossAxisCount + 2) * 10)) / crossAxisCount;
-        final height =
-            (screenHeight - ((mainAxisCount + 2) * 10)) / mainAxisCount;
-
-        double buttonSize = width > height ? height : width;
-
-        return GridView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          padding: orientation == Orientation.portrait
-              ? const EdgeInsets.all(10)
-              : const EdgeInsets.symmetric(vertical: 20, horizontal: 75),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: crossAxisCount,
-            mainAxisSpacing: 10.0,
-            crossAxisSpacing: 10.0,
-          ),
-          itemCount: actionProvider.actionsLength,
-          itemBuilder: (context, index) {
-            final action = actionProvider.actions[index];
-            return IgnorePointer(
-              ignoring: action.disabled,
-              child: ActionButton(
-                onTap: () => actionProvider.clickAction(action.id),
-                tooltipMessage: action.name,
-                size: buttonSize,
-                child: Builder(
-                  builder: (context) {
-                    if (action.hasImage) {
-                      return Image.network(
-                        actionProvider.getImageUrl(action.id),
-                        fit: BoxFit.contain,
-                      );
-                    } else {
-                      return const Icon(Icons.lock);
-                    }
-                  },
+            return Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                mainAxisAlignment: isPortrait(orientation)
+                    ? MainAxisAlignment.start
+                    : MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: _buildButtonRows(
+                  actionProvider,
+                  countInRow,
+                  countInColumn,
+                  buttonSize,
                 ),
               ),
             );
           },
-        );
-      }),
+        ),
+      ),
     );
   }
 
-  Widget buildScaffold(
-      {required Widget body, required ActionsProvider actionProvider}) {
-    return OrientationBuilder(
-      builder: (context, orientation) {
-        if (orientation == Orientation.portrait) {
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('StreamKeys'),
-              centerTitle: true,
-              leading: Builder(builder: (context) {
-                if (actionProvider.isLoading) {
-                  return Container(
-                    padding: const EdgeInsets.all(16),
-                    child: const CircularProgressIndicator(
-                      strokeWidth: 2,
-                    ),
-                  );
-                }
-                return IconButton(
-                  onPressed: actionProvider.getActions,
-                  icon: const Icon(Icons.refresh),
-                );
-              }),
-              actions: [
-                IconButton(
-                  onPressed: () async {
-                    return actionProvider.updateLastOctet(context);
-                  },
-                  icon: const Icon(Icons.settings),
-                ),
-              ],
-            ),
-            body: body,
-          );
-        } else {
-          return Scaffold(
-            body: body,
-          );
-        }
-      },
+  AppBar? _buildAppBar(
+      ActionsProvider actionProvider, Orientation orientation) {
+    if (isPortrait(orientation)) {
+      return AppBar(
+        title: const Text('StreamKeys'),
+        centerTitle: true,
+        leading: _buildRefreshButton(
+          isLoading: actionProvider.isLoading,
+          onPressed: actionProvider.getActions,
+        ),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              await actionProvider.updateLastOctet(context);
+            },
+            icon: const Icon(Icons.settings),
+          ),
+        ],
+      );
+    }
+    return null;
+  }
+
+  Widget _buildRefreshButton({
+    required void Function()? onPressed,
+    bool isLoading = false,
+  }) {
+    if (isLoading) {
+      return const Padding(
+        padding: EdgeInsets.all(16),
+        child: CircularProgressIndicator(strokeWidth: 2),
+      );
+    }
+    return IconButton(
+      onPressed: onPressed,
+      icon: const Icon(Icons.refresh),
+    );
+  }
+
+  double _calculateButtonSize(
+    BoxConstraints constraints,
+    int countInRow,
+    int countInColumn,
+  ) {
+    const padding = 10;
+    const gap = 10;
+
+    var availableWidth = constraints.maxWidth - (padding * 2);
+    var availableHeight = constraints.maxHeight - (padding * 2);
+
+    var widthButton = (availableWidth - gap * countInRow) / countInRow;
+    var heightButton = (availableHeight - gap * countInColumn) / countInColumn;
+    return min(widthButton, heightButton);
+  }
+
+  List<Widget> _buildButtonRows(
+    ActionsProvider actionProvider,
+    int countInRow,
+    int countInColumn,
+    double buttonSize,
+  ) {
+    return [
+      for (int i = 0; i < countInColumn; i++) ...[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: _buildButtonRow(actionProvider, i, countInRow, buttonSize),
+        ),
+        const SizedBox(height: 10),
+      ],
+    ];
+  }
+
+  List<Widget> _buildButtonRow(
+    ActionsProvider actionProvider,
+    int rowIndex,
+    int countInRow,
+    double buttonSize,
+  ) {
+    return [
+      for (int j = 0; j < countInRow; j++) ...[
+        if (rowIndex * countInRow + j < actionProvider.actions.length)
+          _buildActionButton(
+            actionProvider,
+            rowIndex * countInRow + j,
+            buttonSize,
+          ),
+        const SizedBox(width: 10),
+      ],
+    ];
+  }
+
+  Widget _buildActionButton(
+    ActionsProvider actionProvider,
+    int index,
+    double sizeButton,
+  ) {
+    final action = actionProvider.actions[index];
+
+    Widget? child;
+    if (action.hasImage && !action.disabled) {
+      child = Image.network(
+        actionProvider.getImageUrl(action.id),
+        fit: BoxFit.contain,
+      );
+    }
+
+    return IgnorePointer(
+      ignoring: action.disabled,
+      child: ActionButton(
+        onTap: () => actionProvider.clickAction(action.id),
+        tooltipMessage: action.name,
+        size: sizeButton,
+        child: child ?? const Icon(Icons.lock),
+      ),
     );
   }
 }
