@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:streamkeys/common/theme/colors.dart';
 
 class SOutlinedButtonTheme {
   const SOutlinedButtonTheme._();
 
-  static const Color defaultLightColor = Color(0xFF2F2F2F);
-  static const Color defaultDarkColor = Color(0xFFECECEC);
-
   static OutlinedButtonThemeData get light {
     return OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5),
+        padding: const EdgeInsets.all(16),
+        shape: borderRadius,
+        side: _borderSide(SColors.border),
+        overlayColor: SColors.overlayColor,
+        textStyle: const TextStyle(
+          color: SColors.text,
+          fontSize: 16,
         ),
-        overlayColor: Colors.grey,
-        textStyle: const TextStyle().copyWith(
-          color: defaultLightColor,
-        ),
+        foregroundColor: SColors.text,
       ),
     );
   }
@@ -23,14 +23,29 @@ class SOutlinedButtonTheme {
   static OutlinedButtonThemeData get dark {
     return OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5),
+        padding: const EdgeInsets.all(16),
+        shape: borderRadius,
+        side: _borderSide(SColors.borderInverse),
+        overlayColor: SColors.overlayColorInverse,
+        textStyle: const TextStyle(
+          color: SColors.textInverse,
+          fontSize: 16,
         ),
-        overlayColor: Colors.grey[900],
-        textStyle: const TextStyle().copyWith(
-          color: defaultLightColor,
-        ),
+        foregroundColor: SColors.textInverse,
       ),
+    );
+  }
+
+  static RoundedRectangleBorder get borderRadius {
+    return RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(5),
+    );
+  }
+
+  static BorderSide _borderSide(Color color) {
+    return BorderSide(
+      color: color,
+      width: 1,
     );
   }
 }

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:streamkeys/common/theme/colors.dart';
 
 class STextTheme {
   const STextTheme._();
 
-  static const Color defaultLightColor = Color(0xFF2F2F2F);
-  static const Color defaultDarkColor = Color(0xFFECECEC);
-
-  static TextTheme get light => getTheme(defaultLightColor);
-  static TextTheme get dark => getTheme(defaultDarkColor);
+  static TextTheme get light => getTheme(SColors.text);
+  static TextTheme get dark => getTheme(SColors.textInverse);
 
   static TextTheme getTheme(Color color) {
     return TextTheme(

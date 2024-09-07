@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streamkeys/common/theme/colors.dart';
 import 'package:streamkeys/common/theme/theme.dart';
 
 class ActionButtonTheme {
@@ -13,14 +14,14 @@ class ActionButtonTheme {
   }) {
     if (isLight) {
       return _getDecoration(
-        color: const Color(0xFFF5F5F5),
-        borderColor: const Color(0xFF2F2F2F),
+        color: SColors.bg50,
+        borderColor: SColors.border,
         isPressed: isPressed,
       );
     } else {
       return _getDecoration(
-        color: const Color(0xFF3E3E3E),
-        borderColor: const Color(0xFF3E3E3E),
+        color: SColors.bgInverse50,
+        borderColor: SColors.border,
         isPressed: isPressed,
       );
     }
@@ -43,11 +44,6 @@ class ActionButtonTheme {
   }
 
   List<BoxShadow> getBoxShadow(bool isPressed) {
-    const boxShadow = BoxShadow(
-      offset: Offset(2, 2),
-      blurRadius: 0,
-      color: Colors.black,
-    );
-    return isPressed ? [] : [boxShadow];
+    return isPressed ? [] : [SColors.shadow];
   }
 }

@@ -72,6 +72,7 @@ class _WindowsHomePageState extends State<WindowsHomePage> {
                         readActionsAndSet();
                       }
                     },
+                    tooltipMessage: actions[i].name,
                     size: actionButtonSize,
                     child: _buildButtonActionContent(actions[i]),
                   ),

@@ -106,8 +106,6 @@ class _HomePageState extends State<HomePage> {
               leading: Builder(builder: (context) {
                 if (actionProvider.isLoading) {
                   return Container(
-                    width: 16,
-                    height: 16,
                     padding: const EdgeInsets.all(16),
                     child: const CircularProgressIndicator(
                       strokeWidth: 2,
@@ -121,8 +119,9 @@ class _HomePageState extends State<HomePage> {
               }),
               actions: [
                 IconButton(
-                  onPressed: () async =>
-                      actionProvider.updateLastOctet(context),
+                  onPressed: () async {
+                    return actionProvider.updateLastOctet(context);
+                  },
                   icon: const Icon(Icons.settings),
                 ),
               ],
