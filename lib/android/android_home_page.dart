@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             onPressed: () async {
-              await actionProvider.updateLastOctet(context);
+              await actionProvider.updateDevice(context);
             },
             icon: const Icon(Icons.settings),
           ),
