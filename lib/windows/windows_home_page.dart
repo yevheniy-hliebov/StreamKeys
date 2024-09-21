@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reorderables/reorderables.dart';
 import 'package:streamkeys/common/widgets/action_button.dart';
 import 'package:streamkeys/windows/models/action.dart';
 import 'package:streamkeys/windows/server.dart';
@@ -53,31 +54,37 @@ class _WindowsHomePageState extends State<WindowsHomePage> {
           Text("IPv4 - $ipv4"),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Wrap(
+            child: ReorderableWrap(
               spacing: 10,
               runSpacing: 10,
-              children: [
-                for (var i = 0; i < actions.length; i++) ...[
-                  ActionButton(
-                    onTap: () async {
-                      final result = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SettingActionPage(
-                            action: actions[i],
-                          ),
+              children: List.generate(actions.length, (i) {
+                return ActionButton(
+                  key: ValueKey(actions[i]),
+                  onTap: () async {
+                    final result = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SettingActionPage(
+                          action: actions[i],
                         ),
-                      );
-                      if (result != null && result == 'Updated') {
-                        readActionsAndSet();
-                      }
-                    },
-                    tooltipMessage: actions[i].name,
-                    size: actionButtonSize,
-                    child: _buildButtonActionContent(actions[i]),
-                  ),
-                ],
-              ],
+                      ),
+                    );
+                    if (result != null && result == 'Updated') {
+                      readActionsAndSet();
+                    }
+                  },
+                  tooltipMessage: actions[i].name,
+                  size: actionButtonSize,
+                  child: _buildButtonActionContent(actions[i]),
+                );
+              }),
+              onReorder: (int oldIndex, int newIndex) {
+                setState(() {
+                  final action = actions.removeAt(oldIndex);
+                  actions.insert(newIndex, action);
+                  ButtonActionJsonHandler.saveActions(actions);
+                });
+              },
             ),
           ),
         ],
