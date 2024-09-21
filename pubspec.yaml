@@ -20,6 +20,7 @@ dependencies:
   reorderables: ^0.6.0
   network_discovery: ^1.0.0
   device_info_plus: ^10.1.2
+  tray_manager: ^0.2.3
 
 dev_dependencies:
   flutter_test:
