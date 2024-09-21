@@ -1,3 +1,4 @@
+// import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:streamkeys/common/theme/theme.dart';
 import 'package:streamkeys/windows/windows_home_page.dart';
 import 'package:streamkeys/windows/server.dart';
 import 'package:window_manager/window_manager.dart';
+
 
 Future<void> main() async {
   if (Platform.isWindows) {
@@ -30,9 +32,18 @@ Future<void> main() async {
     await windowManager.waitUntilReadyToShow(windowOptions);
     windowManager.show();
     windowManager.focus();
+
+    windowManager.addListener(WindowMinimizedListener());
   }
 
   runApp(const MyApp());
+}
+
+class WindowMinimizedListener extends WindowListener {
+  @override
+  void onWindowMinimize() {
+    windowManager.hide();
+  }
 }
 
 class MyApp extends StatefulWidget {

@@ -1,11 +1,16 @@
+import 'dart:io';
+
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:streamkeys/common/widgets/action_button.dart';
 import 'package:streamkeys/windows/models/action.dart';
 import 'package:streamkeys/windows/server.dart';
 import 'package:streamkeys/windows/services/action_json_handler.dart';
 import 'package:streamkeys/windows/setting_action.dart';
+import 'package:tray_manager/tray_manager.dart';
+import 'package:window_manager/window_manager.dart';
 
 class WindowsHomePage extends StatefulWidget {
   const WindowsHomePage({super.key});
@@ -14,7 +19,7 @@ class WindowsHomePage extends StatefulWidget {
   State<WindowsHomePage> createState() => _WindowsHomePageState();
 }
 
-class _WindowsHomePageState extends State<WindowsHomePage> {
+class _WindowsHomePageState extends State<WindowsHomePage> with TrayListener {
   final double widthPage = 380;
   final double heightPage = 252;
   String ipv4 = '';
@@ -38,7 +43,60 @@ class _WindowsHomePageState extends State<WindowsHomePage> {
         ipv4 = ip;
       });
     });
+    _setupTray();
+    trayManager.addListener(this);
     readActionsAndSet();
+  }
+
+  Future<void> _setupTray() async {
+    final directory = await getApplicationSupportDirectory();
+    String iconPath =
+        '${directory.path}/app_icon.ico';
+
+    if (!File(iconPath).existsSync()) {
+      final appIcon = File('lib/windows/app_icon.ico');
+      await appIcon.copy(iconPath);
+    }
+
+    await trayManager.setIcon(iconPath);
+    
+    Menu menu = Menu(
+      items: [
+        MenuItem(
+          key: 'show',
+          label: 'Show',
+        ),
+        MenuItem.separator(),
+        MenuItem(
+          key: 'exit',
+          label: 'Exit',
+        ),
+      ],
+    );
+    await trayManager.setContextMenu(menu);
+  }
+
+  @override
+  void onTrayIconMouseDown() {
+    super.onTrayIconMouseDown();
+    windowManager.show();
+  }
+  
+  @override
+  void onTrayIconRightMouseDown() {
+    super.onTrayIconRightMouseDown();
+    trayManager.popUpContextMenu();
+  }
+  
+  @override
+  void onTrayMenuItemClick(MenuItem menuItem) {
+    super.onTrayMenuItemClick(menuItem);
+
+    if (menuItem.key == 'show') {
+      windowManager.show();
+    } else if (menuItem.key == 'exit') {
+      windowManager.close();
+    }
   }
 
   Future<void> getComputerName() async {
@@ -56,6 +114,7 @@ class _WindowsHomePageState extends State<WindowsHomePage> {
       });
     });
   }
+  
 
   @override
   Widget build(BuildContext context) {
