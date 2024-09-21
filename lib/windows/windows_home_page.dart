@@ -1,3 +1,4 @@
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:streamkeys/common/widgets/action_button.dart';
@@ -18,6 +19,7 @@ class _WindowsHomePageState extends State<WindowsHomePage> {
   final double heightPage = 252;
   String ipv4 = '';
   int actionsCount = 28;
+  String computerName = '';
 
   List<ButtonAction> actions = [];
 
@@ -30,12 +32,21 @@ class _WindowsHomePageState extends State<WindowsHomePage> {
   @override
   void initState() {
     super.initState();
+    getComputerName();
     Server.getIPv4().then((ip) {
       setState(() {
         ipv4 = ip;
       });
     });
     readActionsAndSet();
+  }
+
+  Future<void> getComputerName() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    WindowsDeviceInfo windowsInfo = await deviceInfo.windowsInfo;
+    setState(() {
+      computerName = windowsInfo.computerName;
+    });
   }
 
   Future<void> readActionsAndSet() async {
@@ -51,7 +62,7 @@ class _WindowsHomePageState extends State<WindowsHomePage> {
     return Scaffold(
       body: Column(
         children: [
-          Text("IPv4 - $ipv4"),
+          Text("$computerName - $ipv4"),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ReorderableWrap(

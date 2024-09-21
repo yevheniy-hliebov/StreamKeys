@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:streamkeys/android/models/action.dart';
+import 'package:streamkeys/android/models/device_info.dart';
 import 'package:streamkeys/android/providers/loading_provider.dart';
 import 'package:streamkeys/android/services/action_request_service.dart';
-import 'package:streamkeys/android/widgets/form_ip_address_dialog.dart';
+import 'package:streamkeys/android/services/find_devices.dart';
+import 'package:streamkeys/android/widgets/change_device_dialog.dart';
 
 class ActionsProvider extends LoadingProvider {
   ActionRequestService actionRequestService = ActionRequestService();
@@ -18,12 +20,20 @@ class ActionsProvider extends LoadingProvider {
 
   Future<void> init(BuildContext context) async {
     final prefs = await SharedPreferences.getInstance();
-    final lastOctet = prefs.getString('lastOctet');
+    final hostIp = prefs.getString('hostIp');
 
-    if ((lastOctet == null || lastOctet == '') && context.mounted) {
-      await showMyDialog(context, lastOctet: actionRequestService.lastOctet);
+    final devices = await findDevices();
+
+    if ((hostIp == null || hostIp == '') && context.mounted) {
+      await showMyDialog(
+        context,
+        hostIp: hostIp ?? '',
+        devices: devices,
+      );
     } else {
-      actionRequestService.lastOctet = lastOctet!;
+      if (hostIp != null && hostIp != '') {
+        actionRequestService.host = hostIp;
+      }
       await getActions();
     }
   }
@@ -47,20 +57,41 @@ class ActionsProvider extends LoadingProvider {
     return "${actionRequestService.url}/$id/image";
   }
 
-  Future<void> updateLastOctet(BuildContext context) async {
-    await showMyDialog(context, lastOctet: actionRequestService.lastOctet);
+  Future<void> updateDevice(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+    final hostIp = prefs.getString('hostIp');
+
+    final devices = await findDevices();
+
+    if (context.mounted) {
+      await showMyDialog(context, hostIp: hostIp ?? '', devices: devices);
+    }
   }
 
-  Future<void> showMyDialog(BuildContext context, {String? lastOctet}) async {
+  Future<void> updateHostIp(String hostIp) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('hostIp', hostIp);
+    actionRequestService.host = hostIp;
+    await getActions();
+  }
+
+  Future<void> showMyDialog(
+    BuildContext context, {
+    required String hostIp,
+    required List<DeviceInfo> devices,
+  }) async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: false,
       builder: (BuildContext context) {
-        return FormIpAddressDialog(
-          lastOctet: lastOctet,
-          onPressed: (newLastOctet) async {
-            actionRequestService.lastOctet = newLastOctet;
-            await getActions();
+        return ChangeDeviceDialog(
+          hostIp: hostIp,
+          devices: devices,
+          onTapDevice: (index) async {
+            await updateHostIp(devices[index].ip);
+            if (context.mounted) {
+              Navigator.of(context).pop();
+            }
           },
         );
       },

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as io;
@@ -14,6 +15,7 @@ class Server {
 
   static void routerHandler() {
     _router.get('/', _getActions);
+    _router.get('/device-name', _getDeviceName);
     _router.get('/<id>/image', _getImage);
     _router.get('/<id>/click', _clickButtonAction);
   }
@@ -31,7 +33,8 @@ class Server {
   static Future<String> getIPv4() async {
     for (var interface in await NetworkInterface.list()) {
       for (var addr in interface.addresses) {
-        if (addr.type == InternetAddressType.IPv4) {
+        if (addr.type == InternetAddressType.IPv4 &&
+            addr.address.contains('192.168.')) {
           return addr.address;
         }
       }
@@ -77,6 +80,17 @@ class Server {
     try {
       await action.runFile();
       return Response.ok('Command successfully runned');
+    } catch (e) {
+      return Response.badRequest(body: e.toString());
+    }
+  }
+
+  static Future<Response> _getDeviceName(Request request) async {
+    try {
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      WindowsDeviceInfo windowsInfo = await deviceInfo.windowsInfo;
+      
+      return Response.ok(windowsInfo.computerName);
     } catch (e) {
       return Response.badRequest(body: e.toString());
     }
