@@ -19,6 +19,7 @@ The application consists of two parts:
 ## Features
 
 - Сonfigure 28 buttons for quick execution of various files on the computer (e.g., launching programs, scripts, etc.).
+- Sorting buttons by drag&drop movement
 - Connect the Android mobile app to the Windows server via a local Wi-Fi network.
 - Display configured buttons in the mobile app.
 - Pressing a button on the mobile device triggers the corresponding action on the computer.
@@ -31,11 +32,12 @@ The application consists of two parts:
    - Specify the button name, choose an image (if needed), and set the path to the file to be executed.
    - Save the configuration.
 3. The app will automatically start the server and will be ready to accept requests from the mobile app.
+4. In the top window, you can see your PC name and IP addres to understand which device to choose to connect in the Android app (StreamKeys-Android).
 
 ### Installing StreamKeys for Android
 1. Install [StreamKeys-Android](https://github.com/yevheniy-hliebov/StreamKeys/releases/download/v1.0.0/StreamKeys-Android.apk) on your Android mobile device.
 2. Connect to the same local Wi-Fi network as your computer.
-3. Enter the IP address of your computer to connect to the server.
+3. Select your computer to connect to the server application (StreamKeys-Windows).
 4. After connecting, you will see all configured buttons. Tap any button to perform the corresponding action on the computer.
 
 ## Technologies
@@ -47,8 +49,6 @@ The application consists of two parts:
 - Add the ability to configure macros for buttons.
 - Improve the UI and add the ability to upload custom button images via the mobile app.
 - Add the ability to create profiles for different use cases (e.g., programming, streaming).
-- Add the ability to change the number of buttons.
-- Implement drag-and-drop functionality to reorder buttons.
 
 ## License
 This project is licensed under the MIT License.  
