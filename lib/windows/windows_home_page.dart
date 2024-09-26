@@ -25,7 +25,7 @@ class WindowsHomePage extends StatelessWidget {
                     runSpacing: 10,
                     onReorder: provider.onReorder,
                     children: List.generate(provider.actions.length, (i) {
-                      return ActionButton(
+                      return BaseActionButton(
                         key: ValueKey(provider.actions[i]),
                         onTap: () => provider.onTapActionButton(context, i),
                         tooltipMessage: provider.actions[i].name,

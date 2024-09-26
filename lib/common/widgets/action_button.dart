@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/theme/custom/action_button_theme.dart';
 
-class ActionButton extends StatefulWidget {
+class BaseActionButton extends StatefulWidget {
   final String tooltipMessage;
   final double size;
   final void Function()? onTap;
   final Widget? child;
 
-  const ActionButton({
+  const BaseActionButton({
     super.key,
     this.tooltipMessage = '',
     required this.size,
@@ -16,10 +16,10 @@ class ActionButton extends StatefulWidget {
   });
 
   @override
-  State<ActionButton> createState() => _ActionButtonState();
+  State<BaseActionButton> createState() => _BaseActionButtonState();
 }
 
-class _ActionButtonState extends State<ActionButton> {
+class _BaseActionButtonState extends State<BaseActionButton> {
   bool _isPressed = false;
 
   @override
