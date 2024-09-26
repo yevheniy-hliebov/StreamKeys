@@ -1,4 +1,3 @@
-// import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -6,13 +5,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:streamkeys/android/android_home_page.dart';
 import 'package:streamkeys/common/theme/theme.dart';
 import 'package:streamkeys/windows/windows_home_page.dart';
-import 'package:streamkeys/windows/server.dart';
+import 'package:streamkeys/windows/server/server.dart';
 import 'package:window_manager/window_manager.dart';
 
 
 Future<void> main() async {
   if (Platform.isWindows) {
-    Server.routerHandler();
     await Server.start();
     WidgetsFlutterBinding.ensureInitialized();
     await windowManager.ensureInitialized();

@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:streamkeys/common/widgets/action_button.dart';
 import 'package:streamkeys/windows/models/action.dart';
-import 'package:streamkeys/windows/server.dart';
+import 'package:streamkeys/windows/server/server.dart';
 import 'package:streamkeys/windows/services/action_json_handler.dart';
 import 'package:streamkeys/windows/setting_action.dart';
 import 'package:tray_manager/tray_manager.dart';
@@ -38,7 +38,7 @@ class _WindowsHomePageState extends State<WindowsHomePage> with TrayListener {
   void initState() {
     super.initState();
     getComputerName();
-    Server.getIPv4().then((ip) {
+    Server.getHost().then((ip) {
       setState(() {
         ipv4 = ip;
       });
