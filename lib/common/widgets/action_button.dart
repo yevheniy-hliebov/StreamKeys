@@ -39,7 +39,10 @@ class _ActionButtonState extends State<ActionButton> {
             _isPressed ? 2 : 0,
             0,
           ),
-          child: widget.child,
+          child: ClipRRect(
+            borderRadius: theme.borderRadius,
+            child: widget.child,
+          ),
         ),
       ),
     );

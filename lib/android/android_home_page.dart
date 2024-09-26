@@ -175,7 +175,7 @@ class _HomePageState extends State<HomePage> {
     if (action.hasImage && !action.disabled) {
       child = Image.network(
         actionProvider.getImageUrl(action.id),
-        fit: BoxFit.contain,
+        fit: BoxFit.cover,
       );
     }
 

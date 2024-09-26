@@ -9,6 +9,8 @@ class ActionButtonTheme {
 
   bool get isLight => STheme.isLight(context);
 
+  BorderRadius get borderRadius => BorderRadius.circular(5);
+
   BoxDecoration getDecoration({
     bool isPressed = false,
   }) {
@@ -39,7 +41,7 @@ class ActionButtonTheme {
         width: 1,
       ),
       boxShadow: getBoxShadow(isPressed),
-      borderRadius: BorderRadius.circular(5),
+      borderRadius: borderRadius,
     );
   }
 
