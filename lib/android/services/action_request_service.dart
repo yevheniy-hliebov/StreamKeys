@@ -26,7 +26,7 @@ class ActionRequestService {
 
   Future<List<ButtonAction>> getActions() async {
     final response = await http.get(
-      Uri.parse("$url/"),
+      Uri.parse("$url/actions"),
       headers: {'Content-Type': 'application/json'},
     );
 
