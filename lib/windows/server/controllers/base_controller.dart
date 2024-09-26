@@ -6,6 +6,7 @@ abstract class BaseController {
     if (kDebugMode) {
       print('Error: $error');
     }
-    return Response.internalServerError(body: 'An error occurred: ${error.toString()}');
+    return Response.internalServerError(
+        body: 'An error occurred: ${error.toString()}');
   }
 }

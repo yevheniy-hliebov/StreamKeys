@@ -8,7 +8,8 @@ Future<List<DeviceInfo>> findDevices() async {
   int found = 0;
   List<DeviceInfo> devices = [];
 
-  await for (final NetworkAddress addr in NetworkDiscovery.discover('192.168.1', port)) {
+  await for (final NetworkAddress addr
+      in NetworkDiscovery.discover('192.168.1', port)) {
     found++;
     final deviceInfo = await ActionRequestService.getDeviceName(addr.ip, port);
     devices.add(deviceInfo);

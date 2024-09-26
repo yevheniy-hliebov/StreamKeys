@@ -8,7 +8,7 @@ class ServerController extends BaseController {
     try {
       DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
       WindowsDeviceInfo windowsInfo = await deviceInfo.windowsInfo;
-      
+
       return Response.ok(windowsInfo.computerName);
     } catch (e) {
       return BaseController.handleError(e);
