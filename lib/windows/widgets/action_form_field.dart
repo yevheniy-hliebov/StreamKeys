@@ -19,7 +19,9 @@ class ActionFormFields extends StatelessWidget {
                 FilePicker(
                   toolTipMessage: 'Image',
                   onTap: () => provider.pickImage,
-                  child: ImagePreview(provider: provider),
+                  child: provider.action.imagePath == ''
+                      ? null
+                      : ImagePreview(provider: provider),
                 ),
                 const SizedBox(width: 10),
                 Flexible(
