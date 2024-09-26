@@ -33,7 +33,7 @@ IF ERRORLEVEL 1 (
 )
 
 REM Create a ZIP archive for Windows from files in build/windows/x64/runner/Release
-powershell Compress-Archive -Path "%PROJECT_PATH%\build\windows\x64\runner\Release\*.*" -DestinationPath "%PROJECT_PATH%\build\release\StreamKeys-Windows.zip"
+powershell Compress-Archive -Path "%PROJECT_PATH%\build\windows\x64\runner\Release\*" -DestinationPath "%PROJECT_PATH%\build\release\StreamKeys-Windows.zip"
 
 echo Build and packaging completed successfully!
 exit
