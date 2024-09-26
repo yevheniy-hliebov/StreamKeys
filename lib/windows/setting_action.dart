@@ -46,7 +46,7 @@ class SettingActionAppBar extends StatelessWidget
   Widget build(BuildContext context) {
     return AppBar(
       leading: IconButton(
-        onPressed: () => Navigator.of(context).pop('Not updated'),
+        onPressed: () => Navigator.of(context).pop('Updated'),
         icon: const Icon(Icons.arrow_back),
       ),
       title: Text(
@@ -74,7 +74,7 @@ class ButtonRow extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             OutlinedButton(
-              onPressed: () => provider.clearAction,
+              onPressed: provider.clearAction,
               child: const Icon(Icons.delete_forever),
             ),
             OutlinedButton(

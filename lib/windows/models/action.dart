@@ -83,4 +83,11 @@ class ButtonAction {
   Future<void> runFile() async {
     await FileExecutionService.runFile(filePath);
   }
+
+  Future<void> clear() async {
+    name = '';
+    imagePath = '';
+    filePath = '';
+    await update();
+  }
 }
