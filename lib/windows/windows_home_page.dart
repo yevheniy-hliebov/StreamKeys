@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:streamkeys/common/widgets/action_button.dart';
+import 'package:streamkeys/common/widgets/change_theme_mode.dart';
 import 'package:streamkeys/windows/models/action.dart';
 import 'package:streamkeys/windows/providers/windows_home_page_provider.dart';
 
@@ -12,33 +13,39 @@ class WindowsHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => WindowsHomePageProvider(),
-      child: Scaffold(
-        body: Consumer<WindowsHomePageProvider>(
-          builder: (context, provider, child) {
-            return Column(
-              children: [
-                Text(provider.nameAndHost),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ReorderableWrap(
-                    spacing: 10,
-                    runSpacing: 10,
-                    onReorder: provider.onReorder,
-                    children: List.generate(provider.actions.length, (i) {
-                      return BaseActionButton(
-                        key: ValueKey(provider.actions[i]),
-                        onTap: () => provider.onTapActionButton(context, i),
-                        tooltipMessage: provider.actions[i].name,
-                        size: actionButtonSize(provider),
-                        child: _buildButtonActionContent(provider.actions[i]),
-                      );
-                    }),
-                  ),
-                ),
+      child: Consumer<WindowsHomePageProvider>(
+        builder: (context, provider, child) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(
+                provider.nameAndHost,
+                style: const TextStyle(fontSize: 14),
+              ),
+              centerTitle: true,
+              actions: const [
+                ChangeThemeMode(),
               ],
-            );
-          },
-        ),
+              toolbarHeight: 45,
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ReorderableWrap(
+                spacing: 10,
+                runSpacing: 10,
+                onReorder: provider.onReorder,
+                children: List.generate(provider.actions.length, (i) {
+                  return BaseActionButton(
+                    key: ValueKey(provider.actions[i]),
+                    onTap: () => provider.onTapActionButton(context, i),
+                    tooltipMessage: provider.actions[i].name,
+                    size: actionButtonSize(provider),
+                    child: _buildButtonActionContent(provider.actions[i]),
+                  );
+                }),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

@@ -9,7 +9,7 @@ Future<void> runWindowsApp() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
 
-  const size = Size(385, 272);
+  const size = Size(385, 300);
 
   const windowOptions = WindowOptions(
     size: size,
