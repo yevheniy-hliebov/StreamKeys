@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:streamkeys/android/android_home_page.dart';
+import 'package:streamkeys/material_app.dart';
 
 void runAndroidApp() {
-  runApp(const AndroidHomePage());
+  runApp(const SMaterialApp());
 }
