@@ -5,6 +5,7 @@ import 'package:streamkeys/common/theme/custom/icon_button_theme.dart';
 import 'package:streamkeys/common/theme/custom/input_decoration_theme.dart';
 import 'package:streamkeys/common/theme/custom/outlined_button_theme.dart';
 import 'package:streamkeys/common/theme/custom/progress_indicator_theme.dart';
+import 'package:streamkeys/common/theme/custom/switch_theme.dart';
 import 'package:streamkeys/common/theme/custom/text_theme.dart';
 
 class STheme {
@@ -20,6 +21,7 @@ class STheme {
       iconButtonTheme: SIconButtonTheme.light,
       inputDecorationTheme: SInputDecorationTheme.light,
       progressIndicatorTheme: SProgressIndicatorTheme.light,
+      switchTheme: SSwitchTheme.light,
     );
   }
 
@@ -33,6 +35,7 @@ class STheme {
       iconButtonTheme: SIconButtonTheme.dark,
       inputDecorationTheme: SInputDecorationTheme.dark,
       progressIndicatorTheme: SProgressIndicatorTheme.dark,
+      switchTheme: SSwitchTheme.dark,
     );
   }
 
