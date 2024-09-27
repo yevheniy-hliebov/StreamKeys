@@ -16,18 +16,32 @@ class SettingActionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => SettingActionProvider(action: action),
-      child: Scaffold(
-        appBar: SettingActionAppBar(action: action),
-        body: const Padding(
-          padding: EdgeInsets.all(10),
-          child: Column(
+      child: Consumer<SettingActionProvider>(
+        builder: (context, provider, child) {
+          return Stack(
             children: [
-              ActionFormFields(),
-              SizedBox(height: 10),
-              ButtonRow(),
+              Scaffold(
+                appBar: SettingActionAppBar(action: action),
+                body: const Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      ActionFormFields(),
+                      SizedBox(height: 10),
+                      ButtonRow(),
+                    ],
+                  ),
+                ),
+              ),
+              if (provider.isLockedApp) ...[
+                const ModalBarrier(
+                  dismissible: false,
+                  color: Colors.black54,
+                ),
+              ],
             ],
-          ),
-        ),
+          );
+        },
       ),
     );
   }
