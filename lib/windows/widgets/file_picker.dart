@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class FilePicker extends StatelessWidget {
+class Picker extends StatelessWidget {
   final String? toolTipMessage;
   final void Function()? onTap;
   final double size;
   final Widget? child;
 
-  const FilePicker({
+  const Picker({
     super.key,
     this.toolTipMessage = '',
     this.onTap,
