@@ -9,7 +9,7 @@ class ActionButtonTheme {
 
   bool get isLight => STheme.isLight(context);
 
-  BorderRadius get borderRadius => BorderRadius.circular(5);
+  BorderRadius get borderRadius => BorderRadius.circular(4);
 
   Color get backgroundColor {
     if (isLight) {
@@ -49,7 +49,7 @@ class ActionButtonTheme {
         width: 1,
       ),
       boxShadow: getBoxShadow(isPressed),
-      borderRadius: borderRadius,
+      borderRadius: BorderRadius.circular(5),
     );
   }
 
