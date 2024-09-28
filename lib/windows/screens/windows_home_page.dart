@@ -39,6 +39,7 @@ class WindowsHomePage extends StatelessWidget {
                     onTap: () => provider.onTapActionButton(context, i),
                     tooltipMessage: provider.actions[i].name,
                     size: actionButtonSize(provider),
+                    backgroundColor: provider.actions[i].backgroundColor,
                     child: _buildButtonActionContent(provider.actions[i]),
                   );
                 }),

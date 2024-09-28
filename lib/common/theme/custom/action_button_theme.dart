@@ -11,6 +11,14 @@ class ActionButtonTheme {
 
   BorderRadius get borderRadius => BorderRadius.circular(5);
 
+  Color get backgroundColor {
+    if (isLight) {
+      return SColors.bg50;
+    } else {
+      return SColors.bgInverse50;
+    }
+  }
+
   BoxDecoration getDecoration({
     bool isPressed = false,
   }) {

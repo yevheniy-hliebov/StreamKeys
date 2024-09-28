@@ -4,6 +4,7 @@ import 'package:streamkeys/common/theme/custom/action_button_theme.dart';
 class BaseActionButton extends StatefulWidget {
   final String tooltipMessage;
   final double size;
+  final Color? backgroundColor;
   final void Function()? onTap;
   final Widget? child;
 
@@ -11,6 +12,7 @@ class BaseActionButton extends StatefulWidget {
     super.key,
     this.tooltipMessage = '',
     required this.size,
+    this.backgroundColor,
     this.onTap,
     this.child,
   });
@@ -33,7 +35,9 @@ class _BaseActionButtonState extends State<BaseActionButton> {
           duration: const Duration(milliseconds: 20),
           width: widget.size,
           height: widget.size,
-          decoration: theme.getDecoration(isPressed: _isPressed),
+          decoration: theme.getDecoration(
+            isPressed: _isPressed,
+          ),
           transform: Matrix4.translationValues(
             _isPressed ? 2 : 0,
             _isPressed ? 2 : 0,
@@ -41,7 +45,22 @@ class _BaseActionButtonState extends State<BaseActionButton> {
           ),
           child: ClipRRect(
             borderRadius: theme.borderRadius,
-            child: widget.child,
+            child: Stack(
+              children: [
+                Container(
+                  color: theme.backgroundColor,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: widget.backgroundColor,
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: widget.child,
+                ),
+              ],
+            ),
           ),
         ),
       ),
