@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:streamkeys/windows/models/action.dart';
+import 'package:streamkeys/windows/utils/color_helper.dart';
 import 'package:streamkeys/windows/utils/json_read_and_write.dart';
 
 class ButtonActionJsonHandler {
@@ -12,7 +14,13 @@ class ButtonActionJsonHandler {
 
   static List<ButtonAction> generateList() {
     List<ButtonAction> actions = List.generate(actionsCount, (index) {
-      return ButtonAction(id: index, name: '', imagePath: '', filePath: '');
+      return ButtonAction(
+        id: index,
+        name: '',
+        backgroundColor: Colors.transparent,
+        imagePath: '',
+        filePath: '',
+      );
     });
 
     return actions;
@@ -45,6 +53,7 @@ class ButtonActionJsonHandler {
         return {
           'id': action.id,
           'name': action.name,
+          'backgroundColor': ColorHelper.getHexString(action.backgroundColor),
           'hasImage': action.imagePath != '',
           'disabled': action.filePath == '',
         };

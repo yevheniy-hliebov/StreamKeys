@@ -2,21 +2,25 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
 import 'package:streamkeys/windows/services/file_execution_service.dart';
 import 'package:streamkeys/windows/services/file_picker_service.dart';
 import 'package:streamkeys/windows/services/action_json_handler.dart';
+import 'package:streamkeys/windows/utils/color_helper.dart';
 
 class ButtonAction {
   final int id;
   String name;
   String imagePath;
   String filePath;
+  Color backgroundColor;
 
   ButtonAction({
     required this.id,
     required this.name,
     required this.imagePath,
     required this.filePath,
+    this.backgroundColor = Colors.transparent,
   });
 
   Map<String, dynamic> toJson() {
@@ -25,6 +29,7 @@ class ButtonAction {
       'name': name,
       'imagePath': imagePath,
       'filePath': filePath,
+      'backgroundColor': ColorHelper.getHexString(backgroundColor),
     };
   }
 
@@ -37,6 +42,9 @@ class ButtonAction {
       name: json['name'],
       imagePath: json['imagePath'],
       filePath: json['filePath'],
+      backgroundColor: ColorHelper.hexToColor(
+        json['backgroundColor'] ?? ColorHelper.getHexString(Colors.transparent),
+      ),
     );
   }
 
@@ -88,6 +96,7 @@ class ButtonAction {
     name = '';
     imagePath = '';
     filePath = '';
+    backgroundColor = Colors.transparent;
     await update();
   }
 }

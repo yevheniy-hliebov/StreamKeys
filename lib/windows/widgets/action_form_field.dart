@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:streamkeys/windows/providers/setting_action_provider.dart';
-import 'package:streamkeys/windows/widgets/file_picker.dart';
+import 'package:streamkeys/windows/widgets/picker.dart';
 import 'package:streamkeys/windows/widgets/image_preview.dart';
 
 class ActionFormFields extends StatelessWidget {
@@ -16,12 +16,18 @@ class ActionFormFields extends StatelessWidget {
           children: [
             Row(
               children: [
-                FilePicker(
+                Picker(
                   toolTipMessage: 'Image',
                   onTap: provider.pickImage,
+                  backgroundColor: provider.action.backgroundColor,
                   child: provider.action.imagePath != ''
                       ? ImagePreview(action: provider.action)
                       : null,
+                ),
+                const SizedBox(width: 10),
+                Picker(
+                  onTap: () => provider.changeBackgroundColor(context),
+                  child: const Icon(Icons.palette),
                 ),
                 const SizedBox(width: 10),
                 Flexible(
@@ -48,7 +54,7 @@ class ActionFormFields extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 5),
-                FilePicker(
+                Picker(
                   toolTipMessage: 'Browse',
                   onTap: provider.pickFile,
                 ),

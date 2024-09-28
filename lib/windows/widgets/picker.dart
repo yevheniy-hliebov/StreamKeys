@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
-class FilePicker extends StatelessWidget {
+class Picker extends StatelessWidget {
   final String? toolTipMessage;
   final void Function()? onTap;
   final double size;
+  final Color? backgroundColor;
   final Widget? child;
 
-  const FilePicker({
+  const Picker({
     super.key,
     this.toolTipMessage = '',
     this.onTap,
     this.size = 48,
+    this.backgroundColor,
     this.child,
   });
 
@@ -21,8 +23,14 @@ class FilePicker extends StatelessWidget {
       child: OutlinedButton(
         onPressed: onTap,
         style: ButtonStyle(
-            padding: const WidgetStatePropertyAll(EdgeInsets.all(0)),
-            fixedSize: WidgetStatePropertyAll(Size(size, size))),
+          backgroundColor: WidgetStatePropertyAll(backgroundColor),
+          padding: const WidgetStatePropertyAll(
+            EdgeInsets.all(0),
+          ),
+          fixedSize: WidgetStatePropertyAll(
+            Size(size, size),
+          ),
+        ),
         child: Container(
           child: child ?? const Icon(Icons.drive_folder_upload_outlined),
         ),

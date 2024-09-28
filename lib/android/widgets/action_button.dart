@@ -32,6 +32,7 @@ class ActionButton extends StatelessWidget {
         onTap: () => actionProvider.clickAction(action.id),
         tooltipMessage: action.name,
         size: buttonSize,
+        backgroundColor: action.backgroundColor,
         child: child ?? const Icon(Icons.lock),
       ),
     );

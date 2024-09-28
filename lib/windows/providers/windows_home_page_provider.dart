@@ -4,7 +4,7 @@ import 'package:streamkeys/windows/models/action.dart';
 import 'package:streamkeys/windows/server/server.dart';
 import 'package:streamkeys/windows/services/action_json_handler.dart';
 import 'package:streamkeys/windows/services/tray_manager_service.dart';
-import 'package:streamkeys/windows/setting_action.dart';
+import 'package:streamkeys/windows/screens/setting_action.dart';
 
 class WindowsHomePageProvider with ChangeNotifier {
   String _host = '';
