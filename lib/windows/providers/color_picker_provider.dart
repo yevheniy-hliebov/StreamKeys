@@ -43,6 +43,8 @@ class ColorPickerProvider extends ChangeNotifier {
   void changeColorByFormField(String hex) {
     final color = ColorHelper.hexToColor(hex);
     pickerColor = color;
+    opacityPercentController.text =
+        ColorHelper.getOpacityPercentageString(pickerColor);
     notifyListeners();
   }
 
@@ -52,6 +54,7 @@ class ColorPickerProvider extends ChangeNotifier {
       double.parse(opacityPercentString),
     );
     pickerColor = color;
+    hexTextController.text = ColorHelper.getHexString(pickerColor);
     notifyListeners();
   }
 }
