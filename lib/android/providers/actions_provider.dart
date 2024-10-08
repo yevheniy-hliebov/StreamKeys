@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:streamkeys/android/models/action.dart';
-import 'package:streamkeys/android/models/device_info.dart';
 import 'package:streamkeys/android/providers/loading_provider.dart';
 import 'package:streamkeys/android/services/action_request_service.dart';
 import 'package:streamkeys/android/services/find_devices.dart';
@@ -22,14 +21,8 @@ class ActionsProvider extends LoadingProvider {
     final prefs = await SharedPreferences.getInstance();
     final hostIp = prefs.getString('hostIp');
 
-    final devices = await findDevices();
-
     if ((hostIp == null || hostIp == '') && context.mounted) {
-      await showMyDialog(
-        context,
-        hostIp: hostIp ?? '',
-        devices: devices,
-      );
+      await showMyDialog(context);
     } else {
       if (hostIp != null && hostIp != '') {
         actionRequestService.host = hostIp;
@@ -57,15 +50,32 @@ class ActionsProvider extends LoadingProvider {
     return "${actionRequestService.url}/$id/image";
   }
 
-  Future<void> updateDevice(BuildContext context) async {
+  Future<String> getCurrentConnectedDevice() async {
+    final prefs = await SharedPreferences.getInstance();
+    final hostIp = prefs.getString('hostIp');
+
+    if (hostIp != null) {
+      final deviceInfo = await ActionRequestService.getDeviceName(
+        hostIp,
+        ActionRequestService.port,
+      );
+
+      return deviceInfo.nameAndHost;
+    }
+
+    return 'No device connected';
+  }
+
+  Future<Map<String, dynamic>> getDevices() async {
     final prefs = await SharedPreferences.getInstance();
     final hostIp = prefs.getString('hostIp');
 
     final devices = await findDevices();
 
-    if (context.mounted) {
-      await showMyDialog(context, hostIp: hostIp ?? '', devices: devices);
-    }
+    return {
+      'currentHostIp': hostIp,
+      'devices': devices,
+    };
   }
 
   Future<void> updateHostIp(String hostIp) async {
@@ -75,25 +85,12 @@ class ActionsProvider extends LoadingProvider {
     await getActions();
   }
 
-  Future<void> showMyDialog(
-    BuildContext context, {
-    required String hostIp,
-    required List<DeviceInfo> devices,
-  }) async {
+  Future<void> showMyDialog(BuildContext context) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return ChangeDeviceDialog(
-          hostIp: hostIp,
-          devices: devices,
-          onTapDevice: (index) async {
-            await updateHostIp(devices[index].ip);
-            if (context.mounted) {
-              Navigator.of(context).pop();
-            }
-          },
-        );
+        return ChangeDeviceDialog(actionsProvider: this);
       },
     );
   }

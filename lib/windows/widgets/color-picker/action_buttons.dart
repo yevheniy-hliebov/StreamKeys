@@ -22,7 +22,9 @@ class ActionButtons extends StatelessWidget {
         OutlinedButton(
           onPressed: () {
             if (context.mounted) {
-              final pickerColor = Provider.of<ColorPickerProvider>(context, listen: false).pickerColor;
+              final pickerColor =
+                  Provider.of<ColorPickerProvider>(context, listen: false)
+                      .pickerColor;
               Navigator.of(context).pop(pickerColor);
             }
           },

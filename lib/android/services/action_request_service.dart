@@ -6,8 +6,8 @@ import 'package:streamkeys/android/models/action.dart';
 import 'package:streamkeys/android/models/device_info.dart';
 
 class ActionRequestService {
-  String host = '192.168.1.1';
-  final int port = 8080;
+  String host = '192.168.1.2';
+  static const int port = 8080;
 
   String get url => "http://$host:$port";
 
@@ -18,7 +18,7 @@ class ActionRequestService {
     );
 
     if (response.statusCode == 200) {
-      return DeviceInfo(ip: host, port: port, name: response.body);
+      return DeviceInfo(ip: host, name: response.body);
     } else {
       throw Exception(response.body);
     }
