@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:streamkeys/android/providers/actions_provider.dart';
 import 'package:streamkeys/android/widgets/action_button.dart';
 import 'package:streamkeys/android/widgets/refresh_button.dart';
-import 'package:streamkeys/common/widgets/change_theme_mode.dart';
+import 'package:streamkeys/common/widgets/settings_button.dart';
 
 class AndroidHomePage extends StatelessWidget {
   const AndroidHomePage({super.key});
@@ -72,17 +72,15 @@ class _HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     if (orientation == Orientation.portrait) {
       return AppBar(
+        leading: RefreshButton(
+          isLoading: actionProvider.isLoading,
+          onPressed: actionProvider.getActions,
+        ),
         title: const Text('StreamKeys'),
         centerTitle: true,
-        leading: const ChangeThemeMode(),
         actions: [
-          RefreshButton(
-            isLoading: actionProvider.isLoading,
-            onPressed: actionProvider.getActions,
-          ),
-          IconButton(
-            onPressed: () => actionProvider.updateDevice(context),
-            icon: const Icon(Icons.settings),
+          SettingsButton(
+            actionsProvider: actionProvider,
           ),
         ],
       );

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:streamkeys/common/widgets/action_button.dart';
-import 'package:streamkeys/common/widgets/change_theme_mode.dart';
 import 'package:streamkeys/windows/models/action.dart';
 import 'package:streamkeys/windows/providers/windows_home_page_provider.dart';
+import 'package:streamkeys/common/widgets/settings_button.dart';
 
 class WindowsHomePage extends StatelessWidget {
   const WindowsHomePage({super.key});
@@ -22,8 +22,11 @@ class WindowsHomePage extends StatelessWidget {
                 style: const TextStyle(fontSize: 14),
               ),
               centerTitle: true,
-              actions: const [
-                ChangeThemeMode(),
+              actions: [
+                Transform.scale(
+                  scale: 0.8,
+                  child: const SettingsButton(),
+                ),
               ],
               toolbarHeight: 45,
             ),
