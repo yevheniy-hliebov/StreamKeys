@@ -22,7 +22,7 @@ class WindowsHomePageProvider with ChangeNotifier {
     await getComputerName();
     _host = await Server.getHost();
     readActionsAndSet();
-    trayManagerService.setupTray();
+    await trayManagerService.setupTray();
   }
 
   Future<void> getComputerName() async {
