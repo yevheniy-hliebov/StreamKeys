@@ -34,7 +34,6 @@ class _WindowsHomePageState extends State<WindowsHomePage> {
         builder: (context, provider, child) {
           return Scaffold(
             appBar: AppBar(
-              leading: Text(StartupHelper.isLaunchedAtStartup.toString()),
               title: Text(
                 provider.nameAndHost,
                 style: const TextStyle(fontSize: 14),
