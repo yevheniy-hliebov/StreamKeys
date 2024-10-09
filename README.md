@@ -8,6 +8,7 @@ The application consists of two parts:
 1. **StreamKeys for Windows** — the server component that operates as a local server. You can configure 28 buttons with specific parameters:
    - **Button name**
    - **Button image**
+   - **Button background color**
    - **Path to the executable file** (.exe, .bat, .vbs, etc.)
    
    The server runs over the local network, allowing the mobile app to connect to it via the computer's IP address.
