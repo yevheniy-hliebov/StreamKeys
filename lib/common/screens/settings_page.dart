@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:streamkeys/android/providers/actions_provider.dart';
 import 'package:streamkeys/android/widgets/device_selection_tile.dart';
 import 'package:streamkeys/common/widgets/change_theme_mode.dart';
+import 'package:streamkeys/windows/widgets/startup_setting_tile.dart';
 
 class SettingsPage extends StatelessWidget {
   final ActionsProvider? actionsProvider;
@@ -35,6 +36,9 @@ class SettingsPage extends StatelessWidget {
             DeviceSelectionTile(actionsProvider: actionsProvider),
           ),
           _buildThemeTile(),
+          buildForOnlyWindows(
+            const StartupSettingTile(),
+          ),
         ],
       ),
     );
@@ -58,6 +62,13 @@ class SettingsPage extends StatelessWidget {
 
   Widget buildForOnlyAndroid(Widget widget) {
     if (Platform.isAndroid) {
+      return widget;
+    }
+    return const SizedBox();
+  }
+
+  Widget buildForOnlyWindows(Widget widget) {
+    if (Platform.isWindows) {
       return widget;
     }
     return const SizedBox();

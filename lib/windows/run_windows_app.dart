@@ -22,8 +22,8 @@ Future<void> runWindowsApp() async {
   );
 
   await windowManager.waitUntilReadyToShow(windowOptions);
-  windowManager.show();
-  windowManager.focus();
+  await windowManager.show();
+  await windowManager.focus();
 
   windowManager.addListener(WindowMinimizedListener());
 

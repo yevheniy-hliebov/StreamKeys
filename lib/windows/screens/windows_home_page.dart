@@ -5,9 +5,26 @@ import 'package:streamkeys/common/widgets/action_button.dart';
 import 'package:streamkeys/windows/models/action.dart';
 import 'package:streamkeys/windows/providers/windows_home_page_provider.dart';
 import 'package:streamkeys/common/widgets/settings_button.dart';
+import 'package:streamkeys/windows/utils/startup_helpers.dart';
+import 'package:window_manager/window_manager.dart';
 
-class WindowsHomePage extends StatelessWidget {
+class WindowsHomePage extends StatefulWidget {
   const WindowsHomePage({super.key});
+
+  @override
+  State<WindowsHomePage> createState() => _WindowsHomePageState();
+}
+
+class _WindowsHomePageState extends State<WindowsHomePage> {
+  @override
+  void initState() {
+    super.initState();
+    if (StartupHelper.isLaunchedAtStartup) {
+      Future.delayed(const Duration(milliseconds: 500), () {
+        windowManager.hide();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +34,7 @@ class WindowsHomePage extends StatelessWidget {
         builder: (context, provider, child) {
           return Scaffold(
             appBar: AppBar(
+              leading: Text(StartupHelper.isLaunchedAtStartup.toString()),
               title: Text(
                 provider.nameAndHost,
                 style: const TextStyle(fontSize: 14),
