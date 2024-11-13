@@ -25,9 +25,9 @@ class ChangeThemeMode extends StatelessWidget {
   WidgetStatePropertyAll<Icon> getIcon(bool isLightMode) {
     if (isLightMode) {
       return const WidgetStatePropertyAll(
-          Icon(Icons.light_mode, color: SColors.iconInverse));
+          Icon(Icons.light_mode, color: SColors.onBackgroundDark));
     }
     return const WidgetStatePropertyAll(
-        Icon(Icons.dark_mode, color: SColors.icon));
+        Icon(Icons.dark_mode, color: SColors.onBackgroundLight));
   }
 }

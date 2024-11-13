@@ -1,51 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/theme/colors.dart';
-import 'package:streamkeys/common/theme/theme.dart';
 
 class ActionButtonTheme {
   final BuildContext context;
 
   const ActionButtonTheme({required this.context});
 
-  bool get isLight => STheme.isLight(context);
-
   BorderRadius get borderRadius => BorderRadius.circular(4);
-
-  Color get backgroundColor {
-    if (isLight) {
-      return SColors.bg50;
-    } else {
-      return SColors.bgInverse50;
-    }
-  }
+  Color get backgroundColor => SColors.of(context).actionButtonBackground;
 
   BoxDecoration getDecoration({
     bool isPressed = false,
   }) {
-    if (isLight) {
-      return _getDecoration(
-        color: SColors.bg50,
-        borderColor: SColors.border,
-        isPressed: isPressed,
-      );
-    } else {
-      return _getDecoration(
-        color: SColors.bgInverse50,
-        borderColor: SColors.border,
-        isPressed: isPressed,
-      );
-    }
-  }
-
-  BoxDecoration _getDecoration({
-    required Color color,
-    required Color borderColor,
-    bool isPressed = false,
-  }) {
     return BoxDecoration(
-      color: color,
+      color: SColors.of(context).surface,
       border: Border.all(
-        color: borderColor,
+        color: SColors.of(context).outline,
         width: 1,
       ),
       boxShadow: getBoxShadow(isPressed),

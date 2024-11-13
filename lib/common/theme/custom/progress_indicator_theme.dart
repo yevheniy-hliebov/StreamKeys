@@ -8,7 +8,7 @@ class SProgressIndicatorTheme {
     return ProgressIndicatorThemeData(
       color: SColors.primary,
       circularTrackColor: Colors.transparent,
-      refreshBackgroundColor: SColors.bg50,
+      refreshBackgroundColor: SColors.surfaceLight,
       linearTrackColor: SColors.primary.withOpacity(0.2),
       linearMinHeight: 4,
     );
@@ -16,9 +16,9 @@ class SProgressIndicatorTheme {
 
   static ProgressIndicatorThemeData get dark {
     return ProgressIndicatorThemeData(
-      color: SColors.iconInverse,
+      color: SColors.onBackgroundDark,
       circularTrackColor: Colors.transparent,
-      refreshBackgroundColor: SColors.bgInverse50,
+      refreshBackgroundColor: SColors.surfaceDark,
       linearTrackColor: SColors.primary.withOpacity(0.2),
       linearMinHeight: 4,
     );

@@ -6,20 +6,20 @@ class SInputDecorationTheme {
 
   static InputDecorationTheme get light {
     return InputDecorationTheme(
-      border: getBorder(SColors.border),
-      focusedBorder: getBorder(SColors.borderFocused),
+      border: getBorder(SColors.outlineLight),
+      focusedBorder: getBorder(SColors.primary),
       labelStyle: const TextStyle().copyWith(
-        color: SColors.text,
+        color: SColors.onSurfaceLight,
       ),
     );
   }
 
   static InputDecorationTheme get dark {
     return InputDecorationTheme(
-      border: getBorder(SColors.border),
-      focusedBorder: getBorder(SColors.borderFocused),
+      border: getBorder(SColors.onBackgroundDark),
+      focusedBorder: getBorder(SColors.primary),
       labelStyle: const TextStyle().copyWith(
-        color: SColors.textInverse,
+        color: SColors.onSurfaceDark,
       ),
     );
   }

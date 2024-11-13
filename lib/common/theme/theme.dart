@@ -14,7 +14,7 @@ class STheme {
   static ThemeData get light {
     return ThemeData(
       brightness: Brightness.light,
-      scaffoldBackgroundColor: SColors.bg,
+      scaffoldBackgroundColor: SColors.backgroundLight,
       appBarTheme: SAppBarTheme.light,
       textTheme: STextTheme.light,
       outlinedButtonTheme: SOutlinedButtonTheme.light,
@@ -28,7 +28,7 @@ class STheme {
   static ThemeData get dark {
     return ThemeData(
       brightness: Brightness.dark,
-      scaffoldBackgroundColor: SColors.bgInverse,
+      scaffoldBackgroundColor: SColors.backgroundDark,
       appBarTheme: SAppBarTheme.dark,
       textTheme: STextTheme.dark,
       outlinedButtonTheme: SOutlinedButtonTheme.dark,
