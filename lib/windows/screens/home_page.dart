@@ -33,20 +33,35 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(context),
-      body: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (context) => TouchDeckProvider()),
-          ChangeNotifierProvider(create: (context) => BrowseProvider()),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => TouchDeckProvider()),
+        ChangeNotifierProvider(create: (context) => BrowseProvider()),
+      ],
+      child: Stack(
+        children: [
+          Scaffold(
+            appBar: _buildAppBar(context),
+            body: TabBarView(
+              controller: _tabController,
+              children: const [
+                TouchDeck(),
+                KeyboardDeck(),
+              ],
+            ),
+          ),
+          Consumer<BrowseProvider>(
+            builder: (context, provider, child) {
+              if (provider.isLockedApp) {
+                return const ModalBarrier(
+                  dismissible: false,
+                  color: Colors.black54,
+                );
+              }
+              return const SizedBox();
+            },
+          ),
         ],
-        child: TabBarView(
-          controller: _tabController,
-          children: const [
-            TouchDeck(),
-            KeyboardDeck(),
-          ],
-        ),
       ),
     );
   }
