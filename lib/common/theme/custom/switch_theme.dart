@@ -19,7 +19,7 @@ class SSwitchTheme {
   static SwitchThemeData get dark {
     return SwitchThemeData(
       trackOutlineWidth: const WidgetStatePropertyAll(1),
-      trackOutlineColor: const WidgetStatePropertyAll(SColors.outlineLight),
+      trackOutlineColor: const WidgetStatePropertyAll(SColors.outlineDark),
       overlayColor: WidgetStatePropertyAll(
         SColors.overlayDark.withOpacity(0.3),
       ),

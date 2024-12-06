@@ -40,6 +40,8 @@ class SColors {
   bool get _isLight => STheme.isLight(context);
 
   static const Color primary = Color(0xFF5B5EFE);
+  static const Color danger = Color(0xFFFE5B5B);
+
   static const Color overlayLight = Color(0xFF9E9E9E);
   static const Color overlayDark = Color(0xFF212121);
   Color get overlay => _getColor(overlayLight, overlayDark);
@@ -60,12 +62,12 @@ class SColors {
   static const Color onSurfaceDark = Color(0xFFF1F1F1);
   Color get onSurface => _getColor(onSurfaceLight, onSurfaceDark);
 
-  static const Color outlineLight = Color(0xFF797979);
-  static const Color outlineDark = Color(0xFF202020);
+  static const Color outlineLight = Color(0xFF333333);
+  static const Color outlineDark = Color(0xFFC7C7C7);
   Color get outline => _getColor(outlineLight, outlineDark);
 
-  static const Color outlineVariantLight = Color(0xFFF1F1F1);
-  static const Color outlineVariantDark = Color(0xFF333333);
+  static const Color outlineVariantLight = Color(0xFF797979);
+  static const Color outlineVariantDark = Color(0xFF202020);
   Color get outlineVariant =>
       _getColor(outlineVariantLight, outlineVariantDark);
 

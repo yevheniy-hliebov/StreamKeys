@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:streamkeys/android/providers/actions_provider.dart';
+import 'package:streamkeys/android/providers/buttons_provider.dart';
 
 class ChangeDeviceDialog extends StatelessWidget {
-  final ActionsProvider actionsProvider;
+  final ButtonsProvider buttonsProvider;
   final void Function(int index)? onTapDevice;
 
   const ChangeDeviceDialog({
     super.key,
-    required this.actionsProvider,
+    required this.buttonsProvider,
     this.onTapDevice,
   });
 
@@ -17,7 +17,7 @@ class ChangeDeviceDialog extends StatelessWidget {
       title: const Text('Select Device'),
       content: SingleChildScrollView(
         child: FutureBuilder(
-          future: actionsProvider.getDevices(),
+          future: buttonsProvider.getDevices(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return _buildLoadingIndicator();
@@ -59,7 +59,7 @@ class ChangeDeviceDialog extends StatelessWidget {
   Widget _buildDeviceList(
     BuildContext context,
     List devices,
-    String currentHostIp,
+    String? currentHostIp,
   ) {
     return Column(
       children: List.generate(devices.length, (index) {
@@ -74,7 +74,7 @@ class ChangeDeviceDialog extends StatelessWidget {
   }
 
   Future<void> _onDeviceTap(BuildContext context, String ip) async {
-    await actionsProvider.updateHostIp(ip);
+    await buttonsProvider.updateHostIp(ip);
     if (context.mounted) {
       Navigator.of(context).pop();
     }

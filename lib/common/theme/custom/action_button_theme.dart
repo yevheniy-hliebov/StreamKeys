@@ -7,16 +7,16 @@ class ActionButtonTheme {
   const ActionButtonTheme({required this.context});
 
   BorderRadius get borderRadius => BorderRadius.circular(4);
-  Color get backgroundColor => SColors.of(context).actionButtonBackground;
 
   BoxDecoration getDecoration({
     bool isPressed = false,
+    bool isSelected = false,
   }) {
     return BoxDecoration(
-      color: SColors.of(context).surface,
+      // color: SColors.of(context).surface,
       border: Border.all(
-        color: SColors.of(context).outline,
-        width: 1,
+        color: isSelected ? SColors.primary : SColors.of(context).outline,
+        width: isSelected ? 3 : 1,
       ),
       boxShadow: getBoxShadow(isPressed),
       borderRadius: BorderRadius.circular(5),

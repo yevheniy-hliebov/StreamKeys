@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:streamkeys/common/theme/colors.dart';
 import 'package:streamkeys/common/theme/custom/action_button_theme.dart';
 
 class BaseActionButton extends StatefulWidget {
   final String tooltipMessage;
   final double size;
   final Color? backgroundColor;
+  final bool isSelected;
   final void Function()? onTap;
   final Widget? child;
 
   const BaseActionButton({
     super.key,
-    this.tooltipMessage = '',
+    this.onTap,
     required this.size,
     this.backgroundColor,
-    this.onTap,
+    this.isSelected = false,
+    this.tooltipMessage = '',
     this.child,
   });
 
@@ -36,6 +39,7 @@ class _BaseActionButtonState extends State<BaseActionButton> {
           width: widget.size,
           height: widget.size,
           decoration: theme.getDecoration(
+            isSelected: widget.isSelected,
             isPressed: _isPressed,
           ),
           transform: Matrix4.translationValues(
@@ -48,12 +52,10 @@ class _BaseActionButtonState extends State<BaseActionButton> {
             child: Stack(
               children: [
                 Container(
-                  color: theme.backgroundColor,
+                  color: SColors.of(context).actionButtonBackground,
                 ),
                 Container(
-                  decoration: BoxDecoration(
-                    color: widget.backgroundColor,
-                  ),
+                  color: widget.backgroundColor,
                 ),
                 Align(
                   alignment: Alignment.center,

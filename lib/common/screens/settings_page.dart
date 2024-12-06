@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:streamkeys/android/providers/actions_provider.dart';
+import 'package:streamkeys/android/providers/buttons_provider.dart';
 import 'package:streamkeys/android/widgets/device_selection_tile.dart';
 import 'package:streamkeys/common/widgets/change_theme_mode.dart';
 import 'package:streamkeys/windows/widgets/startup_setting_tile.dart';
 
 class SettingsPage extends StatelessWidget {
-  final ActionsProvider? actionsProvider;
+  final ButtonsProvider? actionsProvider;
 
   const SettingsPage({
     super.key,
@@ -29,17 +29,22 @@ class SettingsPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          buildForOnlyAndroid(
-            DeviceSelectionTile(actionsProvider: actionsProvider),
-          ),
-          _buildThemeTile(),
-          buildForOnlyWindows(
-            const StartupSettingTile(),
-          ),
-        ],
+      body: Container(
+        constraints: BoxConstraints(
+          maxWidth: Platform.isWindows ? 385 : double.infinity,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            buildForOnlyAndroid(
+              DeviceSelectionTile(actionsProvider: actionsProvider),
+            ),
+            _buildThemeTile(),
+            buildForOnlyWindows(
+              const StartupSettingTile(),
+            ),
+          ],
+        ),
       ),
     );
   }

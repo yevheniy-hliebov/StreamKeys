@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/material_app.dart';
 import 'package:streamkeys/windows/server/server.dart';
+import 'package:streamkeys/windows/services/tray_manager_service.dart';
+import 'package:streamkeys/windows/utils/startup_helpers.dart';
 import 'package:window_manager/window_manager.dart';
 
 Future<void> runWindowsApp() async {
   await Server.start();
 
+  final trayManagerService = TrayManagerService();
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
 
-  const size = Size(385, 300);
+  const size = Size(1400, 850);
 
   const windowOptions = WindowOptions(
-    size: size,
-    maximumSize: size,
     minimumSize: size,
     center: true,
     fullScreen: false,
@@ -21,11 +22,20 @@ Future<void> runWindowsApp() async {
     title: 'StreamKeys',
   );
 
-  await windowManager.waitUntilReadyToShow(windowOptions);
-  await windowManager.show();
-  await windowManager.focus();
-
   windowManager.addListener(WindowMinimizedListener());
+
+  await windowManager.waitUntilReadyToShow(
+    windowOptions,
+    () async {
+      await trayManagerService.setupTray();
+      if (StartupHelper.isLaunchedAtStartup) {
+        await windowManager.minimize();
+      } else {
+        await windowManager.focus();
+        await windowManager.maximize();
+      }
+    },
+  );
 
   runApp(const SMaterialApp());
 }
