@@ -85,6 +85,8 @@ class TouchDeckProvider extends ChangeNotifier {
   }
 
   FutureVoid reorderButton(int oldIndex, int newIndex) async {
+    print('Old Index: $oldIndex, New Index: $newIndex');
+
     final pageTouchData = _getCurrentPageTouchData();
     _reorderList(pageTouchData.actionButtonInfos, oldIndex, newIndex);
     await _savePageData();
@@ -189,9 +191,6 @@ class TouchDeckProvider extends ChangeNotifier {
   }
 
   void _reorderList(List<dynamic> list, int oldIndex, int newIndex) {
-    if (newIndex > oldIndex) {
-      newIndex -= 1;
-    }
     final movedItem = list.removeAt(oldIndex);
     list.insert(newIndex, movedItem);
   }
