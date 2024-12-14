@@ -3,7 +3,7 @@ import 'package:streamkeys/common/theme/colors.dart';
 
 class STabTheme {
   const STabTheme._();
-  
+
   static TabBarTheme get light {
     return const TabBarTheme(
       dividerColor: Colors.transparent,
@@ -14,7 +14,7 @@ class STabTheme {
       indicatorSize: TabBarIndicatorSize.tab,
     );
   }
-  
+
   static TabBarTheme get dark {
     return const TabBarTheme(
       dividerColor: Colors.transparent,
@@ -25,5 +25,4 @@ class STabTheme {
       indicatorSize: TabBarIndicatorSize.tab,
     );
   }
-  
 }

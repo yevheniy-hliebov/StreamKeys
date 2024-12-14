@@ -48,6 +48,11 @@ class OpenAppAndFile extends BaseAction {
     filePathController.clear();
   }
 
+  @override
+  OpenAppAndFile copy() {
+    return OpenAppAndFile(filePath: filePath);
+  }
+
   factory OpenAppAndFile.fromJson(Json json) {
     return OpenAppAndFile(
       filePath: json['file_path'] as String,

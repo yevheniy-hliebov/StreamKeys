@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:streamkeys/common/theme/colors.dart';
 import 'package:streamkeys/common/widgets/settings_button.dart';
 import 'package:streamkeys/windows/providers/browse_provider.dart';
-import 'package:streamkeys/windows/providers/touch_deck_provider.dart';
 import 'package:streamkeys/windows/screens/keyboard_deck.dart';
 import 'package:streamkeys/windows/screens/touch_deck.dart';
 import 'package:streamkeys/windows/widgets/device_name_and_ip.dart';
@@ -33,11 +32,8 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => TouchDeckProvider()),
-        ChangeNotifierProvider(create: (context) => BrowseProvider()),
-      ],
+    return ChangeNotifierProvider(
+      create: (context) => BrowseProvider(),
       child: Stack(
         children: [
           Scaffold(

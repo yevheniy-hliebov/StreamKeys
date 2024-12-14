@@ -12,12 +12,9 @@ class CategoryActions {
   });
 
   static List<CategoryActions> categories = [
-    CategoryActions(
-      name: 'Toolbox',
-      actions: [
-        OpenAppAndFile(),
-        Website(),
-      ]
-    ),
+    CategoryActions(name: 'Toolbox', actions: [
+      OpenAppAndFile(),
+      Website(),
+    ]),
   ];
 }

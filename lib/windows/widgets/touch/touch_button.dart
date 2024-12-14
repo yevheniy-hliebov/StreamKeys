@@ -6,7 +6,7 @@ import 'package:streamkeys/common/widgets/action_button.dart';
 import 'package:streamkeys/windows/models/action_touch_button_info.dart';
 
 class TouchButton extends StatelessWidget {
-  final ActionTouchButtonInfo? info;
+  final ActionButtonInfo? info;
   final void Function()? onTap;
   final bool isSelected;
 

@@ -13,9 +13,11 @@ class ButtonsProvider extends LoadingProvider {
   ButtonRequestService buttonRequestService = ButtonRequestService();
   PageData? pageData;
 
-  List<ActionButtonInfo> get buttons => pageData == null ? [] : pageData!.actionButtonInfos;
+  List<ActionButtonInfo> get buttons =>
+      pageData == null ? [] : pageData!.actionButtonInfos;
   int get buttonsLength => buttons.length;
-  GridTemplate get grid => pageData == null ? GridTemplate(3,2) : pageData!.grid;
+  GridTemplate get grid =>
+      pageData == null ? GridTemplate(3, 2) : pageData!.grid;
 
   ButtonsProvider(BuildContext context) {
     init(context);
@@ -37,9 +39,8 @@ class ButtonsProvider extends LoadingProvider {
 
   Future<void> getButtons() async {
     startLoading();
-      pageData = await buttonRequestService.getButtons();
-    try {
-    } catch (e) {
+    pageData = await buttonRequestService.getButtons();
+    try {} catch (e) {
       pageData = null;
     }
     stopLoading();

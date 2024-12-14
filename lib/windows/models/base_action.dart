@@ -29,5 +29,7 @@ abstract class BaseAction {
 
   void clear() {}
 
+  BaseAction copy();
+
   void dispose() {}
 }

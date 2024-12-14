@@ -2,13 +2,13 @@ import 'package:streamkeys/windows/models/base_action.dart';
 import 'package:streamkeys/windows/services/file_picker_service.dart';
 import 'package:streamkeys/windows/utils/color_helper.dart';
 
-class ActionTouchButtonInfo {
+class ActionButtonInfo {
   String name;
   String imagePath;
   Color backgroundColor;
   BaseAction? action;
 
-  ActionTouchButtonInfo({
+  ActionButtonInfo({
     this.name = '',
     this.imagePath = '',
     this.backgroundColor = Colors.transparent,
@@ -37,8 +37,8 @@ class ActionTouchButtonInfo {
     };
   }
 
-  ActionTouchButtonInfo copy() {
-    return ActionTouchButtonInfo(
+  ActionButtonInfo copy() {
+    return ActionButtonInfo(
       name: name,
       action: action,
       backgroundColor: backgroundColor,
@@ -52,17 +52,17 @@ class ActionTouchButtonInfo {
     backgroundColor = Colors.transparent;
     action?.clear();
   }
-  
+
   void delete() {
     clear();
     action = null;
   }
 
-  static ActionTouchButtonInfo fromJson(Json json) {
+  factory ActionButtonInfo.fromJson(Json json) {
     final backgroundColor = json['background_color'] != null
         ? ColorHelper.hexToColor(json['background_color'])
         : Colors.transparent;
-    return ActionTouchButtonInfo(
+    return ActionButtonInfo(
       name: json['name'],
       imagePath: json['image_path'],
       backgroundColor: backgroundColor,

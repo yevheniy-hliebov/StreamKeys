@@ -140,11 +140,9 @@ class _ActionButtonsGrid extends StatelessWidget {
   ) {
     return [
       for (int j = 0; j < rows; j++) ...[
-        if (rowIndex * rows + j <
-            actionProvider.buttons.length)
+        if (rowIndex * rows + j < actionProvider.buttons.length)
           ActionButton(
-            buttonInfo: actionProvider
-                .buttons[rowIndex * rows + j],
+            buttonInfo: actionProvider.buttons[rowIndex * rows + j],
             buttonIndex: rowIndex * rows + j,
             buttonSize: buttonSize,
           ),

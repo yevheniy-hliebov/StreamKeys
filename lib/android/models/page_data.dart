@@ -17,9 +17,8 @@ class PageData {
     return PageData(
       currentPage: json['current_page'],
       grid: GridTemplate.fromJson(json['grid']),
-      actionButtonInfos: (json['buttons'] as List<dynamic>)
-          .cast<Json>()
-          .map((buttonInfoJson) {
+      actionButtonInfos:
+          (json['buttons'] as List<dynamic>).cast<Json>().map((buttonInfoJson) {
         return ActionButtonInfo.fromJson(buttonInfoJson);
       }).toList(),
     );

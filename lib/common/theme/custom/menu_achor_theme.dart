@@ -19,7 +19,9 @@ class MenuAchorTheme {
 
     return ButtonStyle(
       backgroundColor: WidgetStatePropertyAll(
-        isSelected ? SColors.of(context).background.withOpacity(0.7) : SColors.of(context).surface,
+        isSelected
+            ? SColors.of(context).background.withOpacity(0.7)
+            : SColors.of(context).surface,
       ),
       maximumSize: const WidgetStatePropertyAll(maximumSize),
       padding: const WidgetStatePropertyAll(EdgeInsets.all(16)),

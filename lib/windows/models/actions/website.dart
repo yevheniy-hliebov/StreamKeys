@@ -36,6 +36,11 @@ class Website extends BaseAction {
     urlController.clear();
   }
 
+  @override
+  Website copy() {
+    return Website(url: url);
+  }
+
   factory Website.fromJson(Json json) {
     return Website(
       url: json['url'] as String,

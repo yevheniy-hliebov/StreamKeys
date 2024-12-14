@@ -29,7 +29,7 @@ class ButtonRequestService {
       Uri.parse("$url/buttons"),
       headers: {'Content-Type': 'application/json'},
     );
-    
+
     if (response.statusCode == 200) {
       final data = _decodeResponse(response.bodyBytes);
       return PageData.fromJson(data);

@@ -3,7 +3,7 @@ import 'package:streamkeys/windows/models/typedefs.dart';
 
 class PageTouchData {
   final String pageName;
-  final List<ActionTouchButtonInfo> actionButtonInfos;
+  final List<ActionButtonInfo> actionButtonInfos;
 
   const PageTouchData({
     required this.pageName,
@@ -11,19 +11,19 @@ class PageTouchData {
   });
 
   List<Json> toJson() {
-    return actionButtonInfos.map((ActionTouchButtonInfo actionButtonInfo) {
+    return actionButtonInfos.map((ActionButtonInfo actionButtonInfo) {
       return actionButtonInfo.toJson();
     }).toList();
   }
 
-  static PageTouchData fromJson(
+  factory PageTouchData.fromJson(
     String pageName,
     List<Json> actionButtonInfoJsons,
   ) {
     return PageTouchData(
       pageName: pageName,
       actionButtonInfos: actionButtonInfoJsons.map((Json json) {
-        return ActionTouchButtonInfo.fromJson(json);
+        return ActionButtonInfo.fromJson(json);
       }).toList(),
     );
   }

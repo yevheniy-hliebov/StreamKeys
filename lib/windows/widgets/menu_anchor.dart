@@ -4,6 +4,7 @@ import 'package:streamkeys/common/theme/custom/menu_achor_theme.dart';
 class SMenuAchor<T> extends StatefulWidget {
   final List<T> items;
   final String Function(T) getItemText;
+  final String Function(T)? getItemTooltipMessage;
   final void Function(T)? onPressed;
   final T? currentItem;
 
@@ -11,6 +12,7 @@ class SMenuAchor<T> extends StatefulWidget {
     super.key,
     required this.items,
     required this.getItemText,
+    this.getItemTooltipMessage,
     this.onPressed,
     this.currentItem,
   });
@@ -25,7 +27,19 @@ class _SMenuAchorState<T> extends State<SMenuAchor<T>> {
   @override
   void initState() {
     super.initState();
-    selectedItem = widget.currentItem ?? (widget.items.isNotEmpty ? widget.items[0] : null as T);
+    selectedItem = widget.currentItem ??
+        (widget.items.isNotEmpty ? widget.items[0] : null as T);
+  }
+
+  @override
+  void didUpdateWidget(SMenuAchor<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.currentItem != oldWidget.currentItem) {
+      setState(() {
+        selectedItem = widget.currentItem ??
+            (widget.items.isNotEmpty ? widget.items[0] : null as T);
+      });
+    }
   }
 
   @override
@@ -87,16 +101,23 @@ class _SMenuAchorState<T> extends State<SMenuAchor<T>> {
         style: theme.getButtonStyle(
           isSelected: selectedItem == item,
         ),
-        child: Container(
-          width: double.maxFinite,
-          height: double.maxFinite,
-          alignment: Alignment.centerLeft,
-          child: Text(
-            item.toString(),
-            style: theme.textStyle,
+        child: Tooltip(
+          message: _tooltipMassage(item),
+          child: Container(
+            width: double.maxFinite,
+            height: double.maxFinite,
+            alignment: Alignment.centerLeft,
+            child: Text(
+              widget.getItemText(item),
+              style: theme.textStyle,
+            ),
           ),
         ),
       );
     }).toList();
+  }
+
+  String? _tooltipMassage(T item) {
+    return widget.getItemTooltipMessage?.call(item) ?? '';
   }
 }

@@ -5,7 +5,7 @@ import 'package:streamkeys/windows/models/base_action.dart';
 import 'package:streamkeys/windows/models/grid_template.dart';
 import 'package:streamkeys/windows/providers/touch_deck_provider.dart';
 import 'package:streamkeys/windows/widgets/menu_anchor.dart';
-import 'package:streamkeys/windows/widgets/touch_button.dart';
+import 'package:streamkeys/windows/widgets/touch/touch_button.dart';
 
 class TouchButtonMap extends StatelessWidget {
   const TouchButtonMap({

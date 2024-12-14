@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:shelf/shelf.dart';
 import 'package:streamkeys/windows/models/base_action.dart';
 import 'package:streamkeys/windows/server/controllers/base_controller.dart';
@@ -29,7 +30,7 @@ class TouchButtonsController extends BaseController {
           },
         ).toList(),
       };
-      
+
       return Response.ok(
         jsonEncode(jsonResponse),
         headers: {'Content-Type': 'application/json'},
@@ -65,7 +66,8 @@ class TouchButtonsController extends BaseController {
     }
   }
 
-  Future<Response> clickButtonAction(Request request, String stringIndex) async {
+  Future<Response> clickButtonAction(
+      Request request, String stringIndex) async {
     try {
       int index = int.tryParse(stringIndex) ?? -1;
 
@@ -73,6 +75,10 @@ class TouchButtonsController extends BaseController {
       String currentPage = json['current_page'];
       Json buttonInfo = json['map_pages'][currentPage][index];
       BaseAction action = BaseAction.fromJson(buttonInfo['action']);
+
+      if (kDebugMode) {
+        print(action.actionType);
+      }
 
       await action.execute();
       return Response.ok('Command successfully runned');

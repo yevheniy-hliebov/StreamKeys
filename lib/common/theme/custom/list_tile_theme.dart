@@ -3,7 +3,7 @@ import 'package:streamkeys/common/theme/colors.dart';
 
 class SListTileTheme {
   const SListTileTheme._();
-  
+
   static ListTileThemeData get light {
     return ListTileThemeData(
       tileColor: SColors.backgroundLight,
@@ -19,7 +19,7 @@ class SListTileTheme {
       iconColor: SColors.onBackgroundLight,
     );
   }
-  
+
   static ListTileThemeData get dark {
     return ListTileThemeData(
       tileColor: SColors.backgroundDark,
@@ -35,5 +35,4 @@ class SListTileTheme {
       iconColor: SColors.onBackgroundDark,
     );
   }
-  
 }

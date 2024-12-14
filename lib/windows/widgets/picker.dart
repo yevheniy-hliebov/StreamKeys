@@ -24,7 +24,8 @@ class Picker extends StatelessWidget {
       child: OutlinedButton(
         onPressed: onTap,
         style: ButtonStyle(
-          backgroundColor: WidgetStatePropertyAll(backgroundColor ?? SColors.of(context).surface),
+          backgroundColor: WidgetStatePropertyAll(
+              backgroundColor ?? SColors.of(context).surface),
           padding: const WidgetStatePropertyAll(
             EdgeInsets.all(0),
           ),
