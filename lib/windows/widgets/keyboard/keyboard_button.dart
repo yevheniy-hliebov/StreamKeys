@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/theme/colors.dart';
 import 'package:streamkeys/common/widgets/action_button.dart';
-import 'package:streamkeys/windows/models/keyboard_action_button_info.dart';
-import 'package:streamkeys/windows/models/keyboard_key.dart';
+import 'package:streamkeys/windows/models/keyboard/keyboard_action_button_info.dart';
+import 'package:streamkeys/windows/models/keyboard/keyboard_key.dart';
 
 class KeyboardButton extends StatelessWidget {
   final KeyboardKey keyboardKey;

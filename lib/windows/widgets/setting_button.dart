@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:streamkeys/common/theme/colors.dart';
 import 'package:streamkeys/windows/models/action_touch_button_info.dart';
-import 'package:streamkeys/windows/models/keyboard_action_button_info.dart';
+import 'package:streamkeys/windows/models/keyboard/keyboard_action_button_info.dart';
 import 'package:streamkeys/windows/providers/browse_provider.dart';
 import 'package:streamkeys/windows/providers/keyboard_deck_provider.dart';
 import 'package:streamkeys/windows/providers/setting_key_button_provider.dart';

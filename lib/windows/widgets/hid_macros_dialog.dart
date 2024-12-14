@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:streamkeys/windows/models/keyboard_device.dart';
+import 'package:streamkeys/windows/models/keyboard/keyboard_device.dart';
 import 'package:streamkeys/windows/providers/browse_provider.dart';
 import 'package:streamkeys/windows/providers/hidmacros_integration_provider.dart';
 

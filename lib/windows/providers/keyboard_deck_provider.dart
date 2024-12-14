@@ -2,10 +2,10 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:streamkeys/windows/models/base_action.dart';
-import 'package:streamkeys/windows/models/keyboard_action_button_info.dart';
-import 'package:streamkeys/windows/models/keyboard_key.dart';
-import 'package:streamkeys/windows/models/keyboard_map.dart';
-import 'package:streamkeys/windows/models/page_keyboard_data.dart';
+import 'package:streamkeys/windows/models/keyboard/keyboard_action_button_info.dart';
+import 'package:streamkeys/windows/models/keyboard/keyboard_key.dart';
+import 'package:streamkeys/windows/models/keyboard/keyboard_map.dart';
+import 'package:streamkeys/windows/models/keyboard/page_keyboard_data.dart';
 import 'package:streamkeys/windows/services/keyboard_deck_service.dart';
 
 class KeyboardDeckProvider extends ChangeNotifier {

@@ -1,4 +1,4 @@
-import 'package:streamkeys/windows/models/keyboard_action_button_info.dart';
+import 'package:streamkeys/windows/models/keyboard/keyboard_action_button_info.dart';
 import 'package:streamkeys/windows/models/typedefs.dart';
 
 class PageKeyboardData {

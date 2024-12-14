@@ -7,7 +7,7 @@ import 'package:streamkeys/android/providers/loading_provider.dart';
 import 'package:streamkeys/android/services/button_request_service.dart';
 import 'package:streamkeys/android/services/find_devices.dart';
 import 'package:streamkeys/android/widgets/change_device_dialog.dart';
-import 'package:streamkeys/windows/models/grid_template.dart';
+import 'package:streamkeys/windows/models/keyboard/grid_template.dart';
 
 class ButtonsProvider extends LoadingProvider {
   ButtonRequestService buttonRequestService = ButtonRequestService();

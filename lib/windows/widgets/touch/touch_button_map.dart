@@ -2,7 +2,7 @@ import 'package:provider/provider.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:streamkeys/common/theme/colors.dart';
 import 'package:streamkeys/windows/models/base_action.dart';
-import 'package:streamkeys/windows/models/grid_template.dart';
+import 'package:streamkeys/windows/models/keyboard/grid_template.dart';
 import 'package:streamkeys/windows/providers/touch_deck_provider.dart';
 import 'package:streamkeys/windows/widgets/menu_anchor.dart';
 import 'package:streamkeys/windows/widgets/touch/touch_button.dart';

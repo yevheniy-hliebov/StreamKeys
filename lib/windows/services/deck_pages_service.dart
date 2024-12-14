@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:streamkeys/windows/models/action_touch_button_info.dart';
-import 'package:streamkeys/windows/models/grid_template.dart';
-import 'package:streamkeys/windows/models/page_keyboard_data.dart';
+import 'package:streamkeys/windows/models/keyboard/grid_template.dart';
+import 'package:streamkeys/windows/models/keyboard/page_keyboard_data.dart';
 import 'package:streamkeys/windows/models/page_touch_data.dart';
 import 'package:streamkeys/windows/models/typedefs.dart';
 import 'package:streamkeys/windows/utils/json_read_and_write.dart';

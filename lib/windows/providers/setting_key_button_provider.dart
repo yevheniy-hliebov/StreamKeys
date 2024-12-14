@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/windows/models/action_touch_button_info.dart';
-import 'package:streamkeys/windows/models/keyboard_action_button_info.dart';
+import 'package:streamkeys/windows/models/keyboard/keyboard_action_button_info.dart';
 import 'package:streamkeys/windows/models/typedefs.dart';
 import 'package:streamkeys/windows/services/keyboard_deck_service.dart';
 

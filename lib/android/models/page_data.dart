@@ -1,5 +1,5 @@
 import 'package:streamkeys/android/models/action_button_info.dart';
-import 'package:streamkeys/windows/models/grid_template.dart';
+import 'package:streamkeys/windows/models/keyboard/grid_template.dart';
 import 'package:streamkeys/windows/models/typedefs.dart';
 
 class PageData {

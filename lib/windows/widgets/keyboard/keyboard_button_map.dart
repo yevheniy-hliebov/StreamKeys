@@ -1,7 +1,7 @@
 import 'package:provider/provider.dart';
 import 'package:streamkeys/common/theme/colors.dart';
 import 'package:streamkeys/windows/models/base_action.dart';
-import 'package:streamkeys/windows/models/keyboard_key.dart';
+import 'package:streamkeys/windows/models/keyboard/keyboard_key.dart';
 import 'package:streamkeys/windows/providers/hidmacros_integration_provider.dart';
 import 'package:streamkeys/windows/providers/keyboard_deck_provider.dart';
 import 'package:streamkeys/windows/widgets/for_loop.dart';

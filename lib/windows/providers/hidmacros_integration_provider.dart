@@ -4,8 +4,8 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:streamkeys/windows/models/keyboard_device.dart';
-import 'package:streamkeys/windows/models/keyboard_map.dart';
+import 'package:streamkeys/windows/models/keyboard/keyboard_device.dart';
+import 'package:streamkeys/windows/models/keyboard/keyboard_map.dart';
 import 'package:streamkeys/windows/models/typedefs.dart';
 import 'package:streamkeys/windows/services/file_picker_service.dart';
 import 'package:streamkeys/windows/services/keyboard_deck_service.dart';

@@ -1,4 +1,4 @@
-import 'package:streamkeys/windows/models/keyboard_key.dart';
+import 'package:streamkeys/windows/models/keyboard/keyboard_key.dart';
 import 'package:streamkeys/windows/models/typedefs.dart';
 
 class KeyboardMap {
