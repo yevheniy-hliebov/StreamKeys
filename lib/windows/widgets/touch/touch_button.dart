@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:streamkeys/common/theme/colors.dart';
 import 'package:streamkeys/common/widgets/action_button.dart';
 import 'package:streamkeys/windows/models/touch/action_touch_button_info.dart';
 
@@ -29,23 +28,14 @@ class TouchButton extends StatelessWidget {
   }
 
   Widget? _buildChild(BuildContext context) {
-    if (info == null) {
-      return null;
-    } else if (info!.isHaveAction) {
-      if (info?.imagePath == '') {
-        return Icon(
-          Icons.edit,
-          color: SColors.of(context).onBackground,
-        );
-      } else {
-        return SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          child: Image.file(
-            File(info!.imagePath),
-          ),
-        );
-      }
+    if (info != null && info!.imagePath.isNotEmpty) {
+      return SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: Image.file(
+          File(info!.imagePath),
+        ),
+      );
     }
     return null;
   }

@@ -6,17 +6,19 @@ class ActionButtonInfo {
   String name;
   String imagePath;
   Color backgroundColor;
-  BaseAction? action;
+  List<BaseAction> actions;
 
   ActionButtonInfo({
     this.name = '',
     this.imagePath = '',
     this.backgroundColor = Colors.transparent,
-    this.action,
-  });
+    List<BaseAction>? actions,
+  }) : actions = actions ?? [];
 
   void onClick() {
-    action?.execute();
+    for (var action in actions) {
+      action.execute();
+    }
   }
 
   Future<void> pickImage() async {
@@ -26,21 +28,21 @@ class ActionButtonInfo {
     }
   }
 
-  bool get isHaveAction => action != null;
+  bool get hasActions => actions.isNotEmpty;
 
   Json toJson() {
     return {
       'name': name,
       'image_path': imagePath,
       'background_color': ColorHelper.getHexString(backgroundColor),
-      'action': action?.toJson(),
+      'actions': actions.map((action) => action.toJson()).toList(),
     };
   }
 
   ActionButtonInfo copy() {
     return ActionButtonInfo(
       name: name,
-      action: action,
+      actions: List<BaseAction>.from(actions),
       backgroundColor: backgroundColor,
       imagePath: imagePath,
     );
@@ -50,24 +52,32 @@ class ActionButtonInfo {
     name = '';
     imagePath = '';
     backgroundColor = Colors.transparent;
-    action?.clear();
+    actions.clear();
   }
 
   void delete() {
     clear();
-    action = null;
   }
 
   factory ActionButtonInfo.fromJson(Json json) {
     final backgroundColor = json['background_color'] != null
         ? ColorHelper.hexToColor(json['background_color'])
         : Colors.transparent;
+        
+    List<BaseAction> singleAction =
+        json['action'] != null ? [BaseAction.fromJson(json['action'])] : [];
+
+    List<BaseAction> actionList = json['actions'] != null
+        ? (json['actions'] as List<dynamic>)
+            .map((e) => BaseAction.fromJson(e))
+            .toList()
+        : singleAction;
+
     return ActionButtonInfo(
       name: json['name'],
       imagePath: json['image_path'],
       backgroundColor: backgroundColor,
-      action:
-          json['action'] == null ? null : BaseAction.fromJson(json['action']),
+      actions: actionList,
     );
   }
 }

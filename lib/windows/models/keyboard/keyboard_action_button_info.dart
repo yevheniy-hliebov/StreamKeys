@@ -9,7 +9,7 @@ class KeyboardActionButtonInfo extends ActionButtonInfo {
     super.name,
     super.imagePath,
     super.backgroundColor,
-    super.action,
+    super.actions,
   });
 
   @override
@@ -27,7 +27,7 @@ class KeyboardActionButtonInfo extends ActionButtonInfo {
       name: baseInfo.name,
       imagePath: baseInfo.imagePath,
       backgroundColor: baseInfo.backgroundColor,
-      action: baseInfo.action,
+      actions: baseInfo.actions,
     );
   }
 
@@ -36,7 +36,7 @@ class KeyboardActionButtonInfo extends ActionButtonInfo {
     return KeyboardActionButtonInfo(
       keyCode: keyCode,
       name: name,
-      action: action,
+      actions: List<BaseAction>.from(actions),
       backgroundColor: backgroundColor,
       imagePath: imagePath,
     );
@@ -44,7 +44,7 @@ class KeyboardActionButtonInfo extends ActionButtonInfo {
 
   ActionButtonInfo get actionButtonInfo {
     return ActionButtonInfo(
-      action: action,
+      actions: List<BaseAction>.from(actions),
       backgroundColor: backgroundColor,
       imagePath: imagePath,
       name: name,

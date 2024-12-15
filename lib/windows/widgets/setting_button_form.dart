@@ -8,14 +8,15 @@ import 'package:streamkeys/windows/providers/keyboard_deck_provider.dart';
 import 'package:streamkeys/windows/providers/setting_key_button_provider.dart';
 import 'package:streamkeys/windows/providers/touch_deck_provider.dart';
 import 'package:streamkeys/windows/widgets/color_picker_dialog.dart';
+import 'package:streamkeys/windows/widgets/for_loop.dart';
 import 'package:streamkeys/windows/widgets/image_preview.dart';
 import 'package:streamkeys/windows/widgets/picker.dart';
 
-class SettingButton extends StatelessWidget {
+class SettingButtonForm extends StatelessWidget {
   final ActionButtonInfo buttonInfo;
   final String deckType;
 
-  const SettingButton({
+  const SettingButtonForm({
     super.key,
     required this.deckType,
     required this.buttonInfo,
@@ -23,10 +24,6 @@ class SettingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (buttonInfo.action == null) {
-      return const SizedBox();
-    }
-
     return ChangeNotifierProvider(
       create: (context) => SettingButtonProvider(buttonInfo.copy(), deckType),
       child:
@@ -40,7 +37,7 @@ class SettingButton extends StatelessWidget {
                 child: Column(
                   children: [
                     _buildTopBar(context, provider),
-                    divider(context),
+                    const SizedBox(height: 24),
                     Row(
                       children: [
                         _buildImagePickerButton(context, provider),
@@ -50,10 +47,39 @@ class SettingButton extends StatelessWidget {
                         _buildNameField(provider),
                       ],
                     ),
-                    const SizedBox(height: 24),
-                    ...buttonInfo.action!.formFields(context),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 16),
                     _buildRowActions(context, provider),
+                    const SizedBox(height: 34),
+                    const Row(
+                      children: [
+                        Text(
+                          'Actions',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    divider(context),
+                    if (provider.buttonInfo.actions.isEmpty) ...[
+                      _buildMessage(
+                        'Drag an action from right, place it on the button',
+                      ),
+                    ] else
+                      ...For.generateWidgets(
+                        buttonInfo.actions.length,
+                        generator: (index) {
+                          final action = buttonInfo.actions[index];
+                          return [
+                            _buildTitleAction(context, provider, index),
+                            const SizedBox(height: 24),
+                            ...action.formFields(context),
+                            if (index != buttonInfo.actions.length - 1)
+                              divider(context),
+                          ];
+                        },
+                      ),
                   ],
                 ),
               ),
@@ -64,13 +90,22 @@ class SettingButton extends StatelessWidget {
     );
   }
 
+  Widget _buildMessage(String message) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          message,
+          style: const TextStyle(fontSize: 24),
+        ),
+      ],
+    );
+  }
+
   Widget _buildTopBar(BuildContext context, SettingButtonProvider provider) {
-    if (provider.buttonInfo.action == null) {
-      return const SizedBox();
-    }
     return Row(
       children: [
-        _buildTitle(context, provider.buttonInfo.action!.actionType),
+        _buildTitle(context, 'Setting Button'),
         const SizedBox(width: 8),
         IconButton.filled(
           onPressed: () {
@@ -82,10 +117,31 @@ class SettingButton extends StatelessWidget {
           ),
           icon: const Icon(Icons.cancel_outlined),
         ),
+      ],
+    );
+  }
+
+  Widget _buildTitleAction(
+      BuildContext context, SettingButtonProvider provider, int index) {
+    final action = provider.buttonInfo.actions[index];
+    return Row(
+      children: [
+        _buildTitle(context, action.actionType),
         const SizedBox(width: 8),
         IconButton.filled(
           onPressed: () {
-            provider.delete();
+            provider.clearAction(index);
+            updateButtonInfo(context, provider.buttonInfo);
+          },
+          style: FilledButton.styleFrom(
+            backgroundColor: SColors.of(context).surface,
+          ),
+          icon: const Icon(Icons.cancel_outlined),
+        ),
+        const SizedBox(width: 8),
+        IconButton.filled(
+          onPressed: () {
+            provider.deleteAction(index);
             updateButtonInfo(context, provider.buttonInfo);
           },
           style: FilledButton.styleFrom(
@@ -168,7 +224,7 @@ class SettingButton extends StatelessWidget {
     SettingButtonProvider provider,
   ) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         OutlinedButton(
           onPressed: () {

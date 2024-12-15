@@ -37,7 +37,15 @@ class KeyboardButton extends StatelessWidget {
   }
 
   Widget _buildChild(BuildContext context) {
-    if (info == null || !info!.isHaveAction) {
+    if (info != null && info!.imagePath.isNotEmpty) {
+      return SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: Image.file(
+          File(info!.imagePath),
+        ),
+      );
+    } else {
       return Stack(
         children: [
           Positioned(
@@ -83,21 +91,6 @@ class KeyboardButton extends StatelessWidget {
             ),
           ),
         ],
-      );
-    }
-
-    if (info!.imagePath.isEmpty) {
-      return Icon(
-        Icons.edit,
-        color: SColors.of(context).onBackground,
-      );
-    } else {
-      return SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: Image.file(
-          File(info!.imagePath),
-        ),
       );
     }
   }

@@ -52,14 +52,10 @@ class TouchDeckProvider extends ChangeNotifier {
   }
 
   FutureVoid setAction(int index, BaseAction action) async {
-    final buttonInfo = buttonInfos[index];
-    if (!buttonInfo.isHaveAction) {
-      buttonInfo.action = action;
-      buttonInfos[index] = buttonInfo;
+    buttonInfos[index].actions.add(action);
 
-      await _savePageData();
-      notifyListeners();
-    }
+    await _savePageData();
+    notifyListeners();
   }
 
   bool isSelectedTouchButton(int index) {

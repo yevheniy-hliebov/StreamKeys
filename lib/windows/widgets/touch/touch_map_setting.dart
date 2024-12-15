@@ -33,6 +33,11 @@ class TouchMapSetting extends StatelessWidget {
                 height: 0,
               ),
               SettingButtonFrame(
+                key: Key(
+                  provider.selectedButtonInfo == null
+                      ? 'Empty'
+                      : provider.selectedButtonInfoIndex.toString(),
+                ),
                 deckType: 'touch',
                 selectedButtonInfo: provider.selectedButtonInfo,
                 onUpdate: (updatedInfo) {

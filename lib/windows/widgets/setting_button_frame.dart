@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/windows/models/touch/action_touch_button_info.dart';
-import 'package:streamkeys/windows/widgets/setting_button.dart';
+import 'package:streamkeys/windows/widgets/setting_button_form.dart';
 
 class SettingButtonFrame extends StatelessWidget {
   final String deckType;
@@ -20,10 +20,8 @@ class SettingButtonFrame extends StatelessWidget {
       return _buildMessage(
         'Select a button',
       );
-    } else if (selectedButtonInfo?.action == null) {
-      return _buildMessage('Drag an action from right, place it on the button');
     }
-    return SettingButton(
+    return SettingButtonForm(
       deckType: deckType,
       buttonInfo: selectedButtonInfo!,
     );

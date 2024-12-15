@@ -58,6 +58,17 @@ class SettingButtonProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearAction(int index) {
+    buttonInfo.actions[index].clear();
+    notifyListeners();
+  }
+
+  void deleteAction(int index) {
+    buttonInfo.actions.removeAt(index);
+    updateButtonInfo();
+    notifyListeners();
+  }
+
   @override
   void dispose() {
     _mounted = false;
