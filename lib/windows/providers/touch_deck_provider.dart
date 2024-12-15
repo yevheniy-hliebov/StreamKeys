@@ -52,7 +52,7 @@ class TouchDeckProvider extends ChangeNotifier {
   }
 
   FutureVoid setAction(int index, BaseAction action) async {
-    buttonInfos[index].actions.add(action);
+    buttonInfos[index].actions.add(action.copy());
 
     await _savePageData();
     notifyListeners();

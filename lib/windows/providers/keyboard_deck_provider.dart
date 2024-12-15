@@ -127,10 +127,10 @@ class KeyboardDeckProvider extends ChangeNotifier {
     if (buttonInfo == null) {
       buttonInfo = KeyboardActionButtonInfo(
         keyCode: keyCode,
-        actions: [action],
+        actions: [action.copy()],
       );
     } else {
-      buttonInfo.actions.add(action);
+      buttonInfo.actions.add(action.copy());
     }
 
     pageKeyboardData.keyboardActions[keyCode.toString()] = buttonInfo;
