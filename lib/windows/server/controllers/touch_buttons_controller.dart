@@ -72,7 +72,7 @@ class TouchButtonsController extends BaseController {
 
   Future<Response> clickButtonAction(
     Request request,
-    String stringIndex
+    String stringIndex,
   ) async {
     try {
       int index = int.tryParse(stringIndex) ?? -1;
@@ -80,14 +80,19 @@ class TouchButtonsController extends BaseController {
       Json json = await touchDeckService.getData();
       String currentPage = json['current_page'];
       Json buttonInfo = json['map_pages'][currentPage][index];
-      BaseAction action = BaseAction.fromJson(buttonInfo['action']);
+      final actionsJson = buttonInfo['actions'] as List;
 
-      if (kDebugMode) {
-        print(action.actionType);
+      List<BaseAction> actions = actionsJson.map((actionJson) {
+        return BaseAction.fromJson(actionJson);
+      }).toList();
+
+      for (var action in actions) {
+        if (kDebugMode) {
+          print(action.actionType);
+        }
+        await action.execute(data: obsWebSocketService);
       }
-
-      await action.execute(data: obsWebSocketService);
-      return Response.ok('Command successfully runned');
+      return Response.ok('Actions successfully runned');
     } catch (e) {
       return BaseController.handleError(e);
     }

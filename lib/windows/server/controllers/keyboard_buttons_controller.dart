@@ -25,10 +25,20 @@ class KeyboardButtonsController extends BaseController {
       await keyboardService.init();
       Json? json = await keyboardService.getKeyActionInfoJson(keyCode);
 
-      if (json != null && json['action'] != null) {
-        BaseAction action = BaseAction.fromJson(json['action']);
-        await action.execute(data: obsWebSocketService);
-        return Response.ok('Command successfully runned');
+      if (json != null && json['actions'] != null) {
+        final actionsJson = json['actions'] as List;
+
+        List<BaseAction> actions = actionsJson.map((actionJson) {
+          return BaseAction.fromJson(actionJson);
+        }).toList();
+
+        for (var action in actions) {
+          if (kDebugMode) {
+            print(action.actionType);
+          }
+          await action.execute(data: obsWebSocketService);
+        }
+        return Response.ok('Actions successfully runned');
       } else {
         return BaseController.handleError('Error');
       }
