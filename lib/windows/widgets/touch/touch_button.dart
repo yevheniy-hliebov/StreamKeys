@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/theme/colors.dart';
 import 'package:streamkeys/common/widgets/action_button.dart';
-import 'package:streamkeys/windows/models/action_touch_button_info.dart';
+import 'package:streamkeys/windows/models/touch/action_touch_button_info.dart';
 
 class TouchButton extends StatelessWidget {
   final ActionButtonInfo? info;

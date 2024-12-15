@@ -1,4 +1,4 @@
-import 'package:streamkeys/windows/models/action_touch_button_info.dart';
+import 'package:streamkeys/windows/models/touch/action_touch_button_info.dart';
 import 'package:streamkeys/windows/models/base_action.dart';
 
 class KeyboardActionButtonInfo extends ActionButtonInfo {

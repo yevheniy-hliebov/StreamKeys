@@ -1,4 +1,4 @@
-import 'package:streamkeys/windows/models/action_touch_button_info.dart';
+import 'package:streamkeys/windows/models/touch/action_touch_button_info.dart';
 import 'package:streamkeys/windows/models/typedefs.dart';
 
 class PageTouchData {
