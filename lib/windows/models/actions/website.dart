@@ -12,7 +12,7 @@ class Website extends BaseAction {
   }
 
   @override
-  FutureVoid execute() async {
+  FutureVoid execute({dynamic data}) async {
     if (url.isNotEmpty) {
       final Uri uri = Uri.parse(url);
 

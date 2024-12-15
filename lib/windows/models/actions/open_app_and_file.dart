@@ -24,7 +24,7 @@ class OpenAppAndFile extends BaseAction {
   }
 
   @override
-  FutureVoid execute() async {
+  FutureVoid execute({dynamic data}) async {
     try {
       await FileExecutionService.runFile(filePath);
     } on Exception catch (e) {

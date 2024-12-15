@@ -5,10 +5,14 @@ import 'package:flutter/foundation.dart';
 import 'package:shelf/shelf.dart';
 import 'package:streamkeys/windows/models/base_action.dart';
 import 'package:streamkeys/windows/server/controllers/base_controller.dart';
+import 'package:streamkeys/windows/services/obs_websocket_service.dart';
 import 'package:streamkeys/windows/services/touch_deck_service.dart';
 
 class TouchButtonsController extends BaseController {
   final touchDeckService = TouchDeckService();
+  ObsWebSocketService obsWebSocketService;
+
+  TouchButtonsController(this.obsWebSocketService);
 
   Future<Response> getButtons(Request request) async {
     try {
@@ -67,7 +71,9 @@ class TouchButtonsController extends BaseController {
   }
 
   Future<Response> clickButtonAction(
-      Request request, String stringIndex) async {
+    Request request,
+    String stringIndex
+  ) async {
     try {
       int index = int.tryParse(stringIndex) ?? -1;
 
@@ -80,7 +86,7 @@ class TouchButtonsController extends BaseController {
         print(action.actionType);
       }
 
-      await action.execute();
+      await action.execute(data: obsWebSocketService);
       return Response.ok('Command successfully runned');
     } catch (e) {
       return BaseController.handleError(e);

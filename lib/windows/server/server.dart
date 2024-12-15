@@ -5,12 +5,18 @@ import 'package:flutter/foundation.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as io;
 import 'package:streamkeys/windows/server/router.dart';
+import 'package:streamkeys/windows/services/obs_websocket_service.dart';
 
 class Server {
   static int port = 8080;
 
+  static ObsWebSocketService obsWebSocketService = ObsWebSocketService();
+
   static Future<void> start() async {
-    ServerRouter.routerHandler();
+    await obsWebSocketService.getData();
+    await obsWebSocketService.connect();
+    
+    ServerRouter.routerHandler(obsWebSocketService);
 
     var handler = const Pipeline()
         .addMiddleware(logRequests())
