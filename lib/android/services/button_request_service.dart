@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:streamkeys/android/models/action.dart';
 import 'package:streamkeys/android/models/device_info.dart';
+import 'package:streamkeys/android/models/page_data.dart';
 
-class ActionRequestService {
+class ButtonRequestService {
   String host = '192.168.1.2';
   static const int port = 8080;
 
@@ -24,21 +24,21 @@ class ActionRequestService {
     }
   }
 
-  Future<List<ButtonAction>> getActions() async {
+  Future<PageData> getButtons() async {
     final response = await http.get(
-      Uri.parse("$url/actions"),
+      Uri.parse("$url/buttons"),
       headers: {'Content-Type': 'application/json'},
     );
 
     if (response.statusCode == 200) {
       final data = _decodeResponse(response.bodyBytes);
-      return ButtonAction.fromArrayJson(data);
+      return PageData.fromJson(data);
     } else {
       throw Exception(response.body);
     }
   }
 
-  Future<void> clickAction(int id) async {
+  Future<void> clickButton(int id) async {
     final response = await http.get(
       Uri.parse("$url/$id/click"),
       headers: {'Content-Type': 'application/json'},

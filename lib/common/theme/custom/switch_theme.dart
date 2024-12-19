@@ -7,24 +7,24 @@ class SSwitchTheme {
   static SwitchThemeData get light {
     return SwitchThemeData(
       trackOutlineWidth: const WidgetStatePropertyAll(1),
-      trackOutlineColor: const WidgetStatePropertyAll(SColors.border),
+      trackOutlineColor: const WidgetStatePropertyAll(SColors.outlineLight),
       overlayColor: WidgetStatePropertyAll(
-        SColors.overlayColor.withOpacity(0.3),
+        SColors.overlayLight.withOpacity(0.3),
       ),
-      thumbColor: const WidgetStatePropertyAll(SColors.bgInverse50),
-      trackColor: const WidgetStatePropertyAll(SColors.bg),
+      thumbColor: const WidgetStatePropertyAll(SColors.surfaceDark),
+      trackColor: const WidgetStatePropertyAll(SColors.backgroundLight),
     );
   }
 
   static SwitchThemeData get dark {
     return SwitchThemeData(
       trackOutlineWidth: const WidgetStatePropertyAll(1),
-      trackOutlineColor: const WidgetStatePropertyAll(SColors.borderInverse),
+      trackOutlineColor: const WidgetStatePropertyAll(SColors.outlineDark),
       overlayColor: WidgetStatePropertyAll(
-        SColors.overlayColor.withOpacity(0.3),
+        SColors.overlayDark.withOpacity(0.3),
       ),
-      thumbColor: const WidgetStatePropertyAll(SColors.bg50),
-      trackColor: const WidgetStatePropertyAll(SColors.bgInverse),
+      thumbColor: const WidgetStatePropertyAll(SColors.surfaceLight),
+      trackColor: const WidgetStatePropertyAll(SColors.backgroundDark),
     );
   }
 }

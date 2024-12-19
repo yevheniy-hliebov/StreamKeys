@@ -20,7 +20,7 @@ class ColorAndInputFields extends StatelessWidget {
             color: provider.pickerColor,
             borderRadius: BorderRadius.circular(5),
             border: Border.all(
-              color: SColors.border,
+              color: SColors.of(context).outline,
               width: 2,
               strokeAlign: BorderSide.strokeAlignOutside,
             ),

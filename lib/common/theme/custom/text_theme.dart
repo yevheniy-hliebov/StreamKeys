@@ -4,8 +4,8 @@ import 'package:streamkeys/common/theme/colors.dart';
 class STextTheme {
   const STextTheme._();
 
-  static TextTheme get light => getTheme(SColors.text);
-  static TextTheme get dark => getTheme(SColors.textInverse);
+  static TextTheme get light => getTheme(SColors.onBackgroundLight);
+  static TextTheme get dark => getTheme(SColors.onBackgroundDark);
 
   static TextTheme getTheme(Color color) {
     return TextTheme(

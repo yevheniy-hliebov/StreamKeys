@@ -6,11 +6,11 @@ class SAppBarTheme {
 
   static AppBarTheme get light {
     return const AppBarTheme(
-      backgroundColor: SColors.bg,
-      surfaceTintColor: SColors.bg,
+      backgroundColor: SColors.backgroundLight,
+      surfaceTintColor: SColors.backgroundLight,
       titleTextStyle: TextStyle(
         fontSize: 20,
-        color: SColors.text,
+        color: SColors.onBackgroundLight,
       ),
       titleSpacing: 0,
     );
@@ -18,11 +18,11 @@ class SAppBarTheme {
 
   static AppBarTheme get dark {
     return const AppBarTheme(
-      backgroundColor: SColors.bgInverse,
-      surfaceTintColor: SColors.bgInverse,
+      backgroundColor: SColors.backgroundDark,
+      surfaceTintColor: SColors.backgroundDark,
       titleTextStyle: TextStyle(
         fontSize: 20,
-        color: SColors.textInverse,
+        color: SColors.onBackgroundDark,
       ),
       titleSpacing: 0,
     );

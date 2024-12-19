@@ -1,13 +1,17 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
 class JsonReadAndWrite {
   final String fileName;
+  final bool isAsset;
 
   const JsonReadAndWrite({
     required this.fileName,
+    this.isAsset = false,
   });
 
   Future<String> get _localJsonPath async {
@@ -29,24 +33,39 @@ class JsonReadAndWrite {
 
   Future<File> get _localJson async {
     final path = await _localJsonPath;
-
     return File('$path/$fileName');
   }
 
   Future<File> save(String content) async {
+    if (isAsset) {
+      throw UnsupportedError('Cannot save content to an asset file.');
+    }
     final file = await _localJson;
 
-    return file.writeAsString(content);
+    // Форматований JSON
+    String formattedContent = const JsonEncoder.withIndent('  ').convert(
+      jsonDecode(content),
+    );
+
+    // Зберігаємо форматований JSON
+    return file.writeAsString(formattedContent,
+        mode: FileMode.write, flush: true, encoding: utf8);
   }
 
   Future<String> read() async {
     try {
-      final file = await _localJson;
-
-      final content = await file.readAsString();
-
-      return content;
+      if (isAsset) {
+        final content =
+            await rootBundle.loadString('lib/windows/assets/$fileName');
+        return content;
+      } else {
+        final file = await _localJson;
+        return await file.readAsString();
+      }
     } catch (e) {
+      if (kDebugMode) {
+        print('Error reading file: $e');
+      }
       return '';
     }
   }

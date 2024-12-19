@@ -10,13 +10,13 @@ class ChangeThemeMode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeProvider>(builder: (context, provider, child) {
-      final isLightMode = STheme.isLight(context);
+      final isLight = STheme.isLight(context);
       return Transform.scale(
         scale: 0.8,
         child: Switch(
-          thumbIcon: getIcon(isLightMode),
-          value: !isLightMode,
-          onChanged: provider.setModeByBool,
+          thumbIcon: getIcon(isLight),
+          value: !isLight,
+          onChanged: (value) => provider.setModeByBool(value),
         ),
       );
     });
@@ -25,9 +25,9 @@ class ChangeThemeMode extends StatelessWidget {
   WidgetStatePropertyAll<Icon> getIcon(bool isLightMode) {
     if (isLightMode) {
       return const WidgetStatePropertyAll(
-          Icon(Icons.light_mode, color: SColors.iconInverse));
+          Icon(Icons.light_mode, color: SColors.onBackgroundDark));
     }
     return const WidgetStatePropertyAll(
-        Icon(Icons.dark_mode, color: SColors.icon));
+        Icon(Icons.dark_mode, color: SColors.onBackgroundLight));
   }
 }
