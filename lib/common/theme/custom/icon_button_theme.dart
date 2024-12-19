@@ -7,7 +7,7 @@ class SIconButtonTheme {
   static IconButtonThemeData get light {
     return IconButtonThemeData(
       style: IconButton.styleFrom(
-        foregroundColor: SColors.icon,
+        foregroundColor: SColors.onBackgroundLight,
       ),
     );
   }
@@ -15,7 +15,7 @@ class SIconButtonTheme {
   static IconButtonThemeData get dark {
     return IconButtonThemeData(
       style: IconButton.styleFrom(
-        foregroundColor: SColors.iconInverse,
+        foregroundColor: SColors.onBackgroundDark,
       ),
     );
   }

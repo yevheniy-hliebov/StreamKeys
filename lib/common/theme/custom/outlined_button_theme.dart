@@ -9,13 +9,13 @@ class SOutlinedButtonTheme {
       style: OutlinedButton.styleFrom(
         padding: const EdgeInsets.all(16),
         shape: borderRadius,
-        side: _borderSide(SColors.border),
-        overlayColor: SColors.overlayColor,
+        side: _borderSide(SColors.outlineLight),
+        overlayColor: SColors.overlayLight,
         textStyle: const TextStyle(
-          color: SColors.text,
+          color: SColors.onBackgroundLight,
           fontSize: 16,
         ),
-        foregroundColor: SColors.text,
+        foregroundColor: SColors.onBackgroundLight,
       ),
     );
   }
@@ -25,13 +25,13 @@ class SOutlinedButtonTheme {
       style: OutlinedButton.styleFrom(
         padding: const EdgeInsets.all(16),
         shape: borderRadius,
-        side: _borderSide(SColors.borderInverse),
-        overlayColor: SColors.overlayColorInverse,
+        side: _borderSide(SColors.outlineDark),
+        overlayColor: SColors.overlayDark,
         textStyle: const TextStyle(
-          color: SColors.textInverse,
+          color: SColors.onBackgroundDark,
           fontSize: 16,
         ),
-        foregroundColor: SColors.textInverse,
+        foregroundColor: SColors.onBackgroundDark,
       ),
     );
   }

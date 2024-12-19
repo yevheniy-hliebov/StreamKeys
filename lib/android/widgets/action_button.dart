@@ -1,38 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:streamkeys/android/models/action.dart';
-import 'package:streamkeys/android/providers/actions_provider.dart';
+import 'package:streamkeys/android/models/action_button_info.dart';
+import 'package:streamkeys/android/providers/buttons_provider.dart';
 import 'package:streamkeys/common/widgets/action_button.dart';
 
 class ActionButton extends StatelessWidget {
-  final ButtonAction action;
+  final ActionButtonInfo buttonInfo;
+  final int buttonIndex;
   final double buttonSize;
 
   const ActionButton({
     super.key,
-    required this.action,
+    required this.buttonInfo,
+    required this.buttonIndex,
     required this.buttonSize,
   });
 
   @override
   Widget build(BuildContext context) {
-    final actionProvider = Provider.of<ActionsProvider>(context);
+    final actionProvider = Provider.of<ButtonsProvider>(context);
 
     Widget? child;
-    if (action.hasImage && !action.disabled) {
+    if (buttonInfo.hasImage && !buttonInfo.disabled) {
       child = Image.network(
-        actionProvider.getImageUrl(action.id),
+        actionProvider.getImageUrl(buttonIndex),
         fit: BoxFit.cover,
       );
     }
 
     return IgnorePointer(
-      ignoring: action.disabled,
+      ignoring: buttonInfo.disabled,
       child: BaseActionButton(
-        onTap: () => actionProvider.clickAction(action.id),
-        tooltipMessage: action.name,
+        onTap: () => actionProvider.clickButton(buttonIndex),
+        tooltipMessage: buttonInfo.name,
         size: buttonSize,
-        backgroundColor: action.backgroundColor,
+        backgroundColor: buttonInfo.backgroundColor,
         child: child ?? const Icon(Icons.lock),
       ),
     );

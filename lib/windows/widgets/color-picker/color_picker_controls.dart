@@ -16,9 +16,9 @@ class ColorPickerControls extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         const ColorSliders(),
-        const SizedBox(height: 10),
+        const SizedBox(height: 16),
         ColorAndInputFields(provider: provider),
-        const Spacer(),
+        const SizedBox(height: 16),
         const ActionButtons(),
       ],
     );

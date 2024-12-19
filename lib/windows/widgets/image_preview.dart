@@ -1,15 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:streamkeys/windows/models/action.dart';
 
 class ImagePreview extends StatelessWidget {
-  final ButtonAction action;
+  final String imagePath;
 
-  const ImagePreview({super.key, required this.action});
+  const ImagePreview({super.key, required this.imagePath});
 
   @override
   Widget build(BuildContext context) {
-    if (action.imagePath.isNotEmpty) {
-      final imageFile = action.getImageFile();
+    if (imagePath.isNotEmpty) {
+      final imageFile = File(imagePath);
       return Image.file(
         imageFile,
         fit: BoxFit.cover,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:streamkeys/android/providers/actions_provider.dart';
+import 'package:streamkeys/android/providers/buttons_provider.dart';
 
 class DeviceSelectionTile extends StatefulWidget {
-  final ActionsProvider? actionsProvider;
+  final ButtonsProvider? actionsProvider;
 
   const DeviceSelectionTile({super.key, this.actionsProvider});
 

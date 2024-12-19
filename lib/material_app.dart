@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:streamkeys/android/android_home_page.dart';
 import 'package:streamkeys/common/theme/theme.dart';
 import 'package:streamkeys/common/theme/theme_provider.dart';
-import 'package:streamkeys/windows/screens/windows_home_page.dart';
+import 'package:streamkeys/windows/screens/home_page.dart';
 
 class SMaterialApp extends StatefulWidget {
   const SMaterialApp({super.key});
@@ -37,7 +37,7 @@ class _MyAppState extends State<SMaterialApp> {
 
   Widget get _home {
     if (Platform.isWindows) {
-      return const WindowsHomePage();
+      return const HomePage();
     } else {
       return const AndroidHomePage();
     }

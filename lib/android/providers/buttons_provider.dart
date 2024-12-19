@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:streamkeys/android/models/action.dart';
+import 'package:streamkeys/android/models/action_button_info.dart';
+import 'package:streamkeys/android/models/page_data.dart';
 import 'package:streamkeys/android/providers/loading_provider.dart';
-import 'package:streamkeys/android/services/action_request_service.dart';
+import 'package:streamkeys/android/services/button_request_service.dart';
 import 'package:streamkeys/android/services/find_devices.dart';
 import 'package:streamkeys/android/widgets/change_device_dialog.dart';
+import 'package:streamkeys/windows/models/keyboard/grid_template.dart';
 
-class ActionsProvider extends LoadingProvider {
-  ActionRequestService actionRequestService = ActionRequestService();
-  List<ButtonAction> actions = [];
+class ButtonsProvider extends LoadingProvider {
+  ButtonRequestService buttonRequestService = ButtonRequestService();
+  PageData? pageData;
 
-  int get actionsLength => actions.length;
+  List<ActionButtonInfo> get buttons =>
+      pageData == null ? [] : pageData!.actionButtonInfos;
+  int get buttonsLength => buttons.length;
+  GridTemplate get grid =>
+      pageData == null ? GridTemplate(3, 2) : pageData!.grid;
 
-  ActionsProvider(BuildContext context) {
+  ButtonsProvider(BuildContext context) {
     init(context);
   }
 
@@ -25,29 +31,28 @@ class ActionsProvider extends LoadingProvider {
       await showMyDialog(context);
     } else {
       if (hostIp != null && hostIp != '') {
-        actionRequestService.host = hostIp;
+        buttonRequestService.host = hostIp;
       }
-      await getActions();
+      await getButtons();
     }
   }
 
-  Future<void> getActions() async {
+  Future<void> getButtons() async {
     startLoading();
-    try {
-      actions = await actionRequestService.getActions();
-    } catch (e) {
-      actions = [];
+    pageData = await buttonRequestService.getButtons();
+    try {} catch (e) {
+      pageData = null;
     }
     stopLoading();
   }
 
-  Future<void> clickAction(int id) async {
+  Future<void> clickButton(int index) async {
     HapticFeedback.vibrate();
-    await actionRequestService.clickAction(id);
+    await buttonRequestService.clickButton(index);
   }
 
-  String getImageUrl(int id) {
-    return "${actionRequestService.url}/$id/image";
+  String getImageUrl(int index) {
+    return "${buttonRequestService.url}/$index/image";
   }
 
   Future<String> getCurrentConnectedDevice() async {
@@ -55,9 +60,9 @@ class ActionsProvider extends LoadingProvider {
     final hostIp = prefs.getString('hostIp');
 
     if (hostIp != null) {
-      final deviceInfo = await ActionRequestService.getDeviceName(
+      final deviceInfo = await ButtonRequestService.getDeviceName(
         hostIp,
-        ActionRequestService.port,
+        ButtonRequestService.port,
       );
 
       return deviceInfo.nameAndHost;
@@ -81,8 +86,8 @@ class ActionsProvider extends LoadingProvider {
   Future<void> updateHostIp(String hostIp) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('hostIp', hostIp);
-    actionRequestService.host = hostIp;
-    await getActions();
+    buttonRequestService.host = hostIp;
+    await getButtons();
   }
 
   Future<void> showMyDialog(BuildContext context) async {
@@ -90,7 +95,7 @@ class ActionsProvider extends LoadingProvider {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return ChangeDeviceDialog(actionsProvider: this);
+        return ChangeDeviceDialog(buttonsProvider: this);
       },
     );
   }

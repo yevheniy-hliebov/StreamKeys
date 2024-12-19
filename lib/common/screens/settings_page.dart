@@ -1,17 +1,21 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:streamkeys/android/providers/actions_provider.dart';
+import 'package:streamkeys/android/providers/buttons_provider.dart';
 import 'package:streamkeys/android/widgets/device_selection_tile.dart';
 import 'package:streamkeys/common/widgets/change_theme_mode.dart';
+import 'package:streamkeys/windows/providers/server_provider.dart';
+import 'package:streamkeys/windows/widgets/obs_connection_form.dart';
 import 'package:streamkeys/windows/widgets/startup_setting_tile.dart';
 
 class SettingsPage extends StatelessWidget {
-  final ActionsProvider? actionsProvider;
+  final ButtonsProvider? actionsProvider;
+  final ServerProvider? serverProvider;
 
   const SettingsPage({
     super.key,
     this.actionsProvider,
+    this.serverProvider,
   });
 
   @override
@@ -29,15 +33,37 @@ class SettingsPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          buildForOnlyAndroid(
-            DeviceSelectionTile(actionsProvider: actionsProvider),
-          ),
-          _buildThemeTile(),
-          buildForOnlyWindows(
-            const StartupSettingTile(),
+          Container(
+            constraints: BoxConstraints(
+              maxWidth: Platform.isWindows ? 385 : double.infinity,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                buildForOnlyAndroid(
+                  DeviceSelectionTile(actionsProvider: actionsProvider),
+                ),
+                _buildThemeTile(),
+                buildForOnlyWindows(
+                  const StartupSettingTile(),
+                ),
+                buildForOnlyWindows(
+                  Column(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        child: Divider(),
+                      ),
+                      ObsConnectionForm(provider: serverProvider!),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
