@@ -10,7 +10,6 @@ import 'package:streamkeys/windows/models/actions/toolbox/open_app_and_file.dart
 import 'package:streamkeys/windows/models/actions/toolbox/website.dart';
 import 'package:streamkeys/windows/models/typedefs.dart';
 export 'package:streamkeys/windows/models/typedefs.dart';
-export 'package:flutter/material.dart';
 
 abstract class BaseAction {
   final String actionType;

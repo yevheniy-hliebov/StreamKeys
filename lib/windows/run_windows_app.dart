@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/material_app.dart';
-import 'package:streamkeys/windows/server/server.dart';
 import 'package:streamkeys/windows/services/tray_manager_service.dart';
 import 'package:streamkeys/windows/utils/startup_helpers.dart';
 import 'package:window_manager/window_manager.dart';
 
 Future<void> runWindowsApp() async {
-  await Server.start();
-
   final trayManagerService = TrayManagerService();
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();

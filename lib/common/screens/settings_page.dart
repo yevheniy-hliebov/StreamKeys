@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:streamkeys/android/providers/buttons_provider.dart';
 import 'package:streamkeys/android/widgets/device_selection_tile.dart';
 import 'package:streamkeys/common/widgets/change_theme_mode.dart';
-import 'package:streamkeys/windows/providers/obs_connection_provider.dart';
+import 'package:streamkeys/windows/providers/server_provider.dart';
 import 'package:streamkeys/windows/widgets/obs_connection_form.dart';
 import 'package:streamkeys/windows/widgets/startup_setting_tile.dart';
 
 class SettingsPage extends StatelessWidget {
   final ButtonsProvider? actionsProvider;
-  final ObsConnectionProvider? obsConnectionProvider;
+  final ServerProvider? serverProvider;
 
   const SettingsPage({
     super.key,
     this.actionsProvider,
-    this.obsConnectionProvider,
+    this.serverProvider,
   });
 
   @override
@@ -58,7 +58,7 @@ class SettingsPage extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         child: Divider(),
                       ),
-                      ObsConnectionForm(provider: obsConnectionProvider!),
+                      ObsConnectionForm(provider: serverProvider!),
                     ],
                   ),
                 ),

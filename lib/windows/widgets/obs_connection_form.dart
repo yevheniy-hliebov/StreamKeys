@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:streamkeys/windows/providers/obs_connection_provider.dart';
+import 'package:streamkeys/windows/providers/server_provider.dart';
 
 class ObsConnectionForm extends StatelessWidget {
-  final ObsConnectionProvider provider;
+  final ServerProvider provider;
 
   const ObsConnectionForm({
     super.key,
@@ -29,14 +29,14 @@ class ObsConnectionForm extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             TextFormField(
-              controller: provider.urlController,
+              controller: provider.obsWebSocketService.urlController,
               decoration: const InputDecoration(
                 labelText: 'Host',
               ),
             ),
             const SizedBox(height: 16),
             TextFormField(
-              controller: provider.passwordController,
+              controller: provider.obsWebSocketService.passwordController,
               decoration: const InputDecoration(
                 labelText: 'Password',
               ),
@@ -45,7 +45,10 @@ class ObsConnectionForm extends StatelessWidget {
             const SizedBox(height: 16),
             OutlinedButton(
               onPressed: () async {
-                await provider.connect(provider.obsConnectionData);
+                await provider.reconnect();
+                if (context.mounted) {
+                  Navigator.pop(context);
+                }
               },
               child: const Text('Connect'),
             ),

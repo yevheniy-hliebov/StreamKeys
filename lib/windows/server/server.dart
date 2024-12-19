@@ -8,14 +8,9 @@ import 'package:streamkeys/windows/server/router.dart';
 import 'package:streamkeys/windows/services/obs_websocket_service.dart';
 
 class Server {
-  static int port = 8080;
+  int port = 8080;
 
-  static ObsWebSocketService obsWebSocketService = ObsWebSocketService();
-
-  static Future<void> start() async {
-    await obsWebSocketService.getData();
-    await obsWebSocketService.connect();
-    
+  Future<void> start(ObsWebSocketService obsWebSocketService) async {    
     ServerRouter.routerHandler(obsWebSocketService);
 
     var handler = const Pipeline()

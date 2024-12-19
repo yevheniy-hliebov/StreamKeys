@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:streamkeys/common/theme/colors.dart';
 import 'package:streamkeys/common/widgets/settings_button.dart';
 import 'package:streamkeys/windows/providers/browse_provider.dart';
-import 'package:streamkeys/windows/providers/obs_connection_provider.dart';
+import 'package:streamkeys/windows/providers/server_provider.dart';
 import 'package:streamkeys/windows/screens/keyboard_deck.dart';
 import 'package:streamkeys/windows/screens/touch_deck.dart';
-import 'package:streamkeys/windows/widgets/connection_status.dart';
+import 'package:streamkeys/windows/widgets/obs_connection_status.dart';
 import 'package:streamkeys/windows/widgets/device_name_and_ip.dart';
 
 class HomePage extends StatefulWidget {
@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage>
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => BrowseProvider()),
-        ChangeNotifierProvider(create: (context) => ObsConnectionProvider()),
+        ChangeNotifierProvider(create: (context) => ServerProvider()),
       ],
       child: Stack(
         children: [
@@ -62,13 +62,13 @@ class _HomePageState extends State<HomePage>
               return const SizedBox();
             },
           ),
-          Consumer<ObsConnectionProvider>(
+          Consumer<ServerProvider>(
             builder: (context, provider, child) {
               return Positioned(
                 right: 0,
                 bottom: 0,
-                child: ConnectionStatus(
-                  isConnected: provider.isConnected,
+                child: OBSConnectionStatus(
+                  provider: provider,
                 ),
               );
             },
@@ -84,8 +84,8 @@ class _HomePageState extends State<HomePage>
       centerTitle: true,
       title: const DeviceNameAndIp(),
       actions: [
-        Consumer<ObsConnectionProvider>(builder: (context, provider, child) {
-          return SettingsButton(obsConnectionProvider: provider);
+        Consumer<ServerProvider>(builder: (context, provider, child) {
+          return SettingsButton(serverProvider: provider);
         }),
       ],
       backgroundColor: SColors.of(context).surface,
