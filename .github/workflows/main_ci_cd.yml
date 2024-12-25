@@ -1,0 +1,75 @@
+name: CI/CD for Main Branch
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      # Step 1: Checkout the repository code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up JDK 17 for Java development
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      # Step 3: Set up Flutter environment
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.24.4"
+
+      # Step 4: Install Flutter dependencies
+      - name: Install dependencies
+        run: flutter pub get
+
+      # Step 5: Analyze the code for issues
+      - name: Analyze code
+        run: flutter analyze
+
+      # Step 6: Build the Android app (release version)
+      - name: Build the Android app
+        run: flutter build apk --release
+
+      # Step 7: Copy the generated Android APK to a new location
+      - name: Copy Android APK
+        run: |
+          mkdir -p build/release
+          copy "build\app\outputs\flutter-apk\app-release.apk" "build\release\StreamKeys-Android.apk"
+
+      # Step 8: Upload the generated Android APK as an artifact
+      - name: Upload Android APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: StreamKeys-Android.apk
+          path: build/release/StreamKeys-Android.apk
+
+      # Step 9: Build the Windows app (release version)
+      - name: Build Windows app
+        run: flutter build windows --release
+
+      # Step 10: Archive the Windows build
+      - name: Archive Windows Build
+        run: |
+          powershell Compress-Archive -Path "build\windows\x64\runner\Release\*" -DestinationPath "build\release\StreamKeys-Windows.zip"
+
+      # Step 11: Upload the Windows build as an artifact
+      - name: Upload Windows Build
+        uses: actions/upload-artifact@v4
+        with:
+          name: StreamKeys-Windows.zip
+          path: build/release/StreamKeys-Windows.zip
