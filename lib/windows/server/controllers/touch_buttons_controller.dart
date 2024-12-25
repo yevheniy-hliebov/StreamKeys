@@ -29,7 +29,6 @@ class TouchButtonsController extends BaseController {
               'name': buttonJson['name'],
               'background_color': buttonJson['background_color'],
               'has_image': buttonJson['image_path'] != '',
-              'disabled': buttonJson['action'] == null,
             };
           },
         ).toList(),

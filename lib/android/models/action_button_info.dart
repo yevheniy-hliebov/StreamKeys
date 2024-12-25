@@ -6,13 +6,11 @@ class ActionButtonInfo {
   final String name;
   final Color backgroundColor;
   final bool hasImage;
-  final bool disabled;
 
   const ActionButtonInfo({
     required this.name,
     required this.backgroundColor,
     required this.hasImage,
-    required this.disabled,
   });
 
   static ActionButtonInfo fromJson(Json json) {
@@ -20,7 +18,6 @@ class ActionButtonInfo {
       name: json['name'] ?? '',
       backgroundColor: ColorHelper.hexToColor(json['background_color']),
       hasImage: json['has_image'],
-      disabled: json['disabled'],
     );
   }
 }

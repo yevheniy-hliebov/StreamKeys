@@ -21,22 +21,19 @@ class ActionButton extends StatelessWidget {
     final actionProvider = Provider.of<ButtonsProvider>(context);
 
     Widget? child;
-    if (buttonInfo.hasImage && !buttonInfo.disabled) {
+    if (buttonInfo.hasImage) {
       child = Image.network(
         actionProvider.getImageUrl(buttonIndex),
         fit: BoxFit.cover,
       );
     }
 
-    return IgnorePointer(
-      ignoring: buttonInfo.disabled,
-      child: BaseActionButton(
-        onTap: () => actionProvider.clickButton(buttonIndex),
-        tooltipMessage: buttonInfo.name,
-        size: buttonSize,
-        backgroundColor: buttonInfo.backgroundColor,
-        child: child ?? const Icon(Icons.lock),
-      ),
+    return BaseActionButton(
+      onTap: () => actionProvider.clickButton(buttonIndex),
+      tooltipMessage: buttonInfo.name,
+      size: buttonSize,
+      backgroundColor: buttonInfo.backgroundColor,
+      child: child ?? const Icon(Icons.lock),
     );
   }
 }
