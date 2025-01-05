@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:streamkeys/windows/models/keyboard/keyboard_device.dart';
 import 'package:streamkeys/windows/models/keyboard/keyboard_map.dart';
 import 'package:streamkeys/windows/models/typedefs.dart';
+import 'package:streamkeys/windows/server/server.dart';
 import 'package:streamkeys/windows/services/file_picker_service.dart';
 import 'package:streamkeys/windows/services/keyboard_deck_service.dart';
 import 'package:xml/xml.dart';
@@ -130,7 +131,7 @@ const buttonCode = process.argv[2]; // Отримуємо параметр butto
 
 const options = {
   hostname: 'localhost',
-  port: 8080,
+  port: ${Server.port},
   path: `/keyboard/\${buttonCode}/click`,
   method: 'GET'
 };
