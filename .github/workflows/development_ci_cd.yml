@@ -20,72 +20,63 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Cache JDK 17
-      - name: Cache JDK 17
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/actions/setup-java
-          key: ${{ runner.os }}-jdk-17-${{ hashFiles('**/*.java') }}
-          restore-keys: |
-            ${{ runner.os }}-jdk-17-
-
       # Step 2: Set up JDK 17 for Java development
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           distribution: "temurin"
           java-version: "17"
+          cache: "gradle"
+        id: java
 
-      # Step 3: Cache Flutter SDK
-      - name: Cache Flutter SDK
-        uses: actions/cache@v3
+      # Step 3: Cache Flutter dependencies
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v1
         with:
-          path: ~/.pub-cache
-          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-flutter-
+          path: /opt/hostedtoolcache/flutter
+          key: ${{ runner.OS }}-flutter-install-cache-${{ env.flutter_version }}
 
-      # Step 3: Set up Flutter environment
+      # Step 4: Set up Flutter environment
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.27.1"
 
-      # Step 4: Install Flutter dependencies
+      # Step 5: Install Flutter dependencies
       - name: Install dependencies
         run: flutter pub get
 
-      # Step 5: Analyze the code for issues
+      # Step 6: Analyze the code for issues
       - name: Analyze code
         run: flutter analyze
 
-      # Step 6: Build the Android app (debug version)
+      # Step 7: Build the Android app (debug version)
       - name: Build the Android app
         run: flutter build apk --debug
 
-      # Step 7: Copy the generated Android APK to a new location
+      # Step 8: Copy the generated Android APK to a new location
       - name: Copy Android APK
         run: |
           mkdir -p build/debug
           copy "build\app\outputs\flutter-apk\app-debug.apk" "build\debug\StreamKeys-Android-Debug.apk"
 
-      # Step 8: Upload the generated Android APK as an artifact
+      # Step 9: Upload the generated Android APK as an artifact
       - name: Upload Android APK
         uses: actions/upload-artifact@v4
         with:
           name: StreamKeys-Android-Debug.apk
           path: build/debug/StreamKeys-Android-Debug.apk
 
-      # Step 9: Build the Windows app (debug version)
+      # Step 10: Build the Windows app (debug version)
       - name: Build Windows app
         run: flutter build windows --debug
 
-      # Step 10: Archive the Windows build
+      # Step 11: Archive the Windows build
       - name: Archive Windows Build
         run: |
           powershell Compress-Archive -Path "build\windows\x64\runner\Debug\*" -DestinationPath "build\debug\StreamKeys-Windows-Debug.zip"
 
-      # Step 11: Upload the Windows build as an artifact
+      # Step 12: Upload the Windows build as an artifact
       - name: Upload Windows Build
         uses: actions/upload-artifact@v4
         with:
