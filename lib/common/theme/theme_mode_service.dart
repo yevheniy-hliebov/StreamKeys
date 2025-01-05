@@ -14,7 +14,6 @@ class ThemeModeService {
         await prefs.setString(_themeModeKey, 'dark');
         break;
       case ThemeMode.system:
-      default:
         await prefs.setString(_themeModeKey, 'system');
         break;
     }

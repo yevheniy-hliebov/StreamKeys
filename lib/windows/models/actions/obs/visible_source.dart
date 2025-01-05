@@ -24,10 +24,10 @@ class VisibleSource extends BaseAction {
       final sceneItemList = await service.obs?.sceneItems.getSceneItemList(
         sceneName,
       );
-      
+
       int? itemId;
       String? groupName;
-      
+
       if (sceneItemList != null) {
         for (var sceneItem in sceneItemList) {
           if (sceneItem.sourceName == sourceName) {

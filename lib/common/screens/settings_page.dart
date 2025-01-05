@@ -55,7 +55,8 @@ class SettingsPage extends StatelessWidget {
                   Column(
                     children: [
                       const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         child: Divider(),
                       ),
                       ObsConnectionForm(provider: serverProvider!),

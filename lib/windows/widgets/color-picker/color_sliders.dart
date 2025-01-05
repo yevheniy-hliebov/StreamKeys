@@ -12,7 +12,7 @@ class ColorSliders extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.15),
+        color: const Color.fromARGB(255, 0, 0, 0).withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(5),
       ),
       child: Column(
