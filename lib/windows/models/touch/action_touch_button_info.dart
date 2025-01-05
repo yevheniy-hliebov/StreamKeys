@@ -64,7 +64,7 @@ class ActionButtonInfo {
     final backgroundColor = json['background_color'] != null
         ? ColorHelper.hexToColor(json['background_color'])
         : Colors.transparent;
-        
+
     List<BaseAction> singleAction =
         json['action'] != null ? [BaseAction.fromJson(json['action'])] : [];
 

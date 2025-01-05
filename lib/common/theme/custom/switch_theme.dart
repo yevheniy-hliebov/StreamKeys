@@ -9,7 +9,7 @@ class SSwitchTheme {
       trackOutlineWidth: const WidgetStatePropertyAll(1),
       trackOutlineColor: const WidgetStatePropertyAll(SColors.outlineLight),
       overlayColor: WidgetStatePropertyAll(
-        SColors.overlayLight.withOpacity(0.3),
+        SColors.overlayLight.withValues(alpha: 0.3),
       ),
       thumbColor: const WidgetStatePropertyAll(SColors.surfaceDark),
       trackColor: const WidgetStatePropertyAll(SColors.backgroundLight),
@@ -21,7 +21,7 @@ class SSwitchTheme {
       trackOutlineWidth: const WidgetStatePropertyAll(1),
       trackOutlineColor: const WidgetStatePropertyAll(SColors.outlineDark),
       overlayColor: WidgetStatePropertyAll(
-        SColors.overlayDark.withOpacity(0.3),
+        SColors.overlayDark.withValues(alpha: 0.3),
       ),
       thumbColor: const WidgetStatePropertyAll(SColors.surfaceLight),
       trackColor: const WidgetStatePropertyAll(SColors.backgroundDark),

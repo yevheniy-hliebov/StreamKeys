@@ -17,7 +17,8 @@ class UnmuteSource extends BaseAction {
   FutureVoid execute({dynamic data}) async {
     if (sourceName.isNotEmpty) {
       final service = data as ObsWebSocketService;
-      await service.obs?.inputs.setInputMute(inputName: sourceName, inputMuted: inputMuted);
+      await service.obs?.inputs
+          .setInputMute(inputName: sourceName, inputMuted: inputMuted);
     }
   }
 

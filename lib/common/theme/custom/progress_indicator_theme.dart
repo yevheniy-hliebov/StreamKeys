@@ -9,7 +9,7 @@ class SProgressIndicatorTheme {
       color: SColors.primary,
       circularTrackColor: Colors.transparent,
       refreshBackgroundColor: SColors.surfaceLight,
-      linearTrackColor: SColors.primary.withOpacity(0.2),
+      linearTrackColor: SColors.primary.withValues(alpha: 0.2),
       linearMinHeight: 4,
     );
   }
@@ -19,7 +19,7 @@ class SProgressIndicatorTheme {
       color: SColors.onBackgroundDark,
       circularTrackColor: Colors.transparent,
       refreshBackgroundColor: SColors.surfaceDark,
-      linearTrackColor: SColors.primary.withOpacity(0.2),
+      linearTrackColor: SColors.primary.withValues(alpha: 0.2),
       linearMinHeight: 4,
     );
   }

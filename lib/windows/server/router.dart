@@ -12,7 +12,8 @@ class ServerRouter {
 
   static void routerHandler(ObsWebSocketService obsWebSocketService) {
     final touchButtonsController = TouchButtonsController(obsWebSocketService);
-    final keyboardButtonsController = KeyboardButtonsController(obsWebSocketService);
+    final keyboardButtonsController =
+        KeyboardButtonsController(obsWebSocketService);
 
     _router.get('/device-name', ServerController.getDeviceName);
 
