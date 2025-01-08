@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:streamkeys/windows/models/keyboard/keyboard_device.dart';
 import 'package:streamkeys/windows/models/keyboard/keyboard_map.dart';
 import 'package:streamkeys/windows/models/typedefs.dart';
+import 'package:streamkeys/windows/server/server.dart';
 import 'package:streamkeys/windows/services/file_picker_service.dart';
 import 'package:streamkeys/windows/services/keyboard_deck_service.dart';
 import 'package:xml/xml.dart';
@@ -123,14 +124,15 @@ objShell.Run "node _action.cjs $buttonCode", 0
     }
 
     final cjsFile = File('${directory.path}\\_action.cjs');
+    final host = await Server.getHost();
     await cjsFile.writeAsString('''
 const http = require('http');
 
-const buttonCode = process.argv[2]; // Отримуємо параметр buttonCode з аргументів командного рядка
+const buttonCode = process.argv[2];
 
 const options = {
-  hostname: 'localhost',
-  port: 8080,
+  hostname: '$host',
+  port: ${Server.port},
   path: `/keyboard/\${buttonCode}/click`,
   method: 'GET'
 };
