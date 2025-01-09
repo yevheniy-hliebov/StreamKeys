@@ -22,8 +22,12 @@ class ActionButton extends StatelessWidget {
 
     Widget? child;
     if (buttonInfo.hasImage) {
+      final imageUrl = actionProvider.getImageUrl(buttonIndex);
+      final timestamp = DateTime.now().millisecondsSinceEpoch;
+      final cacheBusterUrl = '$imageUrl?timestamp=$timestamp';
+
       child = Image.network(
-        actionProvider.getImageUrl(buttonIndex),
+        cacheBusterUrl,
         fit: BoxFit.cover,
       );
     }
