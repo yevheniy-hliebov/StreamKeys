@@ -33,24 +33,21 @@ class SettingsPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            constraints: BoxConstraints(
-              maxWidth: Platform.isWindows ? 385 : double.infinity,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                buildForOnlyAndroid(
-                  DeviceSelectionTile(actionsProvider: actionsProvider),
-                ),
-                _buildThemeTile(),
-                buildForOnlyWindows(
-                  const StartupSettingTile(),
-                ),
+      body: Center(
+        child: Container(
+          constraints: BoxConstraints(
+            maxWidth: Platform.isWindows ? 385 : double.maxFinite,
+          ),
+          child: ListView(
+            children: [
+              buildForOnlyAndroid(
+                DeviceSelectionTile(actionsProvider: actionsProvider),
+              ),
+              _buildThemeTile(),
+              buildForOnlyWindows(
+                const StartupSettingTile(),
+              ),
+              if (serverProvider != null) ...[
                 buildForOnlyWindows(
                   Column(
                     children: [
@@ -64,9 +61,9 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
