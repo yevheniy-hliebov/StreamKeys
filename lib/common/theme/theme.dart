@@ -34,6 +34,9 @@ class STheme {
       listTileTheme: SListTileTheme.light,
       expansionTileTheme: SExpansionTileTheme.light,
       tabBarTheme: STabTheme.light,
+      dialogTheme: const DialogTheme(
+        backgroundColor: SColors.backgroundLight,
+      ),
     );
   }
 
@@ -57,6 +60,9 @@ class STheme {
       listTileTheme: SListTileTheme.dark,
       expansionTileTheme: SExpansionTileTheme.dark,
       tabBarTheme: STabTheme.dark,
+      dialogTheme: const DialogTheme(
+        backgroundColor: SColors.backgroundDark,
+      ),
     );
   }
 
