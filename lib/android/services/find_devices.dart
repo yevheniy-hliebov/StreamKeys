@@ -2,9 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:network_discovery/network_discovery.dart';
 import 'package:streamkeys/android/models/device_info.dart';
 import 'package:streamkeys/android/services/button_request_service.dart';
+import 'package:streamkeys/windows/server/server.dart';
 
 Future<List<DeviceInfo>> findDevices() async {
-  const port = 8080;
+  const port = Server.port;
   int found = 0;
   List<DeviceInfo> devices = [];
 

@@ -8,7 +8,7 @@ import 'package:streamkeys/windows/server/router.dart';
 import 'package:streamkeys/windows/services/obs_websocket_service.dart';
 
 class Server {
-  int port = 8080;
+  static const port = 45295;
 
   Future<void> start(ObsWebSocketService obsWebSocketService) async {
     ServerRouter.routerHandler(obsWebSocketService);
@@ -27,7 +27,7 @@ class Server {
     for (var interface in await NetworkInterface.list()) {
       for (var addr in interface.addresses) {
         if (addr.type == InternetAddressType.IPv4 &&
-            addr.address.contains('192.168.')) {
+            addr.address.contains('192.168.1.')) {
           return addr.address;
         }
       }

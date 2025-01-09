@@ -4,10 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:streamkeys/android/models/device_info.dart';
 import 'package:streamkeys/android/models/page_data.dart';
+import 'package:streamkeys/windows/server/server.dart';
 
 class ButtonRequestService {
   String host = '192.168.1.2';
-  static const int port = 8080;
+  static const port = Server.port;
 
   String get url => "http://$host:$port";
 
