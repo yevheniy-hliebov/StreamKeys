@@ -196,6 +196,7 @@ class SettingButtonForm extends StatelessWidget {
     SettingButtonProvider provider,
   ) {
     return Picker(
+      toolTipMessage: 'Background Color',
       onTap: () => showColorPickerDialog(
         context,
         prevColor: provider.buttonInfo.backgroundColor,
@@ -203,7 +204,7 @@ class SettingButtonForm extends StatelessWidget {
           provider.changeColor(selectedColor);
         },
       ),
-      child: const Icon(Icons.palette),
+      iconData: Icons.palette,
     );
   }
 

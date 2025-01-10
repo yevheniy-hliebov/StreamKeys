@@ -6,6 +6,7 @@ class Picker extends StatelessWidget {
   final void Function()? onTap;
   final double size;
   final Color? backgroundColor;
+  final IconData? iconData;
   final Widget? child;
 
   const Picker({
@@ -14,6 +15,7 @@ class Picker extends StatelessWidget {
     this.onTap,
     this.size = 48,
     this.backgroundColor,
+    this.iconData,
     this.child,
   });
 
@@ -25,7 +27,8 @@ class Picker extends StatelessWidget {
         onPressed: onTap,
         style: ButtonStyle(
           backgroundColor: WidgetStatePropertyAll(
-              backgroundColor ?? SColors.of(context).surface),
+            backgroundColor ?? SColors.of(context).surface,
+          ),
           padding: const WidgetStatePropertyAll(
             EdgeInsets.all(0),
           ),
@@ -34,9 +37,16 @@ class Picker extends StatelessWidget {
           ),
         ),
         child: Container(
-          child: child ?? const Icon(Icons.drive_folder_upload_outlined),
+          child: child ?? icon(context),
         ),
       ),
+    );
+  }
+
+  Widget icon(BuildContext context) {
+    return Icon(
+      iconData ?? Icons.drive_folder_upload_outlined,
+      color: SColors.of(context).onSurface,
     );
   }
 }
