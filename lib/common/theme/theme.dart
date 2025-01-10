@@ -37,6 +37,9 @@ class STheme {
       iconTheme: const IconThemeData(
         color: SColors.onSurfaceLight,
       ),
+      dialogTheme: const DialogTheme(
+        backgroundColor: SColors.backgroundLight,
+      ),
     );
   }
 
@@ -62,6 +65,9 @@ class STheme {
       tabBarTheme: STabTheme.dark,
       iconTheme: const IconThemeData(
         color: SColors.onSurfaceDark,
+      ),
+      dialogTheme: const DialogTheme(
+        backgroundColor: SColors.backgroundDark,
       ),
     );
   }
