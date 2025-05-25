@@ -39,5 +39,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets:
-    - lib/windows/assets/keyboard_map.json
+  # assets:
+  #   - lib/windows/assets/keyboard_map.json
