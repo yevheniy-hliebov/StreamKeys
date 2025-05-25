@@ -32,6 +32,10 @@ class ServerProvider extends ChangeNotifier {
     isConnecting = true;
     notifyListeners();
 
+    if (_obsWebSocketService.isConnected == true) {
+      await _obsWebSocketService.disconnect();
+    }
+
     await _obsWebSocketService.connect();
 
     isConnecting = false;
