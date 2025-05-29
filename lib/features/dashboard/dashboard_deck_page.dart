@@ -28,7 +28,7 @@ class DashboardPage extends StatelessWidget {
               text: 'Keyboard Deck',
               onPressed: () => navigateToPage(
                 context,
-                page: const KeyBoardDeckPage(),
+                page: const KeyboardDeckPage(),
               ),
             ),
           ],
