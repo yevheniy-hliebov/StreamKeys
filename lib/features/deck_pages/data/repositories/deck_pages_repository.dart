@@ -30,7 +30,7 @@ class DeckPagesRepository {
 
     return DeckPagesData(
       currentPage: json['current_page'] ?? '',
-      orderPages: json['order_pages'] ?? [],
+      orderPages: json['order_pages']?.cast<String>() ?? [],
     );
   }
 
