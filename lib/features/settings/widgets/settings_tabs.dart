@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/constants/colors.dart';
 import 'package:streamkeys/features/settings/widgets/general_settings_tab_view.dart';
+import 'package:streamkeys/features/settings/widgets/obs_tab_view.dart';
 
 class SettingsTabs extends StatelessWidget {
   const SettingsTabs({super.key});
@@ -23,7 +24,7 @@ class SettingsTabs extends StatelessWidget {
           child: TabBarView(
             children: [
               Center(child: GeneralSettingsTabView()),
-              Center(child: Text('OBS Connection')),
+              Center(child: ObsTabView()),
               Center(child: Text('Twitch')),
             ],
           ),

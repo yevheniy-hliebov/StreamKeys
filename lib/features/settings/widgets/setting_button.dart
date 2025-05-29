@@ -9,7 +9,6 @@ class SettingButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () => navigateToPage(
-        context,
         page: const SettingPage(),
       ),
       icon: const Icon(Icons.settings),

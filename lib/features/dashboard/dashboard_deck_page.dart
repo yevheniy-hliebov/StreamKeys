@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:streamkeys/features/dashboard/presentation/widgets/deck_button.dart';
+import 'package:streamkeys/features/dashboard/widgets/deck_button.dart';
 import 'package:streamkeys/features/keyboards_deck/keyboard_deck_page.dart';
 import 'package:streamkeys/features/settings/widgets/setting_button.dart';
 import 'package:streamkeys/utils/navigate_to_page.dart';
@@ -27,7 +27,6 @@ class DashboardPage extends StatelessWidget {
             DeckButton(
               text: 'Keyboard Deck',
               onPressed: () => navigateToPage(
-                context,
                 page: const KeyboardDeckPage(),
               ),
             ),
