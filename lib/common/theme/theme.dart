@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/constants/colors.dart';
+import 'package:streamkeys/common/theme/custom/filled_button_theme.dart';
 import 'package:streamkeys/common/theme/custom/index.dart';
 
 
@@ -19,6 +20,7 @@ class STheme {
       appBarTheme: SAppBarTheme.light,
       textTheme: STextTheme.light,
       outlinedButtonTheme: SOutlinedButtonTheme.light,
+      filledButtonTheme: SFilledButtonTheme.light,
       iconButtonTheme: SIconButtonTheme.light,
       inputDecorationTheme: SInputDecorationTheme.light,
       progressIndicatorTheme: SProgressIndicatorTheme.light,
@@ -48,6 +50,7 @@ class STheme {
       appBarTheme: SAppBarTheme.dark,
       textTheme: STextTheme.dark,
       outlinedButtonTheme: SOutlinedButtonTheme.dark,
+      filledButtonTheme: SFilledButtonTheme.dark,
       iconButtonTheme: SIconButtonTheme.dark,
       inputDecorationTheme: SInputDecorationTheme.dark,
       progressIndicatorTheme: SProgressIndicatorTheme.dark,

@@ -6,32 +6,42 @@ class SOutlinedButtonTheme {
 
   static OutlinedButtonThemeData get light {
     return OutlinedButtonThemeData(
-      style: OutlinedButton.styleFrom(
-        padding: const EdgeInsets.all(16),
-        shape: borderRadius,
-        side: _borderSide(SColors.outlineLight),
-        overlayColor: SColors.overlayLight,
-        textStyle: const TextStyle(
+      style: ButtonStyle(
+        padding: WidgetStateProperty.all(const EdgeInsets.symmetric(horizontal: 24, vertical: 16)),
+        shape: WidgetStateProperty.all(borderRadius),
+        side: WidgetStateProperty.all(_borderSide(SColors.outlineLight)),
+        foregroundColor: WidgetStateProperty.all(SColors.onBackgroundLight),
+        textStyle: WidgetStateProperty.all(const TextStyle(
           color: SColors.onBackgroundLight,
-          fontSize: 16,
-        ),
-        foregroundColor: SColors.onBackgroundLight,
+          fontSize: 18,
+        )),
+        backgroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.hovered)) {
+            return SColors.overlayLight;
+          }
+          return Colors.transparent;
+        }),
       ),
     );
   }
 
   static OutlinedButtonThemeData get dark {
     return OutlinedButtonThemeData(
-      style: OutlinedButton.styleFrom(
-        padding: const EdgeInsets.all(16),
-        shape: borderRadius,
-        side: _borderSide(SColors.outlineDark),
-        overlayColor: SColors.overlayDark,
-        textStyle: const TextStyle(
+      style: ButtonStyle(
+        padding: WidgetStateProperty.all(const EdgeInsets.symmetric(horizontal: 24, vertical: 16)),
+        shape: WidgetStateProperty.all(borderRadius),
+        side: WidgetStateProperty.all(_borderSide(SColors.outlineDark)),
+        foregroundColor: WidgetStateProperty.all(SColors.onBackgroundDark),
+        textStyle: WidgetStateProperty.all(const TextStyle(
           color: SColors.onBackgroundDark,
-          fontSize: 16,
-        ),
-        foregroundColor: SColors.onBackgroundDark,
+          fontSize: 18,
+        )),
+        backgroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.hovered)) {
+            return SColors.overlayDark;
+          }
+          return Colors.transparent;
+        }),
       ),
     );
   }

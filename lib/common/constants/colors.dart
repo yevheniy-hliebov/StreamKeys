@@ -14,6 +14,8 @@ class SColors {
 
   static const Color primary = Color(0xFF5B5EFE);
   static const Color danger = Color(0xFFFE5B5B);
+  static const Color warning = Color(0xFFFED85B);
+  static const Color success = Color(0xFF5BFE76);
 
   static const Color overlayLight = Color(0xFF9E9E9E);
   static const Color overlayDark = Color(0xFF212121);
