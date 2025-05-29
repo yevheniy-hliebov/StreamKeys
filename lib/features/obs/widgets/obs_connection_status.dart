@@ -21,9 +21,6 @@ class ObsConnectionStatus extends StatelessWidget {
       } else if (state is ObsConnectionLoading) {
         connectionStatus = 'Connecting...';
         statusColor = SColors.warning;
-      } else if (state is ObsConnectionError) {
-        connectionStatus = 'Error';
-        statusColor = SColors.danger;
       }
 
       void reconnect() {

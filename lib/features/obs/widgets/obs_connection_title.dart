@@ -11,7 +11,7 @@ class ObsConnectionTitle extends StatelessWidget {
     return BlocBuilder<ObsConnectionBloc, ObsConnectionState>(
       builder: (context, state) {
         String connectionStatus = 'Not connected';
-        Color statusColor = Colors.grey;
+        Color statusColor = SColors.danger;
 
         if (state is ObsConnectionConnected) {
           connectionStatus = 'Connected';
@@ -19,9 +19,6 @@ class ObsConnectionTitle extends StatelessWidget {
         } else if (state is ObsConnectionLoading) {
           connectionStatus = 'Connecting...';
           statusColor = SColors.warning;
-        } else if (state is ObsConnectionError) {
-          connectionStatus = 'Error';
-          statusColor = SColors.danger;
         }
 
         return Padding(

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of 'theme_mode_bloc.dart';
 
 sealed class ThemeModeEvent {}
 

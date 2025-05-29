@@ -33,7 +33,7 @@ class JsonHelper {
     }
   }
 
-  FutureVoid save(String content) async {
+  FutureVoid save(Json content) async {
     if (isAsset) {
       throw UnsupportedError('Cannot save to asset file.');
     }
@@ -41,9 +41,8 @@ class JsonHelper {
     final storagePath = await HelperFunctions.getStoragePath();
     final file = File('$storagePath/$filePath');
 
-    final formattedContent = const JsonEncoder.withIndent('  ').convert(
-      jsonDecode(content),
-    );
+    final formattedContent =
+        const JsonEncoder.withIndent('  ').convert(content);
 
     await file.writeAsString(
       formattedContent,

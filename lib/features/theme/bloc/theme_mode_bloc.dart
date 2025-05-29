@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:streamkeys/features/theme/bloc/theme_mode_event.dart';
 import 'package:streamkeys/features/theme/repositories/theme_mode_reporistory.dart';
+
+part 'theme_mode_event.dart';
 
 class ThemeModeBloc extends Bloc<ThemeModeEvent, ThemeMode> {
   late ThemeModeRepository _themeModeRepository;

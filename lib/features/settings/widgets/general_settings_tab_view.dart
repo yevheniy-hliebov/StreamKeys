@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/features/theme/bloc/theme_mode_bloc.dart';
-import 'package:streamkeys/features/theme/bloc/theme_mode_event.dart';
 import 'package:streamkeys/features/theme/widgets/theme_mode_switch.dart';
 
 class GeneralSettingsTabView extends StatelessWidget {
