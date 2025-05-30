@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:streamkeys/common/models/typedefs.dart';
 
-class HidMacrosRepository {
+class HidMacrosHelper {
+  static String folderPath = getAssetPath('lib\\assets\\hid_macros');
   late String exePath;
 
-  HidMacrosRepository() {
-    final assetsPath = getAssetPath('lib\\assets');
-    exePath = '$assetsPath\\hid_macros\\HIDMacros.exe';
+  HidMacrosHelper() {
+    exePath = '$folderPath\\HIDMacros.exe';
   }
 
   Future<bool> isRunning() async {
@@ -88,7 +88,7 @@ class HidMacrosRepository {
     }
   }
 
-  String getAssetPath(String relativePath) {
+  static String getAssetPath(String relativePath) {
     if (!kDebugMode) {
       final exeDir = File(Platform.resolvedExecutable).parent;
       return '${exeDir.path}\\data\\flutter_assets\\$relativePath';

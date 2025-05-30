@@ -7,6 +7,7 @@ import 'package:streamkeys/features/action_library/action_library.dart';
 import 'package:streamkeys/features/deck_pages/bloc/deck_pages_bloc.dart';
 import 'package:streamkeys/features/deck_pages/data/repositories/deck_pages_repository.dart';
 import 'package:streamkeys/features/deck_pages/deck_pages.dart';
+import 'package:streamkeys/features/hid_macros/bloc/hid_macros_bloc.dart';
 import 'package:streamkeys/features/keyboards_deck/widgets/button_actions_setting.dart';
 import 'package:streamkeys/features/keyboards_deck/widgets/keyboard_map.dart';
 import 'package:streamkeys/features/settings/widgets/setting_button.dart';
@@ -50,11 +51,21 @@ class KeyboardDeckPage extends StatelessWidget {
               dividerColor: SColors.of(context).outlineVariant,
               initialHeights: const [500, 300],
               minHeights: const [196, 200],
-              children: const [
-                KeyboardMap(
-                  keyboardType: KeyboardType.full,
+              children: [
+                BlocBuilder<HidMacrosBloc, HidMacrosState>(
+                  builder: (context, state) {
+                    if (state is HidMacrosLoaded) {
+                      return KeyboardMap(
+                        keyboardType: state.selectedKeyboardType,
+                      );
+                    } else if (state is HidMacrosLoading) {
+                      return const Text('Loading...');
+                    } else {
+                      return const SizedBox();
+                    }
+                  },
                 ),
-                ButtonActionsSetting(),
+                const ButtonActionsSetting(),
               ],
             ),
             const ActionLibrary(),

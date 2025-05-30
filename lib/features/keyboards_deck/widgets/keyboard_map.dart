@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/constants/colors.dart';
 import 'package:streamkeys/common/models/typedefs.dart';
+import 'package:streamkeys/features/keyboards_deck/models/keyboard_type.dart';
 import 'package:streamkeys/features/keyboards_deck/widgets/function_block_map.dart';
 import 'package:streamkeys/features/keyboards_deck/widgets/main_block_map.dart';
 import 'package:streamkeys/features/keyboards_deck/widgets/navigation_block_map.dart';
 import 'package:streamkeys/features/keyboards_deck/widgets/numpad_block_map.dart';
 import 'package:streamkeys/features/keyboards_deck/models/keyboard_map.dart';
 import 'package:streamkeys/utils/json_read_and_save.dart';
-
-enum KeyboardType {
-  full,
-  compact,
-  numpad,
-}
 
 class KeyboardMap extends StatefulWidget {
   final KeyboardType keyboardType;
@@ -42,11 +37,11 @@ class _KeyboardMapState extends State<KeyboardMap> {
 
     getKeyMapData();
 
-    controller.addListener(
-      () {
-        print(controller.value);
-      },
-    );
+    // controller.addListener(
+    //   () {
+    //     print(controller.value);
+    //   },
+    // );
   }
 
   FutureVoid getKeyMapData() async {

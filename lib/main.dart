@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/app_with_overlays.dart';
 import 'package:streamkeys/features/dashboard/dashboard_deck_page.dart';
 import 'package:streamkeys/common/theme/theme.dart';
-import 'package:streamkeys/features/hid_macros/data/repositories/hid_macros_repository.dart';
+import 'package:streamkeys/features/hid_macros/bloc/hid_macros_bloc.dart';
 import 'package:streamkeys/features/obs/bloc/obs_connection_bloc.dart';
 import 'package:streamkeys/features/obs/data/repositories/obs_connection_repository.dart';
 import 'package:streamkeys/features/obs/widgets/obs_connection_status.dart';
 import 'package:streamkeys/features/server/server.dart';
 import 'package:streamkeys/features/theme/bloc/theme_mode_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:streamkeys/utils/hid_macros_helper.dart';
 
 void main() async {
   final server = Server();
   await server.init();
   await server.start();
 
-  final repo = HidMacrosRepository();
-  await repo.start();
+  final hidMacrosHelper = HidMacrosHelper();
+  await hidMacrosHelper.start();
 
   runApp(const App());
 }
@@ -32,6 +33,7 @@ class App extends StatelessWidget {
         BlocProvider(
           create: (_) => ObsConnectionBloc(ObsConnectionRepository()),
         ),
+        BlocProvider(create: (_) => HidMacrosBloc()),
       ],
       child: BlocBuilder<ThemeModeBloc, ThemeMode>(
         builder: (context, themeMode) {
