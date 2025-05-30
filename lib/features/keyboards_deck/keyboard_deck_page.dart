@@ -51,7 +51,9 @@ class KeyboardDeckPage extends StatelessWidget {
               initialHeights: const [500, 300],
               minHeights: const [196, 200],
               children: const [
-                KeyboardMap(),
+                KeyboardMap(
+                  keyboardType: KeyboardType.full,
+                ),
                 ButtonActionsSetting(),
               ],
             ),

@@ -21,7 +21,7 @@ class DashboardPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const DeckButton(
-              text: 'Mobile Deck',
+              text: 'Grid Deck',
             ),
             const SizedBox(width: 16),
             DeckButton(

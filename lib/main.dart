@@ -20,9 +20,9 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => ThemeModeBloc()),
-        BlocProvider(create: (_) => ObsConnectionBloc(ObsConnectionRepository())
-            // ..add(const ObsConnectionConnectEvent()),
-            ),
+        BlocProvider(
+          create: (_) => ObsConnectionBloc(ObsConnectionRepository()),
+        ),
       ],
       child: BlocBuilder<ThemeModeBloc, ThemeMode>(
         builder: (context, themeMode) {

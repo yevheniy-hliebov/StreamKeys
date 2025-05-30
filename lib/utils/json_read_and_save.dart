@@ -16,7 +16,7 @@ class JsonHelper {
   Future<Json?> read() async {
     try {
       if (isAsset) {
-        final path = 'lib/windows/assets/$filePath';
+        final path = 'lib/assets/$filePath';
         final content = await rootBundle.loadString(path);
         return jsonDecode(content);
       } else {
