@@ -13,8 +13,11 @@ class MainBlockMap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 920,
+    return Container(
+      width: double.maxFinite,
+      constraints: const BoxConstraints(
+        maxWidth: 920
+      ),
       child: Column(
         children: For.generateWidgets(
           block.length,
