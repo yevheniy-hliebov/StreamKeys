@@ -23,12 +23,19 @@ class DeckPageListTile extends StatelessWidget {
       contentPadding: const EdgeInsets.all(5),
       iconColor: SColors.of(context).onBackground,
       onTap: () => context.read<DeckPagesBloc>().add(DeckPagesSelectEvent(pageName)),
-      leading: ReorderableDragStartListener(
+      trailing: ReorderableDragStartListener(
         index: index,
         child: const Icon(Icons.drag_handle),
       ),
       textColor: SColors.of(context).onBackground,
-      title: isEditing && isCurrent ? _buildTextField(context) : Text(pageName),
+      title: _title(context),
+    );
+  }
+
+  Widget _title(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 8),
+      child: isEditing && isCurrent ? _buildTextField(context) : Text(pageName),
     );
   }
 
