@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/app_with_overlays.dart';
 import 'package:streamkeys/features/dashboard/dashboard_deck_page.dart';
 import 'package:streamkeys/common/theme/theme.dart';
+import 'package:streamkeys/features/hid_macros/data/repositories/hid_macros_repository.dart';
 import 'package:streamkeys/features/obs/bloc/obs_connection_bloc.dart';
 import 'package:streamkeys/features/obs/data/repositories/obs_connection_repository.dart';
 import 'package:streamkeys/features/obs/widgets/obs_connection_status.dart';
@@ -13,6 +14,9 @@ void main() async {
   final server = Server();
   await server.init();
   await server.start();
+
+  final repo = HidMacrosRepository();
+  await repo.start();
 
   runApp(const App());
 }

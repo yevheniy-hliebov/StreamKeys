@@ -4,6 +4,8 @@ import 'package:streamkeys/features/theme/bloc/theme_mode_bloc.dart';
 import 'package:streamkeys/features/theme/widgets/theme_mode_switch.dart';
 
 class GeneralSettingsTabView extends StatelessWidget {
+  static const String tabName = 'General';
+
   const GeneralSettingsTabView({super.key});
 
   @override

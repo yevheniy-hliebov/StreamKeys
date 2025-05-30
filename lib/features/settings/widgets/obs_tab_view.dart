@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:streamkeys/features/obs/widgets/obs_connetion_form.dart';
 
 class ObsTabView extends StatelessWidget {
+  static const String tabName = 'OBS';
+
   const ObsTabView({super.key});
 
   @override
