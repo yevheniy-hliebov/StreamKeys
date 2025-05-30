@@ -1,0 +1,49 @@
+import 'dart:async';
+import 'dart:io';
+import 'package:shelf/shelf.dart';
+import 'package:shelf/shelf_io.dart' as shelf_io;
+import 'package:streamkeys/common/models/typedefs.dart';
+import 'package:streamkeys/features/server/server_router.dart';
+
+class Server {
+  final int port = 13560;
+  late String ip;
+
+  HttpServer? _server;
+
+  Server();
+
+  FutureVoid init() async {
+    ip = await getLocalIPv4();
+  }
+
+  Future<void> start() async {
+    final router = ServerRouter();
+
+    final handler = const Pipeline()
+        .addMiddleware(logRequests())
+        .addHandler(router.routerCall);
+
+    _server = await shelf_io.serve(handler, InternetAddress.anyIPv4, port);
+
+    print('Server started on http://$ip:$port');
+  }
+
+  Future<void> stop() async {
+    await _server?.close(force: true);
+    print('Server stopped');
+  }
+
+  static Future<String> getLocalIPv4() async {
+    for (var interface in await NetworkInterface.list()) {
+      for (var addr in interface.addresses) {
+        if (addr.type == InternetAddressType.IPv4 &&
+            !addr.isLoopback &&
+            !addr.address.startsWith('192.168.56.')) {
+          return addr.address;
+        }
+      }
+    }
+    return '127.0.0.1';
+  }
+}

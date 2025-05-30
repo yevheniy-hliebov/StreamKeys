@@ -5,10 +5,15 @@ import 'package:streamkeys/common/theme/theme.dart';
 import 'package:streamkeys/features/obs/bloc/obs_connection_bloc.dart';
 import 'package:streamkeys/features/obs/data/repositories/obs_connection_repository.dart';
 import 'package:streamkeys/features/obs/widgets/obs_connection_status.dart';
+import 'package:streamkeys/features/server/server.dart';
 import 'package:streamkeys/features/theme/bloc/theme_mode_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void main() async {
+  final server = Server();
+  await server.init();
+  await server.start();
+
   runApp(const App());
 }
 
