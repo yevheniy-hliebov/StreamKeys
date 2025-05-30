@@ -34,7 +34,7 @@ class DeckPagesRepository {
     );
   }
 
-  Future<void> save(DeckPagesData deckPagesData) async {
+  FutureVoid save(DeckPagesData deckPagesData) async {
     Json? json = await jsonHelper.read();
 
     json ??= {};

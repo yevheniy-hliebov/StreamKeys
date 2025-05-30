@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:obs_websocket/obs_websocket.dart';
+import 'package:streamkeys/common/models/typedefs.dart';
 import 'package:streamkeys/features/obs/data/models/obs_connection_data.dart';
 
 class ObsConnectionRepository {
@@ -26,7 +27,7 @@ class ObsConnectionRepository {
     return connectionData;
   }
 
-  Future<void> updateConnectionData(ObsConnectionData newData) async {
+  FutureVoid updateConnectionData(ObsConnectionData newData) async {
     if (connectionData == newData) return;
 
     await _storage.write(key: _ipKey, value: newData.ip);
@@ -43,11 +44,11 @@ class ObsConnectionRepository {
     return value == 'true';
   }
 
-  Future<void> saveAutoReconnect(bool enabled) async {
+  FutureVoid saveAutoReconnect(bool enabled) async {
     await _storage.write(key: _autoReconnectKey, value: enabled ? 'true' : 'false');
   }
 
-  Future<void> connect() async {
+  FutureVoid connect() async {
     if (connectionData == null) {
       throw Exception('Connection data not set');
     }
@@ -82,7 +83,7 @@ class ObsConnectionRepository {
     }
   }
 
-  Future<void> disconnect() async {
+  FutureVoid disconnect() async {
     await _obs?.close();
     _obs = null;
     _isConnected = false;
@@ -92,7 +93,7 @@ class ObsConnectionRepository {
     }
   }
 
-  Future<void> reconnect() async {
+  FutureVoid reconnect() async {
     await disconnect();
     await connect();
   }

@@ -17,7 +17,7 @@ class Server {
     ip = await getLocalIPv4();
   }
 
-  Future<void> start() async {
+  FutureVoid start() async {
     final router = ServerRouter();
 
     final handler = const Pipeline()
@@ -29,7 +29,7 @@ class Server {
     print('Server started on http://$ip:$port');
   }
 
-  Future<void> stop() async {
+  FutureVoid stop() async {
     await _server?.close(force: true);
     print('Server stopped');
   }

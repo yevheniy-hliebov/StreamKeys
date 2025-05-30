@@ -24,7 +24,7 @@ class DeckPagesBloc extends Bloc<DeckPagesEvent, DeckPagesState> {
     add(const DeckPagesInitEvent());
   }
 
-  Future<void> _init(
+  FutureVoid _init(
     DeckPagesInitEvent event,
     Emitter<DeckPagesState> emit,
   ) async {
@@ -33,7 +33,7 @@ class DeckPagesBloc extends Bloc<DeckPagesEvent, DeckPagesState> {
     emit(DeckPagesLoaded(deckPagesData));
   }
 
-  Future<void> _addPage(
+  FutureVoid _addPage(
     DeckPagesAddEvent event,
     Emitter<DeckPagesState> emit,
   ) async {
@@ -54,7 +54,7 @@ class DeckPagesBloc extends Bloc<DeckPagesEvent, DeckPagesState> {
     await _save();
   }
 
-  Future<void> _selectPage(
+  FutureVoid _selectPage(
     DeckPagesSelectEvent event,
     Emitter<DeckPagesState> emit,
   ) async {
@@ -65,14 +65,14 @@ class DeckPagesBloc extends Bloc<DeckPagesEvent, DeckPagesState> {
     await _save();
   }
 
-  Future<void> _startRenamePage(
+  FutureVoid _startRenamePage(
     DeckPagesStartRenameEvent event,
     Emitter<DeckPagesState> emit,
   ) async {
     emit(DeckPagesEditingName(deckPagesData));
   }
 
-  Future<void> _renamePage(
+  FutureVoid _renamePage(
     DeckPagesRenamedEvent event,
     Emitter<DeckPagesState> emit,
   ) async {
@@ -85,14 +85,14 @@ class DeckPagesBloc extends Bloc<DeckPagesEvent, DeckPagesState> {
     await _save();
   }
 
-  Future<void> _disableRenamePage(
+  FutureVoid _disableRenamePage(
     DeckPagesDisableRenameEvent event,
     Emitter<DeckPagesState> emit,
   ) async {
     emit(DeckPagesLoaded(deckPagesData));
   }
 
-  Future<void> _deletePage(
+  FutureVoid _deletePage(
     DeckPagesDeleteEvent event,
     Emitter<DeckPagesState> emit,
   ) async {
@@ -110,7 +110,7 @@ class DeckPagesBloc extends Bloc<DeckPagesEvent, DeckPagesState> {
     await _save();
   }
 
-  Future<void> _reorderList(
+  FutureVoid _reorderList(
     DeckPagesReorderEvent event,
     Emitter<DeckPagesState> emit,
   ) async {

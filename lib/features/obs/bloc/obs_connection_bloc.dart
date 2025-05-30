@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:streamkeys/common/models/typedefs.dart';
 import 'package:streamkeys/features/obs/data/models/obs_connection_data.dart';
 import 'package:streamkeys/features/obs/data/repositories/obs_connection_repository.dart';
 
@@ -24,14 +25,14 @@ class ObsConnectionBloc extends Bloc<ObsConnectionEvent, ObsConnectionState> {
     add(const ObsConnectionConnectEvent());
   }
 
-  Future<void> _initAutoReconnect() async {
+  FutureVoid _initAutoReconnect() async {
     autoReconnect = await _repository.loadAutoReconnect();
     if (autoReconnect) {
       _startAutoReconnectTimer();
     }
   }
 
-  Future<void> _onConnect(
+  FutureVoid _onConnect(
     ObsConnectionConnectEvent event,
     Emitter<ObsConnectionState> emit,
   ) async {
@@ -51,7 +52,7 @@ class ObsConnectionBloc extends Bloc<ObsConnectionEvent, ObsConnectionState> {
     }
   }
 
-  Future<void> _onDisconnect(Emitter<ObsConnectionState> emit) async {
+  FutureVoid _onDisconnect(Emitter<ObsConnectionState> emit) async {
     emit(ObsConnectionLoading(data, autoReconnect));
     try {
       await _repository.disconnect();
@@ -61,7 +62,7 @@ class ObsConnectionBloc extends Bloc<ObsConnectionEvent, ObsConnectionState> {
     }
   }
 
-  Future<void> _onReconnect(
+  FutureVoid _onReconnect(
     ObsConnectionReconnectEvent event,
     Emitter<ObsConnectionState> emit,
   ) async {
@@ -80,7 +81,7 @@ class ObsConnectionBloc extends Bloc<ObsConnectionEvent, ObsConnectionState> {
     }
   }
 
-  Future<void> _onToggleAutoReconnect(
+  FutureVoid _onToggleAutoReconnect(
     ObsConnectionToggleAutoReconnectEvent event,
     Emitter<ObsConnectionState> emit,
   ) async {
@@ -114,7 +115,7 @@ class ObsConnectionBloc extends Bloc<ObsConnectionEvent, ObsConnectionState> {
   }
 
   @override
-  Future<void> close() {
+  FutureVoid close() {
     _stopAutoReconnectTimer();
     return super.close();
   }

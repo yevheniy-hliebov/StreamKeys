@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:streamkeys/common/models/typedefs.dart';
 import 'package:streamkeys/features/theme/repositories/theme_mode_reporistory.dart';
 
 part 'theme_mode_event.dart';
@@ -16,7 +17,7 @@ class ThemeModeBloc extends Bloc<ThemeModeEvent, ThemeMode> {
     on<ThemeModeChangeEvent>(saveThemeMode);
   }
 
-  Future<void> loadThemeMode(
+  FutureVoid loadThemeMode(
     ThemeModeLoadEvent event,
     Emitter<ThemeMode> emit,
   ) async {
@@ -24,7 +25,7 @@ class ThemeModeBloc extends Bloc<ThemeModeEvent, ThemeMode> {
     emit(savedThemeMode);
   }
 
-  Future<void> saveThemeMode(
+  FutureVoid saveThemeMode(
     ThemeModeChangeEvent event,
     Emitter<ThemeMode> emit,
   ) async {

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
+import 'package:streamkeys/common/models/typedefs.dart';
+
 class ResizableColumns extends StatefulWidget {
   final List<Widget> children;
   final List<double> minWidths;
@@ -38,7 +40,7 @@ class _ResizableColumnsState extends State<ResizableColumns> {
     }
   }
 
-  Future<void> _loadSavedWidths() async {
+  FutureVoid _loadSavedWidths() async {
     final prefs = await SharedPreferences.getInstance();
     final data = prefs.getString(widget.storageKey!);
     if (data != null) {
@@ -55,7 +57,7 @@ class _ResizableColumnsState extends State<ResizableColumns> {
     }
   }
 
-  Future<void> _saveWidths() async {
+  FutureVoid _saveWidths() async {
     if (widget.storageKey == null) return;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(widget.storageKey!, jsonEncode(_widths));

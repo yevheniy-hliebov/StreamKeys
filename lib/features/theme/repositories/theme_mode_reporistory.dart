@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:streamkeys/common/models/typedefs.dart';
 
 class ThemeModeRepository {
   static const themeModeKey = 'theme_mode';
@@ -8,7 +9,7 @@ class ThemeModeRepository {
 
   ThemeModeRepository({this.sharedPreferences});
 
-  Future<void> saveThemeMode(ThemeMode themeMode) async {
+  FutureVoid saveThemeMode(ThemeMode themeMode) async {
     final prefs = sharedPreferences ?? await SharedPreferences.getInstance();
     switch (themeMode) {
       case ThemeMode.light:

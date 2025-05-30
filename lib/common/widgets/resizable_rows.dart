@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:streamkeys/common/models/typedefs.dart';
 
 class ResizableRows extends StatefulWidget {
   final List<Widget> children;
@@ -38,7 +39,7 @@ class _ResizableRowsState extends State<ResizableRows> {
     }
   }
 
-  Future<void> _loadSavedHeights() async {
+  FutureVoid _loadSavedHeights() async {
     final prefs = await SharedPreferences.getInstance();
     final data = prefs.getString(widget.storageKey!);
     if (data != null) {
@@ -55,7 +56,7 @@ class _ResizableRowsState extends State<ResizableRows> {
     }
   }
 
-  Future<void> _saveHeights() async {
+  FutureVoid _saveHeights() async {
     if (widget.storageKey == null) return;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(widget.storageKey!, jsonEncode(_heights));
