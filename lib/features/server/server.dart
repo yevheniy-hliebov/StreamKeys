@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:streamkeys/common/models/typedefs.dart';
@@ -26,12 +27,16 @@ class Server {
 
     _server = await shelf_io.serve(handler, InternetAddress.anyIPv4, port);
 
-    print('Server started on http://$ip:$port');
+    if (kDebugMode) {
+      print('Server started on http://$ip:$port');
+    }
   }
 
   FutureVoid stop() async {
     await _server?.close(force: true);
-    print('Server stopped');
+    if (kDebugMode) {
+      print('Server stopped');
+    }
   }
 
   static Future<String> getLocalIPv4() async {

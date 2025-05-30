@@ -68,7 +68,9 @@ class ObsConnectionRepository {
       }
 
       _obs?.addHandler((event) {
-        print(event.eventType);
+        if (kDebugMode) {
+          print(event.eventType);
+        }
         if (event.eventType == 'ExitStarted' ||
             event.eventType == 'ConnectionClosed') {
           _isConnected = false;
