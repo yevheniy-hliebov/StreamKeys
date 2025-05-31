@@ -26,9 +26,9 @@ class KeyboardMapWrapper extends StatelessWidget {
         } else if (state is HidMacrosLoading) {
           return const Center(child: Text('Loading...'));
         } else if (state is HidMacrosXmlNotExist) {
-          return const HidMacrosNotExist();
+          return const _CenteredConstrained(child: HidMacrosNotExist());
         } else {
-          return Center(child: Text(state.runtimeType.toString()));
+          return const SizedBox();
         }
       },
     );
@@ -42,13 +42,26 @@ class _CenteredConstrained extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        width: double.infinity,
-        margin: const EdgeInsets.all(16),
-        constraints: const BoxConstraints(maxWidth: 400),
-        child: child,
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: SizedBox(
+            width: double.infinity,
+            child: Container(
+              constraints: BoxConstraints(
+                minHeight: constraints.maxHeight,
+              ),
+              padding: const EdgeInsets.all(24),
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 400),
+                  child: child,
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

@@ -8,9 +8,9 @@ import 'package:streamkeys/features/keyboards_deck/models/keyboard_type.dart';
 
 class HidMacrosXmlManager {
   final String filePath =
-      '${{AssetsHelper.assetsFolderPath}}\\hid_macros\\hidmacros.xml';
+      '${AssetsHelper.assetsFolderPath}\\hid_macros\\hidmacros.xml';
   final String clickScriptPath =
-      '${{AssetsHelper.assetsFolderPath}}\\keyboard_click.cjs';
+      '${AssetsHelper.assetsFolderPath}\\keyboard_click.cjs';
   XmlDocument? xml;
 
   Future<void> load() async {
