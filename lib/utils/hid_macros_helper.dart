@@ -2,16 +2,15 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:streamkeys/common/models/typedefs.dart';
+import 'package:streamkeys/utils/assets_helper.dart';
 
 class HidMacrosHelper {
-  static String folderPath = getAssetPath('lib\\assets\\hid_macros');
-  late String exePath;
+  HidMacrosHelper._();
 
-  HidMacrosHelper() {
-    exePath = '$folderPath\\HIDMacros.exe';
-  }
+  static String exePath =
+      '${AssetsHelper.assetsFolderPath}\\hid_macros\\HIDMacros.exe';
 
-  Future<bool> isRunning() async {
+  static Future<bool> isRunning() async {
     try {
       final result = await Process.run('tasklist', []);
       if (result.exitCode != 0) {
@@ -25,7 +24,7 @@ class HidMacrosHelper {
     }
   }
 
-  FutureVoid start() async {
+  static FutureVoid start() async {
     if (!await File(exePath).exists()) {
       _log('File not found: $exePath');
       return;
@@ -36,9 +35,11 @@ class HidMacrosHelper {
       onSuccess: 'HIDMacros is running as administrator',
       onError: 'Startup error',
     );
+
+    await Future.delayed(const Duration(seconds: 1));
   }
 
-  FutureVoid stop() async {
+  static FutureVoid stop() async {
     await _runAsAdmin(
       filePath: 'taskkill',
       args: ['/F', '/IM', 'HIDMacros.exe'],
@@ -47,12 +48,12 @@ class HidMacrosHelper {
     );
   }
 
-  FutureVoid restart() async {
+  static FutureVoid restart() async {
     await stop();
     await start();
   }
 
-  FutureVoid _runAsAdmin({
+  static FutureVoid _runAsAdmin({
     required String filePath,
     List<String> args = const [],
     required String onSuccess,
@@ -82,18 +83,9 @@ class HidMacrosHelper {
     }
   }
 
-  void _log(String message) {
+  static void _log(String message) {
     if (kDebugMode) {
       print('HIDMacrosController: $message');
-    }
-  }
-
-  static String getAssetPath(String relativePath) {
-    if (!kDebugMode) {
-      final exeDir = File(Platform.resolvedExecutable).parent;
-      return '${exeDir.path}\\data\\flutter_assets\\$relativePath';
-    } else {
-      return '${Directory.current.path}\\$relativePath';
     }
   }
 }
