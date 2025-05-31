@@ -1,6 +1,6 @@
 part of 'hid_macros_bloc.dart';
 
-class HidMacrosState extends Equatable {
+abstract class HidMacrosState extends Equatable {
   const HidMacrosState();
 
   @override
