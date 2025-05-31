@@ -11,7 +11,8 @@ class DeckPagesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<DeckPagesBloc, DeckPagesState>(
       builder: (context, state) {
-        if ((state is DeckPagesLoaded || state is DeckPagesEditingName) && state.data != null) {
+        if ((state is DeckPagesLoaded || state is DeckPagesEditingName) &&
+            state.data != null) {
           final bloc = context.read<DeckPagesBloc>();
           final data = state.data!;
 

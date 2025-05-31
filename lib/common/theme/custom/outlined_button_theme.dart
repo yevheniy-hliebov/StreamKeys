@@ -7,7 +7,8 @@ class SOutlinedButtonTheme {
   static OutlinedButtonThemeData get light {
     return OutlinedButtonThemeData(
       style: ButtonStyle(
-        padding: WidgetStateProperty.all(const EdgeInsets.symmetric(horizontal: 24, vertical: 16)),
+        padding: WidgetStateProperty.all(
+            const EdgeInsets.symmetric(horizontal: 24, vertical: 16)),
         shape: WidgetStateProperty.all(borderRadius),
         side: WidgetStateProperty.all(_borderSide(SColors.outlineLight)),
         foregroundColor: WidgetStateProperty.all(SColors.onBackgroundLight),
@@ -28,7 +29,8 @@ class SOutlinedButtonTheme {
   static OutlinedButtonThemeData get dark {
     return OutlinedButtonThemeData(
       style: ButtonStyle(
-        padding: WidgetStateProperty.all(const EdgeInsets.symmetric(horizontal: 24, vertical: 16)),
+        padding: WidgetStateProperty.all(
+            const EdgeInsets.symmetric(horizontal: 24, vertical: 16)),
         shape: WidgetStateProperty.all(borderRadius),
         side: WidgetStateProperty.all(_borderSide(SColors.outlineDark)),
         foregroundColor: WidgetStateProperty.all(SColors.onBackgroundDark),

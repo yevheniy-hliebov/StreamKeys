@@ -15,9 +15,7 @@ class MainBlockMap extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      constraints: const BoxConstraints(
-        maxWidth: 920
-      ),
+      constraints: const BoxConstraints(maxWidth: 920),
       child: Column(
         children: For.generateWidgets(
           block.length,
@@ -35,17 +33,14 @@ class MainBlockMap extends StatelessWidget {
                       if (j != 0) ...[
                         const SizedBox(width: 12),
                       ],
-                      if (i == block.length - 1 &&
-                          j == 3) ...[
+                      if (i == block.length - 1 && j == 3) ...[
                         Expanded(
                           child: KeyboardButton(
                             keyboardKey: row[j],
                           ),
                         ),
-                      ] else if (i !=
-                              block.length - 1 &&
-                          (j == row.length - 1 ||
-                              (i != 0 && j == 0))) ...[
+                      ] else if (i != block.length - 1 &&
+                          (j == row.length - 1 || (i != 0 && j == 0))) ...[
                         Expanded(
                           child: KeyboardButton(
                             keyboardKey: row[j],

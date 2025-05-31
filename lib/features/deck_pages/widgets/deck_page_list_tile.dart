@@ -22,7 +22,8 @@ class DeckPageListTile extends StatelessWidget {
     return ListTile(
       contentPadding: const EdgeInsets.all(5),
       iconColor: SColors.of(context).onBackground,
-      onTap: () => context.read<DeckPagesBloc>().add(DeckPagesSelectEvent(pageName)),
+      onTap: () =>
+          context.read<DeckPagesBloc>().add(DeckPagesSelectEvent(pageName)),
       trailing: ReorderableDragStartListener(
         index: index,
         child: const Icon(Icons.drag_handle),

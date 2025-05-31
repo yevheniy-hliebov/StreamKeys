@@ -45,7 +45,8 @@ class ObsConnectionRepository {
   }
 
   FutureVoid saveAutoReconnect(bool enabled) async {
-    await _storage.write(key: _autoReconnectKey, value: enabled ? 'true' : 'false');
+    await _storage.write(
+        key: _autoReconnectKey, value: enabled ? 'true' : 'false');
   }
 
   FutureVoid connect() async {

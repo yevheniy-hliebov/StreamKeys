@@ -3,7 +3,6 @@ import 'package:streamkeys/common/constants/colors.dart';
 import 'package:streamkeys/common/theme/custom/filled_button_theme.dart';
 import 'package:streamkeys/common/theme/custom/index.dart';
 
-
 class STheme {
   const STheme._();
 

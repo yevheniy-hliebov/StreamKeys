@@ -9,7 +9,6 @@ abstract class DeckPagesState extends Equatable {
   List<Object?> get props => [data];
 }
 
-
 class DeckPagesInitial extends DeckPagesState {
   const DeckPagesInitial();
 }

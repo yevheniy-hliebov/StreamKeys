@@ -25,7 +25,8 @@ class ObsConnectionConnected extends ObsConnectionState {
 class ObsConnectionError extends ObsConnectionState {
   final String message;
 
-  const ObsConnectionError(this.message, [ObsConnectionData? data, bool autoReconnect = false])
+  const ObsConnectionError(this.message,
+      [ObsConnectionData? data, bool autoReconnect = false])
       : super(data, autoReconnect);
 
   @override

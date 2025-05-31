@@ -22,9 +22,12 @@ class GeneralSettingsTabView extends StatelessWidget {
             BlocBuilder<ThemeModeBloc, ThemeMode>(
               builder: (context, themeMode) {
                 return ListTile(
-                  title: const Text('Theme mode', style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                  ),),
+                  title: const Text(
+                    'Theme mode',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                   trailing: Transform.scale(
                     scale: 0.8,
                     child: ThemeModeSwitch(
