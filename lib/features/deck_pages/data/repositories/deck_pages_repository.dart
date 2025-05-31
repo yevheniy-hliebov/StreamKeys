@@ -36,8 +36,30 @@ class DeckPagesRepository {
 
   FutureVoid save(DeckPagesData deckPagesData) async {
     Json? json = await jsonHelper.read();
-
     json ??= {};
+
+    final oldOrderPages = json['order_pages']?.cast<String>() ?? [];
+    final map = (json['map'] as Map?)?.cast<String, dynamic>() ?? {};
+
+    for (final oldName in oldOrderPages) {
+      if (!deckPagesData.orderPages.contains(oldName)) {
+        for (final newName in deckPagesData.orderPages) {
+          if (!oldOrderPages.contains(newName) && !map.containsKey(newName)) {
+            map[newName] = map[oldName];
+            map.remove(oldName);
+            break;
+          }
+        }
+      }
+    }
+
+    for (final page in deckPagesData.orderPages) {
+      if (!map.containsKey(page)) {
+        map[page] = deckType == DeckType.keyboard ? {} : [];
+      }
+    }
+
+    json['map'] = map;
     json['current_page'] = deckPagesData.currentPage;
     json['order_pages'] = deckPagesData.orderPages;
 
