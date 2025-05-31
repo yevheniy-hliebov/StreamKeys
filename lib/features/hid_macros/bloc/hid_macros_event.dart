@@ -12,9 +12,9 @@ class HidMacrosLoadKeyboardsEvent extends HidMacrosEvent {
 }
 
 class HidMacrosSelectKeyboardEvent extends HidMacrosEvent {
-  final String systemId;
+  final KeyboardDevice keyboard;
 
-  const HidMacrosSelectKeyboardEvent(this.systemId);
+  const HidMacrosSelectKeyboardEvent(this.keyboard);
 }
 
 class HidMacrosSelectKeyboardTypeEvent extends HidMacrosEvent {

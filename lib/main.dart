@@ -16,8 +16,7 @@ void main() async {
   await server.init();
   await server.start();
 
-  final hidMacrosHelper = HidMacrosHelper();
-  await hidMacrosHelper.start();
+  await HidMacrosHelper.start();
 
   runApp(const App());
 }

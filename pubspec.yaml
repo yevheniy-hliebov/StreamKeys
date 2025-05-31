@@ -42,6 +42,8 @@ flutter:
   uses-material-design: true
   assets:
     - lib/assets/keyboard_map.json
+    - lib/assets/key_code.json
+    - lib/assets/keyboard_click.cjs
     - lib/assets/hid_macros/
     - lib/assets/hid_macros/lang/
     - lib/assets/hid_macros/plane/

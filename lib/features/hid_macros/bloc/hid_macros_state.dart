@@ -9,23 +9,27 @@ class HidMacrosState extends Equatable {
 
 class HidMacrosLoaded extends HidMacrosState {
   final List<KeyboardDevice> keyboards;
-  final String selectedKeyboardSystemId;
-  final KeyboardType selectedKeyboardType;
+  final KeyboardDevice? selectedKeyboard;
+  final KeyboardType? selectedKeyboardType;
 
   const HidMacrosLoaded({
     required this.keyboards,
-    required this.selectedKeyboardSystemId,
-    required this.selectedKeyboardType,
+    this.selectedKeyboard,
+    this.selectedKeyboardType,
   });
 
   @override
   List<Object?> get props => [
         keyboards,
-        selectedKeyboardSystemId,
+        selectedKeyboard,
         selectedKeyboardType,
       ];
 }
 
 class HidMacrosLoading extends HidMacrosState {
   const HidMacrosLoading();
+}
+
+class HidMacrosXmlNotExist extends HidMacrosState {
+  const HidMacrosXmlNotExist();
 }

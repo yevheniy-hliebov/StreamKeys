@@ -1,8 +1,10 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/common/models/typedefs.dart';
 import 'package:streamkeys/features/hid_macros/data/models/keyboard_device.dart';
-import 'package:streamkeys/features/hid_macros/data/repositories/hid_macros_xml_repository.dart';
+import 'package:streamkeys/features/hid_macros/data/repositories/hid_macros_repository.dart';
 import 'package:streamkeys/features/keyboards_deck/models/keyboard_type.dart';
 
 part 'hid_macros_event.dart';
@@ -12,8 +14,8 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
   HidMacrosRepository repo = HidMacrosRepository();
 
   List<KeyboardDevice> keyboards = [];
-  String selectedKeyboardSystemId = '';
-  KeyboardType selectedKeyboardType = KeyboardType.full;
+  KeyboardDevice? selectedKeyboard;
+  KeyboardType? selectedKeyboardType;
 
   HidMacrosBloc() : super(const HidMacrosLoading()) {
     on<HidMacrosLoadKeyboardsEvent>(_load);
@@ -28,27 +30,34 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
     Emitter<HidMacrosState> emit,
   ) async {
     emit(const HidMacrosLoading());
-    keyboards = await repo.getDeviceList();
-    selectedKeyboardSystemId = await repo.getSelectedKeyboard() ?? '';
-    selectedKeyboardType = await repo.getSelectedKeyboardType();
+    try {
+      keyboards = await repo.getDeviceList();
+      selectedKeyboard = await repo.getSelectedKeyboard();
+      selectedKeyboardType = await repo.getSelectedKeyboardType();
 
-    emit(HidMacrosLoaded(
-      keyboards: keyboards,
-      selectedKeyboardSystemId: selectedKeyboardSystemId,
-      selectedKeyboardType: selectedKeyboardType,
-    ));
+      emit(HidMacrosLoaded(
+        keyboards: keyboards,
+        selectedKeyboard: selectedKeyboard,
+        selectedKeyboardType: selectedKeyboardType,
+      ));
+    } catch (e) {
+      if (e is PathNotFoundException) {
+        emit(const HidMacrosXmlNotExist());
+      }
+    }
   }
 
   FutureVoid _selectKeyboard(
     HidMacrosSelectKeyboardEvent event,
     Emitter<HidMacrosState> emit,
   ) async {
-    selectedKeyboardSystemId = event.systemId;
-    await repo.saveSelectedKeyboard(event.systemId);
+    emit(const HidMacrosLoading());
+    selectedKeyboard = event.keyboard;
+    await repo.selectKeyboard(event.keyboard);
 
     emit(HidMacrosLoaded(
       keyboards: keyboards,
-      selectedKeyboardSystemId: selectedKeyboardSystemId,
+      selectedKeyboard: selectedKeyboard,
       selectedKeyboardType: selectedKeyboardType,
     ));
   }
@@ -57,12 +66,17 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
     HidMacrosSelectKeyboardTypeEvent event,
     Emitter<HidMacrosState> emit,
   ) async {
+    emit(const HidMacrosLoading());
     selectedKeyboardType = event.type;
-    await repo.saveSelectedKeyboardType(event.type);
+    if (selectedKeyboard == null) {
+      await repo.selectKeyboardType(keyboards[0], event.type);
+    } else {
+      await repo.selectKeyboardType(selectedKeyboard!, event.type);
+    }
 
     emit(HidMacrosLoaded(
       keyboards: keyboards,
-      selectedKeyboardSystemId: selectedKeyboardSystemId,
+      selectedKeyboard: selectedKeyboard,
       selectedKeyboardType: selectedKeyboardType,
     ));
   }
