@@ -13,7 +13,7 @@ class DeckPagesInitial extends DeckPagesState {
   const DeckPagesInitial();
 }
 
-class DeckPagesLoaded extends DeckPagesState {
+class DeckPagesLoaded extends DeckPagesState with EquatableMixin {
   const DeckPagesLoaded(super.data);
 }
 

@@ -30,7 +30,7 @@ class DeckPagesBloc extends Bloc<DeckPagesEvent, DeckPagesState> {
   ) async {
     deckPagesData = await repo.getDeckPages();
 
-    emit(DeckPagesLoaded(deckPagesData));
+    emit(DeckPagesLoaded(deckPagesData.copy()));
   }
 
   FutureVoid _addPage(
@@ -49,8 +49,7 @@ class DeckPagesBloc extends Bloc<DeckPagesEvent, DeckPagesState> {
     deckPagesData.orderPages.add(uniquePageName);
     deckPagesData.currentPage = uniquePageName;
 
-    emit(const DeckPagesInitial());
-    emit(DeckPagesLoaded(deckPagesData));
+    emit(DeckPagesLoaded(deckPagesData.copy()));
     await _save();
   }
 
@@ -60,8 +59,7 @@ class DeckPagesBloc extends Bloc<DeckPagesEvent, DeckPagesState> {
   ) async {
     deckPagesData.currentPage = event.pageName;
 
-    emit(const DeckPagesInitial());
-    emit(DeckPagesLoaded(deckPagesData));
+    emit(DeckPagesLoaded(deckPagesData.copy()));
     await _save();
   }
 
@@ -81,7 +79,7 @@ class DeckPagesBloc extends Bloc<DeckPagesEvent, DeckPagesState> {
 
     deckPagesData.currentPage = event.newPageName;
 
-    emit(DeckPagesLoaded(deckPagesData));
+    emit(DeckPagesLoaded(deckPagesData.copy()));
     await _save();
   }
 
@@ -89,7 +87,7 @@ class DeckPagesBloc extends Bloc<DeckPagesEvent, DeckPagesState> {
     DeckPagesDisableRenameEvent event,
     Emitter<DeckPagesState> emit,
   ) async {
-    emit(DeckPagesLoaded(deckPagesData));
+    emit(DeckPagesLoaded(deckPagesData.copy()));
   }
 
   FutureVoid _deletePage(
@@ -105,8 +103,7 @@ class DeckPagesBloc extends Bloc<DeckPagesEvent, DeckPagesState> {
       deckPagesData.currentPage = deckPagesData.orderPages[index];
     }
 
-    emit(const DeckPagesInitial());
-    emit(DeckPagesLoaded(deckPagesData));
+    emit(DeckPagesLoaded(deckPagesData.copy()));
     await _save();
   }
 
@@ -130,8 +127,7 @@ class DeckPagesBloc extends Bloc<DeckPagesEvent, DeckPagesState> {
     final movedItem = deckPagesData.orderPages.removeAt(oldIndex);
     deckPagesData.orderPages.insert(newIndex, movedItem);
 
-    emit(const DeckPagesInitial());
-    emit(DeckPagesLoaded(deckPagesData));
+    emit(DeckPagesLoaded(deckPagesData.copy()));
     await _save();
   }
 
