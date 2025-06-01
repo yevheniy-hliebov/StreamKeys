@@ -19,8 +19,22 @@ abstract class BaseAction {
     switch (json['action_type']) {
       case Website.actionTypeName:
         return Website.fromJson(json);
+      case OpenAppAndFile.actionTypeName:
+        return OpenAppAndFile.fromJson(json);
       case SetActiveScene.actionTypeName:
         return SetActiveScene.fromJson(json);
+      case VisibleSource.actionTypeName:
+        return VisibleSource.fromJson(json);
+      case HiddenSource.actionTypeName:
+        return HiddenSource.fromJson(json);
+      case MuteSource.actionTypeName:
+        return MuteSource.fromJson(json);
+      case UnMuteSource.actionTypeName:
+        return UnMuteSource.fromJson(json);
+      case ToggleVisibleSource.actionTypeName:
+        return ToggleVisibleSource.fromJson(json);
+      case ToggleMuteSource.actionTypeName:
+        return ToggleMuteSource.fromJson(json);
       default:
         throw UnsupportedError('Unknown action type');
     }

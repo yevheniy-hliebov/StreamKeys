@@ -12,16 +12,17 @@ class CategoryActions {
 
   static List<CategoryActions> library = [
     CategoryActions(name: 'System', actions: [
+      OpenAppAndFile(),
       Website(),
     ]),
     CategoryActions(name: 'OBS Studio', actions: [
       SetActiveScene(),
-      // MuteSource(),
-      // UnmuteSource(),
-      // ToogleMuteSource(),
-      // VisibleSource(),
-      // HiddenSource(),
-      // ToogleVisibleSource(),
+      MuteSource(),
+      UnMuteSource(),
+      ToggleMuteSource(),
+      VisibleSource(),
+      HiddenSource(),
+      ToggleVisibleSource(),
     ]),
   ];
 }
