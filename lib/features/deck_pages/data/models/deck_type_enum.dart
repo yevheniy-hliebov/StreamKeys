@@ -1,0 +1,1 @@
+enum DeckType { grid, keyboard }

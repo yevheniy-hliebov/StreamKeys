@@ -2,10 +2,19 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/common/models/typedefs.dart';
 import 'package:streamkeys/features/deck_pages/data/models/deck_pages.dart';
+import 'package:streamkeys/features/deck_pages/data/models/deck_type_enum.dart';
 import 'package:streamkeys/features/deck_pages/data/repositories/deck_pages_repository.dart';
 
 part 'deck_pages_event.dart';
 part 'deck_pages_state.dart';
+
+class KeyboardDeckPagesBloc extends DeckPagesBloc {
+  KeyboardDeckPagesBloc() : super(DeckPagesRepository(DeckType.keyboard));
+}
+
+class GridDeckPagesBloc extends DeckPagesBloc {
+  GridDeckPagesBloc() : super(DeckPagesRepository(DeckType.grid));
+}
 
 class DeckPagesBloc extends Bloc<DeckPagesEvent, DeckPagesState> {
   DeckPagesRepository repo;

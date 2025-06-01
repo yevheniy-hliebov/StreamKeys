@@ -1,8 +1,7 @@
 import 'package:streamkeys/common/models/typedefs.dart';
 import 'package:streamkeys/features/deck_pages/data/models/deck_pages.dart';
+import 'package:streamkeys/features/deck_pages/data/models/deck_type_enum.dart';
 import 'package:streamkeys/utils/json_read_and_save.dart';
-
-enum DeckType { grid, keyboard }
 
 class DeckPagesRepository {
   DeckType deckType;

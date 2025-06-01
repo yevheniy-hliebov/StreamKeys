@@ -1,5 +1,5 @@
 import 'package:streamkeys/common/models/typedefs.dart';
-import 'package:streamkeys/features/deck_pages/data/repositories/deck_pages_repository.dart';
+import 'package:streamkeys/features/deck_pages/data/models/deck_type_enum.dart';
 import 'package:streamkeys/features/keyboards_deck/data/models/keyboard_key_data.dart';
 import 'package:streamkeys/utils/json_read_and_save.dart';
 

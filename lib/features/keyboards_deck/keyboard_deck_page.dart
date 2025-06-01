@@ -5,10 +5,8 @@ import 'package:streamkeys/common/widgets/resizable_columns.dart';
 import 'package:streamkeys/common/widgets/resizable_rows.dart';
 import 'package:streamkeys/features/action_library/action_library.dart';
 import 'package:streamkeys/features/action_library/bloc/drag_status_bloc.dart';
-import 'package:streamkeys/features/deck_pages/bloc/deck_pages_bloc.dart';
-import 'package:streamkeys/features/deck_pages/data/repositories/deck_pages_repository.dart';
+import 'package:streamkeys/features/deck_pages/data/models/deck_type_enum.dart';
 import 'package:streamkeys/features/deck_pages/deck_pages.dart';
-import 'package:streamkeys/features/keyboards_deck/bloc/keyboard_map_bloc.dart';
 import 'package:streamkeys/features/keyboards_deck/widgets/keyboard_map_wrapper.dart';
 import 'package:streamkeys/features/settings/widgets/setting_button.dart';
 import 'package:streamkeys/features/keyboards_deck/widgets/key_editor/key_editor.dart';
@@ -18,55 +16,44 @@ class KeyboardDeckPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (_) => DeckPagesBloc(
-            DeckPagesRepository(DeckType.keyboard),
-          ),
-        ),
-        BlocProvider(create: (_) => KeyboardMapBloc()),
-        BlocProvider(create: (_) => DragStatusBloc()),
-      ],
-      child: DragAwareCursor(
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Keyboard deck'),
-            actions: const [
-              SettingButton(),
-              SizedBox(width: 4),
-            ],
-            backgroundColor: SColors.of(context).surface,
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(4),
-              child: Container(
-                height: 4,
-                color: SColors.of(context).outlineVariant,
-              ),
+    return DragAwareCursor(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Keyboard deck'),
+          actions: const [
+            SettingButton(),
+            SizedBox(width: 4),
+          ],
+          backgroundColor: SColors.of(context).surface,
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(4),
+            child: Container(
+              height: 4,
+              color: SColors.of(context).outlineVariant,
             ),
           ),
-          body: ResizableColumns(
-            storageKey: 'keyboard_deck_columns_layout',
-            dividerWidth: 4,
-            dividerColor: SColors.of(context).outlineVariant,
-            initialWidths: const [216, 1459, 240],
-            minWidths: const [201, 700, 240],
-            children: [
-              const DeckPages(),
-              ResizableRows(
-                storageKey: 'keyboard_deck_columns_layout',
-                dividerHeight: 4,
-                dividerColor: SColors.of(context).outlineVariant,
-                initialHeights: const [500, 300],
-                minHeights: const [196, 300],
-                children: const [
-                  KeyboardMapWrapper(),
-                  KeyEditor(),
-                ],
-              ),
-              const ActionLibrary(),
-            ],
-          ),
+        ),
+        body: ResizableColumns(
+          storageKey: 'keyboard_deck_columns_layout',
+          dividerWidth: 4,
+          dividerColor: SColors.of(context).outlineVariant,
+          initialWidths: const [216, 1459, 240],
+          minWidths: const [201, 700, 240],
+          children: [
+            const DeckPages(deckType: DeckType.keyboard),
+            ResizableRows(
+              storageKey: 'keyboard_deck_columns_layout',
+              dividerHeight: 4,
+              dividerColor: SColors.of(context).outlineVariant,
+              initialHeights: const [500, 300],
+              minHeights: const [196, 300],
+              children: const [
+                KeyboardMapWrapper(),
+                KeyEditor(),
+              ],
+            ),
+            const ActionLibrary(),
+          ],
         ),
       ),
     );

@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/app_with_overlays.dart';
+import 'package:streamkeys/features/action_library/bloc/drag_status_bloc.dart';
 import 'package:streamkeys/features/dashboard/dashboard_deck_page.dart';
 import 'package:streamkeys/common/theme/theme.dart';
+import 'package:streamkeys/features/deck_pages/bloc/deck_pages_bloc.dart';
 import 'package:streamkeys/features/hid_macros/bloc/hid_macros_bloc.dart';
+import 'package:streamkeys/features/keyboards_deck/bloc/keyboard_map_bloc.dart';
 import 'package:streamkeys/features/obs/bloc/obs_connection_bloc.dart';
 import 'package:streamkeys/features/obs/data/repositories/obs_connection_repository.dart';
 import 'package:streamkeys/features/obs/widgets/obs_connection_status.dart';
-import 'package:streamkeys/features/server/server.dart';
 import 'package:streamkeys/features/theme/bloc/theme_mode_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/utils/hid_macros_helper.dart';
 
 void main() async {
-  final server = Server();
-  await server.init();
-  await server.start();
-
   await HidMacrosHelper.start();
 
   runApp(const App());
@@ -33,6 +31,10 @@ class App extends StatelessWidget {
           create: (_) => ObsConnectionBloc(ObsConnectionRepository()),
         ),
         BlocProvider(create: (_) => HidMacrosBloc()),
+        BlocProvider(create: (_) => DragStatusBloc()),
+        BlocProvider(create: (_) => GridDeckPagesBloc()),
+        BlocProvider(create: (_) => KeyboardDeckPagesBloc()),
+        BlocProvider(create: (_) => KeyboardMapBloc()),
       ],
       child: BlocBuilder<ThemeModeBloc, ThemeMode>(
         builder: (context, themeMode) {

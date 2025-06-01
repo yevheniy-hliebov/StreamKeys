@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/common/constants/colors.dart';
-import 'package:streamkeys/features/deck_pages/bloc/deck_pages_bloc.dart';
 
 class DeckPageListTile extends StatelessWidget {
   final String pageName;
@@ -9,6 +7,7 @@ class DeckPageListTile extends StatelessWidget {
   final bool isCurrent;
   final bool isEditing;
   final void Function()? onTap;
+  final void Function(String value)? onRenamedPage;
 
   const DeckPageListTile({
     super.key,
@@ -17,6 +16,7 @@ class DeckPageListTile extends StatelessWidget {
     this.isCurrent = false,
     this.isEditing = false,
     this.onTap,
+    this.onRenamedPage,
   });
 
   @override
@@ -44,9 +44,7 @@ class DeckPageListTile extends StatelessWidget {
   TextFormField _buildTextField(BuildContext context) {
     return TextFormField(
       initialValue: pageName,
-      onFieldSubmitted: (value) {
-        context.read<DeckPagesBloc>().add(DeckPagesRenamedEvent(value));
-      },
+      onFieldSubmitted: onRenamedPage,
       textInputAction: TextInputAction.done,
       style: const TextStyle(fontSize: 16),
       decoration: const InputDecoration(

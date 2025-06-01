@@ -19,7 +19,6 @@ class KeyboardMapBloc extends Bloc<KeyboardMapEvent, KeyboardMapState> {
     on<KeyboardMapLoad>((event, emit) async {
       emit(KeyboardMapLoading());
 
-
       _loaded(emit);
     });
     on<KeyboardMapSelectKey>((event, emit) {
@@ -35,8 +34,6 @@ class KeyboardMapBloc extends Bloc<KeyboardMapEvent, KeyboardMapState> {
       pageName = event.pageName;
       final loadedKeyDataMap = await repo.getKeyMapByPageName(pageName ?? '');
       keyDataMap = loadedKeyDataMap;
-
-      print(keyDataMap['97']?.actions.length);
 
       _loaded(emit);
     });
