@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ColorHelper {
-  static String getHexString(Color color) {
+  static String getHexString(Color? color) {
+    if (color == null) return '';
+
     String alpha = color.a.toInt().toRadixString(16).padLeft(2, '0');
     String red = color.r.toInt().toRadixString(16).padLeft(2, '0');
     String green = color.g.toInt().toRadixString(16).padLeft(2, '0');
@@ -14,7 +16,9 @@ class ColorHelper {
     return ((alpha / 255) * 100).round().toString();
   }
 
-  static Color hexToColor(String hexString) {
+  static Color? hexToColor(String? hexString) {
+    if (hexString == '' || hexString == null) return null;
+
     hexString = hexString.toUpperCase().replaceAll('#', '');
 
     if (hexString.length == 6) {
