@@ -1,38 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/constants/colors.dart';
-import 'package:streamkeys/common/theme/custom/action_button_theme.dart';
+import 'package:streamkeys/common/theme/custom/key_button_theme.dart';
 
-class BaseActionButton extends StatefulWidget {
+class BaseKeyButton extends StatefulWidget {
   final String tooltipMessage;
   final double size;
   final Color? backgroundColor;
   final bool isSelected;
+  final bool isDragHighlighted;
   final void Function()? onTap;
   final Widget? child;
 
-  const BaseActionButton({
+  const BaseKeyButton({
     super.key,
     this.onTap,
     required this.size,
     this.backgroundColor,
     this.isSelected = false,
+    this.isDragHighlighted = false,
     this.tooltipMessage = '',
     this.child,
   });
 
   @override
-  State<BaseActionButton> createState() => _BaseActionButtonState();
+  State<BaseKeyButton> createState() => _BaseKeyButtonState();
 }
 
-class _BaseActionButtonState extends State<BaseActionButton> {
+class _BaseKeyButtonState extends State<BaseKeyButton> {
   bool _isPressed = false;
 
   @override
   Widget build(BuildContext context) {
-    final theme = ActionButtonTheme(context: context);
+    final theme = KeyButtonTheme(context: context);
 
     return Tooltip(
-      message: widget.tooltipMessage,
+      message: widget.isDragHighlighted ? '' : widget.tooltipMessage,
       child: _settingInkWell(
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 20),
@@ -52,10 +54,14 @@ class _BaseActionButtonState extends State<BaseActionButton> {
             child: Stack(
               children: [
                 Container(
-                  color: SColors.of(context).actionButtonBackground,
+                  color: widget.isDragHighlighted
+                      ? SColors.primary
+                      : SColors.of(context).actionButtonBackground,
                 ),
                 Container(
-                  color: widget.backgroundColor,
+                  color: widget.isDragHighlighted
+                      ? SColors.primaryWithOpacity
+                      : widget.backgroundColor,
                 ),
                 Align(
                   alignment: Alignment.center,

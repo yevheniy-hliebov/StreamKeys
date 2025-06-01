@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/constants/colors.dart';
 
-class ActionButtonTheme {
+class KeyButtonTheme {
   final BuildContext context;
 
-  const ActionButtonTheme({required this.context});
+  const KeyButtonTheme({required this.context});
 
   BorderRadius get borderRadius => BorderRadius.circular(4);
 
@@ -13,7 +13,6 @@ class ActionButtonTheme {
     bool isSelected = false,
   }) {
     return BoxDecoration(
-      // color: SColors.of(context).surface,
       border: Border.all(
         color: isSelected ? SColors.primary : SColors.of(context).outline,
         width: isSelected ? 3 : 1,
