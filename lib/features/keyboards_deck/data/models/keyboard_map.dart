@@ -1,5 +1,5 @@
 import 'package:streamkeys/common/models/typedefs.dart';
-import 'package:streamkeys/features/keyboards_deck/models/keyboard_key.dart';
+import 'package:streamkeys/features/keyboards_deck/data/models/keyboard_key.dart';
 
 class KeyboardMapData {
   final List<List<KeyboardKey>> functionBlock;

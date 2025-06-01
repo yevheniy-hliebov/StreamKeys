@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/common/models/typedefs.dart';
 import 'package:streamkeys/features/hid_macros/data/models/keyboard_device.dart';
 import 'package:streamkeys/features/hid_macros/data/repositories/hid_macros_repository.dart';
-import 'package:streamkeys/features/keyboards_deck/models/keyboard_type.dart';
+import 'package:streamkeys/features/keyboards_deck/data/models/keyboard_type.dart';
 
 part 'hid_macros_event.dart';
 part 'hid_macros_state.dart';
