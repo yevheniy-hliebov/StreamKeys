@@ -11,6 +11,7 @@ import 'package:streamkeys/features/deck_pages/deck_pages.dart';
 import 'package:streamkeys/features/keyboards_deck/bloc/keyboard_map_bloc.dart';
 import 'package:streamkeys/features/keyboards_deck/widgets/keyboard_map_wrapper.dart';
 import 'package:streamkeys/features/settings/widgets/setting_button.dart';
+import 'package:streamkeys/features/keyboards_deck/widgets/key_editor/key_editor.dart';
 
 class KeyboardDeckPage extends StatelessWidget {
   const KeyboardDeckPage({super.key});
@@ -49,7 +50,7 @@ class KeyboardDeckPage extends StatelessWidget {
             dividerWidth: 4,
             dividerColor: SColors.of(context).outlineVariant,
             initialWidths: const [216, 1459, 240],
-            minWidths: const [201, 200, 240],
+            minWidths: const [201, 700, 240],
             children: [
               const DeckPages(),
               ResizableRows(
@@ -57,10 +58,10 @@ class KeyboardDeckPage extends StatelessWidget {
                 dividerHeight: 4,
                 dividerColor: SColors.of(context).outlineVariant,
                 initialHeights: const [500, 300],
-                minHeights: const [196, 200],
+                minHeights: const [196, 300],
                 children: const [
                   KeyboardMapWrapper(),
-                  ButtonActionsSetting(),
+                  KeyEditor(),
                 ],
               ),
               const ActionLibrary(),
