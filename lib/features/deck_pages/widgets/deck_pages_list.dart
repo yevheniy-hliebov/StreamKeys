@@ -39,6 +39,11 @@ class DeckPagesList extends StatelessWidget {
                     index: index,
                     isCurrent: isCurrent,
                     isEditing: state is DeckPagesEditingName,
+                    onTap: () {
+                      context
+                          .read<DeckPagesBloc>()
+                          .add(DeckPagesSelectEvent(pageName));
+                    },
                   ),
                 );
               },

@@ -8,13 +8,15 @@ class DeckPageListTile extends StatelessWidget {
   final int index;
   final bool isCurrent;
   final bool isEditing;
+  final void Function()? onTap;
 
   const DeckPageListTile({
     super.key,
     required this.pageName,
     required this.index,
-    required this.isCurrent,
-    required this.isEditing,
+    this.isCurrent = false,
+    this.isEditing = false,
+    this.onTap,
   });
 
   @override
@@ -22,8 +24,7 @@ class DeckPageListTile extends StatelessWidget {
     return ListTile(
       contentPadding: const EdgeInsets.all(5),
       iconColor: SColors.of(context).onBackground,
-      onTap: () =>
-          context.read<DeckPagesBloc>().add(DeckPagesSelectEvent(pageName)),
+      onTap: onTap,
       trailing: ReorderableDragStartListener(
         index: index,
         child: const Icon(Icons.drag_handle),
