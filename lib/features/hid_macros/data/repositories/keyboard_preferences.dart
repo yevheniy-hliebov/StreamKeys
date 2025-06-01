@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:streamkeys/features/hid_macros/data/models/keyboard_device.dart';
-import 'package:streamkeys/features/keyboards_deck/models/keyboard_type.dart';
+import 'package:streamkeys/features/keyboards_deck/data/models/keyboard_type.dart';
 
 class KeyboardPreferences {
   final _systemIdKey = 'system_id';

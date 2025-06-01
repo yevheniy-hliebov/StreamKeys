@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/constants/colors.dart';
 import 'package:streamkeys/common/models/typedefs.dart';
-import 'package:streamkeys/features/keyboards_deck/models/keyboard_type.dart';
+import 'package:streamkeys/features/keyboards_deck/data/models/keyboard_type.dart';
 import 'package:streamkeys/features/keyboards_deck/widgets/keyboard_blocks/function_block_map.dart';
 import 'package:streamkeys/features/keyboards_deck/widgets/keyboard_blocks/main_block_map.dart';
 import 'package:streamkeys/features/keyboards_deck/widgets/keyboard_blocks/navigation_block_map.dart';
 import 'package:streamkeys/features/keyboards_deck/widgets/keyboard_blocks/numpad_block_map.dart';
-import 'package:streamkeys/features/keyboards_deck/models/keyboard_map.dart';
+import 'package:streamkeys/features/keyboards_deck/data/models/keyboard_map.dart';
 import 'package:streamkeys/utils/json_read_and_save.dart';
 
 class KeyboardMap extends StatefulWidget {

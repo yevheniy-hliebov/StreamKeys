@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/for.dart';
-import 'package:streamkeys/features/keyboards_deck/widgets/keyboard_button.dart';
-import 'package:streamkeys/features/keyboards_deck/models/keyboard_key.dart';
+import 'package:streamkeys/features/keyboards_deck/data/models/keyboard_key.dart';
+import 'package:streamkeys/features/keyboards_deck/widgets/keyboard_button_wrapper.dart';
 
 class NumpadBlockMap extends StatelessWidget {
   const NumpadBlockMap({
@@ -47,19 +47,19 @@ class NumpadBlockMap extends StatelessWidget {
                             ignoring: true,
                             child: Opacity(
                               opacity: 0.2,
-                              child: KeyboardButton(
+                              child: KeyboardButtonWrapper(
                                 keyboardKey: row[j],
                               ),
                             ),
                           ),
                         ] else if (j == 0) ...[
                           Expanded(
-                            child: KeyboardButton(
+                            child: KeyboardButtonWrapper(
                               keyboardKey: row[j],
                             ),
                           ),
                         ] else ...[
-                          KeyboardButton(
+                          KeyboardButtonWrapper(
                             keyboardKey: row[j],
                           ),
                         ]
@@ -91,12 +91,12 @@ class NumpadBlockMap extends StatelessWidget {
                       ],
                       if (i > 2) ...[
                         Expanded(
-                          child: KeyboardButton(
+                          child: KeyboardButtonWrapper(
                             keyboardKey: column[i],
                           ),
                         ),
                       ] else ...[
-                        KeyboardButton(
+                        KeyboardButtonWrapper(
                           keyboardKey: column[i],
                         ),
                       ]

@@ -2,7 +2,7 @@ import 'package:streamkeys/common/models/typedefs.dart';
 import 'package:streamkeys/features/hid_macros/data/models/keyboard_device.dart';
 import 'package:streamkeys/features/hid_macros/data/repositories/hid_macros_xml_manager.dart';
 import 'package:streamkeys/features/hid_macros/data/repositories/keyboard_preferences.dart';
-import 'package:streamkeys/features/keyboards_deck/models/keyboard_type.dart';
+import 'package:streamkeys/features/keyboards_deck/data/models/keyboard_type.dart';
 
 class HidMacrosRepository {
   final _prefs = KeyboardPreferences();

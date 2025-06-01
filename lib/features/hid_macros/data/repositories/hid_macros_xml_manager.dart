@@ -4,7 +4,7 @@ import 'package:xml/xml.dart';
 import 'package:streamkeys/utils/hid_macros_helper.dart';
 import 'package:streamkeys/utils/json_read_and_save.dart';
 import 'package:streamkeys/features/hid_macros/data/models/keyboard_device.dart';
-import 'package:streamkeys/features/keyboards_deck/models/keyboard_type.dart';
+import 'package:streamkeys/features/keyboards_deck/data/models/keyboard_type.dart';
 
 class HidMacrosXmlManager {
   final String filePath =

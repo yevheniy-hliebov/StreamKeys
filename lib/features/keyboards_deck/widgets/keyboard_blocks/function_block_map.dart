@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/for.dart';
-import 'package:streamkeys/features/keyboards_deck/widgets/keyboard_button.dart';
-import 'package:streamkeys/features/keyboards_deck/models/keyboard_key.dart';
+import 'package:streamkeys/features/keyboards_deck/data/models/keyboard_key.dart';
+import 'package:streamkeys/features/keyboards_deck/widgets/keyboard_button_wrapper.dart';
 
 class FunctionBlockMap extends StatelessWidget {
   const FunctionBlockMap({
@@ -28,7 +28,7 @@ class FunctionBlockMap extends StatelessWidget {
             ] else if (i != 0) ...[
               const SizedBox(width: 12),
             ],
-            KeyboardButton(keyboardKey: row[i]),
+            KeyboardButtonWrapper(keyboardKey: row[i]),
           ];
         },
       ),

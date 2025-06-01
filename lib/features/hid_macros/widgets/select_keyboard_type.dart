@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/common/widgets/selectable_tile_list.dart';
 import 'package:streamkeys/features/hid_macros/bloc/hid_macros_bloc.dart';
-import 'package:streamkeys/features/keyboards_deck/models/keyboard_type.dart';
+import 'package:streamkeys/features/keyboards_deck/data/models/keyboard_type.dart';
 
 class SelectKeyboardType extends StatelessWidget {
   const SelectKeyboardType({super.key});

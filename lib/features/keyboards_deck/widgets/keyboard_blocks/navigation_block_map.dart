@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/for.dart';
-import 'package:streamkeys/features/keyboards_deck/widgets/keyboard_button.dart';
-import 'package:streamkeys/features/keyboards_deck/models/keyboard_key.dart';
+import 'package:streamkeys/features/keyboards_deck/data/models/keyboard_key.dart';
+import 'package:streamkeys/features/keyboards_deck/widgets/keyboard_button_wrapper.dart';
 
 class NavigationBlockMap extends StatelessWidget {
   const NavigationBlockMap({
@@ -35,7 +35,7 @@ class NavigationBlockMap extends StatelessWidget {
                     if (j != 0) ...[
                       const SizedBox(width: 12),
                     ],
-                    KeyboardButton(
+                    KeyboardButtonWrapper(
                       keyboardKey: row[j],
                     ),
                   ],

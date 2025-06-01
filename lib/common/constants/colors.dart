@@ -13,6 +13,7 @@ class SColors {
   bool get _isLight => STheme.isLight(context);
 
   static const Color primary = Color(0xFF5B5EFE);
+  static const Color primaryWithOpacity = Color.fromRGBO(91, 94, 254, 0.1);
   static const Color danger = Color(0xFFFE5B5B);
   static const Color warning = Color(0xFFFED85B);
   static const Color success = Color(0xFF5BFE76);

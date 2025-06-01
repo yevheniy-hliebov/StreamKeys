@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/for.dart';
-import 'package:streamkeys/features/keyboards_deck/widgets/keyboard_button.dart';
-import 'package:streamkeys/features/keyboards_deck/models/keyboard_key.dart';
+import 'package:streamkeys/features/keyboards_deck/data/models/keyboard_key.dart';
+import 'package:streamkeys/features/keyboards_deck/widgets/keyboard_button_wrapper.dart';
 
 class MainBlockMap extends StatelessWidget {
   const MainBlockMap({
@@ -35,19 +35,19 @@ class MainBlockMap extends StatelessWidget {
                       ],
                       if (i == block.length - 1 && j == 3) ...[
                         Expanded(
-                          child: KeyboardButton(
+                          child: KeyboardButtonWrapper(
                             keyboardKey: row[j],
                           ),
                         ),
                       ] else if (i != block.length - 1 &&
                           (j == row.length - 1 || (i != 0 && j == 0))) ...[
                         Expanded(
-                          child: KeyboardButton(
+                          child: KeyboardButtonWrapper(
                             keyboardKey: row[j],
                           ),
                         ),
                       ] else ...[
-                        KeyboardButton(
+                        KeyboardButtonWrapper(
                           keyboardKey: row[j],
                         ),
                       ],
