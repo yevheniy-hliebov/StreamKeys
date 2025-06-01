@@ -5,15 +5,23 @@ import 'package:url_launcher/url_launcher.dart';
 
 class Website extends BaseAction {
   String url;
-  final TextEditingController urlController = TextEditingController();
+  late TextEditingController urlController;
 
   static const String actionTypeName = 'Website';
 
   Website({this.url = ''})
       : super(
           actionType: actionTypeName,
-          actionName: 'Open website',
-        );
+          dialogTitle: 'Enter the website URL',
+        ) {
+    urlController = TextEditingController(text: url);
+  }
+
+  @override
+  String get actionName {
+    final showUrl = url.isNotEmpty ? '($url)' : '';
+    return 'Open website $showUrl';
+  }
 
   @override
   FutureVoid execute({dynamic data}) async {
@@ -64,5 +72,15 @@ class Website extends BaseAction {
         },
       ),
     ];
+  }
+
+  @override
+  void save() {
+    url = urlController.text;
+  }
+
+  @override
+  void cancel() {
+    urlController.text = url;
   }
 }

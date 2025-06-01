@@ -4,12 +4,14 @@ import 'actions/index.dart';
 
 abstract class BaseAction {
   final String actionType;
-  final String actionName;
+  final String dialogTitle;
 
   BaseAction({
     required this.actionType,
-    required this.actionName,
+    required this.dialogTitle,
   });
+
+  String get actionName;
 
   Json toJson();
 
@@ -27,6 +29,10 @@ abstract class BaseAction {
   List<Widget> formFields(BuildContext context);
 
   void clear() {}
+
+  void save() {}
+
+  void cancel() {}
 
   BaseAction copy();
 
