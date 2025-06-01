@@ -1,11 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:streamkeys/common/models/typedefs.dart';
 import 'package:streamkeys/features/dashboard/widgets/deck_button.dart';
 import 'package:streamkeys/features/keyboards_deck/keyboard_deck_page.dart';
+import 'package:streamkeys/features/obs/bloc/obs_connection_bloc.dart';
+import 'package:streamkeys/features/server/server.dart';
 import 'package:streamkeys/features/settings/widgets/setting_button.dart';
 import 'package:streamkeys/utils/navigate_to_page.dart';
 
-class DashboardPage extends StatelessWidget {
+class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
+
+  @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      startServer();
+    });
+  }
+
+  FutureVoid startServer() async {
+    final obsRepository = context.read<ObsConnectionBloc>().repository;
+    final server = Server(obsRepository);
+    await server.init();
+    await server.start();
+  }
 
   @override
   Widget build(BuildContext context) {

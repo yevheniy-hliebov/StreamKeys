@@ -34,9 +34,11 @@ class KeyboardKeyData {
       name: json['name'] ?? '',
       imagePath: json['image_path'] ?? '',
       backgroundColor: ColorHelper.hexToColor(json['background_color']),
-      actions: json['actions'] != null ? (json['actions'] as List<dynamic>)
-        .map((actionJson) => BaseAction.fromJson(actionJson))
-        .toList() : [],
+      actions: json['actions'] != null
+          ? (json['actions'] as List<dynamic>)
+              .map((actionJson) => BaseAction.fromJson(actionJson))
+              .toList()
+          : [],
     );
   }
 

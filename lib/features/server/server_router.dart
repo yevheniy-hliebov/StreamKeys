@@ -1,13 +1,17 @@
 import 'dart:async';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
+import 'package:streamkeys/features/obs/data/repositories/obs_connection_repository.dart';
 import 'package:streamkeys/features/server/controllers/keyboard_deck_controller.dart';
 
 class ServerRouter {
-  final _router = Router();
-  final keyboardDeckController = KeyboardDeckController();
+  final ObsConnectionRepository repository;
+  late KeyboardDeckController keyboardDeckController;
 
-  ServerRouter() {
+  final _router = Router();
+
+  ServerRouter(this.repository) {
+    keyboardDeckController = KeyboardDeckController(repository);
     routerHandler();
   }
 

@@ -6,7 +6,7 @@ import 'package:streamkeys/features/obs/data/models/obs_connection_data.dart';
 
 class ObsConnectionRepository {
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
-  ObsWebSocket? _obs;
+  ObsWebSocket? obs;
   ObsConnectionData? connectionData;
   bool _isConnected = false;
 
@@ -55,7 +55,7 @@ class ObsConnectionRepository {
     }
 
     try {
-      _obs = await ObsWebSocket.connect(
+      obs = await ObsWebSocket.connect(
         connectionData!.url,
         password: connectionData!.password,
         fallbackEventHandler: (Event event) {
@@ -68,7 +68,7 @@ class ObsConnectionRepository {
         print("Connected to OBS WebSocket");
       }
 
-      _obs?.addHandler((event) {
+      obs?.addHandler((event) {
         if (kDebugMode) {
           print(event.eventType);
         }
@@ -87,8 +87,8 @@ class ObsConnectionRepository {
   }
 
   FutureVoid disconnect() async {
-    await _obs?.close();
-    _obs = null;
+    await obs?.close();
+    obs = null;
     _isConnected = false;
 
     if (kDebugMode) {

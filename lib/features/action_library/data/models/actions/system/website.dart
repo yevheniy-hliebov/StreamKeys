@@ -7,7 +7,7 @@ class Website extends BaseAction {
   String url;
   late TextEditingController urlController;
 
-  static const String actionTypeName = 'Website';
+  static const String actionTypeName = 'website';
 
   Website({this.url = ''})
       : super(
@@ -38,7 +38,6 @@ class Website extends BaseAction {
   Json toJson() {
     return {
       'action_type': actionType,
-      'action_name': actionName,
       'url': url,
     };
   }

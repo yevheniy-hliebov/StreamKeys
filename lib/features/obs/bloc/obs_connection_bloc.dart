@@ -10,12 +10,12 @@ part 'obs_connection_event.dart';
 part 'obs_connection_state.dart';
 
 class ObsConnectionBloc extends Bloc<ObsConnectionEvent, ObsConnectionState> {
-  final ObsConnectionRepository _repository;
+  final ObsConnectionRepository repository;
   ObsConnectionData? data;
   bool autoReconnect = false;
   Timer? _reconnectTimer;
 
-  ObsConnectionBloc(this._repository) : super(const ObsConnectionInitial()) {
+  ObsConnectionBloc(this.repository) : super(const ObsConnectionInitial()) {
     on<ObsConnectionConnectEvent>(_onConnect);
     on<ObsConnectionDisconnectEvent>((event, emit) => _onDisconnect(emit));
     on<ObsConnectionReconnectEvent>(_onReconnect);
@@ -26,7 +26,7 @@ class ObsConnectionBloc extends Bloc<ObsConnectionEvent, ObsConnectionState> {
   }
 
   FutureVoid _initAutoReconnect() async {
-    autoReconnect = await _repository.loadAutoReconnect();
+    autoReconnect = await repository.loadAutoReconnect();
     if (autoReconnect) {
       _startAutoReconnectTimer();
     }
@@ -40,12 +40,12 @@ class ObsConnectionBloc extends Bloc<ObsConnectionEvent, ObsConnectionState> {
     try {
       if (event.updatedConnectionData != null) {
         data = event.updatedConnectionData!;
-        await _repository.updateConnectionData(data!);
+        await repository.updateConnectionData(data!);
       } else {
-        data = await _repository.loadConnectionData();
+        data = await repository.loadConnectionData();
       }
 
-      await _repository.connect();
+      await repository.connect();
       emit(ObsConnectionConnected(data, autoReconnect));
     } catch (e) {
       emit(ObsConnectionError(e.toString(), data, autoReconnect));
@@ -55,7 +55,7 @@ class ObsConnectionBloc extends Bloc<ObsConnectionEvent, ObsConnectionState> {
   FutureVoid _onDisconnect(Emitter<ObsConnectionState> emit) async {
     emit(ObsConnectionLoading(data, autoReconnect));
     try {
-      await _repository.disconnect();
+      await repository.disconnect();
       emit(ObsConnectionInitial(data, autoReconnect));
     } catch (e) {
       emit(ObsConnectionError(e.toString(), data, autoReconnect));
@@ -70,11 +70,11 @@ class ObsConnectionBloc extends Bloc<ObsConnectionEvent, ObsConnectionState> {
     try {
       if (event.updatedConnectionData != null) {
         data = event.updatedConnectionData!;
-        await _repository.updateConnectionData(data!);
+        await repository.updateConnectionData(data!);
       } else {
-        data = await _repository.loadConnectionData();
+        data = await repository.loadConnectionData();
       }
-      await _repository.reconnect();
+      await repository.reconnect();
       emit(ObsConnectionConnected(data, autoReconnect));
     } catch (e) {
       emit(ObsConnectionError(e.toString(), data, autoReconnect));
@@ -86,7 +86,7 @@ class ObsConnectionBloc extends Bloc<ObsConnectionEvent, ObsConnectionState> {
     Emitter<ObsConnectionState> emit,
   ) async {
     autoReconnect = event.enabled;
-    await _repository.saveAutoReconnect(autoReconnect);
+    await repository.saveAutoReconnect(autoReconnect);
 
     if (autoReconnect) {
       _startAutoReconnectTimer();
@@ -94,7 +94,6 @@ class ObsConnectionBloc extends Bloc<ObsConnectionEvent, ObsConnectionState> {
       _stopAutoReconnectTimer();
     }
 
-    // Переемітимо стан з оновленим авто перепідключенням
     emit(state.runtimeType == ObsConnectionConnected
         ? ObsConnectionConnected(data, autoReconnect)
         : ObsConnectionInitial(data, autoReconnect));

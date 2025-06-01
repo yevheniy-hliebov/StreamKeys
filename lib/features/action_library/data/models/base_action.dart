@@ -19,6 +19,8 @@ abstract class BaseAction {
     switch (json['action_type']) {
       case Website.actionTypeName:
         return Website.fromJson(json);
+      case SetActiveScene.actionTypeName:
+        return SetActiveScene.fromJson(json);
       default:
         throw UnsupportedError('Unknown action type');
     }

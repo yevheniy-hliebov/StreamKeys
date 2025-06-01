@@ -15,7 +15,7 @@ class CategoryActions {
       Website(),
     ]),
     CategoryActions(name: 'OBS Studio', actions: [
-      // SetActiveScene(),
+      SetActiveScene(),
       // MuteSource(),
       // UnmuteSource(),
       // ToogleMuteSource(),
