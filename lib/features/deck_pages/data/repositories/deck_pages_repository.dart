@@ -53,6 +53,12 @@ class DeckPagesRepository {
       }
     }
 
+    final pagesToRemove =
+        map.keys.where((k) => !deckPagesData.orderPages.contains(k)).toList();
+    for (final page in pagesToRemove) {
+      map.remove(page);
+    }
+
     for (final page in deckPagesData.orderPages) {
       if (!map.containsKey(page)) {
         map[page] = deckType == DeckType.keyboard ? {} : [];
