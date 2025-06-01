@@ -22,7 +22,7 @@ class KeyboardButtonWrapper extends StatelessWidget {
       KeyboardKeyData? keyData;
       if (state is KeyboardMapLoaded) {
         selectedKeyCode = state.selectedKey?.code;
-        keyData = state.keyDataMap[selectedKeyCode.toString()] ??
+        keyData = state.keyDataMap[keyboardKey.code.toString()] ??
             KeyboardKeyData(code: keyboardKey.code, actions: []);
       }
 
