@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/common/constants/colors.dart';
 import 'package:streamkeys/features/deck_pages/bloc/deck_pages_bloc.dart';
 import 'package:streamkeys/features/deck_pages/widgets/deck_page_list_tile.dart';
+import 'package:streamkeys/features/keyboards_deck/bloc/keyboard_map_bloc.dart';
 
 class DeckPagesList extends StatelessWidget {
   const DeckPagesList({super.key});
@@ -15,6 +16,12 @@ class DeckPagesList extends StatelessWidget {
             state.data != null) {
           final bloc = context.read<DeckPagesBloc>();
           final data = state.data!;
+
+          if (state is DeckPagesLoaded) {
+            context
+                .read<KeyboardMapBloc>()
+                .add(KeyboardMapSelectPage(data.currentPage));
+          }
 
           return Expanded(
             child: ReorderableListView.builder(

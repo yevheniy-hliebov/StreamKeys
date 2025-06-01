@@ -8,7 +8,7 @@ import 'package:streamkeys/features/action_library/bloc/drag_status_bloc.dart';
 import 'package:streamkeys/features/deck_pages/bloc/deck_pages_bloc.dart';
 import 'package:streamkeys/features/deck_pages/data/repositories/deck_pages_repository.dart';
 import 'package:streamkeys/features/deck_pages/deck_pages.dart';
-import 'package:streamkeys/features/keyboards_deck/widgets/button_actions_setting.dart';
+import 'package:streamkeys/features/keyboards_deck/bloc/keyboard_map_bloc.dart';
 import 'package:streamkeys/features/keyboards_deck/widgets/keyboard_map_wrapper.dart';
 import 'package:streamkeys/features/settings/widgets/setting_button.dart';
 
@@ -24,7 +24,8 @@ class KeyboardDeckPage extends StatelessWidget {
             DeckPagesRepository(DeckType.keyboard),
           ),
         ),
-        BlocProvider(create: (_) => DragStatusBloc())
+        BlocProvider(create: (_) => KeyboardMapBloc()),
+        BlocProvider(create: (_) => DragStatusBloc()),
       ],
       child: DragAwareCursor(
         child: Scaffold(
