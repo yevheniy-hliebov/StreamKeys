@@ -57,18 +57,16 @@ class SetActiveScene extends BaseAction {
   }
 
   @override
-  List<Widget> formFields(BuildContext context) {
-    return [
-      TextFormField(
-        controller: sceneNameController,
-        decoration: const InputDecoration(
-          labelText: 'Scene Name',
-        ),
-        onChanged: (value) {
-          sceneName = value;
-        },
+  Widget? form(BuildContext context) {
+    return TextFormField(
+      controller: sceneNameController,
+      decoration: const InputDecoration(
+        labelText: 'Scene Name',
       ),
-    ];
+      onChanged: (value) {
+        sceneName = value;
+      },
+    );
   }
 
   @override

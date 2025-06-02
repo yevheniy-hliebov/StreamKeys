@@ -67,18 +67,16 @@ class UnMuteSource extends BaseAction {
   }
 
   @override
-  List<Widget> formFields(BuildContext context) {
-    return [
-      TextFormField(
-        controller: sourceNameController,
-        decoration: const InputDecoration(
-          labelText: 'Source Name',
-        ),
-        onChanged: (value) {
-          sourceName = value;
-        },
+  Widget? form(BuildContext context) {
+    return TextFormField(
+      controller: sourceNameController,
+      decoration: const InputDecoration(
+        labelText: 'Source Name',
       ),
-    ];
+      onChanged: (value) {
+        sourceName = value;
+      },
+    );
   }
 
   @override

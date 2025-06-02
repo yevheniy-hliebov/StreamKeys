@@ -36,7 +36,9 @@ class KeyActionSequenceEditor extends StatelessWidget {
                   key: ValueKey('$index-${action.actionName}'),
                   action: action,
                   index: index,
-                  onTap: () => _showConfigDialog(context, action),
+                  onTap: () => action.form(context) == null
+                      ? _showConfigDialog(context, action)
+                      : null,
                   onDelete: () => _delete(index),
                 );
               },

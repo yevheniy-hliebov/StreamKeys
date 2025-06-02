@@ -18,10 +18,7 @@ class KeyActionConfigDialog extends StatelessWidget {
       content: Container(
         width: double.maxFinite,
         constraints: const BoxConstraints(maxWidth: 350),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: action.formFields(context),
-        ),
+        child: action.form(context),
       ),
       actions: [
         OutlinedButton(

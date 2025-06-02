@@ -65,18 +65,16 @@ class Website extends BaseAction {
   }
 
   @override
-  List<Widget> formFields(BuildContext context) {
-    return [
-      TextFormField(
-        controller: urlController,
-        decoration: const InputDecoration(
-          labelText: 'Url',
-        ),
-        onChanged: (value) {
-          url = value;
-        },
+  Widget? form(BuildContext context) {
+    return TextFormField(
+      controller: urlController,
+      decoration: const InputDecoration(
+        labelText: 'Url',
       ),
-    ];
+      onChanged: (value) {
+        url = value;
+      },
+    );
   }
 
   @override

@@ -105,28 +105,31 @@ class VisibleSource extends BaseAction {
   }
 
   @override
-  List<Widget> formFields(BuildContext context) {
-    return [
-      TextFormField(
-        controller: sceneNameController,
-        decoration: const InputDecoration(
-          labelText: 'Scene Name',
+  Widget? form(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      spacing: 12,
+      children: [
+        TextFormField(
+          controller: sceneNameController,
+          decoration: const InputDecoration(
+            labelText: 'Scene Name',
+          ),
+          onChanged: (value) {
+            sceneName = value;
+          },
         ),
-        onChanged: (value) {
-          sceneName = value;
-        },
-      ),
-      const SizedBox(height: 12),
-      TextFormField(
-        controller: sourceNameController,
-        decoration: const InputDecoration(
-          labelText: 'Source Name',
+        TextFormField(
+          controller: sourceNameController,
+          decoration: const InputDecoration(
+            labelText: 'Source Name',
+          ),
+          onChanged: (value) {
+            sourceName = value;
+          },
         ),
-        onChanged: (value) {
-          sourceName = value;
-        },
-      ),
-    ];
+      ],
+    );
   }
 
   @override

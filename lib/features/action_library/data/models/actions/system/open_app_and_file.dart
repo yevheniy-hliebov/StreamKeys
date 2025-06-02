@@ -76,39 +76,36 @@ class OpenAppAndFile extends BaseAction {
   }
 
   @override
-  List<Widget> formFields(BuildContext context) {
-    return [
-      TextFormField(
-        controller: filePathController,
-        decoration: InputDecoration(
-            labelText: 'File Path',
-            suffixIcon: Container(
-              margin: const EdgeInsets.only(right: 8),
-              child: IconButton(
-                onPressed: () async {
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (_) =>
-                        const Center(child: CircularProgressIndicator()),
-                  );
+  Widget? form(BuildContext context) {
+    return TextFormField(
+      controller: filePathController,
+      decoration: InputDecoration(
+          labelText: 'File Path',
+          suffixIcon: Container(
+            margin: const EdgeInsets.only(right: 8),
+            child: IconButton(
+              onPressed: () async {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (_) =>
+                      const Center(child: CircularProgressIndicator()),
+                );
 
-                  try {
-                    await pickFile();
-                  } finally {
-                    if (context.mounted) {
-                      Navigator.of(context, rootNavigator: true)
-                          .pop();
-                    }
+                try {
+                  await pickFile();
+                } finally {
+                  if (context.mounted) {
+                    Navigator.of(context, rootNavigator: true).pop();
                   }
-                },
-                icon: const Icon(Icons.folder),
-              ),
-            )),
-        onChanged: (value) {
-          filePath = value;
-        },
-      ),
-    ];
+                }
+              },
+              icon: const Icon(Icons.folder),
+            ),
+          )),
+      onChanged: (value) {
+        filePath = value;
+      },
+    );
   }
 }

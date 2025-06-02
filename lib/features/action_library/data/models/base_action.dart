@@ -43,7 +43,7 @@ abstract class BaseAction {
 
   FutureVoid execute({dynamic data});
 
-  List<Widget> formFields(BuildContext context);
+  Widget? form(BuildContext context);
 
   void clear() {}
 
