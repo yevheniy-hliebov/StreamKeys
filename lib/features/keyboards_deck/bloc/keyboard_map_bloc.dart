@@ -40,7 +40,7 @@ class KeyboardMapBloc extends Bloc<KeyboardMapEvent, KeyboardMapState> {
     on<KeyboardMapUpdateKeyData>((event, emit) async {
       if (pageName != null) {
         final updatedMap = Map<String, KeyboardKeyData>.from(keyDataMap);
-        updatedMap[event.keyData.code.toString()] = event.keyData.copy();
+        updatedMap[event.keyData.code.toString()] = event.keyData;
 
         keyDataMap = updatedMap;
 

@@ -27,6 +27,8 @@ class KeyActionTile extends StatelessWidget {
             title: Text(
               action.actionName,
               style: const TextStyle(fontSize: 16),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
             tileColor: SColors.of(context).background,
             contentPadding: const EdgeInsets.symmetric(horizontal: 8),

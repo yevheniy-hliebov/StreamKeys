@@ -21,9 +21,9 @@ class KeyActionSequenceEditor extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: 16,
       children: [
         const _ActionsHeader(),
-        const SizedBox(height: 8),
         Flexible(
           child: _ActionsContainer(
             child: ReorderableListView.builder(
