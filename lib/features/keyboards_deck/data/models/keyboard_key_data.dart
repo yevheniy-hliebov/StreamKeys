@@ -4,7 +4,7 @@ import 'package:streamkeys/features/action_library/data/models/base_action.dart'
 import 'package:streamkeys/utils/color_helper.dart';
 
 class KeyboardKeyData {
-  final int code;
+  int code;
   String name;
   String imagePath;
   Color? backgroundColor;
@@ -17,6 +17,11 @@ class KeyboardKeyData {
     this.backgroundColor,
     required this.actions,
   });
+
+  @override
+  String toString() {
+    return '$code-$name-$imagePath-$backgroundColor-${actions.length}';
+  }
 
   KeyboardKeyData copy() {
     return KeyboardKeyData(

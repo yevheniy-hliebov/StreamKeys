@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:streamkeys/features/action_library/bloc/drag_status_bloc.dart';
 import 'package:streamkeys/features/action_library/data/models/base_action.dart';
 import 'package:streamkeys/features/keyboards_deck/bloc/keyboard_map_bloc.dart';
 import 'package:streamkeys/features/keyboards_deck/data/models/keyboard_key.dart';
@@ -21,6 +22,7 @@ class KeyboardButtonWrapper extends StatelessWidget {
         if (state is KeyboardMapLoaded) {
           KeyboardKeyData? keyData =
               state.keyDataMap[keyboardKey.code.toString()];
+          keyData ??= KeyboardKeyData(code: keyboardKey.code, actions: []);
           final isSelected = state.selectedKey?.code == keyboardKey.code;
 
           return DragTarget<BaseAction>(
@@ -37,17 +39,57 @@ class KeyboardButtonWrapper extends StatelessWidget {
               return true;
             },
             builder: (context, candidateData, __) {
-              final isHighlighted = candidateData.isNotEmpty;
-              return KeyboardButton(
-                keyboardKey: keyboardKey,
-                keyData: keyData,
-                isSelected: isSelected,
-                isDragHighlighted: isHighlighted,
-                onTap: () {
-                  context
-                      .read<KeyboardMapBloc>()
-                      .add(KeyboardMapSelectKey(keyboardKey));
+              bool isHighlighted = candidateData.isNotEmpty;
+
+              return LongPressDraggable<KeyboardKeyData>(
+                data: keyData,
+                onDragStarted: () {
+                  context.read<DragStatusBloc>().add(const StartDragEvent());
                 },
+                onDragEnd: (details) {
+                  context.read<DragStatusBloc>().add(const EndDragEvent());
+                },
+                feedback: Material(
+                  child: KeyboardButton(
+                    keyboardKey: keyboardKey,
+                    keyData: keyData,
+                  ),
+                ),
+                childWhenDragging: Opacity(
+                  opacity: 0.5,
+                  child: KeyboardButton(
+                    keyboardKey: keyboardKey,
+                    keyData: keyData,
+                    isSelected: isSelected,
+                  ),
+                ),
+                child: DragTarget<KeyboardKeyData>(
+                  onAcceptWithDetails: (details) {
+                    keyData ??=
+                        KeyboardKeyData(code: keyboardKey.code, actions: []);
+                    context.read<KeyboardMapBloc>().add(
+                          KeyboardMapSwapKeyData(keyData!, details.data),
+                        );
+                  },
+                  onWillAcceptWithDetails: (details) {
+                    return details.data.code != keyboardKey.code;
+                  },
+                  builder: (context, candidateKeyData, __) {
+                    isHighlighted = candidateKeyData.isNotEmpty;
+
+                    return KeyboardButton(
+                      keyboardKey: keyboardKey,
+                      keyData: keyData,
+                      isSelected: isSelected,
+                      isDragHighlighted: isHighlighted,
+                      onTap: () {
+                        context
+                            .read<KeyboardMapBloc>()
+                            .add(KeyboardMapSelectKey(keyboardKey));
+                      },
+                    );
+                  },
+                ),
               );
             },
           );

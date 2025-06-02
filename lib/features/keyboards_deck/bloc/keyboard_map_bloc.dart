@@ -48,6 +48,27 @@ class KeyboardMapBloc extends Bloc<KeyboardMapEvent, KeyboardMapState> {
         _loaded(emit);
       }
     });
+    on<KeyboardMapSwapKeyData>((event, emit) async {
+      if (pageName != null) {
+        KeyboardKeyData oldKeyData = event.newKeyData.copy();
+        oldKeyData.code = event.oldKeyData.code;
+        
+        KeyboardKeyData newKeyData = event.oldKeyData.copy();
+        newKeyData.code = event.newKeyData.code;
+
+
+
+        final updatedMap = Map<String, KeyboardKeyData>.from(keyDataMap);
+        updatedMap[oldKeyData.code.toString()] = oldKeyData.copy();
+        updatedMap[newKeyData.code.toString()] = newKeyData.copy();
+
+        keyDataMap = updatedMap;
+
+        await repo.saveKeyDataToPage(pageName!, event.oldKeyData);
+        await repo.saveKeyDataToPage(pageName!, event.newKeyData);
+        _loaded(emit);
+      }
+    });
   }
 
   void _loaded(Emitter<KeyboardMapState> emit) {

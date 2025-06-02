@@ -33,7 +33,7 @@ class KeyEditor extends StatelessWidget {
                 SizedBox(
                   width: 318,
                   child: KeySettingsPanel(
-                    key: Key(keyData.code.toString()),
+                    key: Key(keyData.toString()),
                     selectedKey: state.selectedKey!,
                     initialData: keyData,
                   ),

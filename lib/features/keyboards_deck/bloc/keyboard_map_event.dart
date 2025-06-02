@@ -26,3 +26,10 @@ final class KeyboardMapUpdateKeyData extends KeyboardMapEvent {
 
   const KeyboardMapUpdateKeyData(this.keyData);
 }
+
+final class KeyboardMapSwapKeyData extends KeyboardMapEvent {
+  final KeyboardKeyData oldKeyData;
+  final KeyboardKeyData newKeyData;
+
+  const KeyboardMapSwapKeyData(this.oldKeyData, this.newKeyData);
+}
