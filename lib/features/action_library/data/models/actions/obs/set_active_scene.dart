@@ -15,9 +15,12 @@ class SetActiveScene extends BaseAction {
   }
 
   @override
+  String actionLabel = 'Set Active Scene';
+
+  @override
   String get actionName {
     final showSceneName = sceneName.isNotEmpty ? '($sceneName)' : '';
-    return 'OBS Set Active Scene $showSceneName';
+    return 'OBS $actionLabel $showSceneName';
   }
 
   @override

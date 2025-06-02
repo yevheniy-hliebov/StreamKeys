@@ -12,6 +12,7 @@ abstract class BaseAction {
   });
 
   String get actionName;
+  String get actionLabel;
 
   Json toJson();
 

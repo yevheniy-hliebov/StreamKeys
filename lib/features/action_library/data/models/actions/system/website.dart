@@ -18,9 +18,15 @@ class Website extends BaseAction {
   }
 
   @override
+  String actionLabel = 'Open website';
+
+  @override
   String get actionName {
-    final showUrl = url.isNotEmpty ? '($url)' : '';
-    return 'Open website $showUrl';
+    if (url.isEmpty) {
+      return actionLabel;
+    } else {
+      return '$actionLabel ($url)';
+    }
   }
 
   @override

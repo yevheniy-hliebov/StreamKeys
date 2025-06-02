@@ -19,11 +19,14 @@ class HiddenSource extends BaseAction {
   }
 
   @override
+  String actionLabel = 'Hidden Source';
+
+  @override
   String get actionName {
     if (sceneName.isEmpty && sourceName.isEmpty) {
-      return 'OBS Hidden Source';
+      return 'OBS $actionLabel';
     } else {
-      return 'OBS Hidden Source ($sceneName:$sourceName)';
+      return 'OBS $actionLabel ($sceneName:$sourceName)';
     }
   }
 

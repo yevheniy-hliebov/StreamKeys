@@ -18,11 +18,14 @@ class ToggleMuteSource extends BaseAction {
   }
 
   @override
+  String actionLabel = 'Toggle Mute Source';
+
+  @override
   String get actionName {
     if (sourceName.isEmpty) {
-      return 'OBS Toggle Mute Source';
+      return 'OBS $actionLabel';
     } else {
-      return 'OBS Toggle Mute Source ($sourceName)';
+      return 'OBS $actionLabel ($sourceName)';
     }
   }
 

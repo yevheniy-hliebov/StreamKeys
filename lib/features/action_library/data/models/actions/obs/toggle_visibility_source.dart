@@ -21,11 +21,14 @@ class ToggleVisibleSource extends BaseAction {
   }
 
   @override
+  String actionLabel = 'Toggle Visibility Source';
+
+  @override
   String get actionName {
     if (sceneName.isEmpty && sourceName.isEmpty) {
-      return 'OBS Toggle Visibility Source';
+      return 'OBS $actionLabel';
     } else {
-      return 'OBS Toggle Visibility Source ($sceneName:$sourceName)';
+      return 'OBS $actionLabel ($sceneName:$sourceName)';
     }
   }
 

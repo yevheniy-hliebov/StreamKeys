@@ -35,8 +35,6 @@ class HidMacrosHelper {
       onSuccess: 'HIDMacros is running as administrator',
       onError: 'Startup error',
     );
-
-    await Future.delayed(const Duration(seconds: 1));
   }
 
   static FutureVoid stop() async {
@@ -46,6 +44,7 @@ class HidMacrosHelper {
       onSuccess: 'HIDMacros completed with administrator privileges',
       onError: 'Completion error',
     );
+    await Future.delayed(const Duration(seconds: 2));
   }
 
   static FutureVoid restart() async {

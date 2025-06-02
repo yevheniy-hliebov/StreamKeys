@@ -21,11 +21,14 @@ class VisibleSource extends BaseAction {
   }
 
   @override
+  String actionLabel = 'Visible Source';
+
+  @override
   String get actionName {
     if (sceneName.isEmpty && sourceName.isEmpty) {
-      return 'OBS Visible Source';
+      return 'OBS $actionLabel';
     } else {
-      return 'OBS Visible Source ($sceneName:$sourceName)';
+      return 'OBS $actionLabel ($sceneName:$sourceName)';
     }
   }
 

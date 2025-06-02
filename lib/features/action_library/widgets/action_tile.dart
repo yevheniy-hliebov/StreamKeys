@@ -41,7 +41,7 @@ class ActionTile extends StatelessWidget {
           color: color,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Text(
-            action.actionName,
+            action.actionLabel,
             style: const TextStyle(fontSize: 16),
           ),
         );

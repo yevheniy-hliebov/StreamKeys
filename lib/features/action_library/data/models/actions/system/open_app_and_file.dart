@@ -20,9 +20,15 @@ class OpenAppAndFile extends BaseAction {
   }
 
   @override
+  String actionLabel = 'Open app/file';
+
+  @override
   String get actionName {
-    final showFilePath = filePath.isNotEmpty ? '($filePath)' : '';
-    return 'Open app/file $showFilePath';
+    if (filePath.isEmpty) {
+      return actionLabel;
+    } else {
+      return '$actionLabel ($filePath)';
+    }
   }
 
   Future<void> pickFile() async {
