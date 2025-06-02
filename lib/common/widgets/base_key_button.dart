@@ -54,9 +54,7 @@ class _BaseKeyButtonState extends State<BaseKeyButton> {
             child: Stack(
               children: [
                 Container(
-                  color: widget.isDragHighlighted
-                      ? SColors.primary
-                      : SColors.of(context).actionButtonBackground,
+                  color: SColors.of(context).actionButtonBackground,
                 ),
                 Container(
                   color: widget.isDragHighlighted

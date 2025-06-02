@@ -17,39 +17,44 @@ class KeyboardButtonWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<KeyboardMapBloc, KeyboardMapState>(
-        builder: (context, state) {
-      int? selectedKeyCode;
-      KeyboardKeyData? keyData;
-      if (state is KeyboardMapLoaded) {
-        selectedKeyCode = state.selectedKey?.code;
-        keyData = state.keyDataMap[keyboardKey.code.toString()] ??
-            KeyboardKeyData(code: keyboardKey.code, actions: []);
-      }
+      builder: (context, state) {
+        if (state is KeyboardMapLoaded) {
+          KeyboardKeyData? keyData =
+              state.keyDataMap[keyboardKey.code.toString()];
+          final isSelected = state.selectedKey?.code == keyboardKey.code;
 
-      return DragTarget<BaseAction>(
-        onAcceptWithDetails: (details) {
-          final action = details.data;
+          return DragTarget<BaseAction>(
+            onAcceptWithDetails: (details) {
+              final action = details.data;
 
-          keyData!.actions.add(action.copy());
-          context
-              .read<KeyboardMapBloc>()
-              .add(KeyboardMapUpdateKeyData(keyData));
-        },
-        onWillAcceptWithDetails: (details) {
-          return true;
-        },
-        builder: (context, candidateData, __) {
-          final isHighlighted = candidateData.isNotEmpty;
-          return KeyboardButton(
-            keyboardKey: keyboardKey,
-            isSelected: selectedKeyCode == keyboardKey.code,
-            isDragHighlighted: isHighlighted,
-            onTap: () => context.read<KeyboardMapBloc>().add(
-                  KeyboardMapSelectKey(keyboardKey),
-                ),
+              keyData ??= KeyboardKeyData(code: keyboardKey.code, actions: []);
+              keyData!.actions.add(action.copy());
+              context
+                  .read<KeyboardMapBloc>()
+                  .add(KeyboardMapUpdateKeyData(keyData!));
+            },
+            onWillAcceptWithDetails: (details) {
+              return true;
+            },
+            builder: (context, candidateData, __) {
+              final isHighlighted = candidateData.isNotEmpty;
+              return KeyboardButton(
+                keyboardKey: keyboardKey,
+                keyData: keyData,
+                isSelected: isSelected,
+                isDragHighlighted: isHighlighted,
+                onTap: () {
+                  context
+                      .read<KeyboardMapBloc>()
+                      .add(KeyboardMapSelectKey(keyboardKey));
+                },
+              );
+            },
           );
-        },
-      );
-    });
+        } else {
+          return const SizedBox();
+        }
+      },
+    );
   }
 }

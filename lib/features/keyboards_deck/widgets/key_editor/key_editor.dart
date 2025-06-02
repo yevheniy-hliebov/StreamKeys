@@ -18,15 +18,22 @@ class KeyEditor extends StatelessWidget {
       child: BlocBuilder<KeyboardMapBloc, KeyboardMapState>(
         builder: (context, state) {
           if (state is KeyboardMapLoaded && state.selectedKey != null) {
-            final keyData =
-                state.keyDataMap[state.selectedKey!.code.toString()]?.copy() ??
-                    KeyboardKeyData(code: state.selectedKey!.code, actions: []);
+            final keyCode = state.selectedKey!.code;
+            KeyboardKeyData keyData = KeyboardKeyData(
+              code: keyCode,
+              actions: [],
+            );
+            final loadKeyData = state.keyDataMap[keyCode.toString()];
+            if (loadKeyData != null) {
+              keyData = loadKeyData;
+            }
 
             return Row(
               children: [
                 SizedBox(
                   width: 318,
                   child: KeySettingsPanel(
+                    key: Key(keyData.code.toString()),
                     selectedKey: state.selectedKey!,
                     initialData: keyData,
                   ),
