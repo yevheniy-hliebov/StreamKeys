@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/common/models/typedefs.dart';
 import 'package:streamkeys/features/dashboard/widgets/deck_button.dart';
+import 'package:streamkeys/features/deck_pages/bloc/deck_pages_bloc.dart';
 import 'package:streamkeys/features/keyboards_deck/keyboard_deck_page.dart';
 import 'package:streamkeys/features/obs/bloc/obs_connection_bloc.dart';
 import 'package:streamkeys/features/server/server.dart';
@@ -26,8 +27,13 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   FutureVoid startServer() async {
-    final obsRepository = context.read<ObsConnectionBloc>().repository;
-    final server = Server(obsRepository);
+    final obsConnectionRepository =
+        context.read<ObsConnectionBloc>().repository;
+    final keyboardDeckPagesBloc = context.read<KeyboardDeckPagesBloc>();
+    final server = Server(
+      obsConnectionRepository: obsConnectionRepository,
+      keyboardDeckPagesBloc: keyboardDeckPagesBloc,
+    );
     await server.init();
     await server.start();
   }

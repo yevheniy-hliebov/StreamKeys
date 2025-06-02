@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/common/models/typedefs.dart';
 import 'package:streamkeys/features/deck_pages/data/models/deck_pages.dart';
 import 'package:streamkeys/features/deck_pages/data/models/deck_type_enum.dart';
+import 'package:streamkeys/features/deck_pages/data/models/page_direction.dart';
 import 'package:streamkeys/features/deck_pages/data/repositories/deck_pages_repository.dart';
 
 part 'deck_pages_event.dart';
@@ -24,6 +25,7 @@ class DeckPagesBloc extends Bloc<DeckPagesEvent, DeckPagesState> {
     on<DeckPagesInitEvent>(_init);
     on<DeckPagesAddEvent>(_addPage);
     on<DeckPagesSelectEvent>(_selectPage);
+    on<DeckPagesChangeEvent>(_changePage);
     on<DeckPagesStartRenameEvent>(_startRenamePage);
     on<DeckPagesRenamedEvent>(_renamePage);
     on<DeckPagesDisableRenameEvent>(_disableRenamePage);
@@ -67,6 +69,25 @@ class DeckPagesBloc extends Bloc<DeckPagesEvent, DeckPagesState> {
     Emitter<DeckPagesState> emit,
   ) async {
     deckPagesData.currentPage = event.pageName;
+
+    emit(DeckPagesLoaded(deckPagesData.copy()));
+    await _save();
+  }
+
+  FutureVoid _changePage(
+    DeckPagesChangeEvent event,
+    Emitter<DeckPagesState> emit,
+  ) async {
+    final index = deckPagesData.orderPages.indexOf(deckPagesData.currentPage);
+    if (event.direction == PageDirection.next) {
+      if (index < deckPagesData.orderPages.length - 1) {
+        deckPagesData.currentPage = deckPagesData.orderPages[index + 1];
+      }
+    } else {
+      if (index > 0) {
+        deckPagesData.currentPage = deckPagesData.orderPages[index - 1];
+      }
+    }
 
     emit(DeckPagesLoaded(deckPagesData.copy()));
     await _save();

@@ -21,6 +21,12 @@ class DeckPagesSelectEvent extends DeckPagesEvent {
   const DeckPagesSelectEvent(this.pageName);
 }
 
+class DeckPagesChangeEvent extends DeckPagesEvent {
+  final PageDirection direction;
+
+  const DeckPagesChangeEvent(this.direction);
+}
+
 class DeckPagesStartRenameEvent extends DeckPagesEvent {
   const DeckPagesStartRenameEvent();
 }

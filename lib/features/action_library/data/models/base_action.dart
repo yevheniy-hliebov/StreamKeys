@@ -36,6 +36,8 @@ abstract class BaseAction {
         return ToggleVisibleSource.fromJson(json);
       case ToggleMuteSource.actionTypeName:
         return ToggleMuteSource.fromJson(json);
+      case ChangePage.actionTypeName:
+        return ChangePage.fromJson(json);
       default:
         throw UnsupportedError('Unknown action type');
     }

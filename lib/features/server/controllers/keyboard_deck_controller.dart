@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:shelf/shelf.dart';
 import 'package:streamkeys/common/models/typedefs.dart';
+import 'package:streamkeys/features/action_library/data/models/actions/index.dart';
+import 'package:streamkeys/features/deck_pages/bloc/deck_pages_bloc.dart';
 import 'package:streamkeys/features/deck_pages/data/models/deck_type_enum.dart';
 import 'package:streamkeys/features/keyboards_deck/data/models/keyboard_key_data.dart';
 import 'package:streamkeys/features/obs/data/repositories/obs_connection_repository.dart';
@@ -9,11 +11,16 @@ import 'package:streamkeys/features/server/controllers/base_controller.dart';
 import 'package:streamkeys/utils/json_read_and_save.dart';
 
 class KeyboardDeckController extends BaseController {
-  final ObsConnectionRepository repository;
+  final ObsConnectionRepository obsConnectionRepository;
+  final KeyboardDeckPagesBloc keyboardDeckPagesBloc;
+
   final JsonHelper jsonHelper =
       JsonHelper.storage('${DeckType.keyboard.name}_deck.json');
 
-  KeyboardDeckController(this.repository);
+  KeyboardDeckController({
+    required this.obsConnectionRepository,
+    required this.keyboardDeckPagesBloc,
+  });
 
   Future<Response> clickKey(
     Request request,
@@ -33,7 +40,11 @@ class KeyboardDeckController extends BaseController {
         if (keyDataJson != null) {
           final keyData = KeyboardKeyData.fromJson(keyDataJson);
           for (var action in keyData.actions) {
-            await action.execute(data: repository.obs);
+            if (action is ChangePage) {
+              await action.execute(data: keyboardDeckPagesBloc);
+            } else {
+              await action.execute(data: obsConnectionRepository.obs);
+            }
           }
         }
       }

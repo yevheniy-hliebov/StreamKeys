@@ -11,6 +11,10 @@ class CategoryActions {
   });
 
   static List<CategoryActions> library = [
+    CategoryActions(name: 'Core', actions: [
+      ChangePage(PageDirection.next),
+      ChangePage(PageDirection.previous),
+    ]),
     CategoryActions(name: 'System', actions: [
       OpenAppAndFile(),
       Website(),

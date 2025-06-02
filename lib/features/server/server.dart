@@ -4,24 +4,32 @@ import 'package:flutter/foundation.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:streamkeys/common/models/typedefs.dart';
+import 'package:streamkeys/features/deck_pages/bloc/deck_pages_bloc.dart';
 import 'package:streamkeys/features/obs/data/repositories/obs_connection_repository.dart';
 import 'package:streamkeys/features/server/server_router.dart';
 
 class Server {
-  final ObsConnectionRepository repository;
+  final ObsConnectionRepository obsConnectionRepository;
+  final KeyboardDeckPagesBloc keyboardDeckPagesBloc;
   final int port = 13560;
   late String ip;
 
   HttpServer? _server;
 
-  Server(this.repository);
+  Server({
+    required this.obsConnectionRepository,
+    required this.keyboardDeckPagesBloc,
+  });
 
   FutureVoid init() async {
     ip = await getLocalIPv4();
   }
 
   FutureVoid start() async {
-    final router = ServerRouter(repository);
+    final router = ServerRouter(
+      obsConnectionRepository: obsConnectionRepository,
+      keyboardDeckPagesBloc: keyboardDeckPagesBloc,
+    );
 
     final handler = const Pipeline()
         .addMiddleware(logRequests())
