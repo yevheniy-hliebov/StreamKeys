@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class ColorHelper {
   static String getHexString(Color? color) {
     if (color == null) return '';
-
-    String alpha = color.a.toInt().toRadixString(16).padLeft(2, '0');
-    String red = color.r.toInt().toRadixString(16).padLeft(2, '0');
-    String green = color.g.toInt().toRadixString(16).padLeft(2, '0');
-    String blue = color.b.toInt().toRadixString(16).padLeft(2, '0');
-    return '$alpha$red$green$blue'.toUpperCase();
+    return color.toHexString();
   }
 
   static String getOpacityPercentageString(Color color) {
     double alpha = color.a;
-    return ((alpha / 255) * 100).round().toString();
+    return (alpha * 100).round().toString();
   }
 
   static Color? hexToColor(String? hexString) {
