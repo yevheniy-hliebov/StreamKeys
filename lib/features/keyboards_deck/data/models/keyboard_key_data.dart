@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 import 'package:streamkeys/common/models/typedefs.dart';
 import 'package:streamkeys/features/action_library/data/models/base_action.dart';
 import 'package:streamkeys/utils/color_helper.dart';
 
 class KeyboardKeyData {
+  final String id;
   int code;
   String name;
   String imagePath;
@@ -11,20 +13,17 @@ class KeyboardKeyData {
   final List<BaseAction> actions;
 
   KeyboardKeyData({
+    String? id,
     required this.code,
     this.name = '',
     this.imagePath = '',
     this.backgroundColor,
     required this.actions,
-  });
-
-  @override
-  String toString() {
-    return '$code-$name-$imagePath-$backgroundColor-${actions.length}';
-  }
+  }) : id = id ?? const Uuid().v4(); // генерується автоматично
 
   KeyboardKeyData copy() {
     return KeyboardKeyData(
+      id: id,
       code: code,
       name: name,
       imagePath: imagePath,
@@ -35,6 +34,7 @@ class KeyboardKeyData {
 
   factory KeyboardKeyData.fromJson(Json json) {
     return KeyboardKeyData(
+      id: json['id'],
       code: json['key_code'],
       name: json['name'] ?? '',
       imagePath: json['image_path'] ?? '',
@@ -49,6 +49,7 @@ class KeyboardKeyData {
 
   Json toJson() {
     return {
+      'id': id,
       'key_code': code,
       'name': name,
       'image_path': imagePath,
