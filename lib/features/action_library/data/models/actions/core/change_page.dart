@@ -16,9 +16,7 @@ class ChangePage extends BaseAction {
   static const String actionTypeName = 'change_page';
 
   ChangePage(PageDirection direction)
-      : super(
-            actionType: actionTypeName,
-            dialogTitle: '') {
+      : super(actionType: actionTypeName, dialogTitle: '') {
     directions = direction;
   }
 

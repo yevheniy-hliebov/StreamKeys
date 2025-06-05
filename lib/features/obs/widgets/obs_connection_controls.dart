@@ -30,6 +30,7 @@ class ObsConnectionControls extends StatelessWidget {
         }
 
         return Row(
+          spacing: 8,
           children: [
             Expanded(
               child: FilledButton(
@@ -38,7 +39,6 @@ class ObsConnectionControls extends StatelessWidget {
               ),
             ),
             if (isConnected) ...[
-              const SizedBox(width: 8),
               FilledButton(
                 onPressed: onDisconnect,
                 style: FilledButton.styleFrom(

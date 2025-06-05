@@ -52,11 +52,9 @@ class KeyboardMapBloc extends Bloc<KeyboardMapEvent, KeyboardMapState> {
       if (pageName != null) {
         KeyboardKeyData oldKeyData = event.newKeyData.copy();
         oldKeyData.code = event.oldKeyData.code;
-        
+
         KeyboardKeyData newKeyData = event.oldKeyData.copy();
         newKeyData.code = event.newKeyData.code;
-
-
 
         final updatedMap = Map<String, KeyboardKeyData>.from(keyDataMap);
         updatedMap[oldKeyData.code.toString()] = oldKeyData.copy();

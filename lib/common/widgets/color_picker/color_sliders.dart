@@ -14,7 +14,7 @@ class ColorSliders extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: controller,
-      builder: (context,_) {
+      builder: (context, _) {
         return Container(
           decoration: BoxDecoration(
             color: const Color.fromARGB(255, 0, 0, 0).withValues(alpha: 0.15),
@@ -46,7 +46,7 @@ class ColorSliders extends StatelessWidget {
             ],
           ),
         );
-      }
+      },
     );
   }
 }

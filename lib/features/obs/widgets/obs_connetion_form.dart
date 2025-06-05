@@ -108,18 +108,16 @@ class _ObsConnectionFormState extends State<ObsConnectionForm> {
 
         return Form(
           child: Column(
+            spacing: 16,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 16),
               const ObsConnectionTitle(),
-              const SizedBox(height: 16),
               TextFormField(
                 controller: _ipController,
                 decoration: const InputDecoration(
                   labelText: 'Server IP',
                 ),
               ),
-              const SizedBox(height: 16),
               TextFormField(
                 controller: _portController,
                 decoration: const InputDecoration(
@@ -127,7 +125,6 @@ class _ObsConnectionFormState extends State<ObsConnectionForm> {
                 ),
                 keyboardType: TextInputType.number,
               ),
-              const SizedBox(height: 16),
               TextFormField(
                 controller: _passwordController,
                 decoration: const InputDecoration(
@@ -135,7 +132,6 @@ class _ObsConnectionFormState extends State<ObsConnectionForm> {
                 ),
                 obscureText: true,
               ),
-              const SizedBox(height: 16),
               Row(
                 children: [
                   Checkbox(
@@ -145,7 +141,6 @@ class _ObsConnectionFormState extends State<ObsConnectionForm> {
                   const Text('Auto Reconnect'),
                 ],
               ),
-              const SizedBox(height: 24),
               ObsConnectionControls(
                 onConnect: _connect,
                 onDisconnect: _disconnect,

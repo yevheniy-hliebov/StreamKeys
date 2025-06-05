@@ -33,27 +33,30 @@ class KeyboardDeckPage extends StatelessWidget {
             ),
           ),
         ),
-        body: ResizableColumns(
-          storageKey: 'keyboard_deck_columns_layout',
-          dividerWidth: 4,
-          dividerColor: SColors.of(context).outlineVariant,
-          initialWidths: const [216, 1459, 240],
-          minWidths: const [201, 700, 240],
-          children: [
-            const DeckPages(deckType: DeckType.keyboard),
-            ResizableRows(
-              storageKey: 'keyboard_deck_columns_layout',
-              dividerHeight: 4,
-              dividerColor: SColors.of(context).outlineVariant,
-              initialHeights: const [500, 300],
-              minHeights: const [196, 300],
-              children: const [
-                KeyboardMapWrapper(),
-                KeyEditor(),
-              ],
-            ),
-            const ActionLibrary(),
-          ],
+        body: Padding(
+          padding: const EdgeInsets.only(bottom: 45),
+          child: ResizableColumns(
+            storageKey: 'keyboard_deck_columns_layout',
+            dividerWidth: 4,
+            dividerColor: SColors.of(context).outlineVariant,
+            initialWidths: const [216, 1459, 240],
+            minWidths: const [201, 700, 240],
+            children: [
+              const DeckPages(deckType: DeckType.keyboard),
+              ResizableRows(
+                storageKey: 'keyboard_deck_columns_layout',
+                dividerHeight: 4,
+                dividerColor: SColors.of(context).outlineVariant,
+                initialHeights: const [500, 300],
+                minHeights: const [196, 300],
+                children: const [
+                  KeyboardMapWrapper(),
+                  KeyEditor(),
+                ],
+              ),
+              const ActionLibrary(),
+            ],
+          ),
         ),
       ),
     );

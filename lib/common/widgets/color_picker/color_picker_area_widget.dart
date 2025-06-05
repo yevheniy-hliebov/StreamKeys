@@ -31,7 +31,7 @@ class ColorPickerAreaWidget extends StatelessWidget {
             ),
           ),
         );
-      }
+      },
     );
   }
 }
