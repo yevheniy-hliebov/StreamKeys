@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:streamkeys/common/constants/colors.dart';
+import 'package:streamkeys/common/models/connection_status.dart';
+import 'package:streamkeys/common/widgets/connection_status_indicator.dart';
 import 'package:streamkeys/features/obs/bloc/obs_connection_bloc.dart';
 
 class ObsConnectionStatus extends StatelessWidget {
@@ -11,55 +12,23 @@ class ObsConnectionStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ObsConnectionBloc, ObsConnectionState>(
-        builder: (context, state) {
-      String connectionStatus = 'Not connected';
-      Color statusColor = SColors.danger;
+      builder: (context, state) {
+        ConnectionStatus status = ConnectionStatus.notConnected;
 
-      if (state is ObsConnectionConnected) {
-        connectionStatus = 'Connected';
-        statusColor = SColors.success;
-      } else if (state is ObsConnectionLoading) {
-        connectionStatus = 'Connecting...';
-        statusColor = SColors.warning;
-      }
+        if (state is ObsConnectionConnected) {
+          status = ConnectionStatus.connected;
+        } else if (state is ObsConnectionLoading) {
+          status = ConnectionStatus.connecting;
+        }
 
-      void reconnect() {
-        final bloc = context.read<ObsConnectionBloc>();
-        bloc.add(const ObsConnectionReconnectEvent());
-      }
-
-      return Tooltip(
-        message: connectionStatus,
-        child: Material(
-          child: InkWell(
-            onTap: () => state is ObsConnectionLoading ? null : reconnect(),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-              child: Row(
-                children: [
-                  Text(
-                    'OBS',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: SColors.of(context).onBackground,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Container(
-                    width: 12,
-                    height: 12,
-                    decoration: BoxDecoration(
-                      color: statusColor,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ],
+        return ConnectionStatusIndicator(
+          label: 'OBS',
+          status: status,
+          onReconnect: () => context.read<ObsConnectionBloc>().add(
+                const ObsConnectionReconnectEvent(),
               ),
-            ),
-          ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }
