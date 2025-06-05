@@ -38,6 +38,8 @@ abstract class BaseAction {
         return ToggleMuteSource.fromJson(json);
       case ChangePage.actionTypeName:
         return ChangePage.fromJson(json);
+      case SendMessageToBroadcasterChannel.actionTypeName:
+        return SendMessageToBroadcasterChannel.fromJson(json);
       default:
         throw UnsupportedError('Unknown action type');
     }

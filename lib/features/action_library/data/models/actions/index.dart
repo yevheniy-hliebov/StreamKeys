@@ -8,3 +8,4 @@ export 'obs/mute_source.dart';
 export 'obs/unmute_source.dart';
 export 'obs/toggle_mute_source.dart';
 export 'core/change_page.dart';
+export 'twitch/send_message_to_broadcaster_channel.dart';

@@ -28,6 +28,9 @@ class CategoryActions {
       HiddenSource(),
       ToggleVisibleSource(),
     ]),
+    CategoryActions(name: 'Twitch', actions: [
+      SendMessageToBroadcasterChannel(),
+    ]),
   ];
 
   static String? getCategoryByActionType(String actionType) {

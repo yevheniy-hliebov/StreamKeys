@@ -7,10 +7,13 @@ import 'package:streamkeys/common/models/typedefs.dart';
 import 'package:streamkeys/features/deck_pages/bloc/deck_pages_bloc.dart';
 import 'package:streamkeys/features/obs/data/repositories/obs_connection_repository.dart';
 import 'package:streamkeys/features/server/server_router.dart';
+import 'package:streamkeys/features/twitch/bloc/auth/twitch_auth_bloc.dart';
 
 class Server {
   final ObsConnectionRepository obsConnectionRepository;
   final KeyboardDeckPagesBloc keyboardDeckPagesBloc;
+  final TwitchRepository twitchRepository;
+
   final int port = 13560;
   late String ip;
 
@@ -19,6 +22,7 @@ class Server {
   Server({
     required this.obsConnectionRepository,
     required this.keyboardDeckPagesBloc,
+    required this.twitchRepository,
   });
 
   FutureVoid init() async {
@@ -29,6 +33,7 @@ class Server {
     final router = ServerRouter(
       obsConnectionRepository: obsConnectionRepository,
       keyboardDeckPagesBloc: keyboardDeckPagesBloc,
+      twitchRepository: twitchRepository,
     );
 
     final handler = const Pipeline()

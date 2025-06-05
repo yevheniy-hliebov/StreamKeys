@@ -8,11 +8,13 @@ import 'package:streamkeys/features/deck_pages/data/models/deck_type_enum.dart';
 import 'package:streamkeys/features/keyboards_deck/data/models/keyboard_key_data.dart';
 import 'package:streamkeys/features/obs/data/repositories/obs_connection_repository.dart';
 import 'package:streamkeys/features/server/controllers/base_controller.dart';
+import 'package:streamkeys/features/twitch/bloc/auth/twitch_auth_bloc.dart';
 import 'package:streamkeys/utils/json_read_and_save.dart';
 
 class KeyboardDeckController extends BaseController {
   final ObsConnectionRepository obsConnectionRepository;
   final KeyboardDeckPagesBloc keyboardDeckPagesBloc;
+  final TwitchRepository twitchRepository;
 
   final JsonHelper jsonHelper =
       JsonHelper.storage('${DeckType.keyboard.name}_deck.json');
@@ -20,6 +22,7 @@ class KeyboardDeckController extends BaseController {
   KeyboardDeckController({
     required this.obsConnectionRepository,
     required this.keyboardDeckPagesBloc,
+    required this.twitchRepository,
   });
 
   Future<Response> clickKey(
@@ -42,6 +45,8 @@ class KeyboardDeckController extends BaseController {
           for (var action in keyData.actions) {
             if (action is ChangePage) {
               await action.execute(data: keyboardDeckPagesBloc);
+            } else if (action.actionType.contains('twitch_')) {
+              await action.execute(data: twitchRepository);
             } else {
               await action.execute(data: obsConnectionRepository.obs);
             }

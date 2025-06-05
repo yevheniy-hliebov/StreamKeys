@@ -7,6 +7,7 @@ import 'package:streamkeys/features/keyboards_deck/keyboard_deck_page.dart';
 import 'package:streamkeys/features/obs/bloc/obs_connection_bloc.dart';
 import 'package:streamkeys/features/server/server.dart';
 import 'package:streamkeys/features/settings/widgets/setting_button.dart';
+import 'package:streamkeys/features/twitch/bloc/auth/twitch_auth_bloc.dart';
 import 'package:streamkeys/utils/navigate_to_page.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -30,9 +31,12 @@ class _DashboardPageState extends State<DashboardPage> {
     final obsConnectionRepository =
         context.read<ObsConnectionBloc>().repository;
     final keyboardDeckPagesBloc = context.read<KeyboardDeckPagesBloc>();
+    final twitchRepository = context.read<TwitchAuthBloc>().repository;
+
     final server = Server(
       obsConnectionRepository: obsConnectionRepository,
       keyboardDeckPagesBloc: keyboardDeckPagesBloc,
+      twitchRepository: twitchRepository,
     );
     await server.init();
     await server.start();
