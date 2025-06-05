@@ -30,11 +30,22 @@ class AppWithOverlays extends StatelessWidget {
         Positioned(
           bottom: 0,
           right: 0,
+          left: 0,
           child: Container(
-            color: SColors.of(context).surface,
             padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: SColors.of(context).surface,
+              border: Border(
+                top: BorderSide(
+                  color: SColors.of(context).outlineVariant,
+                  width: 4,
+                ),
+              ),
+            ),
             child: Row(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: overlays
                   .map((widget) => Padding(
                         padding: EdgeInsets.only(left: spacing),

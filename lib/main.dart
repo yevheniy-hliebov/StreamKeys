@@ -11,6 +11,11 @@ import 'package:streamkeys/features/obs/data/repositories/obs_connection_reposit
 import 'package:streamkeys/features/obs/widgets/obs_connection_status.dart';
 import 'package:streamkeys/features/theme/bloc/theme_mode_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:streamkeys/features/twitch/bloc/auth/twitch_auth_bloc.dart';
+import 'package:streamkeys/features/twitch/bloc/connection/twitch_connection_bloc.dart';
+import 'package:streamkeys/features/twitch/bloc/connection/twitch_connection_event.dart';
+import 'package:streamkeys/features/twitch/data/repositories/twitch_connection_service.dart';
+import 'package:streamkeys/features/twitch/widgets/twitch_connection_status.dart';
 import 'package:streamkeys/utils/hid_macros_helper.dart';
 
 void main() async {
@@ -24,6 +29,8 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final twitchRepository = TwitchRepository();
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => ThemeModeBloc()),
@@ -35,6 +42,15 @@ class App extends StatelessWidget {
         BlocProvider(create: (_) => GridDeckPagesBloc()),
         BlocProvider(create: (_) => KeyboardDeckPagesBloc()),
         BlocProvider(create: (_) => KeyboardMapBloc()),
+        BlocProvider(
+          create: (_) => TwitchAuthBloc(twitchRepository),
+        ),
+        BlocProvider(
+          create: (_) => TwitchConnectionBloc(
+            twitchRepository,
+            TwitchConnectionService(),
+          )..add(StartConnectionChecks()),
+        ),
       ],
       child: BlocBuilder<ThemeModeBloc, ThemeMode>(
         builder: (context, themeMode) {
@@ -47,6 +63,7 @@ class App extends StatelessWidget {
             home: const AppWithOverlays(
               home: DashboardPage(),
               overlays: [
+                TwitchConnectionStatus(),
                 ObsConnectionStatus(),
               ],
             ),

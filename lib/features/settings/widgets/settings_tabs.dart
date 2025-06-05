@@ -3,6 +3,7 @@ import 'package:streamkeys/common/constants/colors.dart';
 import 'package:streamkeys/features/settings/widgets/general_settings_tab_view.dart';
 import 'package:streamkeys/features/settings/widgets/hid_macros_tab_view.dart';
 import 'package:streamkeys/features/settings/widgets/obs_tab_view.dart';
+import 'package:streamkeys/features/settings/widgets/twitch_tab_view.dart';
 
 class SettingsTabs extends StatefulWidget {
   const SettingsTabs({super.key});
@@ -31,9 +32,9 @@ class _SettingsTabsState extends State<SettingsTabs>
             controller: tabController,
             tabs: const [
               Tab(text: GeneralSettingsTabView.tabName),
-              Tab(text: ObsTabView.tabName),
               Tab(text: HidMacrosTabView.tabName),
-              Tab(text: 'Twitch'),
+              Tab(text: ObsTabView.tabName),
+              Tab(text: TwitchTabView.tabName),
             ],
           ),
         ),
@@ -41,10 +42,10 @@ class _SettingsTabsState extends State<SettingsTabs>
           child: TabBarView(
             controller: tabController,
             children: const [
-              Center(child: GeneralSettingsTabView()),
-              Center(child: ObsTabView()),
-              Center(child: HidMacrosTabView()),
-              Center(child: Text('Twitch')),
+              GeneralSettingsTabView(),
+              HidMacrosTabView(),
+              ObsTabView(),
+              TwitchTabView(),
             ],
           ),
         ),
