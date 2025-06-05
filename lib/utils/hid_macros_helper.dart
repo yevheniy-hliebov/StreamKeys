@@ -66,8 +66,11 @@ class HidMacrosHelper {
           '-Verb',
           'RunAs',
           '-FilePath',
-          filePath,
-          if (args.isNotEmpty) ...['-ArgumentList', args.join(',')],
+          '"$filePath"',
+          if (args.isNotEmpty) ...[
+            '-ArgumentList',
+            args.map((arg) => '"$arg"').join(','),
+          ],
         ],
         runInShell: true,
       );
