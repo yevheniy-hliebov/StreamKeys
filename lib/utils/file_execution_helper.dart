@@ -6,10 +6,16 @@ class FileExecutionHelper {
 
   static Future<void> runFile(String filePath) async {
     try {
-      final file = File(filePath);
-      final workingDirectory = file.parent.path;
-      final result = await Process.run(filePath, [],
-          runInShell: true, workingDirectory: workingDirectory);
+      final cleanedPath = sanitizePath(filePath);
+
+      final workingDir = File(cleanedPath).parent.path;
+
+      final result = await Process.run(
+        'cmd',
+        ['/C', 'start', '', cleanedPath],
+        runInShell: true,
+        workingDirectory: workingDir,
+      );
 
       if (result.exitCode == 0) {
         if (kDebugMode) {
@@ -21,5 +27,13 @@ class FileExecutionHelper {
     } catch (e) {
       rethrow;
     }
+  }
+
+  static String sanitizePath(String input) {
+    if (input.startsWith(r'\') &&
+        RegExp(r'^[A-Z]:', caseSensitive: false).hasMatch(input.substring(1))) {
+      return input.substring(1);
+    }
+    return input;
   }
 }
