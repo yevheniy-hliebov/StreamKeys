@@ -44,6 +44,8 @@ class TwitchConnectionBloc
 
       emit(TwitchConnectionState(broadcaster: bStatus, bot: botStatus));
     });
+
+    add(StartConnectionChecks());
   }
 
   @override
