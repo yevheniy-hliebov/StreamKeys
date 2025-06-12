@@ -4,6 +4,7 @@ import 'package:streamkeys/desktop/features/dashboard/presentation/screens/dashb
 import 'package:streamkeys/desktop/features/dashboard/presentation/widgets/page_tab.dart';
 import 'package:streamkeys/desktop/features/grid_deck/presentation/screens/grid_deck_screen.dart';
 import 'package:streamkeys/desktop/features/keyboard_deck/presentation/screens/keyboard_deck_screen.dart';
+import 'package:streamkeys/desktop/features/settings/presentation/screens/settings_screen.dart';
 import 'package:streamkeys/service_locator.dart';
 
 void desktopMain() async {
@@ -16,6 +17,7 @@ void desktopMain() async {
         tabs: <PageTab>[
           GridDeckScreen(),
           KeyboardDeckScreen(),
+          SettingsScreen(),
         ],
       ),
     ),
