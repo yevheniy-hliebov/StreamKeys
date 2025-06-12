@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/core/constants/colors.dart';
+import 'package:streamkeys/core/theme/components/index.dart';
 
 class AppTheme {
   const AppTheme._();
@@ -17,6 +18,7 @@ class AppTheme {
         brightness: brightness,
       ),
       scaffoldBackgroundColor: colors.background,
+      tabBarTheme: AppTabThemeData.getTheme(colors),
     );
   }
 }
