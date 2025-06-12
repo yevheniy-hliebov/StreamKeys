@@ -5,7 +5,9 @@ class AppColors {
   /// Returns color palette for light theme.
   static const AppColorsData light = AppColorsData(
     primary: Color(0xFF5B5EFE),
+    onPrimary: Color(0xFFF1F1F1),
     danger: Color(0xFFFE5B5B),
+    onDanger: Color(0xFFF1F1F1),
     overlay: Color(0xFF9E9E9E),
     background: Color(0xFFF1F1F1),
     onBackground: Color(0xFF333333),
@@ -20,7 +22,9 @@ class AppColors {
   /// Returns color palette for dark theme.
   static const AppColorsData dark = AppColorsData(
     primary: Color(0xFF5B5EFE),
+    onPrimary: Color(0xFFF1F1F1),
     danger: Color(0xFFFE5B5B),
+    onDanger: Color(0xFFF1F1F1),
     overlay: Color(0xFF212121),
     background: Color(0xFF333333),
     onBackground: Color(0xFFF1F1F1),
@@ -42,7 +46,9 @@ class AppColors {
 
 class AppColorsData {
   final Color primary;
+  final Color onPrimary;
   final Color danger;
+  final Color onDanger;
   final Color overlay;
   final Color background;
   final Color onBackground;
@@ -55,7 +61,9 @@ class AppColorsData {
 
   const AppColorsData({
     required this.primary,
+    required this.onPrimary,
     required this.danger,
+    required this.onDanger,
     required this.overlay,
     required this.background,
     required this.onBackground,
