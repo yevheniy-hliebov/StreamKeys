@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:streamkeys/core/constants/colors.dart';
 import 'package:streamkeys/desktop/features/dashboard/presentation/widgets/dashboard_tab_bar.dart';
 import 'package:streamkeys/desktop/features/dashboard/presentation/widgets/page_tab.dart';
-import 'package:streamkeys/desktop/features/grid_deck/presentation/screens/grid_deck_screen.dart';
-import 'package:streamkeys/desktop/features/keyboard_deck/presentation/screens/keyboard_deck_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
+  final List<PageTab> tabs;
+
+  const DashboardScreen({
+    super.key,
+    required this.tabs,
+  });
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
@@ -16,15 +19,10 @@ class _DashboardScreenState extends State<DashboardScreen>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
 
-  static final List<PageTab> tabs = <PageTab>[
-    const GridDeckScreen(),
-    const KeyboardDeckScreen(),
-  ];
-
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: tabs.length, vsync: this);
+    _tabController = TabController(length: widget.tabs.length, vsync: this);
   }
 
   @override
@@ -41,14 +39,14 @@ class _DashboardScreenState extends State<DashboardScreen>
         child: Container(
           decoration: _boxDecoration(context),
           child: DashboardTabBar(
-            tabs: tabs,
+            tabs: widget.tabs,
             controller: _tabController,
           ),
         ),
       ),
       body: TabBarView(
         controller: _tabController,
-        children: tabs.map((PageTab tab) => tab.pageView).toList(),
+        children: widget.tabs.map((PageTab tab) => tab.pageView).toList(),
       ),
     );
   }
