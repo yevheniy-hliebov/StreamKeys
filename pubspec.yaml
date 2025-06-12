@@ -9,6 +9,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  bloc: ^9.0.0
+  flutter_bloc: ^9.1.1
+  equatable: ^2.0.7
+  shared_preferences: ^2.5.3
+  get_it: ^8.0.3
 
 dev_dependencies:
   flutter_test:
