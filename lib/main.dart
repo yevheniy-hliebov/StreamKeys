@@ -1,12 +1,21 @@
-import 'dart:io';
-
-import 'package:streamkeys/android/run_android_app.dart';
-import 'package:streamkeys/windows/run_windows_app.dart';
+import 'package:flutter/material.dart';
 
 void main() {
-  if (Platform.isWindows) {
-    runWindowsApp();
-  } else {
-    runAndroidApp();
+  runApp(const App());
+}
+
+class App extends StatelessWidget {
+  const App({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: 'StreamKeys',
+      home: Scaffold(
+        body: Center(
+          child: Text('StreamKeys'),
+        ),
+      ),
+    );
   }
 }

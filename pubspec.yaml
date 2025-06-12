@@ -1,33 +1,14 @@
 name: streamkeys
-description: "A new Flutter project."
-publish_to: 'none'
+description: "StreamKeys is a cross-platform application that allows you to configure and control actions on a Windows computer using a keyboard or an Android mobile device or Web over a local Wi-Fi network."
+publish_to: "none"
 version: 0.1.0
 
 environment:
-  sdk: '>=3.4.1 <4.0.0'
+  sdk: ">=3.4.1 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  path_provider: ^2.1.4
-  file_picker: ^8.1.2
-  shelf: ^1.4.1
-  shelf_router: ^1.1.4
-  window_manager: ^0.4.2
-  http: ^1.2.2
-  shared_preferences: ^2.3.2
-  provider: ^6.1.2
-  reorderables: ^0.6.0
-  network_discovery: ^1.0.0
-  device_info_plus: ^10.1.2
-  tray_manager: ^0.2.3
-  flutter_colorpicker: ^1.1.0
-  process_run: ^1.2.0+3
-  path: ^1.9.0
-  ffi: ^2.1.3
-  url_launcher: ^6.3.1
-  xml: ^6.5.0
-  obs_websocket: ^5.1.0+9
 
 dev_dependencies:
   flutter_test:
@@ -36,5 +17,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets:
-    - lib/windows/assets/keyboard_map.json
