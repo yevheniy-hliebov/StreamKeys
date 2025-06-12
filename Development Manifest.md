@@ -110,7 +110,7 @@ lib/
 
 ### 📝 Documentation
 
-* Every public class/method must have a comment.
+* Every public class/method must have a comment, except for widgets where it is not mandatory.
 * README.md should always describe the current state of the application.
 
 ---
