@@ -8,15 +8,15 @@ part 'deck_page_list_event.dart';
 part 'deck_page_list_state.dart';
 
 class GridDeckPageListBloc extends DeckPageListBloc {
-  GridDeckPageListBloc() : super(DeckPagesRepository(DeckType.grid));
+  GridDeckPageListBloc() : super(DeckPageListRepository(DeckType.grid));
 }
 
 class KeyboardDeckPageListBloc extends DeckPageListBloc {
-  KeyboardDeckPageListBloc() : super(DeckPagesRepository(DeckType.keyboard));
+  KeyboardDeckPageListBloc() : super(DeckPageListRepository(DeckType.keyboard));
 }
 
 class DeckPageListBloc extends Bloc<DeckPageListEvent, DeckPageListState> {
-  final DeckPagesRepository repository;
+  final DeckPageListRepository repository;
 
   late String currentPageName;
   late List<String> pages;

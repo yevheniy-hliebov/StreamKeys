@@ -1,11 +1,11 @@
 import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_type.dart';
 import 'package:streamkeys/desktop/utils/local_json_file_manager.dart';
 
-class DeckPagesRepository {
+class DeckPageListRepository {
   DeckType deckType;
   late LocalJsonFileManager deckJsonFile;
 
-  DeckPagesRepository(this.deckType) {
+  DeckPageListRepository(this.deckType) {
     deckJsonFile = LocalJsonFileManager.storage('${deckType.name}_deck.json');
   }
 
