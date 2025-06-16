@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/core/constants/colors.dart';
+import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/desktop/features/deck/presentation/widgets/deck_devider.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/bloc/deck_page_list_bloc.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/presentation/widgets/deck_page_list_header.dart';
@@ -47,7 +48,10 @@ class DeckPageList<T extends DeckPageListBloc> extends StatelessWidget {
                   },
                 );
               }
-              return const SizedBox();
+              return const Padding(
+                padding: EdgeInsets.all(Spacing.xs),
+                child: CircularProgressIndicator(),
+              );
             },
           )
         ],
