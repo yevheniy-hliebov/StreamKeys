@@ -21,6 +21,7 @@ class AppTheme {
       tabBarTheme: AppTabThemeData.getTheme(colors),
       iconButtonTheme: AppIconButtonThemeData.getTheme(colors),
       progressIndicatorTheme: AppProgressIndicatorTheme.getTheme(colors),
+      inputDecorationTheme: AppInputDecorationThemeData.getTheme(colors),
     );
   }
 }

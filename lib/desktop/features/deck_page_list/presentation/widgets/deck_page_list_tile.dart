@@ -27,7 +27,10 @@ class DeckPageListTile extends StatelessWidget {
 
     return Material(
       child: ListTile(
-        contentPadding: const EdgeInsets.all(Spacing.xs),
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: Spacing.xs,
+          vertical: isEditing ? Spacing.xxs : Spacing.xs,
+        ),
         minTileHeight: 20,
         iconColor: colors.onBackground,
         onTap: onSelect,
@@ -53,14 +56,10 @@ class DeckPageListTile extends StatelessWidget {
 
   TextFormField _buildTextField(BuildContext context) {
     return TextFormField(
+      cursorHeight: 18,
       initialValue: pageName,
       onFieldSubmitted: onStopEditing,
       textInputAction: TextInputAction.done,
-      style: AppTypography.body,
-      decoration: const InputDecoration(
-        isDense: true,
-        contentPadding: EdgeInsets.all(Spacing.xs),
-      ),
     );
   }
 }
