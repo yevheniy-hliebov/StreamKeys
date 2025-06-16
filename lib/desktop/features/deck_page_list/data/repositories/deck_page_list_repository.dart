@@ -26,7 +26,8 @@ class DeckPageListRepository {
     }
 
     final String currentPageName = json['current_page'] ?? '';
-    final List<String> orderPages = List<String>.from(json['order_pages'] ?? <dynamic>[]);
+    final List<String> orderPages =
+        List<String>.from(json['order_pages'] ?? <dynamic>[]);
     return (currentPageName, orderPages);
   }
 

@@ -7,9 +7,10 @@ final GetIt sl = GetIt.instance;
 ///
 /// This includes shared services such as [SharedPreferences], repositories,
 /// blocs, and any other singleton services used across the app.
-/// 
+///
 /// Should be called before running the application, typically in `main()`.
 Future<void> initServiceLocator() async {
-  final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  final SharedPreferences sharedPreferences =
+      await SharedPreferences.getInstance();
   sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
 }

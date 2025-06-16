@@ -43,7 +43,6 @@ class AppColors {
   }
 }
 
-
 class AppColorsData {
   final Color primary;
   final Color onPrimary;

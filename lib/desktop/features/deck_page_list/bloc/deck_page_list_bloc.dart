@@ -114,7 +114,7 @@ class DeckPageListBloc extends Bloc<DeckPageListEvent, DeckPageListState> {
     Emitter<DeckPageListState> emit,
   ) async {
     isEditing = false;
-    
+
     int newIndex = event.newIndex;
     final int oldIndex = event.oldIndex;
 

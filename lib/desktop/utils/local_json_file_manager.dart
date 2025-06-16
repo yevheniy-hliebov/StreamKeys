@@ -40,7 +40,8 @@ class LocalJsonFileManager {
     final String storagePath = await HelperFunctions.getStoragePath();
     final File file = File('$storagePath/$filePath');
 
-    final String formattedContent = const JsonEncoder.withIndent('  ').convert(json);
+    final String formattedContent =
+        const JsonEncoder.withIndent('  ').convert(json);
 
     await file.writeAsString(
       formattedContent,
