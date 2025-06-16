@@ -68,6 +68,7 @@ class DeckPageListBloc extends Bloc<DeckPageListEvent, DeckPageListState> {
     DeckPageListSelectPage event,
     Emitter<DeckPageListState> emit,
   ) async {
+    isEditing = false;
     currentPageName = event.selectPageName;
     _emitLoaded(emit);
   }
@@ -76,6 +77,7 @@ class DeckPageListBloc extends Bloc<DeckPageListEvent, DeckPageListState> {
     DeckPageListDeletePage event,
     Emitter<DeckPageListState> emit,
   ) async {
+    isEditing = false;
     int index = pages.indexOf(currentPageName);
     if (pages.length > 1) {
       pages.removeAt(index);
@@ -111,6 +113,8 @@ class DeckPageListBloc extends Bloc<DeckPageListEvent, DeckPageListState> {
     DeckPageListReorder event,
     Emitter<DeckPageListState> emit,
   ) async {
+    isEditing = false;
+    
     int newIndex = event.newIndex;
     final int oldIndex = event.oldIndex;
 
