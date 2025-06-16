@@ -19,6 +19,9 @@ class AppTheme {
       ),
       scaffoldBackgroundColor: colors.background,
       tabBarTheme: AppTabThemeData.getTheme(colors),
+      iconButtonTheme: AppIconButtonThemeData.getTheme(colors),
+      progressIndicatorTheme: AppProgressIndicatorTheme.getTheme(colors),
+      inputDecorationTheme: AppInputDecorationThemeData.getTheme(colors),
     );
   }
 }
