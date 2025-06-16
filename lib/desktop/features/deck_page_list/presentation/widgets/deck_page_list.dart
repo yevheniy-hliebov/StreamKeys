@@ -33,19 +33,21 @@ class DeckPageList<T extends DeckPageListBloc> extends StatelessWidget {
           BlocBuilder<T, DeckPageListState>(
             builder: (BuildContext context, DeckPageListState state) {
               if (state is DeckPageListLoaded) {
-                return DeckPageListItems(
-                  currentPageName: state.currentPageName,
-                  pages: state.pages,
-                  isEditing: state.isEditing,
-                  onSelectPage: (String pageName) {
-                    provider.add(DeckPageListSelectPage(pageName));
-                  },
-                  onStopEditing: (String newPageName) {
-                    provider.add(DeckPageListStopEditingPage(newPageName));
-                  },
-                  onReorder: (int oldIndex, int newIndex) {
-                    provider.add(DeckPageListReorder(oldIndex, newIndex));
-                  },
+                return Expanded(
+                  child: DeckPageListItems(
+                    currentPageName: state.currentPageName,
+                    pages: state.pages,
+                    isEditing: state.isEditing,
+                    onSelectPage: (String pageName) {
+                      provider.add(DeckPageListSelectPage(pageName));
+                    },
+                    onStopEditing: (String newPageName) {
+                      provider.add(DeckPageListStopEditingPage(newPageName));
+                    },
+                    onReorder: (int oldIndex, int newIndex) {
+                      provider.add(DeckPageListReorder(oldIndex, newIndex));
+                    },
+                  ),
                 );
               }
               return const Padding(

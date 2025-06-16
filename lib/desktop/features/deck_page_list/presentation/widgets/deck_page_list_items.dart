@@ -21,25 +21,23 @@ class DeckPageListItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ReorderableListView.builder(
-        buildDefaultDragHandles: false,
-        itemCount: pages.length,
-        onReorder: (int oldIndex, int newIndex) {
-          onReorder?.call(oldIndex, newIndex);
-        },
-        itemBuilder: (BuildContext context, int index) {
-          final bool isCurrent = pages[index] == currentPageName;
-          return DeckPageListTile(
-            key: Key('$index-${pages[index]}'),
-            pageName: pages[index],
-            isCurrent: isCurrent,
-            isEditing: isCurrent ? isEditing : false,
-            onSelect: () => onSelectPage?.call(pages[index]),
-            onStopEditing: onStopEditing,
-          );
-        },
-      ),
+    return ReorderableListView.builder(
+      buildDefaultDragHandles: false,
+      itemCount: pages.length,
+      onReorder: (int oldIndex, int newIndex) {
+        onReorder?.call(oldIndex, newIndex);
+      },
+      itemBuilder: (BuildContext context, int index) {
+        final bool isCurrent = pages[index] == currentPageName;
+        return DeckPageListTile(
+          key: Key('$index-${pages[index]}'),
+          pageName: pages[index],
+          isCurrent: isCurrent,
+          isEditing: isCurrent ? isEditing : false,
+          onSelect: () => onSelectPage?.call(pages[index]),
+          onStopEditing: onStopEditing,
+        );
+      },
     );
   }
 }
