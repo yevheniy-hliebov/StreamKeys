@@ -21,7 +21,7 @@ final class DeckPageListLoaded extends DeckPageListState {
   });
 
   @override
-  List<Object> get props => [currentPageName, pages, isEditing];
+  List<Object> get props => <Object>[currentPageName, pages, isEditing];
 }
 
 final class DeckPageListLoading extends DeckPageListState {}
