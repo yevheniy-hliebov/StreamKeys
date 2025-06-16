@@ -39,7 +39,7 @@ class DeckLayout extends StatelessWidget {
               ),
               ResizableChild(
                 child: mainBottom,
-                size: const ResizableSize.pixels(350, min: 250),
+                size: const ResizableSize.pixels(250, min: 250),
               ),
             ],
           ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:streamkeys/core/constants/colors.dart';
 import 'package:streamkeys/desktop/features/dashboard/presentation/widgets/page_tab.dart';
 import 'package:streamkeys/desktop/features/deck/presentation/widgets/deck_layout.dart';
+import 'package:streamkeys/desktop/features/deck_page_list/presentation/widgets/deck_page_list.dart';
 
 class GridDeckScreen extends StatelessWidget with PageTab {
   const GridDeckScreen({super.key});
@@ -17,17 +19,15 @@ class GridDeckScreen extends StatelessWidget with PageTab {
   @override
   Widget build(BuildContext context) {
     return DeckLayout(
-      leftSide: Container(
-        color: Colors.blue,
-      ),
+      leftSide: const DeckPageList(),
       rightSide: Container(
-        color: Colors.yellow,
+        color: AppColors.of(context).surface,
       ),
       mainTop: Container(
-        color: Colors.green,
+        color: AppColors.of(context).background,
       ),
       mainBottom: Container(
-        color: Colors.red,
+        color: AppColors.of(context).surface,
       ),
     );
   }
