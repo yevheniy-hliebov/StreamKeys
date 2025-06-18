@@ -1,0 +1,1188 @@
+{
+    "function_block": [
+        [
+            {
+                "key_code": 27,
+                "key_name": "esc",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "esc",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 112,
+                "key_name": "f1",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "f1",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 113,
+                "key_name": "f2",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "f2",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 114,
+                "key_name": "f3",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "f3",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 115,
+                "key_name": "f4",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "f4",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 116,
+                "key_name": "f5",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "f5",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 117,
+                "key_name": "f6",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "f6",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 118,
+                "key_name": "f7",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "f7",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 119,
+                "key_name": "f8",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "f8",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 120,
+                "key_name": "f9",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "f9",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 121,
+                "key_name": "f10",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "f10",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 122,
+                "key_name": "f11",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "f11",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 123,
+                "key_name": "f12",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "f12",
+                    "bottom-right": ""
+                }
+            }
+        ]
+    ],
+    "main_block": [
+        [
+            {
+                "key_code": 192,
+                "key_name": "`",
+                "labels": {
+                    "top-left": "` ~",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 49,
+                "key_name": "1",
+                "labels": {
+                    "top-left": "1",
+                    "top-right": "!",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 50,
+                "key_name": "2",
+                "labels": {
+                    "top-left": "2",
+                    "top-right": "\"",
+                    "center": "",
+                    "bottom-left": "@",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 51,
+                "key_name": "3",
+                "labels": {
+                    "top-left": "3",
+                    "top-right": "#",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 52,
+                "key_name": "4",
+                "labels": {
+                    "top-left": "4",
+                    "top-right": ";",
+                    "center": "",
+                    "bottom-left": "$",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 53,
+                "key_name": "5",
+                "labels": {
+                    "top-left": "5",
+                    "top-right": "%",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 54,
+                "key_name": "6",
+                "labels": {
+                    "top-left": "6",
+                    "top-right": ":",
+                    "center": "",
+                    "bottom-left": "^",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 55,
+                "key_name": "7",
+                "labels": {
+                    "top-left": "7",
+                    "top-right": "?",
+                    "center": "",
+                    "bottom-left": "&",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 56,
+                "key_name": "8",
+                "labels": {
+                    "top-left": "8",
+                    "top-right": "*",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 57,
+                "key_name": "9",
+                "labels": {
+                    "top-left": "9",
+                    "top-right": "(",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 48,
+                "key_name": "0",
+                "labels": {
+                    "top-left": "0",
+                    "top-right": ")",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 189,
+                "key_name": "-",
+                "labels": {
+                    "top-left": "-",
+                    "top-right": "_",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 187,
+                "key_name": "=",
+                "labels": {
+                    "top-left": "+",
+                    "top-right": "=",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 8,
+                "key_name": "backspace",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "backspace",
+                    "bottom-right": ""
+                }
+            }
+        ],
+        [
+            {
+                "key_code": 9,
+                "key_name": "tab",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "tab",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 81,
+                "key_name": "q",
+                "labels": {
+                    "top-left": "q",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "й"
+                }
+            },
+            {
+                "key_code": 87,
+                "key_name": "w",
+                "labels": {
+                    "top-left": "w",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "ц"
+                }
+            },
+            {
+                "key_code": 69,
+                "key_name": "e",
+                "labels": {
+                    "top-left": "e",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "у"
+                }
+            },
+            {
+                "key_code": 82,
+                "key_name": "r",
+                "labels": {
+                    "top-left": "r",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "к"
+                }
+            },
+            {
+                "key_code": 84,
+                "key_name": "t",
+                "labels": {
+                    "top-left": "t",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "е"
+                }
+            },
+            {
+                "key_code": 89,
+                "key_name": "y",
+                "labels": {
+                    "top-left": "y",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "н"
+                }
+            },
+            {
+                "key_code": 85,
+                "key_name": "u",
+                "labels": {
+                    "top-left": "u",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "г"
+                }
+            },
+            {
+                "key_code": 73,
+                "key_name": "i",
+                "labels": {
+                    "top-left": "i",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "ш"
+                }
+            },
+            {
+                "key_code": 79,
+                "key_name": "o",
+                "labels": {
+                    "top-left": "o",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "щ"
+                }
+            },
+            {
+                "key_code": 80,
+                "key_name": "p",
+                "labels": {
+                    "top-left": "p",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "з"
+                }
+            },
+            {
+                "key_code": 219,
+                "key_name": "[",
+                "labels": {
+                    "top-left": "{ [",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "х"
+                }
+            },
+            {
+                "key_code": 221,
+                "key_name": "]",
+                "labels": {
+                    "top-left": "} ]",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "ї"
+                }
+            },
+            {
+                "key_code": 220,
+                "key_name": "\\",
+                "labels": {
+                    "top-left": "/",
+                    "top-right": "|",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "\\"
+                }
+            }
+        ],
+        [
+            {
+                "key_code": 20,
+                "key_name": "caps lock",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "caps",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 65,
+                "key_name": "a",
+                "labels": {
+                    "top-left": "a",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "ф"
+                }
+            },
+            {
+                "key_code": 83,
+                "key_name": "s",
+                "labels": {
+                    "top-left": "s",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "і"
+                }
+            },
+            {
+                "key_code": 68,
+                "key_name": "d",
+                "labels": {
+                    "top-left": "d",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "в"
+                }
+            },
+            {
+                "key_code": 70,
+                "key_name": "f",
+                "labels": {
+                    "top-left": "f",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "а"
+                }
+            },
+            {
+                "key_code": 71,
+                "key_name": "g",
+                "labels": {
+                    "top-left": "g",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "п"
+                }
+            },
+            {
+                "key_code": 72,
+                "key_name": "h",
+                "labels": {
+                    "top-left": "h",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "р"
+                }
+            },
+            {
+                "key_code": 74,
+                "key_name": "j",
+                "labels": {
+                    "top-left": "j",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "о"
+                }
+            },
+            {
+                "key_code": 75,
+                "key_name": "k",
+                "labels": {
+                    "top-left": "k",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "л"
+                }
+            },
+            {
+                "key_code": 76,
+                "key_name": "l",
+                "labels": {
+                    "top-left": "l",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "д"
+                }
+            },
+            {
+                "key_code": 186,
+                "key_name": ";",
+                "labels": {
+                    "top-left": ": ;",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "ж"
+                }
+            },
+            {
+                "key_code": 222,
+                "key_name": "'",
+                "labels": {
+                    "top-left": "\" '",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "є"
+                }
+            },
+            {
+                "key_code": 13,
+                "key_name": "enter",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "enter",
+                    "bottom-right": ""
+                }
+            }
+        ],
+        [
+            {
+                "key_code": 16,
+                "key_name": "shift",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "shift",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 90,
+                "key_name": "z",
+                "labels": {
+                    "top-left": "z",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "я"
+                }
+            },
+            {
+                "key_code": 88,
+                "key_name": "x",
+                "labels": {
+                    "top-left": "x",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "ч"
+                }
+            },
+            {
+                "key_code": 67,
+                "key_name": "c",
+                "labels": {
+                    "top-left": "c",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "с"
+                }
+            },
+            {
+                "key_code": 86,
+                "key_name": "v",
+                "labels": {
+                    "top-left": "v",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "м"
+                }
+            },
+            {
+                "key_code": 66,
+                "key_name": "b",
+                "labels": {
+                    "top-left": "b",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "и"
+                }
+            },
+            {
+                "key_code": 78,
+                "key_name": "n",
+                "labels": {
+                    "top-left": "n",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "т"
+                }
+            },
+            {
+                "key_code": 77,
+                "key_name": "m",
+                "labels": {
+                    "top-left": "m",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "ь"
+                }
+            },
+            {
+                "key_code": 188,
+                "key_name": ",",
+                "labels": {
+                    "top-left": "< ,",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "б"
+                }
+            },
+            {
+                "key_code": 190,
+                "key_name": ".",
+                "labels": {
+                    "top-left": "> .",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": "ю"
+                }
+            },
+            {
+                "key_code": 191,
+                "key_name": "/",
+                "labels": {
+                    "top-left": "? /",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "",
+                    "bottom-right": ". ,"
+                }
+            },
+            {
+                "key_code": 16,
+                "key_name": "right shift",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "shift",
+                    "bottom-right": ""
+                }
+            }
+        ],
+        [
+            {
+                "key_code": 17,
+                "key_name": "ctrl",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "ctrl",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 91,
+                "key_name": "left windows",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "win",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 18,
+                "key_name": "alt",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "alt",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 32,
+                "key_name": "space",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "space",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 18,
+                "key_name": "right alt",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "alt",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 93,
+                "key_name": "menu",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "menu",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 17,
+                "key_name": "right ctrl",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "ctrl",
+                    "bottom-right": ""
+                }
+            }
+        ]
+    ],
+    "navigation_block": [
+        [
+            {
+                "key_code": 255,
+                "key_name": "print screen",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "ps",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 145,
+                "key_name": "scroll lock",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "sl",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 255,
+                "key_name": "pause",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "pb",
+                    "bottom-right": ""
+                }
+            }
+        ],
+        [
+            {
+                "key_code": 45,
+                "key_name": "insert",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "ins",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 36,
+                "key_name": "home",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "hm",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 33,
+                "key_name": "page up",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "pu",
+                    "bottom-right": ""
+                }
+            }
+        ],
+        [
+            {
+                "key_code": 46,
+                "key_name": "delete",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "del",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 35,
+                "key_name": "end",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "end",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 34,
+                "key_name": "page down",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "pd",
+                    "bottom-right": ""
+                }
+            }
+        ],
+        [
+            {
+                "key_code": 38,
+                "key_name": "up",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "up",
+                    "bottom-left": "",
+                    "bottom-right": ""
+                }
+            }
+        ],
+        [
+            {
+                "key_code": 37,
+                "key_name": "left",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "left",
+                    "bottom-left": "",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 40,
+                "key_name": "down",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "down",
+                    "bottom-left": "",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 39,
+                "key_name": "right",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "right",
+                    "bottom-left": "",
+                    "bottom-right": ""
+                }
+            }
+        ]
+    ],
+    "numpad_block": [
+        [
+            {
+                "key_code": 144,
+                "key_name": "num lock",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "num",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 111,
+                "key_name": "/",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "/",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 106,
+                "key_name": "*",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "*",
+                    "bottom-right": ""
+                }
+            }
+        ],
+        [
+            {
+                "key_code": 103,
+                "key_name": "7",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "7",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 108,
+                "key_name": "8",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "8",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 105,
+                "key_name": "9",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "9",
+                    "bottom-right": ""
+                }
+            }
+        ],
+        [
+            {
+                "key_code": 100,
+                "key_name": "4",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "4",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 101,
+                "key_name": "5",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "5",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 102,
+                "key_name": "6",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "6",
+                    "bottom-right": ""
+                }
+            }
+        ],
+        [
+            {
+                "key_code": 97,
+                "key_name": "1",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "1",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 98,
+                "key_name": "2",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "2",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 99,
+                "key_name": "3",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "3",
+                    "bottom-right": ""
+                }
+            }
+        ],
+        [
+            {
+                "key_code": 96,
+                "key_name": "0",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "0",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 110,
+                "key_name": "decimal",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": ".",
+                    "bottom-right": ""
+                }
+            }
+        ],
+        [
+            {
+                "key_code": 109,
+                "key_name": "-",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "-",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 107,
+                "key_name": "+",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "+",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 8,
+                "key_name": "backspace",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "back\nspace",
+                    "bottom-left": "",
+                    "bottom-right": ""
+                }
+            },
+            {
+                "key_code": 13,
+                "key_name": "enter",
+                "labels": {
+                    "top-left": "",
+                    "top-right": "",
+                    "center": "",
+                    "bottom-left": "ent",
+                    "bottom-right": ""
+                }
+            }
+        ]
+    ]
+}

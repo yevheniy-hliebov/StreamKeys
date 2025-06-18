@@ -4,6 +4,9 @@ import 'package:streamkeys/desktop/features/dashboard/presentation/widgets/page_
 import 'package:streamkeys/desktop/features/deck/presentation/widgets/deck_layout.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/bloc/deck_page_list_bloc.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/presentation/widgets/deck_page_list.dart';
+import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_type.dart';
+import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/key_grid_area.dart';
+import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/keyboard/keyboard_area_wrapper.dart';
 
 class KeyboardDeckScreen extends StatelessWidget with PageTab {
   const KeyboardDeckScreen({super.key});
@@ -24,8 +27,10 @@ class KeyboardDeckScreen extends StatelessWidget with PageTab {
       rightSide: Container(
         color: AppColors.of(context).surface,
       ),
-      mainTop: Container(
-        color: AppColors.of(context).background,
+      mainTop: const KeyGridArea(
+        child: KeyboardAreaWrapper(
+          keyboardType: KeyboardType.numpad,
+        ),
       ),
       mainBottom: Container(
         color: AppColors.of(context).surface,

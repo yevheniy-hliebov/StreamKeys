@@ -15,7 +15,7 @@ class LocalJsonFileManager {
   Future<Map<String, dynamic>?> read() async {
     try {
       if (isAsset) {
-        final String path = 'lib/windows/assets/$filePath';
+        final String path = 'assets/$filePath';
         final String content = await rootBundle.loadString(path);
         return jsonDecode(content);
       } else {
