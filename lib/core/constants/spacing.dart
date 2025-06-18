@@ -23,4 +23,14 @@ class Spacing {
 
   /// Page sections with title
   static const double xxl = 48.0;
+
+  static const KeyGridSpacing keyGrid = KeyGridSpacing();
+}
+
+class KeyGridSpacing {
+  final double btwKey = 10;
+  final double btwBlock = 15;
+  final double btwSections = 54;
+
+  const KeyGridSpacing();
 }
