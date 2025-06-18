@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_key_data.dart';
+import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_type.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/repositories/keyboard_map_repository.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/keyboard/keyboard_area.dart';
 
 class KeyboardAreaWrapper extends StatefulWidget {
-  const KeyboardAreaWrapper({super.key});
+  final KeyboardType keyboardType;
+
+  const KeyboardAreaWrapper({
+    super.key,
+    this.keyboardType = KeyboardType.full,
+  });
 
   @override
   State<KeyboardAreaWrapper> createState() => _KeyboardAreaWrapperState();
@@ -31,6 +37,9 @@ class _KeyboardAreaWrapperState extends State<KeyboardAreaWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    return KeyboardArea(map: map);
+    return KeyboardArea(
+      keyboardType: widget.keyboardType,
+      map: map,
+    );
   }
 }
