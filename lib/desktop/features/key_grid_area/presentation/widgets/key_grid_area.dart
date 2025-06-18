@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/draggable_within_parent.dart';
 import 'package:streamkeys/core/constants/colors.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
-import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_type.dart';
-import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/grid/grid_area.dart';
-import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/keyboard/keyboard_area_wrapper.dart';
 
 class KeyGridArea extends StatelessWidget {
-  final DeckType deckType;
+  final Widget child;
 
   const KeyGridArea({
     super.key,
-    required this.deckType,
+    required this.child,
   });
 
   @override
@@ -31,9 +28,7 @@ class KeyGridArea extends StatelessWidget {
               color: AppColors.of(context).outline,
             ),
           ),
-          child: deckType.isGrid
-              ? const GridArea()
-              : const KeyboardAreaWrapper(),
+          child: child,
         ),
       ),
     );
