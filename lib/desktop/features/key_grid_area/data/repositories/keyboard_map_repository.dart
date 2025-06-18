@@ -2,9 +2,13 @@ import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_k
 import 'package:streamkeys/desktop/utils/local_json_file_manager.dart';
 
 class KeyboardMapRepository {
-  final LocalJsonFileManager keyboardMapJsonFile = LocalJsonFileManager.asset(
-    'keyboard_map.json',
-  );
+  late LocalJsonFileManager keyboardMapJsonFile;
+
+  KeyboardMapRepository() {
+    keyboardMapJsonFile = LocalJsonFileManager.asset(
+      'keyboard_map.json',
+    );
+  }
 
   static const String functionsBlockKey = 'function_block';
   static const String mainBlockKey = 'main_block';
