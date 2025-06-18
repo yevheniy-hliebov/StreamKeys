@@ -24,10 +24,13 @@ class KeyboardArea extends StatelessWidget {
       return const Center(child: CircularProgressIndicator());
     }
 
-    final KeyboardKeyBlock functionBlock = map[KeyboardMapRepository.functionsBlockKey]!;
+    final KeyboardKeyBlock functionBlock =
+        map[KeyboardMapRepository.functionsBlockKey]!;
     final KeyboardKeyBlock mainBlock = map[KeyboardMapRepository.mainBlockKey]!;
-    final KeyboardKeyBlock navigationBlock = map[KeyboardMapRepository.navigationBlockKey]!;
-    final KeyboardKeyBlock numpadBlock = map[KeyboardMapRepository.numpadBlockKey]!;
+    final KeyboardKeyBlock navigationBlock =
+        map[KeyboardMapRepository.navigationBlockKey]!;
+    final KeyboardKeyBlock numpadBlock =
+        map[KeyboardMapRepository.numpadBlockKey]!;
 
     return Row(
       spacing: Spacing.keyGrid.btwBlock,

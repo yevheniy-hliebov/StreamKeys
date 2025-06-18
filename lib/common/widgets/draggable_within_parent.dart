@@ -33,7 +33,8 @@ class _DraggableWithinParentState extends State<DraggableWithinParent> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
       final Size parentSize = constraints.biggest;
 
       _updateChildSizeAndRecenter(parentSize);

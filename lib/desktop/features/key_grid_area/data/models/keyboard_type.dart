@@ -1,8 +1,4 @@
-enum KeyboardType {
-  full,
-  compact,
-  numpad
-}
+enum KeyboardType { full, compact, numpad }
 
 extension KeyboardTypeExtension on KeyboardType {
   bool get isFull => this == KeyboardType.full;
