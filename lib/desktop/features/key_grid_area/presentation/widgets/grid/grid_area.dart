@@ -17,19 +17,19 @@ class GridArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       spacing: Spacing.keyGrid.btwKey,
       children: For.generateChildren(
-        gridTemplate.numberOfColumns,
+        gridTemplate.numberOfRows,
         generator: (int index) {
           return <Widget>[
-            Column(
+            Row(
               spacing: Spacing.keyGrid.btwKey,
               children: For.generateChildren(
-                gridTemplate.numberOfRows,
+                gridTemplate.numberOfColumns,
                 generator: (int colIndex) {
                   final int itemIndex =
-                      index * gridTemplate.numberOfRows + colIndex;
+                      index * gridTemplate.numberOfColumns + colIndex;
                   return <Widget>[
                     KeyButton(
                       keyData: keyDataList[itemIndex],
