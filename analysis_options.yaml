@@ -2,7 +2,6 @@ include: package:flutter_lints/flutter.yaml
 linter:
   rules:
     # Style and formatting
-    always_specify_types: true
     avoid_annotating_with_dynamic: true
     prefer_const_constructors: true
     prefer_final_fields: true
