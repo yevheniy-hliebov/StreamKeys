@@ -10,18 +10,18 @@ sealed class DeckPageListState extends Equatable {
 final class DeckPageListInitial extends DeckPageListState {}
 
 final class DeckPageListLoaded extends DeckPageListState {
-  final String currentPageName;
-  final List<String> pages;
+  final String currentPageId;
+  final List<DeckPage> pages;
   final bool isEditing;
 
   const DeckPageListLoaded({
-    required this.currentPageName,
+    required this.currentPageId,
     required this.pages,
     this.isEditing = false,
   });
 
   @override
-  List<Object> get props => <Object>[currentPageName, pages, isEditing];
+  List<Object> get props => <Object>[currentPageId, pages, isEditing];
 }
 
 final class DeckPageListLoading extends DeckPageListState {}

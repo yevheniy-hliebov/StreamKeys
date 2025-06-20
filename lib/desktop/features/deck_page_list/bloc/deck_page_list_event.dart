@@ -12,9 +12,9 @@ class DeckPageListInit extends DeckPageListEvent {}
 class DeckPageListAddPage extends DeckPageListEvent {}
 
 class DeckPageListSelectPage extends DeckPageListEvent {
-  final String selectPageName;
+  final String pageId;
 
-  const DeckPageListSelectPage(this.selectPageName);
+  const DeckPageListSelectPage(this.pageId);
 }
 
 class DeckPageListStartEditingPage extends DeckPageListEvent {}

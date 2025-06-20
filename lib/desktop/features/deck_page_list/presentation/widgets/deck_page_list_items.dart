@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_page.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/presentation/widgets/deck_page_list_tile.dart';
 
 class DeckPageListItems extends StatelessWidget {
-  final String currentPageName;
-  final List<String> pages;
+  final String currentPageId;
+  final List<DeckPage> pages;
   final bool isEditing;
-  final void Function(String pageName)? onSelectPage;
+  final void Function(String pageId)? onSelectPage;
   final void Function(int oldIndex, int newIndex)? onReorder;
   final void Function(String newPageName)? onStopEditing;
 
   const DeckPageListItems({
     super.key,
-    required this.currentPageName,
+    required this.currentPageId,
     required this.pages,
     this.isEditing = false,
     this.onSelectPage,
@@ -28,13 +29,17 @@ class DeckPageListItems extends StatelessWidget {
         onReorder?.call(oldIndex, newIndex);
       },
       itemBuilder: (BuildContext context, int index) {
-        final bool isCurrent = pages[index] == currentPageName;
+        final bool isCurrent = pages[index].id == currentPageId;
         return DeckPageListTile(
           key: Key('$index-${pages[index]}'),
-          pageName: pages[index],
+          page: pages[index],
           isCurrent: isCurrent,
           isEditing: isCurrent ? isEditing : false,
-          onSelect: () => onSelectPage?.call(pages[index]),
+          onSelect: () => onSelectPage?.call(pages[index].id),
+          trailing: ReorderableDragStartListener(
+            index: index,
+            child: const Icon(Icons.drag_handle),
+          ),
           onStopEditing: onStopEditing,
         );
       },
