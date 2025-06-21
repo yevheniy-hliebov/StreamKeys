@@ -25,8 +25,10 @@ class DeckPageListRepository {
     );
   }
 
-  List<dynamic> get _orderPagesJson => json[DeckJsonKeys.orderPages] as List<dynamic>;
-  Map<String, dynamic> get _mapJson => json[DeckJsonKeys.map] as Map<String, dynamic>;
+  List<dynamic> get _orderPagesJson =>
+      json[DeckJsonKeys.orderPages] as List<dynamic>;
+  Map<String, dynamic> get _mapJson =>
+      json[DeckJsonKeys.map] as Map<String, dynamic>;
 
   Future<void> init() => _loadJson();
 
@@ -72,7 +74,8 @@ class DeckPageListRepository {
 
   void _selectPageAfterDeletion(int removedIndex, List<dynamic> pagesJson) {
     final fallbackIndex = removedIndex > 0 ? removedIndex - 1 : 0;
-    json[DeckJsonKeys.currentPageId] = pagesJson[fallbackIndex][DeckJsonKeys.pageId];
+    json[DeckJsonKeys.currentPageId] =
+        pagesJson[fallbackIndex][DeckJsonKeys.pageId];
   }
 
   Future<void> reorderPages(int oldIndex, int newIndex) async {
@@ -105,7 +108,7 @@ class DeckPageListRepository {
         defaultPage.toJson(),
       ],
       DeckJsonKeys.map: {
-        defaultPage.id: {},
+        defaultPage.id: <String, dynamic>{},
       }
     };
     await _jsonFile.save(generatedJson);
