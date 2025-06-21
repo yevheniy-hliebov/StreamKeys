@@ -1,4 +1,5 @@
 import 'package:streamkeys/common/models/typedef.dart';
+import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_json_keys.dart';
 import 'package:uuid/uuid.dart';
 
 class DeckPage {
@@ -38,20 +39,17 @@ class DeckPage {
   @override
   int get hashCode => id.hashCode;
 
-  static const String idKey = 'id';
-  static const String nameKey = 'name';
-
   Json toJson() {
     return {
-      idKey: id,
-      nameKey: name,
+      DeckJsonKeys.pageId: id,
+      DeckJsonKeys.pageName: name,
     };
   }
 
   factory DeckPage.fromJson(Json json) {
     return DeckPage(
-      id: json[idKey],
-      name: json[nameKey],
+      id: json[DeckJsonKeys.pageId],
+      name: json[DeckJsonKeys.pageName],
     );
   }
 
