@@ -39,9 +39,9 @@ class KeyBindingsBloc extends Bloc<KeyBindingsEvent, KeyBindingsState> {
   KeyBindingData getKeyBingingData(int keyCode) {
     final KeyBindingMap map = pageMap;
     if (map.isEmpty) {
-      return KeyBindingData();
+      return const KeyBindingData();
     } else {
-      return map[keyCode.toString()] ?? KeyBindingData();
+      return map[keyCode.toString()] ?? const KeyBindingData();
     }
   }
 
@@ -64,6 +64,7 @@ class KeyBindingsBloc extends Bloc<KeyBindingsEvent, KeyBindingsState> {
     on<KeyBindingInit>(_init);
     on<KeyBindingPageChanged>(_changePage);
     on<KeyBindingSelectKey>(_selectKey);
+    on<KeyBindingSaveDataOnPage>(_saveKeyBindingDataOnPage);
   }
 
   Future<void> _init(
@@ -91,6 +92,21 @@ class KeyBindingsBloc extends Bloc<KeyBindingsEvent, KeyBindingsState> {
     Emitter<KeyBindingsState> emit,
   ) {
     currentKeyCode = event.keyCode;
+    emit(KeyBindingsLoaded(pageMap, currentKeyCode));
+  }
+
+  void _saveKeyBindingDataOnPage(
+    KeyBindingSaveDataOnPage event,
+    Emitter<KeyBindingsState> emit,
+  ) {
+    final keyCode = event.keyCode.toString();
+    Map<String, KeyBindingData>? pageKeyMap = map[currentPageId];
+    if (pageKeyMap == null) {
+      pageKeyMap =  <String, KeyBindingData>{};
+    } else {
+      pageKeyMap[keyCode] = event.keyBindingData;
+    }
+
     emit(KeyBindingsLoaded(pageMap, currentKeyCode));
   }
 
