@@ -29,8 +29,6 @@ class DeckPageListBloc extends Bloc<DeckPageListEvent, DeckPageListState> {
     on<DeckPageListStartEditingPage>(_startEditing);
     on<DeckPageListStopEditingPage>(_stopEditing);
     on<DeckPageListReorder>(_reorder);
-
-    add(DeckPageListInit());
   }
 
   Future<void> _init(
