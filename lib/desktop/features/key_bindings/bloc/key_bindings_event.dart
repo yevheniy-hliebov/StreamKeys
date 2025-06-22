@@ -27,3 +27,13 @@ class KeyBindingsSaveDataOnPage extends KeyBindingsEvent {
 
   const KeyBindingsSaveDataOnPage(this.keyCode, this.keyBindingData);
 }
+
+final class KeyBindingsSwapKeys extends KeyBindingsEvent {
+  final int firstKey;
+  final int secondKey;
+
+  const KeyBindingsSwapKeys(this.firstKey, this.secondKey);
+
+  @override
+  List<Object> get props => [firstKey, secondKey];
+}
