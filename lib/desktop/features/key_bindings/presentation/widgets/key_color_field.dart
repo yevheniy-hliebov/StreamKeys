@@ -4,7 +4,7 @@ import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/desktop/features/key_bindings/presentation/widgets/key_field_label.dart';
 
 class KeyColorField extends StatefulWidget {
-  final Color initialValue;
+  final Color? initialValue;
   final void Function(Color newValue)? onChanged;
 
   const KeyColorField({
@@ -24,7 +24,7 @@ class _KeyColorFieldState extends State<KeyColorField> {
   void initState() {
     super.initState();
 
-    controller = ColorPickerController(widget.initialValue);
+    controller = ColorPickerController(widget.initialValue ?? Colors.transparent);
 
     controller.addListener(() {
       widget.onChanged?.call(controller.pickerColor);

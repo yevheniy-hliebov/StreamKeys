@@ -11,13 +11,13 @@ import 'package:streamkeys/desktop/utils/helper_function.dart';
 class KeyImageField extends StatefulWidget {
   final double buttonSize;
   final String initialValue;
-  final void Function(String newValue)? onChange;
+  final void Function(String newValue)? onChanged;
 
   const KeyImageField({
     super.key,
     this.buttonSize = 80,
     this.initialValue = '',
-    this.onChange,
+    this.onChanged,
   });
 
   @override
@@ -46,7 +46,7 @@ class _KeyImageFieldState extends State<KeyImageField> {
         setState(() {
           _imagePath = imagePath;
         });
-        widget.onChange?.call(imagePath);
+        widget.onChanged?.call(imagePath);
       }
     } finally {
       if (context.mounted) {
