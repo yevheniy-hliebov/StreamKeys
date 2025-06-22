@@ -6,6 +6,7 @@ import 'package:streamkeys/desktop/features/deck/presentation/widgets/deck_layou
 import 'package:streamkeys/desktop/features/deck_page_list/bloc/deck_page_list_bloc.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/presentation/widgets/deck_page_list.dart';
 import 'package:streamkeys/desktop/features/key_bindings/bloc/key_bindings_bloc.dart';
+import 'package:streamkeys/desktop/features/key_bindings/presentation/screens/key_editor.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/grid/grid_area_wrapper.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/key_grid_area.dart';
 
@@ -33,9 +34,7 @@ class GridDeckScreen extends StatelessWidget with PageTab {
           color: AppColors.of(context).surface,
         ),
         mainTop: KeyGridArea(child: GridAreaWrapper()),
-        mainBottom: Container(
-          color: AppColors.of(context).surface,
-        ),
+        mainBottom: const KeyEditor<GridKeyBindingsBloc>(),
       ),
     );
   }

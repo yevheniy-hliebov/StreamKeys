@@ -6,6 +6,7 @@ import 'package:streamkeys/desktop/features/deck/presentation/widgets/deck_layou
 import 'package:streamkeys/desktop/features/deck_page_list/bloc/deck_page_list_bloc.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/presentation/widgets/deck_page_list.dart';
 import 'package:streamkeys/desktop/features/key_bindings/bloc/key_bindings_bloc.dart';
+import 'package:streamkeys/desktop/features/key_bindings/presentation/screens/key_editor.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_type.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/key_grid_area.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/keyboard/keyboard_area_wrapper.dart';
@@ -38,9 +39,7 @@ class KeyboardDeckScreen extends StatelessWidget with PageTab {
             keyboardType: KeyboardType.numpad,
           ),
         ),
-        mainBottom: Container(
-          color: AppColors.of(context).surface,
-        ),
+        mainBottom: const KeyEditor<KeyboardKeyBindingsBloc>(),
       ),
     );
   }
