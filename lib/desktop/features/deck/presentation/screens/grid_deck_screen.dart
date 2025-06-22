@@ -26,7 +26,7 @@ class GridDeckScreen extends StatelessWidget with PageTab {
     return BlocProvider(
       create: (BuildContext context) => GridKeyBindingsBloc(
         context.read<GridDeckPageListBloc>(),
-      )..add(KeyBindingInit()),
+      )..add(KeyBindingsInit()),
       child: DeckLayout(
         leftSide: const DeckPageList<GridDeckPageListBloc>(),
         rightSide: Container(

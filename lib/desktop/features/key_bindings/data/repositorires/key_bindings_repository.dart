@@ -45,7 +45,7 @@ class KeyBindingsRepository {
     Map<String, dynamic>? json = await deckJsonFile.read();
 
     json ??= {};
-    json['map'][pageId][keyCode] = keyData.toJson();
+    json['map'][pageId][keyCode.toString()] = keyData.toJson();
 
     return deckJsonFile.save(json);
   }

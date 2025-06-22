@@ -27,7 +27,7 @@ class KeyboardDeckScreen extends StatelessWidget with PageTab {
     return BlocProvider(
       create: (BuildContext context) => KeyboardKeyBindingsBloc(
         context.read<KeyboardDeckPageListBloc>(),
-      )..add(KeyBindingInit()),
+      )..add(KeyBindingsInit()),
       child: DeckLayout(
         leftSide: const DeckPageList<KeyboardDeckPageListBloc>(),
         rightSide: Container(

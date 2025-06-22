@@ -36,7 +36,7 @@ class KeyBindingsBloc extends Bloc<KeyBindingsEvent, KeyBindingsState> {
     return Map.from(map[currentPageId] ?? <String, KeyBindingData>{});
   }
 
-  KeyBindingData getKeyBingingData(int keyCode) {
+  KeyBindingData getKeyBingingData(int? keyCode) {
     final KeyBindingMap map = pageMap;
     if (map.isEmpty) {
       return const KeyBindingData();
@@ -56,19 +56,19 @@ class KeyBindingsBloc extends Bloc<KeyBindingsEvent, KeyBindingsState> {
         if (deckState is DeckPageListLoaded) {
           await _initCompleter.future;
           currentPageId = deckState.currentPageId;
-          add(KeyBindingPageChanged(deckState.currentPageId));
+          add(KeyBindingsPageChanged(deckState.currentPageId));
         }
       },
     );
 
-    on<KeyBindingInit>(_init);
-    on<KeyBindingPageChanged>(_changePage);
-    on<KeyBindingSelectKey>(_selectKey);
-    on<KeyBindingSaveDataOnPage>(_saveKeyBindingDataOnPage);
+    on<KeyBindingsInit>(_init);
+    on<KeyBindingsPageChanged>(_changePage);
+    on<KeyBindingsSelectKey>(_selectKey);
+    on<KeyBindingsSaveDataOnPage>(_saveKeyBindingDataOnPage);
   }
 
   Future<void> _init(
-    KeyBindingInit event,
+    KeyBindingsInit event,
     Emitter<KeyBindingsState> emit,
   ) async {
     final (loadedPageId, loadedMap) = await repository.getKeyMap();
@@ -80,7 +80,7 @@ class KeyBindingsBloc extends Bloc<KeyBindingsEvent, KeyBindingsState> {
   }
 
   void _changePage(
-    KeyBindingPageChanged event,
+    KeyBindingsPageChanged event,
     Emitter<KeyBindingsState> emit,
   ) {
     currentKeyCode = null;
@@ -88,7 +88,7 @@ class KeyBindingsBloc extends Bloc<KeyBindingsEvent, KeyBindingsState> {
   }
 
   void _selectKey(
-    KeyBindingSelectKey event,
+    KeyBindingsSelectKey event,
     Emitter<KeyBindingsState> emit,
   ) {
     currentKeyCode = event.keyCode;
@@ -96,18 +96,22 @@ class KeyBindingsBloc extends Bloc<KeyBindingsEvent, KeyBindingsState> {
   }
 
   void _saveKeyBindingDataOnPage(
-    KeyBindingSaveDataOnPage event,
+    KeyBindingsSaveDataOnPage event,
     Emitter<KeyBindingsState> emit,
-  ) {
+  ) async {
     final keyCode = event.keyCode.toString();
     Map<String, KeyBindingData>? pageKeyMap = map[currentPageId];
-    if (pageKeyMap == null) {
-      pageKeyMap =  <String, KeyBindingData>{};
-    } else {
-      pageKeyMap[keyCode] = event.keyBindingData;
-    }
+    pageKeyMap ??= <String, KeyBindingData>{};
+
+    pageKeyMap[keyCode] = event.keyBindingData;
 
     emit(KeyBindingsLoaded(pageMap, currentKeyCode));
+
+    await repository.saveKeyBindingDataOnPage(
+      currentPageId,
+      event.keyCode,
+      event.keyBindingData,
+    );
   }
 
   @override

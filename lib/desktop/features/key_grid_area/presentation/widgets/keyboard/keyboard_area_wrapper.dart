@@ -53,7 +53,7 @@ class _KeyboardAreaWrapperState extends State<KeyboardAreaWrapper> {
             if (keyCode != currentKeyCode) {
               context
                   .read<KeyboardKeyBindingsBloc>()
-                  .add(KeyBindingSelectKey(keyCode));
+                  .add(KeyBindingsSelectKey(keyCode));
             }
           },
         );

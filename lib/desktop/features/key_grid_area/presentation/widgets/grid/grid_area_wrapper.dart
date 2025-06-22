@@ -29,7 +29,7 @@ class GridAreaWrapper extends StatelessWidget {
             if (keyCode != currentKeyCode) {
               context
                   .read<GridKeyBindingsBloc>()
-                  .add(KeyBindingSelectKey(keyCode));
+                  .add(KeyBindingsSelectKey(keyCode));
             }
           },
         );

@@ -7,16 +7,23 @@ sealed class KeyBindingsEvent extends Equatable {
   List<Object> get props => <Object>[];
 }
 
-class KeyBindingInit extends KeyBindingsEvent {}
+class KeyBindingsInit extends KeyBindingsEvent {}
 
-class KeyBindingPageChanged extends KeyBindingsEvent {
+class KeyBindingsPageChanged extends KeyBindingsEvent {
   final String currentPageId;
 
-  const KeyBindingPageChanged(this.currentPageId);
+  const KeyBindingsPageChanged(this.currentPageId);
 }
 
-class KeyBindingSelectKey extends KeyBindingsEvent {
+class KeyBindingsSelectKey extends KeyBindingsEvent {
   final int keyCode;
 
-  const KeyBindingSelectKey(this.keyCode);
+  const KeyBindingsSelectKey(this.keyCode);
+}
+
+class KeyBindingsSaveDataOnPage extends KeyBindingsEvent {
+  final int keyCode;
+  final KeyBindingData keyBindingData;
+
+  const KeyBindingsSaveDataOnPage(this.keyCode, this.keyBindingData);
 }
