@@ -33,7 +33,7 @@ class KeyBindingsBloc extends Bloc<KeyBindingsEvent, KeyBindingsState> {
   int? currentKeyCode;
 
   KeyBindingMap get pageMap {
-    return map[currentPageId] ?? <String, KeyBindingData>{};
+    return Map.from(map[currentPageId] ?? <String, KeyBindingData>{});
   }
 
   KeyBindingData getKeyBingingData(int keyCode) {
