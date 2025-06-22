@@ -12,6 +12,7 @@ class MainKeysBlock extends BaseKeysBlock {
     super.pageMap,
     super.currentKeyCode,
     super.onPressedButton,
+    super.onSwapBindingData,
   });
 
   @override

@@ -20,6 +20,8 @@ class GridAreaWrapper extends StatelessWidget {
       builder: (context, state) {
         final currentKeyData =
             state is KeyBindingsLoaded ? state.currentKeyData : null;
+
+        final bloc = context.read<GridKeyBindingsBloc>();
         return GridArea(
           gridTemplate: gridTemplate,
           keyDataList: keyDataList,
@@ -27,10 +29,11 @@ class GridAreaWrapper extends StatelessWidget {
           currentKeyCode: currentKeyData?.keyCode,
           onPressedButton: (keyCode) {
             if (keyCode != currentKeyData) {
-              context
-                  .read<GridKeyBindingsBloc>()
-                  .add(KeyBindingsSelectKey(keyCode));
+              bloc.add(KeyBindingsSelectKey(keyCode));
             }
+          },
+          onSwapBindingData: (firstCode, secondCode) {
+            bloc.add(KeyBindingsSwapKeys(firstCode, secondCode));
           },
         );
       },

@@ -18,6 +18,7 @@ class KeyboardArea extends StatelessWidget {
   final KeyBindingMap? pageMap;
   final int? currentKeyCode;
   final void Function(BaseKeyData keyData)? onPressedButton;
+  final void Function(int firstCode, int secondCode)? onSwapBindingData;
 
   const KeyboardArea({
     super.key,
@@ -27,6 +28,7 @@ class KeyboardArea extends StatelessWidget {
     this.pageMap,
     this.currentKeyCode,
     this.onPressedButton,
+    this.onSwapBindingData,
   });
 
   @override
@@ -114,6 +116,7 @@ class KeyboardArea extends StatelessWidget {
       KeyBindingMap? pageMap,
       int? currentKeyCode,
       void Function(BaseKeyData keyData)? onPressedButton,
+      void Function(int firstCode, int secondCode)? onSwapBindingData,
     }) builder,
     KeyboardKeyBlock block,
   ) {
@@ -123,6 +126,7 @@ class KeyboardArea extends StatelessWidget {
       pageMap: pageMap,
       currentKeyCode: currentKeyCode,
       onPressedButton: onPressedButton,
+      onSwapBindingData: onSwapBindingData,
     );
   }
 }

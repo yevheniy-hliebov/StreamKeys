@@ -5,6 +5,7 @@ import 'package:streamkeys/desktop/features/key_bindings/data/models/key_binding
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/base_key_data.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/grid_key_data.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/grid_template.dart';
+import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/keybutton/key_drag_wrapper.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/keybutton/key_button.dart';
 
 class GridArea extends StatelessWidget {
@@ -13,6 +14,7 @@ class GridArea extends StatelessWidget {
   final KeyBindingMap? pageMap;
   final int? currentKeyCode;
   final void Function(BaseKeyData keyData)? onPressedButton;
+  final void Function(int firstCode, int secondCode)? onSwapBindingData;
 
   const GridArea({
     super.key,
@@ -21,6 +23,7 @@ class GridArea extends StatelessWidget {
     this.pageMap,
     this.currentKeyCode,
     this.onPressedButton,
+    this.onSwapBindingData,
   });
 
   @override
@@ -40,14 +43,19 @@ class GridArea extends StatelessWidget {
                       index * gridTemplate.numberOfColumns + colIndex;
                   final GridKeyData keyData = keyDataList[itemIndex];
                   return <Widget>[
-                    KeyButton(
-                      keyData: keyData,
-                      keyBindingData: pageMap?[keyData.keyCode.toString()],
-                      isSelected: currentKeyCode == keyData.keyCode,
-                      onPressed: () {
-                        onPressedButton?.call(keyData);
-                      },
-                      size: 60,
+                    KeyDragWrapper(
+                      keyCode: keyData.keyCode,
+                      containerSize: 60,
+                      onSwapBindingData: onSwapBindingData,
+                      child: KeyButton(
+                        keyData: keyData,
+                        keyBindingData: pageMap?[keyData.keyCode.toString()],
+                        isSelected: currentKeyCode == keyData.keyCode,
+                        onPressed: () {
+                          onPressedButton?.call(keyData);
+                        },
+                        size: 60,
+                      ),
                     ),
                   ];
                 },

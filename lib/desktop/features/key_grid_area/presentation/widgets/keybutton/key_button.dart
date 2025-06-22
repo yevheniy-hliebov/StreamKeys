@@ -24,8 +24,10 @@ class KeyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final message = keyBindingData?.name ?? '';
+
     return Tooltip(
-      message: keyBindingData?.name ?? keyData.name,
+      message: message.isNotEmpty ? message : keyData.name,
       child: InkWell(
         onTap: onPressed,
         child: KeyButtonContainer(

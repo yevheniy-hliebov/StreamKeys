@@ -29,11 +29,11 @@ class KeyBindingsSaveDataOnPage extends KeyBindingsEvent {
 }
 
 final class KeyBindingsSwapKeys extends KeyBindingsEvent {
-  final int firstKey;
-  final int secondKey;
+  final int firstCode;
+  final int secondCode;
 
-  const KeyBindingsSwapKeys(this.firstKey, this.secondKey);
+  const KeyBindingsSwapKeys(this.firstCode, this.secondCode);
 
   @override
-  List<Object> get props => [firstKey, secondKey];
+  List<Object> get props => [firstCode, secondCode];
 }

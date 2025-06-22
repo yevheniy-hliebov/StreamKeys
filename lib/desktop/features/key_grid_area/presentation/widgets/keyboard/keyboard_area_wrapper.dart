@@ -43,6 +43,8 @@ class _KeyboardAreaWrapperState extends State<KeyboardAreaWrapper> {
       builder: (context, state) {
         final currentKeyCode =
             state is KeyBindingsLoaded ? state.currentKeyData : null;
+
+        final bloc = context.read<KeyboardKeyBindingsBloc>();
         return KeyboardArea(
           keyboardType: widget.keyboardType,
           keyMap: keyMap,
@@ -51,10 +53,11 @@ class _KeyboardAreaWrapperState extends State<KeyboardAreaWrapper> {
           currentKeyCode: currentKeyCode?.keyCode,
           onPressedButton: (keyCode) {
             if (keyCode != currentKeyCode) {
-              context
-                  .read<KeyboardKeyBindingsBloc>()
-                  .add(KeyBindingsSelectKey(keyCode));
+              bloc.add(KeyBindingsSelectKey(keyCode));
             }
+          },
+          onSwapBindingData: (firstCode, secondCode) {
+            bloc.add(KeyBindingsSwapKeys(firstCode, secondCode));
           },
         );
       },

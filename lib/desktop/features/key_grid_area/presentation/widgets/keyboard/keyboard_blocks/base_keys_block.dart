@@ -3,6 +3,7 @@ import 'package:streamkeys/desktop/features/key_bindings/data/models/key_binding
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/base_key_data.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_key_data.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/keybutton/key_button.dart';
+import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/keybutton/key_drag_wrapper.dart';
 
 abstract class BaseKeysBlock extends StatelessWidget {
   final KeyboardKeyBlock block;
@@ -10,6 +11,7 @@ abstract class BaseKeysBlock extends StatelessWidget {
   final KeyBindingMap? pageMap;
   final int? currentKeyCode;
   final void Function(BaseKeyData keyData)? onPressedButton;
+  final void Function(int firstCode, int secondCode)? onSwapBindingData;
 
   const BaseKeysBlock({
     super.key,
@@ -18,20 +20,26 @@ abstract class BaseKeysBlock extends StatelessWidget {
     this.pageMap,
     this.currentKeyCode,
     this.onPressedButton,
+    this.onSwapBindingData,
   });
 
   @override
   Widget build(BuildContext context);
 
-  KeyButton buildKeyButton({required BaseKeyData keyData}) {
-    return KeyButton(
-      keyData: keyData,
-      keyBindingData: pageMap?[keyData.keyCode.toString()],
-      isSelected: currentKeyCode == keyData.keyCode,
-      onPressed: () {
-        onPressedButton?.call(keyData);
-      },
-      size: buttonSize,
+  Widget buildKeyButton({required BaseKeyData keyData}) {
+    return KeyDragWrapper(
+      keyCode: keyData.keyCode,
+      containerSize: buttonSize,
+      onSwapBindingData: onSwapBindingData,
+      child: KeyButton(
+        keyData: keyData,
+        keyBindingData: pageMap?[keyData.keyCode.toString()],
+        isSelected: currentKeyCode == keyData.keyCode,
+        onPressed: () {
+          onPressedButton?.call(keyData);
+        },
+        size: buttonSize,
+      ),
     );
   }
 }

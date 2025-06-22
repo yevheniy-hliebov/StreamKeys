@@ -120,28 +120,31 @@ class KeyBindingsBloc extends Bloc<KeyBindingsEvent, KeyBindingsState> {
     KeyBindingsSwapKeys event,
     Emitter<KeyBindingsState> emit,
   ) async {
-    final int firstCode = event.firstKey;
-    final int secondCode = event.secondKey;
-
-    final pageKeyMap = map[currentPageId] ?? <String, KeyBindingData>{};
-
+    final int firstCode = event.firstCode;
+    final int secondCode = event.secondCode;
+    
+    if (map[currentPageId] == null) {
+      map[currentPageId] = <String, KeyBindingData>{};
+    }
+    final pageKeyMap = map[currentPageId];
+    
     final firstData = getKeyBingingData(firstCode);
     final secondData = getKeyBingingData(secondCode);
 
-    pageKeyMap[firstCode.toString()] = secondData;
-    pageKeyMap[secondCode.toString()] = firstData;
+    pageKeyMap?[firstCode.toString()] = secondData;
+    pageKeyMap?[secondCode.toString()] = firstData;
 
     emit(KeyBindingsLoaded(pageMap, currentKeyData));
 
     await repository.saveKeyBindingDataOnPage(
       currentPageId,
-      event.firstKey,
+      event.firstCode,
       secondData,
     );
 
     await repository.saveKeyBindingDataOnPage(
       currentPageId,
-      event.secondKey,
+      event.secondCode,
       firstData,
     );
   }

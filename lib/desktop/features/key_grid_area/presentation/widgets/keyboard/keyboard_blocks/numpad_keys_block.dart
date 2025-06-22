@@ -12,6 +12,7 @@ class NumpadKeysBlock extends BaseKeysBlock {
     super.pageMap,
     super.currentKeyCode,
     super.onPressedButton,
+    super.onSwapBindingData,
   });
 
   @override
