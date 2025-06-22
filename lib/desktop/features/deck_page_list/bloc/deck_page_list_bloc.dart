@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_page.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_type.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/data/repositories/deck_page_list_repository.dart';
 
@@ -18,8 +19,6 @@ class KeyboardDeckPageListBloc extends DeckPageListBloc {
 class DeckPageListBloc extends Bloc<DeckPageListEvent, DeckPageListState> {
   final DeckPageListRepository repository;
 
-  late String currentPageName;
-  late List<String> pages;
   bool isEditing = false;
 
   DeckPageListBloc(this.repository) : super(DeckPageListInitial()) {
@@ -30,37 +29,23 @@ class DeckPageListBloc extends Bloc<DeckPageListEvent, DeckPageListState> {
     on<DeckPageListStartEditingPage>(_startEditing);
     on<DeckPageListStopEditingPage>(_stopEditing);
     on<DeckPageListReorder>(_reorder);
-
-    add(DeckPageListInit());
   }
 
   Future<void> _init(
     DeckPageListInit event,
     Emitter<DeckPageListState> emit,
   ) async {
-    final (String initialPageName, List<String> allPageNames) =
-        await repository.getDeckPageList();
-
-    currentPageName = initialPageName;
-    pages = allPageNames;
-
+    await repository.init();
     _emitLoaded(emit);
   }
 
   Future<void> _add(
-      DeckPageListAddPage event, Emitter<DeckPageListState> emit) async {
-    const String baseName = 'Page';
-    String uniquePageName = baseName;
-    int counter = 1;
-
-    while (pages.contains(uniquePageName)) {
-      uniquePageName = '$baseName $counter';
-      counter++;
-    }
-
-    pages.add(uniquePageName);
-    currentPageName = uniquePageName;
-
+    DeckPageListAddPage event,
+    Emitter<DeckPageListState> emit,
+  ) async {
+    await repository.addAndSelectPage(
+      DeckPage.createWithUniqueName(pages: repository.orderPages),
+    );
     _emitLoaded(emit);
   }
 
@@ -68,8 +53,7 @@ class DeckPageListBloc extends Bloc<DeckPageListEvent, DeckPageListState> {
     DeckPageListSelectPage event,
     Emitter<DeckPageListState> emit,
   ) async {
-    isEditing = false;
-    currentPageName = event.selectPageName;
+    await repository.selectPage(event.pageId);
     _emitLoaded(emit);
   }
 
@@ -77,15 +61,7 @@ class DeckPageListBloc extends Bloc<DeckPageListEvent, DeckPageListState> {
     DeckPageListDeletePage event,
     Emitter<DeckPageListState> emit,
   ) async {
-    isEditing = false;
-    int index = pages.indexOf(currentPageName);
-    if (pages.length > 1) {
-      pages.removeAt(index);
-      if (index != 0) {
-        index--;
-      }
-      currentPageName = pages[index];
-    }
+    await repository.deletePage(repository.currentPageId);
     _emitLoaded(emit);
   }
 
@@ -93,19 +69,14 @@ class DeckPageListBloc extends Bloc<DeckPageListEvent, DeckPageListState> {
     DeckPageListStartEditingPage event,
     Emitter<DeckPageListState> emit,
   ) async {
-    isEditing = true;
-    _emitLoaded(emit);
+    _emitLoaded(emit, isEdit: true);
   }
 
   Future<void> _stopEditing(
     DeckPageListStopEditingPage event,
     Emitter<DeckPageListState> emit,
   ) async {
-    isEditing = false;
-    final int index = pages.indexOf(currentPageName);
-    pages[index] = event.newPageName;
-    currentPageName = event.newPageName;
-
+    await repository.renameCurrentPage(event.newPageName);
     _emitLoaded(emit);
   }
 
@@ -113,34 +84,19 @@ class DeckPageListBloc extends Bloc<DeckPageListEvent, DeckPageListState> {
     DeckPageListReorder event,
     Emitter<DeckPageListState> emit,
   ) async {
-    isEditing = false;
-
-    int newIndex = event.newIndex;
-    final int oldIndex = event.oldIndex;
-
-    if (newIndex > oldIndex) {
-      newIndex -= 1;
-    }
-
-    if (newIndex < 0) {
-      newIndex = 0;
-    } else if (newIndex > pages.length) {
-      newIndex = pages.length;
-    }
-
-    final String movedItem = pages.removeAt(oldIndex);
-    pages.insert(newIndex, movedItem);
-
+    await repository.reorderPages(event.oldIndex, event.newIndex);
     _emitLoaded(emit);
   }
 
-  void _emitLoaded(Emitter<DeckPageListState> emit) async {
+  void _emitLoaded(
+    Emitter<DeckPageListState> emit, {
+    bool isEdit = false,
+  }) async {
+    isEditing = isEdit;
     emit(DeckPageListLoaded(
-      currentPageName: currentPageName,
-      pages: pages,
+      currentPageId: repository.currentPageId,
+      pages: repository.orderPages,
       isEditing: isEditing,
     ));
-
-    await repository.save(currentPageName, pages);
   }
 }

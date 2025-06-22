@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:streamkeys/core/constants/colors.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/core/constants/typography.dart';
+import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_page.dart';
 
 class DeckPageListTile extends StatelessWidget {
-  final String pageName;
+  final DeckPage page;
   final bool isCurrent;
   final bool isEditing;
   final Widget? trailing;
@@ -13,7 +14,7 @@ class DeckPageListTile extends StatelessWidget {
 
   const DeckPageListTile({
     super.key,
-    required this.pageName,
+    required this.page,
     this.isCurrent = false,
     this.isEditing = false,
     this.trailing,
@@ -49,7 +50,7 @@ class DeckPageListTile extends StatelessWidget {
       return _buildTextField(context);
     }
     return Text(
-      pageName,
+      page.name,
       style: AppTypography.body,
     );
   }
@@ -57,7 +58,7 @@ class DeckPageListTile extends StatelessWidget {
   TextFormField _buildTextField(BuildContext context) {
     return TextFormField(
       cursorHeight: 18,
-      initialValue: pageName,
+      initialValue: page.name,
       onFieldSubmitted: onStopEditing,
       textInputAction: TextInputAction.done,
     );

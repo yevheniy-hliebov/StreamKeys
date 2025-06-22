@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_page.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/presentation/widgets/deck_page_list_items.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/presentation/widgets/deck_page_list_tile.dart';
 
 void main() {
   testWidgets('renders correct number of tiles and calls callbacks',
       (WidgetTester tester) async {
-    final List<String> pages = <String>['Page1', 'Page2', 'Page3'];
-    String? selectedPage;
+    final List<DeckPage> pages = [
+      DeckPage(id: '1', name: 'Page1'),
+      DeckPage(id: '2', name: 'Page2'),
+      DeckPage(id: '3', name: 'Page3'),
+    ];
+
+    String? selectedPageId;
     int? reorderedOldIndex;
     int? reorderedNewIndex;
     String? stoppedEditingName;
@@ -16,10 +22,10 @@ void main() {
       MaterialApp(
         home: Scaffold(
           body: DeckPageListItems(
-            currentPageName: 'Page2',
+            currentPageId: '2',
             pages: pages,
             isEditing: true,
-            onSelectPage: (String page) => selectedPage = page,
+            onSelectPage: (String pageId) => selectedPageId = pageId,
             onReorder: (int oldIndex, int newIndex) {
               reorderedOldIndex = oldIndex;
               reorderedNewIndex = newIndex;
@@ -32,15 +38,13 @@ void main() {
 
     expect(find.byType(DeckPageListTile), findsNWidgets(3));
 
-    final Widget currentTile =
-        tester.widgetList(find.byType(DeckPageListTile)).firstWhere(
-              (Widget widget) =>
-                  (widget as DeckPageListTile).pageName == 'Page2',
-            );
+    final Widget currentTile = tester
+        .widgetList(find.byType(DeckPageListTile))
+        .firstWhere((widget) => (widget as DeckPageListTile).page.id == '2');
     expect((currentTile as DeckPageListTile).isEditing, isTrue);
 
     await tester.tap(find.text('Page1'));
-    expect(selectedPage, 'Page1');
+    expect(selectedPageId, '1');
 
     (tester.widget(find.byType(ReorderableListView)) as ReorderableListView)
         .onReorder(0, 2);
@@ -49,7 +53,7 @@ void main() {
 
     final Finder tileEditingFinder = find.byWidgetPredicate((Widget widget) =>
         widget is DeckPageListTile &&
-        widget.pageName == 'Page2' &&
+        widget.page.id == '2' &&
         widget.isEditing);
     final Finder textFieldFinder = find.descendant(
         of: tileEditingFinder, matching: find.byType(TextFormField));

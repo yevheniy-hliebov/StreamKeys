@@ -18,11 +18,14 @@ void desktopMain() async {
   final GridDeckPageListBloc gridDeckBloc = GridDeckPageListBloc();
   final KeyboardDeckPageListBloc keyboardDeckBloc = KeyboardDeckPageListBloc();
 
+  gridDeckBloc.add(DeckPageListInit());
+  keyboardDeckBloc.add(DeckPageListInit());
+
   runApp(
     App(
       providersBuilder: (context) => [
-        BlocProvider<GridDeckPageListBloc>.value(value: gridDeckBloc),
-        BlocProvider<KeyboardDeckPageListBloc>.value(value: keyboardDeckBloc),
+        BlocProvider<GridDeckPageListBloc>(create: (_) => gridDeckBloc),
+        BlocProvider<KeyboardDeckPageListBloc>(create: (_) => keyboardDeckBloc),
       ],
       home: const DashboardScreen(
         tabs: <PageTab>[

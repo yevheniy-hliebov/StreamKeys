@@ -35,7 +35,7 @@ class DeckPageList<T extends DeckPageListBloc> extends StatelessWidget {
               if (state is DeckPageListLoaded) {
                 return Expanded(
                   child: DeckPageListItems(
-                    currentPageName: state.currentPageName,
+                    currentPageId: state.currentPageId,
                     pages: state.pages,
                     isEditing: state.isEditing,
                     onSelectPage: (String pageName) {
