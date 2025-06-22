@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:file_picker/file_picker.dart';
 
 class HelperFunctions {
   HelperFunctions._();
@@ -30,5 +31,15 @@ class HelperFunctions {
 
       return directory.path;
     }
+  }
+
+  static Future<String?> pickFile({FileType type = FileType.any}) async {
+    final result = await FilePicker.platform.pickFiles(type: type);
+
+    if (result != null) {
+      final file = result.files.first;
+      return file.path;
+    }
+    return null;
   }
 }

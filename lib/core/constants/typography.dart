@@ -8,6 +8,12 @@ class AppTypography {
     fontWeight: FontWeight.w400,
   );
 
+  /// Smallest text, used for labels.
+  static const TextStyle captionStrong = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+  );
+
   /// Default body text.
   static const TextStyle body = TextStyle(
     fontSize: 16,
