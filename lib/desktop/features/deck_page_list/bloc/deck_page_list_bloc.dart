@@ -88,7 +88,10 @@ class DeckPageListBloc extends Bloc<DeckPageListEvent, DeckPageListState> {
     _emitLoaded(emit);
   }
 
-  void _emitLoaded(Emitter<DeckPageListState> emit, {bool isEdit = false}) async {
+  void _emitLoaded(
+    Emitter<DeckPageListState> emit, {
+    bool isEdit = false,
+  }) async {
     isEditing = isEdit;
     emit(DeckPageListLoaded(
       currentPageId: repository.currentPageId,
