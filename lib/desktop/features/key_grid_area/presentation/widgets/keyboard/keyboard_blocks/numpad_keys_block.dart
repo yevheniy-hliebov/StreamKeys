@@ -2,19 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/for.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_key_data.dart';
-import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/keybutton/key_button.dart';
+import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/keyboard/keyboard_blocks/base_keys_block.dart';
 
-class NumpadKeysBlock extends StatelessWidget {
-  final KeyboardKeyBlock block;
-
+class NumpadKeysBlock extends BaseKeysBlock {
   const NumpadKeysBlock({
     super.key,
-    required this.block,
+    required super.block,
+    super.buttonSize,
+    super.pageMap,
+    super.currentKeyCode,
+    super.onPressedButton,
   });
 
   @override
   Widget build(BuildContext context) {
     final int lastRowIndex = block.length - 1;
+
+    final double maxWidth = block[0].length * buttonSize +
+        Spacing.keyGrid.btwKey * (block[0].length - 1);
+
+    final double maxHeight = (block.length - 1) * buttonSize +
+        Spacing.keyGrid.btwKey * (block.length - 2);
 
     return Row(
       spacing: Spacing.keyGrid.btwKey,
@@ -22,10 +30,7 @@ class NumpadKeysBlock extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         ConstrainedBox(
-          constraints: BoxConstraints(
-            maxWidth: block[0].length * 50 +
-                Spacing.keyGrid.btwKey * (block[0].length - 1),
-          ),
+          constraints: BoxConstraints(maxWidth: maxWidth),
           child: Column(
             spacing: Spacing.keyGrid.btwKey,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -47,9 +52,10 @@ class NumpadKeysBlock extends StatelessWidget {
                       row.length,
                       generator: (int colIndex) => <Widget>[
                         if (colIndex == row.length - 1) ...<Widget>[
-                          Expanded(child: KeyButton(keyData: row[colIndex])),
+                          Expanded(
+                              child: buildKeyButton(keyData: row[colIndex])),
                         ] else ...<Widget>[
-                          KeyButton(keyData: row[colIndex]),
+                          buildKeyButton(keyData: row[colIndex]),
                         ],
                       ],
                     ),
@@ -60,10 +66,7 @@ class NumpadKeysBlock extends StatelessWidget {
           ),
         ),
         ConstrainedBox(
-          constraints: BoxConstraints(
-            maxHeight: (block.length - 1) * 50 +
-                Spacing.keyGrid.btwKey * (block.length - 2),
-          ),
+          constraints: BoxConstraints(maxHeight: maxHeight),
           child: Column(
             spacing: Spacing.keyGrid.btwKey,
             children: For.generateChildren(
@@ -72,9 +75,9 @@ class NumpadKeysBlock extends StatelessWidget {
                 final List<KeyboardKeyData> row = block[lastRowIndex];
                 return <Widget>[
                   if (index == row.length - 1) ...<Widget>[
-                    Expanded(child: KeyButton(keyData: row[index])),
+                    Expanded(child: buildKeyButton(keyData: row[index])),
                   ] else ...<Widget>[
-                    KeyButton(keyData: row[index]),
+                    buildKeyButton(keyData: row[index]),
                   ],
                 ];
               },

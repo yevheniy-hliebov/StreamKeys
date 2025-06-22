@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/for.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_key_data.dart';
-import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/keybutton/key_button.dart';
+import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/keyboard/keyboard_blocks/base_keys_block.dart';
 
-class MainKeysBlock extends StatelessWidget {
-  final KeyboardKeyBlock block;
-
+class MainKeysBlock extends BaseKeysBlock {
   const MainKeysBlock({
     super.key,
-    required this.block,
+    required super.block,
+    super.buttonSize,
+    super.pageMap,
+    super.currentKeyCode,
+    super.onPressedButton,
   });
 
   @override
@@ -51,10 +53,10 @@ class MainKeysBlock extends StatelessWidget {
 
     if (isSpaceKey || isEdgeKey) {
       return Expanded(
-        child: KeyButton(keyData: row[colIndex]),
+        child: buildKeyButton(keyData: row[colIndex]),
       );
     }
 
-    return KeyButton(keyData: row[colIndex]);
+    return buildKeyButton(keyData: row[colIndex]);
   }
 }
