@@ -2,173 +2,212 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/bloc/deck_page_list_bloc.dart';
+import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_page.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/data/repositories/deck_page_list_repository.dart';
 
 class MockDeckPageListRepository extends Mock
     implements DeckPageListRepository {}
 
 void main() {
-  late DeckPageListRepository repository;
+  late MockDeckPageListRepository mockRepository;
+  final mockPage = DeckPage(id: '123', name: 'Test Page');
+
+  setUpAll(() {
+    registerFallbackValue(mockPage);
+  });
 
   setUp(() {
-    repository = MockDeckPageListRepository();
+    mockRepository = MockDeckPageListRepository();
   });
+
+  void verifyRepositoryCalls(MockDeckPageListRepository repo, {int times = 1}) {
+    verify(() => repo.currentPageId).called(times);
+    verify(() => repo.orderPages).called(greaterThanOrEqualTo(times));
+  }
 
   group('DeckPageListBloc', () {
     blocTest<DeckPageListBloc, DeckPageListState>(
-      'Init: emits loaded state with default page',
+      'emits DeckPageListLoaded after successful init',
       build: () {
-        when(() => repository.getDeckPageList()).thenAnswer(
-          (_) async => ('Default page', <String>['Default page']),
-        );
-        when(() => repository.save(any(), any())).thenAnswer((_) async {});
-        return DeckPageListBloc(repository);
+        when(() => mockRepository.init()).thenAnswer((_) async {});
+        when(() => mockRepository.currentPageId).thenReturn(mockPage.id);
+        when(() => mockRepository.orderPages).thenReturn([mockPage]);
+
+        return DeckPageListBloc(mockRepository);
       },
-      wait: Duration.zero,
-      expect: () => <TypeMatcher<DeckPageListLoaded>>[
-        isA<DeckPageListLoaded>()
-            .having((DeckPageListLoaded s) => s.currentPageName,
-                'currentPageName', 'Default page')
-            .having((DeckPageListLoaded s) => s.pages.length, 'pages', 1),
+      act: (bloc) => bloc.add(DeckPageListInit()),
+      expect: () => [
+        DeckPageListLoaded(
+          currentPageId: mockPage.id,
+          pages: [mockPage],
+          isEditing: false,
+        ),
+      ],
+      verify: (_) {
+        verify(() => mockRepository.init()).called(1);
+        verifyRepositoryCalls(mockRepository);
+      },
+    );
+
+    blocTest<DeckPageListBloc, DeckPageListState>(
+      'emits DeckPageListLoaded after adding new page',
+      build: () {
+        when(() => mockRepository.orderPages).thenReturn([]);
+        when(() => mockRepository.addAndSelectPage(any<DeckPage>())).thenAnswer(
+          (_) async {},
+        );
+        when(() => mockRepository.currentPageId).thenReturn(mockPage.id);
+        when(() => mockRepository.orderPages).thenReturn([mockPage]);
+
+        return DeckPageListBloc(mockRepository);
+      },
+      act: (bloc) => bloc.add(DeckPageListAddPage()),
+      expect: () => [
+        DeckPageListLoaded(
+          currentPageId: mockPage.id,
+          pages: [mockPage],
+          isEditing: false,
+        ),
+      ],
+      verify: (_) {
+        verify(() {
+          return mockRepository.addAndSelectPage(any<DeckPage>());
+        }).called(1);
+        verifyRepositoryCalls(mockRepository);
+      },
+    );
+
+    blocTest<DeckPageListBloc, DeckPageListState>(
+      'emits DeckPageListLoaded after selecting a page',
+      build: () {
+        when(() => mockRepository.selectPage(any())).thenAnswer((_) async {});
+        when(() => mockRepository.currentPageId).thenReturn(mockPage.id);
+        when(() => mockRepository.orderPages).thenReturn([mockPage]);
+
+        return DeckPageListBloc(mockRepository);
+      },
+      act: (bloc) => bloc.add(DeckPageListSelectPage(mockPage.id)),
+      expect: () => [
+        DeckPageListLoaded(
+          currentPageId: mockPage.id,
+          pages: [mockPage],
+          isEditing: false,
+        ),
+      ],
+      verify: (_) {
+        verify(() => mockRepository.selectPage(mockPage.id)).called(1);
+        verifyRepositoryCalls(mockRepository);
+      },
+    );
+
+    blocTest<DeckPageListBloc, DeckPageListState>(
+      'emits DeckPageListLoaded after deleting current page',
+      build: () {
+        int callCount = 0;
+        mockRepository = MockDeckPageListRepository();
+        when(() => mockRepository.currentPageId).thenAnswer((_) {
+          callCount++;
+          return callCount == 1 ? 'page_to_delete' : mockPage.id;
+        });
+        when(() => mockRepository.deletePage(any())).thenAnswer((_) async {});
+        when(() => mockRepository.orderPages).thenReturn(<DeckPage>[mockPage]);
+
+        return DeckPageListBloc(mockRepository);
+      },
+      act: (bloc) => bloc.add(DeckPageListDeletePage()),
+      verify: (_) {
+        verify(() => mockRepository.deletePage('page_to_delete')).called(1);
+      },
+      expect: () => [
+        DeckPageListLoaded(
+          currentPageId: mockPage.id,
+          pages: [mockPage],
+          isEditing: false,
+        ),
       ],
     );
 
     blocTest<DeckPageListBloc, DeckPageListState>(
-      'AddPage: adds new unique page',
+      'emits DeckPageListLoaded with isEdit true after starting editing',
       build: () {
-        when(() => repository.getDeckPageList()).thenAnswer(
-          (_) async => ('Default page', <String>['Default page']),
-        );
-        when(() => repository.save(any(), any())).thenAnswer((_) async {});
-        return DeckPageListBloc(repository);
+        mockRepository = MockDeckPageListRepository();
+        when(() => mockRepository.currentPageId).thenReturn(mockPage.id);
+        when(() => mockRepository.orderPages).thenReturn(<DeckPage>[mockPage]);
+
+        return DeckPageListBloc(mockRepository);
       },
-      act: (DeckPageListBloc bloc) async {
-        await Future<void>.delayed(Duration.zero);
-        bloc.add(DeckPageListAddPage());
+      act: (bloc) => bloc.add(DeckPageListStartEditingPage()),
+      verify: (_) {
+        verifyRepositoryCalls(mockRepository);
       },
-      wait: const Duration(milliseconds: 10),
-      expect: () => <TypeMatcher<DeckPageListLoaded>>[
-        isA<DeckPageListLoaded>(),
-        isA<DeckPageListLoaded>()
-            .having((DeckPageListLoaded s) => s.pages.length, 'pages.length', 2)
-            .having(
-                (DeckPageListLoaded s) => s.currentPageName, 'current', 'Page'),
+      expect: () => [
+        predicate<DeckPageListState>((state) {
+          return state is DeckPageListLoaded && state.isEditing == true;
+        }),
       ],
     );
 
     blocTest<DeckPageListBloc, DeckPageListState>(
-      'SelectPage: switches current page',
+      'emits DeckPageListLoaded after stopping editing and renaming page',
       build: () {
-        when(() => repository.getDeckPageList()).thenAnswer(
-          (_) async => ('Default page', <String>['Default page', 'Page']),
+        mockRepository = MockDeckPageListRepository();
+
+        when(() => mockRepository.renameCurrentPage(any())).thenAnswer(
+          (_) async {},
         );
-        when(() => repository.save(any(), any())).thenAnswer((_) async {});
-        return DeckPageListBloc(repository);
+        when(() => mockRepository.currentPageId).thenReturn(mockPage.id);
+        when(() => mockRepository.orderPages).thenReturn(
+          [DeckPage(id: mockPage.id, name: 'New Name')],
+        );
+
+        return DeckPageListBloc(mockRepository);
       },
-      act: (DeckPageListBloc bloc) async {
-        await Future<void>.delayed(Duration.zero);
-        bloc.add(const DeckPageListSelectPage('Page'));
+      act: (bloc) => bloc.add(
+        const DeckPageListStopEditingPage('New Name'),
+      ),
+      verify: (_) {
+        verify(() => mockRepository.renameCurrentPage('New Name')).called(1);
+        verifyRepositoryCalls(mockRepository);
       },
-      wait: const Duration(milliseconds: 10),
-      expect: () => <TypeMatcher<DeckPageListLoaded>>[
-        isA<DeckPageListLoaded>(),
-        isA<DeckPageListLoaded>()
-            .having((DeckPageListLoaded s) => s.currentPageName,
-                'selected page', 'Page')
-            .having((DeckPageListLoaded s) => s.isEditing, 'isEditing', false),
+      expect: () => [
+        DeckPageListLoaded(
+          currentPageId: mockPage.id,
+          pages: [DeckPage(id: mockPage.id, name: 'New Name')],
+          isEditing: false,
+        ),
       ],
     );
 
     blocTest<DeckPageListBloc, DeckPageListState>(
-      'DeletePage: deletes current page and selects previous',
+      'emits DeckPageListLoaded after reordering pages',
       build: () {
-        when(() => repository.getDeckPageList()).thenAnswer(
-          (_) async => ('Page', <String>['Default page', 'Page']),
-        );
-        when(() => repository.save(any(), any())).thenAnswer((_) async {});
-        return DeckPageListBloc(repository);
-      },
-      act: (DeckPageListBloc bloc) async {
-        await Future<void>.delayed(Duration.zero);
-        bloc.add(DeckPageListDeletePage());
-      },
-      wait: const Duration(milliseconds: 10),
-      expect: () => <TypeMatcher<DeckPageListLoaded>>[
-        isA<DeckPageListLoaded>(),
-        isA<DeckPageListLoaded>().having(
-            (DeckPageListLoaded s) => s.pages, 'pages', <String>[
-          'Default page'
-        ]).having((DeckPageListLoaded s) => s.currentPageName,
-            'currentPageName', 'Default page'),
-      ],
-    );
+        mockRepository = MockDeckPageListRepository();
 
-    blocTest<DeckPageListBloc, DeckPageListState>(
-      'StartEditing: enables editing mode',
-      build: () {
-        when(() => repository.getDeckPageList()).thenAnswer(
-          (_) async => ('Default page', <String>['Default page']),
+        when(() => mockRepository.reorderPages(0, 2)).thenAnswer(
+          (_) async {},
         );
-        when(() => repository.save(any(), any())).thenAnswer((_) async {});
-        return DeckPageListBloc(repository);
-      },
-      act: (DeckPageListBloc bloc) async {
-        await Future<void>.delayed(Duration.zero);
-        bloc.add(DeckPageListStartEditingPage());
-      },
-      wait: const Duration(milliseconds: 10),
-      expect: () => <TypeMatcher<DeckPageListLoaded>>[
-        isA<DeckPageListLoaded>(),
-        isA<DeckPageListLoaded>()
-            .having((DeckPageListLoaded s) => s.isEditing, 'isEditing', true),
-      ],
-    );
+        when(() => mockRepository.currentPageId).thenReturn(mockPage.id);
+        when(() => mockRepository.orderPages).thenReturn(<DeckPage>[
+          DeckPage(id: '2', name: 'second page'),
+          mockPage,
+        ]);
 
-    blocTest<DeckPageListBloc, DeckPageListState>(
-      'StopEditing: renames page and disables editing',
-      build: () {
-        when(() => repository.getDeckPageList()).thenAnswer(
-          (_) async => ('Default page', <String>['Default page']),
-        );
-        when(() => repository.save(any(), any())).thenAnswer((_) async {});
-        return DeckPageListBloc(repository);
+        return DeckPageListBloc(mockRepository);
       },
-      act: (DeckPageListBloc bloc) async {
-        await Future<void>.delayed(Duration.zero);
-        bloc.add(const DeckPageListStopEditingPage('Renamed'));
+      act: (bloc) => bloc.add(const DeckPageListReorder(0, 2)),
+      verify: (_) {
+        verify(() => mockRepository.reorderPages(0, 2)).called(1);
+        verifyRepositoryCalls(mockRepository);
       },
-      wait: const Duration(milliseconds: 10),
-      expect: () => <TypeMatcher<DeckPageListLoaded>>[
-        isA<DeckPageListLoaded>(),
-        isA<DeckPageListLoaded>()
-            .having(
-                (DeckPageListLoaded s) => s.pages, 'pages', <String>['Renamed'])
-            .having((DeckPageListLoaded s) => s.currentPageName, 'current',
-                'Renamed')
-            .having((DeckPageListLoaded s) => s.isEditing, 'isEditing', false),
-      ],
-    );
-
-    blocTest<DeckPageListBloc, DeckPageListState>(
-      'Reorder: moves page in list',
-      build: () {
-        when(() => repository.getDeckPageList()).thenAnswer(
-          (_) async =>
-              ('Default page', <String>['Default page', 'Page', 'Page 1']),
-        );
-        when(() => repository.save(any(), any())).thenAnswer((_) async {});
-        return DeckPageListBloc(repository);
-      },
-      act: (DeckPageListBloc bloc) async {
-        bloc.add(DeckPageListInit());
-        await Future<void>.delayed(Duration.zero);
-        bloc.add(const DeckPageListReorder(0, 2));
-      },
-      wait: const Duration(milliseconds: 10),
-      expect: () => <TypeMatcher<DeckPageListLoaded>>[
-        isA<DeckPageListLoaded>(),
-        isA<DeckPageListLoaded>().having((DeckPageListLoaded s) => s.pages,
-            'pages', <String>['Page', 'Default page', 'Page 1']),
+      expect: () => [
+        DeckPageListLoaded(
+          currentPageId: mockPage.id,
+          pages: [
+            DeckPage(id: '2', name: 'second page'),
+            mockPage,
+          ],
+          isEditing: false,
+        ),
       ],
     );
   });
