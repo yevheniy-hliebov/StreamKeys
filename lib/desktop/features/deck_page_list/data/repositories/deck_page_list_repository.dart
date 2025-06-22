@@ -35,7 +35,7 @@ class DeckPageListRepository {
   Future<void> addAndSelectPage(DeckPage page) async {
     json[DeckJsonKeys.currentPageId] = page.id;
     _orderPagesJson.add(page.toJson());
-    _mapJson[page.id] = {};
+    _mapJson[page.id] = <String, dynamic>{};
 
     await _save();
   }

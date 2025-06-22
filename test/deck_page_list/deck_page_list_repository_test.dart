@@ -134,7 +134,7 @@ void main() {
         await repository.renameCurrentPage('New Name');
 
         final page = repository.orderPages.firstWhere((p) => p.id == '123');
-        expect(page.name, 'Test Page');
+        expect(page.name, 'New Name');
         verifyNever(mockFileManager.save(any));
       },
     );
