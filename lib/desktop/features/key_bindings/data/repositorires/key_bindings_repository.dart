@@ -1,3 +1,4 @@
+import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_json_keys.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_type.dart';
 import 'package:streamkeys/desktop/features/key_bindings/data/models/key_binding_data.dart';
 import 'package:streamkeys/desktop/utils/local_json_file_manager.dart';
@@ -17,8 +18,8 @@ class KeyBindingsRepository {
       return ('', <String, KeyBindingMap>{});
     }
 
-    final String currentPageName = json['current_page'] ?? '';
-    final Map<String, dynamic> rawMap = json['map'] ?? {};
+    final String currentPageId = json[DeckJsonKeys.currentPageId] ?? '';
+    final Map<String, dynamic> rawMap = json[DeckJsonKeys.map] ?? {};
 
     final KeyBindingPagesMap parsedMap = rawMap.map((pageName, pageContent) {
       final rawBindings = pageContent as Map<String, dynamic>;
@@ -33,18 +34,18 @@ class KeyBindingsRepository {
       return MapEntry(pageName, bindings);
     });
 
-    return (currentPageName, parsedMap);
+    return (currentPageId, parsedMap);
   }
 
-  Future<void> save(
-    String pageName,
+  Future<void> saveKeyBindingDataOnPage(
+    String pageId,
     int keyCode,
     KeyBindingData keyData,
   ) async {
     Map<String, dynamic>? json = await deckJsonFile.read();
 
     json ??= {};
-    json['map'][pageName][keyCode] = keyData.toJson();
+    json['map'][pageId][keyCode] = keyData.toJson();
 
     return deckJsonFile.save(json);
   }
