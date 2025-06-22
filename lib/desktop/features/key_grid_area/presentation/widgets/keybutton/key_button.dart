@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:streamkeys/common/widgets/image_preview.dart';
 import 'package:streamkeys/core/constants/colors.dart';
 import 'package:streamkeys/desktop/features/key_bindings/data/models/key_binding_data.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/base_key_data.dart';
@@ -55,12 +54,7 @@ class KeyButton extends StatelessWidget {
 
   Widget? _buildChild(BuildContext context) {
     if (keyBindingData?.imagePath.isNotEmpty == true) {
-      return Image.file(
-        File(keyBindingData!.imagePath),
-        width: double.infinity,
-        height: double.infinity,
-        fit: BoxFit.cover,
-      );
+      return ImagePreview(imagePath: keyBindingData?.imagePath ?? '');
     }
 
     if (keyData is KeyboardKeyData) {
