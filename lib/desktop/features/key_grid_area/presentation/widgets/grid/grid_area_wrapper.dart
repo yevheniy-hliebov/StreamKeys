@@ -18,15 +18,15 @@ class GridAreaWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<GridKeyBindingsBloc, KeyBindingsState>(
       builder: (context, state) {
-        final currentKeyCode =
-            state is KeyBindingsLoaded ? state.currentKeyCode : null;
+        final currentKeyData =
+            state is KeyBindingsLoaded ? state.currentKeyData : null;
         return GridArea(
           gridTemplate: gridTemplate,
           keyDataList: keyDataList,
           pageMap: state is KeyBindingsLoaded ? state.map : {},
-          currentKeyCode: currentKeyCode,
+          currentKeyCode: currentKeyData?.keyCode,
           onPressedButton: (keyCode) {
-            if (keyCode != currentKeyCode) {
+            if (keyCode != currentKeyData) {
               context
                   .read<GridKeyBindingsBloc>()
                   .add(KeyBindingsSelectKey(keyCode));

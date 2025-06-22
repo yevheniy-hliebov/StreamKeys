@@ -11,10 +11,10 @@ final class KeyBindingsInitial extends KeyBindingsState {}
 
 final class KeyBindingsLoaded extends KeyBindingsState {
   final KeyBindingMap? map;
-  final int? currentKeyCode;
+  final BaseKeyData? currentKeyData;
 
-  const KeyBindingsLoaded(this.map, this.currentKeyCode);
+  const KeyBindingsLoaded(this.map, this.currentKeyData);
 
   @override
-  List<Object?> get props => <Object?>[map, currentKeyCode];
+  List<Object?> get props => <Object?>[map, currentKeyData];
 }

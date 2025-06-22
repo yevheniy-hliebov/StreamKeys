@@ -9,7 +9,7 @@ abstract class BaseKeysBlock extends StatelessWidget {
   final double buttonSize;
   final KeyBindingMap? pageMap;
   final int? currentKeyCode;
-  final void Function(int keyCode)? onPressedButton;
+  final void Function(BaseKeyData keyData)? onPressedButton;
 
   const BaseKeysBlock({
     super.key,
@@ -23,33 +23,13 @@ abstract class BaseKeysBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context);
 
-  @protected
-  T buildBlock<T extends Widget>(
-    T Function({
-      required KeyboardKeyBlock block,
-      required double buttonSize,
-      KeyBindingMap? pageMap,
-      int? currentKeyCode,
-      void Function(int keyCode)? onPressedButton,
-    }) builder,
-    KeyboardKeyBlock block,
-  ) {
-    return builder(
-      block: block,
-      buttonSize: buttonSize,
-      pageMap: pageMap,
-      currentKeyCode: currentKeyCode,
-      onPressedButton: onPressedButton,
-    );
-  }
-
   KeyButton buildKeyButton({required BaseKeyData keyData}) {
     return KeyButton(
       keyData: keyData,
       keyBindingData: pageMap?[keyData.keyCode.toString()],
       isSelected: currentKeyCode == keyData.keyCode,
       onPressed: () {
-        onPressedButton?.call(keyData.keyCode);
+        onPressedButton?.call(keyData);
       },
       size: buttonSize,
     );

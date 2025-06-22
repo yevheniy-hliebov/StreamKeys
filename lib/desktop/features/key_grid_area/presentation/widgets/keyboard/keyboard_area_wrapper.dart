@@ -42,13 +42,13 @@ class _KeyboardAreaWrapperState extends State<KeyboardAreaWrapper> {
     return BlocBuilder<KeyboardKeyBindingsBloc, KeyBindingsState>(
       builder: (context, state) {
         final currentKeyCode =
-            state is KeyBindingsLoaded ? state.currentKeyCode : null;
+            state is KeyBindingsLoaded ? state.currentKeyData : null;
         return KeyboardArea(
           keyboardType: widget.keyboardType,
           keyMap: keyMap,
           buttonSize: 50,
           pageMap: state is KeyBindingsLoaded ? state.map : {},
-          currentKeyCode: currentKeyCode,
+          currentKeyCode: currentKeyCode?.keyCode,
           onPressedButton: (keyCode) {
             if (keyCode != currentKeyCode) {
               context

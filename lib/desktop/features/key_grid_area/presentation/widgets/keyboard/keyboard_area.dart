@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/desktop/features/key_bindings/data/models/key_binding_data.dart';
+import 'package:streamkeys/desktop/features/key_grid_area/data/models/base_key_data.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_key_data.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_type.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/repositories/keyboard_map_repository.dart';
@@ -16,7 +17,7 @@ class KeyboardArea extends StatelessWidget {
   final Map<String, KeyboardKeyBlock> keyMap;
   final KeyBindingMap? pageMap;
   final int? currentKeyCode;
-  final void Function(int keyCode)? onPressedButton;
+  final void Function(BaseKeyData keyData)? onPressedButton;
 
   const KeyboardArea({
     super.key,
@@ -112,7 +113,7 @@ class KeyboardArea extends StatelessWidget {
       required double buttonSize,
       KeyBindingMap? pageMap,
       int? currentKeyCode,
-      void Function(int keyCode)? onPressedButton,
+      void Function(BaseKeyData keyData)? onPressedButton,
     }) builder,
     KeyboardKeyBlock block,
   ) {

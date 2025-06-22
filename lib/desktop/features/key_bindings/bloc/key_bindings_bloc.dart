@@ -6,6 +6,7 @@ import 'package:streamkeys/desktop/features/deck_page_list/bloc/deck_page_list_b
 import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_type.dart';
 import 'package:streamkeys/desktop/features/key_bindings/data/models/key_binding_data.dart';
 import 'package:streamkeys/desktop/features/key_bindings/data/repositorires/key_bindings_repository.dart';
+import 'package:streamkeys/desktop/features/key_grid_area/data/models/base_key_data.dart';
 
 part 'key_bindings_event.dart';
 part 'key_bindings_state.dart';
@@ -30,7 +31,7 @@ class KeyBindingsBloc extends Bloc<KeyBindingsEvent, KeyBindingsState> {
   late KeyBindingPagesMap map;
   late String currentPageId;
 
-  int? currentKeyCode;
+  BaseKeyData? currentKeyData;
 
   KeyBindingMap get pageMap {
     return Map.from(map[currentPageId] ?? <String, KeyBindingData>{});
@@ -41,7 +42,7 @@ class KeyBindingsBloc extends Bloc<KeyBindingsEvent, KeyBindingsState> {
     if (map.isEmpty) {
       return const KeyBindingData();
     } else {
-      return map[keyCode.toString()] ?? const KeyBindingData();
+      return map[keyCode.toString()] ?? KeyBindingData.create();
     }
   }
 
@@ -76,23 +77,23 @@ class KeyBindingsBloc extends Bloc<KeyBindingsEvent, KeyBindingsState> {
     map = loadedMap;
 
     _initCompleter.complete();
-    emit(KeyBindingsLoaded(pageMap, currentKeyCode));
+    emit(KeyBindingsLoaded(pageMap, currentKeyData));
   }
 
   void _changePage(
     KeyBindingsPageChanged event,
     Emitter<KeyBindingsState> emit,
   ) {
-    currentKeyCode = null;
-    emit(KeyBindingsLoaded(pageMap, currentKeyCode));
+    currentKeyData = null;
+    emit(KeyBindingsLoaded(pageMap, currentKeyData));
   }
 
   void _selectKey(
     KeyBindingsSelectKey event,
     Emitter<KeyBindingsState> emit,
   ) {
-    currentKeyCode = event.keyCode;
-    emit(KeyBindingsLoaded(pageMap, currentKeyCode));
+    currentKeyData = event.keyData;
+    emit(KeyBindingsLoaded(pageMap, currentKeyData));
   }
 
   void _saveKeyBindingDataOnPage(
@@ -105,7 +106,7 @@ class KeyBindingsBloc extends Bloc<KeyBindingsEvent, KeyBindingsState> {
 
     pageKeyMap[keyCode] = event.keyBindingData;
 
-    emit(KeyBindingsLoaded(pageMap, currentKeyCode));
+    emit(KeyBindingsLoaded(pageMap, currentKeyData));
 
     await repository.saveKeyBindingDataOnPage(
       currentPageId,

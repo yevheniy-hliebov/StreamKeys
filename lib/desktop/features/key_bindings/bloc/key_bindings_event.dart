@@ -16,9 +16,9 @@ class KeyBindingsPageChanged extends KeyBindingsEvent {
 }
 
 class KeyBindingsSelectKey extends KeyBindingsEvent {
-  final int keyCode;
+  final BaseKeyData keyData;
 
-  const KeyBindingsSelectKey(this.keyCode);
+  const KeyBindingsSelectKey(this.keyData);
 }
 
 class KeyBindingsSaveDataOnPage extends KeyBindingsEvent {
