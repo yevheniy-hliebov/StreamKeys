@@ -24,7 +24,8 @@ class _KeyColorFieldState extends State<KeyColorField> {
   void initState() {
     super.initState();
 
-    controller = ColorPickerController(widget.initialValue ?? Colors.transparent);
+    controller =
+        ColorPickerController(widget.initialValue ?? Colors.transparent);
 
     controller.addListener(() {
       widget.onChanged?.call(controller.pickerColor);

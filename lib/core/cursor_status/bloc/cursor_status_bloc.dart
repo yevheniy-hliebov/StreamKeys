@@ -8,7 +8,6 @@ part 'drag_status_state.dart';
 class CursorStatusBloc extends Bloc<CursorStatusEvent, CursorStatusState> {
   CursorStatusBloc() : super(const CursorStatusState(MouseCursor.defer)) {
     on<CursorDrag>((event, emit) {
-      print('onDragStarted');
       emit(const CursorStatusState(SystemMouseCursors.click));
     });
     on<CursorForbidden>(
