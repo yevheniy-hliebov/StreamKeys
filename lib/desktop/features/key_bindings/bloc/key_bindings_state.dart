@@ -10,7 +10,7 @@ sealed class KeyBindingsState extends Equatable {
 final class KeyBindingsInitial extends KeyBindingsState {}
 
 final class KeyBindingsLoaded extends KeyBindingsState {
-  final KeyBindingMap? map;
+  final KeyBindingMap map;
   final BaseKeyData? currentKeyData;
 
   const KeyBindingsLoaded(this.map, this.currentKeyData);
