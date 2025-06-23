@@ -8,7 +8,8 @@ import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/k
 import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/keybutton/key_button_labels.dart';
 
 class KeyButton extends StatelessWidget {
-  final double size;
+  final double width;
+  final double height;
   final VoidCallback? onPressed;
   final bool isSelected;
   final bool isHighlighted;
@@ -17,7 +18,8 @@ class KeyButton extends StatelessWidget {
 
   const KeyButton({
     super.key,
-    this.size = 50,
+    this.width = 50,
+    this.height = 50,
     this.onPressed,
     this.isSelected = false,
     this.isHighlighted = false,
@@ -36,7 +38,8 @@ class KeyButton extends StatelessWidget {
       child: InkWell(
         onTap: onPressed,
         child: KeyButtonContainer(
-          size: size,
+          width: width,
+          height: height,
           isSelected: isSelected,
           backgroundColor: isHighlighted
               ? highlightedColor

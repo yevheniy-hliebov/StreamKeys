@@ -45,9 +45,10 @@ class GridArea extends StatelessWidget {
                   return <Widget>[
                     KeyDragWrapper(
                       keyCode: keyData.keyCode,
-                      containerSize: 60,
+                      width: 60,
+                      height: 60,
                       onSwapBindingData: onSwapBindingData,
-                      childBuilder: (isHighlighted) {
+                      childBuilder: (isHighlighted, feedbackButtonsSize) {
                         return KeyButton(
                           keyData: keyData,
                           keyBindingData: pageMap?[keyData.keyCode.toString()],
@@ -56,7 +57,8 @@ class GridArea extends StatelessWidget {
                           onPressed: () {
                             onPressedButton?.call(keyData);
                           },
-                          size: 60,
+                          width: feedbackButtonsSize ?? 60,
+                          height: feedbackButtonsSize ?? 60,
                         );
                       },
                     ),

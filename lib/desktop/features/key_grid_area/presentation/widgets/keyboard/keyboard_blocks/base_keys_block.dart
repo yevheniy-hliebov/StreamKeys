@@ -26,12 +26,17 @@ abstract class BaseKeysBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context);
 
-  Widget buildKeyButton({required BaseKeyData keyData}) {
+  Widget buildKeyButton({
+    required BaseKeyData keyData,
+    double? width,
+    double? height,
+  }) {
     return KeyDragWrapper(
       keyCode: keyData.keyCode,
-      containerSize: buttonSize,
+      width: width ?? buttonSize,
+      height: height ?? buttonSize,
       onSwapBindingData: onSwapBindingData,
-      childBuilder: (isHighlighted) {
+      childBuilder: (isHighlighted, feedbackButtonsSize) {
         return KeyButton(
           keyData: keyData,
           keyBindingData: pageMap?[keyData.keyCode.toString()],
@@ -40,7 +45,8 @@ abstract class BaseKeysBlock extends StatelessWidget {
           onPressed: () {
             onPressedButton?.call(keyData);
           },
-          size: buttonSize,
+          width: feedbackButtonsSize ?? (width ?? buttonSize),
+          height: feedbackButtonsSize ?? (height ?? buttonSize),
         );
       },
     );

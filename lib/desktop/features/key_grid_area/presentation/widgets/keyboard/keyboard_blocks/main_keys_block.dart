@@ -17,10 +17,10 @@ class MainKeysBlock extends BaseKeysBlock {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.maxFinite,
-      constraints: const BoxConstraints(maxWidth: 920),
-      child: Column(
+    return LayoutBuilder(builder: (context, constraints) {
+      final maxWidth = constraints.maxWidth;
+
+      return Column(
         spacing: Spacing.keyGrid.btwKey,
         children: For.generateChildren(
           block.length,
@@ -33,7 +33,7 @@ class MainKeysBlock extends BaseKeysBlock {
                   row.length,
                   generator: (int colIndex) {
                     return <Widget>[
-                      _buildButton(row, index, colIndex),
+                      _buildButton(maxWidth, row, index, colIndex),
                     ];
                   },
                 ),
@@ -41,23 +41,42 @@ class MainKeysBlock extends BaseKeysBlock {
             ];
           },
         ),
-      ),
-    );
+      );
+    });
   }
 
-  Widget _buildButton(List<KeyboardKeyData> row, int index, int colIndex) {
+  Widget _buildButton(
+    double maxWidth,
+    List<KeyboardKeyData> row,
+    int index,
+    int colIndex,
+  ) {
     final int lastRowIndex = block.length - 1;
 
     final bool isSpaceKey = index == lastRowIndex && colIndex == 3;
     final bool isEdgeKey = index != lastRowIndex &&
         (colIndex == row.length - 1 || (index != 0 && colIndex == 0));
 
-    if (isSpaceKey || isEdgeKey) {
-      return Expanded(
-        child: buildKeyButton(keyData: row[colIndex]),
-      );
+    final rowLength = row.length;
+    final totalWidthButtons =
+        rowLength * buttonSize + (rowLength - 1) * Spacing.keyGrid.btwKey;
+    final remaining = maxWidth - totalWidthButtons;
+    double? buttonWidth;
+
+    if (isSpaceKey) {
+      buttonWidth = remaining + buttonSize;
+    }
+    if (isEdgeKey) {
+      if (index == 0 && colIndex == row.length - 1) {
+        buttonWidth = remaining + buttonSize;
+      } else {
+        buttonWidth = remaining / 2 + buttonSize;
+      }
     }
 
-    return buildKeyButton(keyData: row[colIndex]);
+    return buildKeyButton(
+      keyData: row[colIndex],
+      width: buttonWidth,
+    );
   }
 }

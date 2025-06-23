@@ -3,14 +3,16 @@ import 'package:streamkeys/core/constants/colors.dart';
 
 class KeyButtonContainer extends StatelessWidget {
   final bool isSelected;
-  final double size;
+  final double width;
+  final double height;
   final Color? backgroundColor;
   final Widget? child;
 
   const KeyButtonContainer({
     super.key,
     this.isSelected = false,
-    this.size = 50,
+    this.width = 50,
+    this.height = 50,
     this.backgroundColor,
     this.child,
   });
@@ -18,8 +20,8 @@ class KeyButtonContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: size,
-      height: size,
+      width: width,
+      height: height,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: backgroundColor ?? AppColors.of(context).background,
