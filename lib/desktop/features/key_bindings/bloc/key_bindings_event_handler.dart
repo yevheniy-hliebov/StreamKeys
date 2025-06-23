@@ -23,6 +23,7 @@ class KeyBindingsEventHandler {
     Emitter<KeyBindingsState> emit,
   ) {
     bloc.currentKeyData = null;
+    bloc.currentPageId = event.currentPageId;
     emit(KeyBindingsLoaded(bloc.pageMap, bloc.currentKeyData));
   }
 

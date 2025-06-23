@@ -51,7 +51,6 @@ class KeyBindingsBloc extends Bloc<KeyBindingsEvent, KeyBindingsState>
       (DeckPageListState deckState) async {
         if (deckState is DeckPageListLoaded) {
           await _initCompleter.future;
-          currentPageId = deckState.currentPageId;
           add(KeyBindingsPageChanged(deckState.currentPageId));
         }
       },
