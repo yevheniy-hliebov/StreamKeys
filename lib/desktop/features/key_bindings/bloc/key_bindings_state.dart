@@ -2,7 +2,7 @@ part of 'key_bindings_bloc.dart';
 
 sealed class KeyBindingsState extends Equatable {
   const KeyBindingsState();
-  
+
   @override
   List<Object?> get props => <Object?>[];
 }

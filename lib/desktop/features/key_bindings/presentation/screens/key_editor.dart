@@ -27,7 +27,7 @@ class KeyEditor<T extends KeyBindingsBloc> extends StatelessWidget {
 
             final keyData = state.currentKeyData!;
             final bloc = context.read<T>();
-            final keyBindingData = bloc.getKeyBingingData(keyData.keyCode);
+            final keyBindingData = bloc.getKeyBindingData(keyData.keyCode);
 
             return Column(
               key: Key(keyBindingData.id),

@@ -10,49 +10,44 @@ import 'package:streamkeys/desktop/features/key_grid_area/data/models/base_key_d
 
 part 'key_bindings_event.dart';
 part 'key_bindings_state.dart';
+part 'key_bindings_bloc_variants.dart';
+part 'key_bindings_utils.dart';
+part 'key_bindings_event_handler.dart';
 
-class GridKeyBindingsBloc extends KeyBindingsBloc {
-  GridKeyBindingsBloc(DeckPageListBloc decPageListkBloc)
-      : super(KeyBindingsRepository(DeckType.grid), decPageListkBloc);
-}
-
-class KeyboardKeyBindingsBloc extends KeyBindingsBloc {
-  KeyboardKeyBindingsBloc(DeckPageListBloc decPageListkBloc)
-      : super(KeyBindingsRepository(DeckType.keyboard), decPageListkBloc);
-}
-
-class KeyBindingsBloc extends Bloc<KeyBindingsEvent, KeyBindingsState> {
-  final DeckPageListBloc decPageListkBloc;
-  late final StreamSubscription<DeckPageListState> deckSubscription;
-
+class KeyBindingsBloc extends Bloc<KeyBindingsEvent, KeyBindingsState>
+    with KeyBindingsUtils {
   final KeyBindingsRepository repository;
+  final DeckPageListBloc _deckPageListBloc;
 
   late final Completer<void> _initCompleter;
-  late KeyBindingPagesMap map;
-  late String currentPageId;
+  late final StreamSubscription<DeckPageListState> _deckSubscription;
+  late final KeyBindingsEventHandler _handler;
 
   BaseKeyData? currentKeyData;
 
-  KeyBindingMap get pageMap {
-    return Map.from(map[currentPageId] ?? <String, KeyBindingData>{});
+  KeyBindingsBloc(this.repository, DeckPageListBloc deckPageListBloc)
+      : _deckPageListBloc = deckPageListBloc,
+        super(KeyBindingsInitial()) {
+    _initCompleter = Completer<void>();
+    _handleDeckSubscription();
+
+    _handler = KeyBindingsEventHandler(repository, this);
+
+    on<KeyBindingsInit>(_handler.onInit);
+    on<KeyBindingsPageChanged>(_handler.onPageChanged);
+    on<KeyBindingsSelectKey>(_handler.onSelectKey);
+    on<KeyBindingsSaveDataOnPage>(_handler.onSaveData);
+    on<KeyBindingsSwapKeys>(_handler.onSwap);
   }
 
-  KeyBindingData getKeyBingingData(int? keyCode) {
-    final KeyBindingMap map = pageMap;
-    if (map.isEmpty) {
-      return const KeyBindingData();
-    } else {
-      return map[keyCode.toString()] ?? KeyBindingData.create();
+  void completeInit() {
+    if (!_initCompleter.isCompleted) {
+      _initCompleter.complete();
     }
   }
 
-  KeyBindingsBloc(
-    this.repository,
-    this.decPageListkBloc,
-  ) : super(KeyBindingsInitial()) {
-    _initCompleter = Completer<void>();
-
-    deckSubscription = decPageListkBloc.stream.listen(
+  void _handleDeckSubscription() {
+    _deckSubscription = _deckPageListBloc.stream.listen(
       (DeckPageListState deckState) async {
         if (deckState is DeckPageListLoaded) {
           await _initCompleter.future;
@@ -61,97 +56,11 @@ class KeyBindingsBloc extends Bloc<KeyBindingsEvent, KeyBindingsState> {
         }
       },
     );
-
-    on<KeyBindingsInit>(_init);
-    on<KeyBindingsPageChanged>(_changePage);
-    on<KeyBindingsSelectKey>(_selectKey);
-    on<KeyBindingsSaveDataOnPage>(_saveKeyBindingDataOnPage);
-    on<KeyBindingsSwapKeys>(_swapKeyBindings);
-  }
-
-  Future<void> _init(
-    KeyBindingsInit event,
-    Emitter<KeyBindingsState> emit,
-  ) async {
-    final (loadedPageId, loadedMap) = await repository.getKeyMap();
-    currentPageId = loadedPageId;
-    map = loadedMap;
-
-    _initCompleter.complete();
-    emit(KeyBindingsLoaded(pageMap, currentKeyData));
-  }
-
-  void _changePage(
-    KeyBindingsPageChanged event,
-    Emitter<KeyBindingsState> emit,
-  ) {
-    currentKeyData = null;
-    emit(KeyBindingsLoaded(pageMap, currentKeyData));
-  }
-
-  void _selectKey(
-    KeyBindingsSelectKey event,
-    Emitter<KeyBindingsState> emit,
-  ) {
-    currentKeyData = event.keyData;
-    emit(KeyBindingsLoaded(pageMap, currentKeyData));
-  }
-
-  void _saveKeyBindingDataOnPage(
-    KeyBindingsSaveDataOnPage event,
-    Emitter<KeyBindingsState> emit,
-  ) async {
-    final keyCode = event.keyCode.toString();
-    Map<String, KeyBindingData>? pageKeyMap = map[currentPageId];
-    pageKeyMap ??= <String, KeyBindingData>{};
-
-    pageKeyMap[keyCode] = event.keyBindingData;
-
-    emit(KeyBindingsLoaded(pageMap, currentKeyData));
-
-    await repository.saveKeyBindingDataOnPage(
-      currentPageId,
-      event.keyCode,
-      event.keyBindingData,
-    );
-  }
-
-  void _swapKeyBindings(
-    KeyBindingsSwapKeys event,
-    Emitter<KeyBindingsState> emit,
-  ) async {
-    final int firstCode = event.firstCode;
-    final int secondCode = event.secondCode;
-    
-    if (map[currentPageId] == null) {
-      map[currentPageId] = <String, KeyBindingData>{};
-    }
-    final pageKeyMap = map[currentPageId];
-    
-    final firstData = getKeyBingingData(firstCode);
-    final secondData = getKeyBingingData(secondCode);
-
-    pageKeyMap?[firstCode.toString()] = secondData;
-    pageKeyMap?[secondCode.toString()] = firstData;
-
-    emit(KeyBindingsLoaded(pageMap, currentKeyData));
-
-    await repository.saveKeyBindingDataOnPage(
-      currentPageId,
-      event.firstCode,
-      secondData,
-    );
-
-    await repository.saveKeyBindingDataOnPage(
-      currentPageId,
-      event.secondCode,
-      firstData,
-    );
   }
 
   @override
   Future<void> close() {
-    deckSubscription.cancel();
+    _deckSubscription.cancel();
     return super.close();
   }
 }
