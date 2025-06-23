@@ -31,15 +31,18 @@ abstract class BaseKeysBlock extends StatelessWidget {
       keyCode: keyData.keyCode,
       containerSize: buttonSize,
       onSwapBindingData: onSwapBindingData,
-      child: KeyButton(
-        keyData: keyData,
-        keyBindingData: pageMap?[keyData.keyCode.toString()],
-        isSelected: currentKeyCode == keyData.keyCode,
-        onPressed: () {
-          onPressedButton?.call(keyData);
-        },
-        size: buttonSize,
-      ),
+      childBuilder: (isHighlighted) {
+        return KeyButton(
+          keyData: keyData,
+          keyBindingData: pageMap?[keyData.keyCode.toString()],
+          isSelected: currentKeyCode == keyData.keyCode,
+          isHighlighted: isHighlighted,
+          onPressed: () {
+            onPressedButton?.call(keyData);
+          },
+          size: buttonSize,
+        );
+      },
     );
   }
 }

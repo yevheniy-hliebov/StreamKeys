@@ -47,15 +47,18 @@ class GridArea extends StatelessWidget {
                       keyCode: keyData.keyCode,
                       containerSize: 60,
                       onSwapBindingData: onSwapBindingData,
-                      child: KeyButton(
-                        keyData: keyData,
-                        keyBindingData: pageMap?[keyData.keyCode.toString()],
-                        isSelected: currentKeyCode == keyData.keyCode,
-                        onPressed: () {
-                          onPressedButton?.call(keyData);
-                        },
-                        size: 60,
-                      ),
+                      childBuilder: (isHighlighted) {
+                        return KeyButton(
+                          keyData: keyData,
+                          keyBindingData: pageMap?[keyData.keyCode.toString()],
+                          isSelected: currentKeyCode == keyData.keyCode,
+                          isHighlighted: isHighlighted,
+                          onPressed: () {
+                            onPressedButton?.call(keyData);
+                          },
+                          size: 60,
+                        );
+                      },
                     ),
                   ];
                 },

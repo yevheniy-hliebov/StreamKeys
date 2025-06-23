@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/image_preview.dart';
+import 'package:streamkeys/core/constants/colors.dart';
 import 'package:streamkeys/desktop/features/key_bindings/data/models/key_binding_data.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/base_key_data.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_key_data.dart';
@@ -10,6 +11,7 @@ class KeyButton extends StatelessWidget {
   final double size;
   final VoidCallback? onPressed;
   final bool isSelected;
+  final bool isHighlighted;
   final KeyBindingData? keyBindingData;
   final BaseKeyData keyData;
 
@@ -18,6 +20,7 @@ class KeyButton extends StatelessWidget {
     this.size = 50,
     this.onPressed,
     this.isSelected = false,
+    this.isHighlighted = false,
     this.keyBindingData,
     required this.keyData,
   });
@@ -25,6 +28,8 @@ class KeyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final message = keyBindingData?.name ?? '';
+    final highlightedColor =
+        AppColors.of(context).primary.withValues(alpha: 0.2);
 
     return Tooltip(
       message: message.isNotEmpty ? message : keyData.name,
@@ -33,7 +38,9 @@ class KeyButton extends StatelessWidget {
         child: KeyButtonContainer(
           size: size,
           isSelected: isSelected,
-          backgroundColor: keyBindingData?.backgroundColor,
+          backgroundColor: isHighlighted
+              ? highlightedColor
+              : keyBindingData?.backgroundColor,
           child: _buildChild(context),
         ),
       ),
