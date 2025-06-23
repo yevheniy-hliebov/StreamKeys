@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/for.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_key_data.dart';
-import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/keybutton/key_button.dart';
+import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/keyboard/keyboard_blocks/base_keys_block.dart';
 
-class NavigationBlockMap extends StatelessWidget {
-  final KeyboardKeyBlock block;
-
+class NavigationBlockMap extends BaseKeysBlock {
   const NavigationBlockMap({
     super.key,
-    required this.block,
+    required super.block,
+    super.buttonSize,
+    super.pageMap,
+    super.currentKeyCode,
+    super.onPressedButton,
+    super.onSwapBindingData,
   });
 
   @override
@@ -35,7 +38,7 @@ class NavigationBlockMap extends StatelessWidget {
               children: For.generateChildren(
                 row.length,
                 generator: (int colIndex) => <Widget>[
-                  KeyButton(keyData: row[colIndex]),
+                  buildKeyButton(keyData: row[colIndex]),
                 ],
               ),
             ),

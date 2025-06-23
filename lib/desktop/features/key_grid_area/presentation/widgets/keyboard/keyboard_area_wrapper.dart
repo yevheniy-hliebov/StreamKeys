@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:streamkeys/desktop/features/key_bindings/bloc/key_bindings_bloc.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_key_data.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_type.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/repositories/keyboard_map_repository.dart';
@@ -18,7 +20,7 @@ class KeyboardAreaWrapper extends StatefulWidget {
 
 class _KeyboardAreaWrapperState extends State<KeyboardAreaWrapper> {
   KeyboardMapRepository repository = KeyboardMapRepository();
-  Map<String, KeyboardKeyBlock> map = <String, KeyboardKeyBlock>{};
+  Map<String, KeyboardKeyBlock> keyMap = <String, KeyboardKeyBlock>{};
 
   @override
   void initState() {
@@ -31,15 +33,34 @@ class _KeyboardAreaWrapperState extends State<KeyboardAreaWrapper> {
         await repository.loadKeyboardMap();
 
     setState(() {
-      map = loadedMap;
+      keyMap = loadedMap;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return KeyboardArea(
-      keyboardType: widget.keyboardType,
-      map: map,
+    return BlocBuilder<KeyboardKeyBindingsBloc, KeyBindingsState>(
+      builder: (context, state) {
+        final currentKeyCode =
+            state is KeyBindingsLoaded ? state.currentKeyData : null;
+
+        final bloc = context.read<KeyboardKeyBindingsBloc>();
+        return KeyboardArea(
+          keyboardType: widget.keyboardType,
+          keyMap: keyMap,
+          buttonSize: 50,
+          pageMap: state is KeyBindingsLoaded ? state.map : {},
+          currentKeyCode: currentKeyCode?.keyCode,
+          onPressedButton: (keyCode) {
+            if (keyCode != currentKeyCode) {
+              bloc.add(KeyBindingsSelectKey(keyCode));
+            }
+          },
+          onSwapBindingData: (firstCode, secondCode) {
+            bloc.add(KeyBindingsSwapKeys(firstCode, secondCode));
+          },
+        );
+      },
     );
   }
 }

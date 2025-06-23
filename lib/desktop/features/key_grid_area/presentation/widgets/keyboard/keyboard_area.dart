@@ -1,36 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
+import 'package:streamkeys/desktop/features/key_bindings/data/models/key_binding_data.dart';
+import 'package:streamkeys/desktop/features/key_grid_area/data/models/base_key_data.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_key_data.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_type.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/repositories/keyboard_map_repository.dart';
+import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/keyboard/keyboard_blocks/base_keys_block.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/keyboard/keyboard_blocks/function_keys_block.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/keyboard/keyboard_blocks/main_keys_block.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/keyboard/keyboard_blocks/navigation_block_map.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/keyboard/keyboard_blocks/numpad_keys_block.dart';
 
 class KeyboardArea extends StatelessWidget {
+  final double buttonSize;
   final KeyboardType keyboardType;
-  final Map<String, KeyboardKeyBlock> map;
+  final Map<String, KeyboardKeyBlock> keyMap;
+  final KeyBindingMap? pageMap;
+  final int? currentKeyCode;
+  final void Function(BaseKeyData keyData)? onPressedButton;
+  final void Function(int firstCode, int secondCode)? onSwapBindingData;
 
   const KeyboardArea({
     super.key,
+    this.buttonSize = 50,
     this.keyboardType = KeyboardType.full,
-    required this.map,
+    required this.keyMap,
+    this.pageMap,
+    this.currentKeyCode,
+    this.onPressedButton,
+    this.onSwapBindingData,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (map.isEmpty) {
+    if (keyMap.isEmpty) {
       return const Center(child: CircularProgressIndicator());
     }
 
     final KeyboardKeyBlock functionBlock =
-        map[KeyboardMapRepository.functionsBlockKey]!;
-    final KeyboardKeyBlock mainBlock = map[KeyboardMapRepository.mainBlockKey]!;
+        keyMap[KeyboardMapRepository.functionsBlockKey]!;
+    final KeyboardKeyBlock mainBlock =
+        keyMap[KeyboardMapRepository.mainBlockKey]!;
     final KeyboardKeyBlock navigationBlock =
-        map[KeyboardMapRepository.navigationBlockKey]!;
+        keyMap[KeyboardMapRepository.navigationBlockKey]!;
     final KeyboardKeyBlock numpadBlock =
-        map[KeyboardMapRepository.numpadBlockKey]!;
+        keyMap[KeyboardMapRepository.numpadBlockKey]!;
 
     return Row(
       spacing: Spacing.keyGrid.btwBlock,
@@ -52,7 +66,7 @@ class KeyboardArea extends StatelessWidget {
     KeyboardKeyBlock mainBlock,
   ) {
     final int keyCount = functionBlock[0].length;
-    final double maxWidth = (50.0 * keyCount) +
+    final double maxWidth = (buttonSize * keyCount) +
         (Spacing.keyGrid.btwKey * (keyCount - 4)) +
         3 * Spacing.keyGrid.btwSections;
 
@@ -61,10 +75,10 @@ class KeyboardArea extends StatelessWidget {
       spacing: Spacing.keyGrid.btwBlock,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        FunctionKeysBlock(block: functionBlock),
+        _buildBlock(FunctionKeysBlock.new, functionBlock),
         ConstrainedBox(
           constraints: BoxConstraints(maxWidth: maxWidth),
-          child: MainKeysBlock(block: mainBlock),
+          child: _buildBlock(MainKeysBlock.new, mainBlock),
         ),
       ],
     );
@@ -74,14 +88,14 @@ class KeyboardArea extends StatelessWidget {
     KeyboardKeyBlock mainBlock,
     KeyboardKeyBlock navBlock,
   ) {
-    final double height = 50 +
+    final double height = buttonSize +
         Spacing.keyGrid.btwBlock +
-        50 * mainBlock.length +
+        buttonSize * mainBlock.length +
         Spacing.keyGrid.btwKey * (mainBlock.length - 1);
 
     return ConstrainedBox(
       constraints: BoxConstraints(maxHeight: height),
-      child: NavigationBlockMap(block: navBlock),
+      child: _buildBlock(NavigationBlockMap.new, navBlock),
     );
   }
 
@@ -90,8 +104,29 @@ class KeyboardArea extends StatelessWidget {
     KeyboardKeyBlock numpadBlock,
   ) {
     return Padding(
-      padding: EdgeInsets.only(top: 50 + Spacing.keyGrid.btwBlock),
-      child: NumpadKeysBlock(block: numpadBlock),
+      padding: EdgeInsets.only(top: buttonSize + Spacing.keyGrid.btwBlock),
+      child: _buildBlock(NumpadKeysBlock.new, numpadBlock),
+    );
+  }
+
+  T _buildBlock<T extends BaseKeysBlock>(
+    T Function({
+      required KeyboardKeyBlock block,
+      required double buttonSize,
+      KeyBindingMap? pageMap,
+      int? currentKeyCode,
+      void Function(BaseKeyData keyData)? onPressedButton,
+      void Function(int firstCode, int secondCode)? onSwapBindingData,
+    }) builder,
+    KeyboardKeyBlock block,
+  ) {
+    return builder(
+      block: block,
+      buttonSize: buttonSize,
+      pageMap: pageMap,
+      currentKeyCode: currentKeyCode,
+      onPressedButton: onPressedButton,
+      onSwapBindingData: onSwapBindingData,
     );
   }
 }
