@@ -27,6 +27,21 @@ class _KeyNameFieldState extends State<KeyNameField> {
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(covariant KeyNameField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.initialValue != oldWidget.initialValue &&
+        widget.initialValue != controller.text) {
+      controller.text = widget.initialValue;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       spacing: Spacing.xs,

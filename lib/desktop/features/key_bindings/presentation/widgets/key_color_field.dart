@@ -33,6 +33,12 @@ class _KeyColorFieldState extends State<KeyColorField> {
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     const double height = 32;
 
