@@ -4,7 +4,7 @@ import 'package:streamkeys/desktop/features/key_grid_area/data/models/key_labels
 class KeyboardKeyData extends BaseKeyData {
   final KeyLabels labels;
 
-  KeyboardKeyData({
+  const KeyboardKeyData({
     required super.keyCode,
     required super.name,
     required this.labels,

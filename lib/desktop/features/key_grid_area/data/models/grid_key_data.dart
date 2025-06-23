@@ -1,7 +1,7 @@
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/base_key_data.dart';
 
 class GridKeyData extends BaseKeyData {
-  GridKeyData({
+  const GridKeyData({
     required super.keyCode,
     required super.name,
   });

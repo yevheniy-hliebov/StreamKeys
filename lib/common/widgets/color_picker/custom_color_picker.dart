@@ -28,7 +28,7 @@ class ColorPickerController extends ChangeNotifier {
 
   HSVColor get hsvColor => HSVColor.fromColor(pickerColor);
 
-  void onColorChanged(dynamic color) {
+  void onColorChanged(Object color) {
     if (color is Color) {
       pickerColor = color;
     } else if (color is HSVColor) {

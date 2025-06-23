@@ -18,7 +18,7 @@ void main() {
   late MockDeckBloc deckBloc;
   late StreamController<DeckPageListState> deckStreamController;
 
-  final mockKeyData = GridKeyData(
+  const mockKeyData = GridKeyData(
     keyCode: 1,
     name: '1',
   );
@@ -200,7 +200,7 @@ void main() {
       act: (bloc) async {
         bloc.add(KeyBindingsInit());
         await Future.delayed(const Duration(milliseconds: 20));
-        bloc.add(KeyBindingsSelectKey(mockKeyData));
+        bloc.add(const KeyBindingsSelectKey(mockKeyData));
       },
       wait: const Duration(milliseconds: 10),
       expect: () => [
