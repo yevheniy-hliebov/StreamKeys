@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:streamkeys/common/widgets/field_label.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/core/constants/typography.dart';
-import 'package:streamkeys/desktop/features/key_bindings/presentation/widgets/key_field_label.dart';
 
 class KeyNameField extends StatefulWidget {
   final String initialValue;
@@ -48,7 +48,7 @@ class _KeyNameFieldState extends State<KeyNameField> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const KeyFieldLabel('Name'),
+        const FieldLabel('Name'),
         TextFormField(
           controller: controller,
           onChanged: widget.onChanged,

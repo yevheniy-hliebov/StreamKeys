@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/core/constants/typography.dart';
 
-class KeyFieldLabel extends StatelessWidget {
+class FieldLabel extends StatelessWidget {
   final String text;
 
-  const KeyFieldLabel(this.text, {super.key});
+  const FieldLabel(this.text, {super.key});
 
   @override
   Widget build(BuildContext context) {
