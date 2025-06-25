@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/core/cursor_status/bloc/cursor_status_bloc.dart';
+import 'package:streamkeys/desktop/utils/helper_function.dart';
 
 class KeyDragWrapper extends StatelessWidget {
   final int keyCode;
@@ -40,11 +41,7 @@ class KeyDragWrapper extends StatelessWidget {
 
         final widgetChild = LongPressDraggable<int>(
           data: keyCode,
-          dragAnchorStrategy: (draggable, context, position) {
-            final renderBox = context.findRenderObject() as RenderBox;
-            final size = renderBox.size;
-            return Offset(size.width / 2, size.height / 2);
-          },
+          dragAnchorStrategy: HelperFunctions.dragAnchorStrategy,
           feedback: Material(
             type: MaterialType.transparency,
             child: Container(
