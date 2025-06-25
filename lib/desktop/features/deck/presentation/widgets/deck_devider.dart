@@ -14,7 +14,7 @@ class DeckDevider extends StatelessWidget {
     const double thickness = 4;
     final Color color = AppColors.of(context).outlineVariant;
 
-    if (axis == Axis.horizontal) {
+    if (axis == Axis.vertical) {
       return VerticalDivider(
         width: thickness,
         thickness: thickness,
