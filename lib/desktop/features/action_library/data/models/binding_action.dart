@@ -7,10 +7,14 @@ abstract class BindingAction {
   final String type;
   final String name;
 
-  BindingAction({required this.type, required this.name});
+  BindingAction({
+    required this.type,
+    required this.name,
+  });
 
   String get actionLabel => name;
   String get dialogTitle => '';
+  Widget getIcon(BuildContext context);
 
   BindingAction copyWith();
 

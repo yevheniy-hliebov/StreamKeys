@@ -14,12 +14,25 @@ class BindingActionTile extends StatelessWidget {
     required this.bindingAction,
   });
 
+  static const size = 18.0;
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      mouseCursor: SystemMouseCursors.click,
       tileColor: tileColor ?? AppColors.of(context).background,
       minTileHeight: height,
+      leading: _buildIcon(context),
+      minLeadingWidth : size,
       title: Text(bindingAction.name),
+    );
+  }
+
+  Widget _buildIcon(BuildContext context) {
+    return SizedBox(
+      width: size,
+      height: size,
+      child: bindingAction.getIcon(context),
     );
   }
 }

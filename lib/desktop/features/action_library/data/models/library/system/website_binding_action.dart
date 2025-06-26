@@ -4,6 +4,7 @@ import 'package:streamkeys/common/widgets/field_label.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/action_registry.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/binding_action_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class WebsiteBindingAction extends BindingAction {
@@ -25,6 +26,11 @@ class WebsiteBindingAction extends BindingAction {
     } else {
       return '$name ($url)';
     }
+  }
+
+  @override
+  Widget getIcon(BuildContext context) {
+    return BindingActionIcons.of(context).website;
   }
 
   @override
