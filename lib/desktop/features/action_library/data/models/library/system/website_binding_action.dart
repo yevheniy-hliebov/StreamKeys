@@ -36,7 +36,7 @@ class WebsiteBindingAction extends BindingAction {
   @override
   Json toJson() {
     return {
-      'action_type': type,
+      'type': type,
       'url': url,
     };
   }
