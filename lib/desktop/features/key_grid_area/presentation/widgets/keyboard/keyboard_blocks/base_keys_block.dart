@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
 import 'package:streamkeys/desktop/features/key_bindings/data/models/key_binding_data.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/base_key_data.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_key_data.dart';
@@ -11,6 +12,7 @@ abstract class BaseKeysBlock extends StatelessWidget {
   final KeyBindingMap? pageMap;
   final int? currentKeyCode;
   final void Function(BaseKeyData keyData)? onPressedButton;
+  final void Function(int keyCode, BindingAction action)? onAddBindingAction;
   final void Function(int firstCode, int secondCode)? onSwapBindingData;
 
   const BaseKeysBlock({
@@ -20,6 +22,7 @@ abstract class BaseKeysBlock extends StatelessWidget {
     this.pageMap,
     this.currentKeyCode,
     this.onPressedButton,
+    this.onAddBindingAction,
     this.onSwapBindingData,
   });
 
@@ -36,6 +39,7 @@ abstract class BaseKeysBlock extends StatelessWidget {
       width: width ?? buttonSize,
       height: height ?? buttonSize,
       onSwapBindingData: onSwapBindingData,
+      onAddBindingAction: onAddBindingAction,
       childBuilder: (isHighlighted, feedbackButtonsSize) {
         return KeyButton(
           keyData: keyData,

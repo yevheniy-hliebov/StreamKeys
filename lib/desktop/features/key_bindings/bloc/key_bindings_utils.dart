@@ -15,7 +15,7 @@ mixin KeyBindingsUtils {
   KeyBindingData getKeyBindingData(int? keyCode) {
     final KeyBindingMap currentMap = pageMap;
     if (currentMap.isEmpty) {
-      return const KeyBindingData();
+      return KeyBindingData.create();
     }
     return currentMap[keyCode.toString()] ?? KeyBindingData.create();
   }

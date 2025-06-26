@@ -22,18 +22,18 @@ void main() {
     keyCode: 1,
     name: '1',
   );
-  const mockCustomBindingData = KeyBindingData(
+  final mockCustomBindingData = KeyBindingData.create(
     id: 'uuid-custom',
     name: 'custom binding',
   );
 
   final mockPage1Map = {
-    '1': const KeyBindingData(id: 'uuid1', name: 'page1 button1'),
-    '2': const KeyBindingData(id: 'uuid2', name: 'page1 button2'),
+    '1': KeyBindingData.create(id: 'uuid1', name: 'page1 button1'),
+    '2': KeyBindingData.create(id: 'uuid2', name: 'page1 button2'),
   };
   final mockPage2Map = {
-    '1': const KeyBindingData(id: 'uuid3', name: 'page2 button1'),
-    '2': const KeyBindingData(id: 'uuid4', name: 'page2 button2'),
+    '1': KeyBindingData.create(id: 'uuid3', name: 'page2 button1'),
+    '2': KeyBindingData.create(id: 'uuid4', name: 'page2 button2'),
   };
   final KeyBindingPagesMap mockMap = {
     'page1': mockPage1Map,
@@ -223,14 +223,14 @@ void main() {
       act: (bloc) async {
         bloc.add(KeyBindingsInit());
         await Future.delayed(const Duration(milliseconds: 20));
-        bloc.add(const KeyBindingsSaveDataOnPage(1, mockCustomBindingData));
+        bloc.add(KeyBindingsSaveDataOnPage(1, mockCustomBindingData));
       },
       wait: const Duration(milliseconds: 10),
       expect: () => [
-        const KeyBindingsLoaded(
+        KeyBindingsLoaded(
           {
             '1': mockCustomBindingData,
-            '2': KeyBindingData(id: 'uuid2', name: 'page1 button2'),
+            '2': KeyBindingData.create(id: 'uuid2', name: 'page1 button2'),
           },
           null,
         ),
@@ -256,10 +256,10 @@ void main() {
       },
       wait: const Duration(milliseconds: 10),
       expect: () => [
-        const KeyBindingsLoaded(
+        KeyBindingsLoaded(
           {
-            '1': KeyBindingData(id: 'uuid2', name: 'page1 button2'),
-            '2': KeyBindingData(id: 'uuid1', name: 'page1 button1'),
+            '1': KeyBindingData.create(id: 'uuid2', name: 'page1 button2'),
+            '2': KeyBindingData.create(id: 'uuid1', name: 'page1 button1'),
           },
           null,
         ),

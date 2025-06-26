@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/bloc/deck_page_list_bloc.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_type.dart';
 import 'package:streamkeys/desktop/features/key_bindings/data/models/key_binding_data.dart';
@@ -37,6 +38,7 @@ class KeyBindingsBloc extends Bloc<KeyBindingsEvent, KeyBindingsState>
     on<KeyBindingsPageChanged>(_handler.onPageChanged);
     on<KeyBindingsSelectKey>(_handler.onSelectKey);
     on<KeyBindingsSaveDataOnPage>(_handler.onSaveData);
+    on<KeyBindingsAddAction>(_handler.onAddAction);
     on<KeyBindingsSwapKeys>(_handler.onSwap);
   }
 

@@ -28,6 +28,13 @@ class KeyBindingsSaveDataOnPage extends KeyBindingsEvent {
   const KeyBindingsSaveDataOnPage(this.keyCode, this.keyBindingData);
 }
 
+class KeyBindingsAddAction extends KeyBindingsEvent {
+  final int keyCode;
+  final BindingAction action;
+
+  const KeyBindingsAddAction(this.keyCode, this.action);
+}
+
 final class KeyBindingsSwapKeys extends KeyBindingsEvent {
   final int firstCode;
   final int secondCode;

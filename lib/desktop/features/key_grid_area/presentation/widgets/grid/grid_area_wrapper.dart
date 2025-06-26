@@ -35,6 +35,9 @@ class GridAreaWrapper extends StatelessWidget {
           onSwapBindingData: (firstCode, secondCode) {
             bloc.add(KeyBindingsSwapKeys(firstCode, secondCode));
           },
+          onAddBindingAction: (keyCode, action) {
+            bloc.add(KeyBindingsAddAction(keyCode, action));
+          },
         );
       },
     );

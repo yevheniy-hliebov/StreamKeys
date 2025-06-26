@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/core/cursor_status/bloc/cursor_status_bloc.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
 import 'package:streamkeys/desktop/utils/helper_function.dart';
 
 class KeyDragWrapper extends StatelessWidget {
@@ -10,6 +11,7 @@ class KeyDragWrapper extends StatelessWidget {
   final double width;
   final double height;
   final void Function(int firstCode, int secondCode)? onSwapBindingData;
+  final void Function(int keyCode, BindingAction action)? onAddBindingAction;
   final Widget Function(bool isHighlighted, double? feedbackButtonsSize)
       childBuilder;
 
@@ -19,19 +21,32 @@ class KeyDragWrapper extends StatelessWidget {
     this.width = 50,
     this.height = 50,
     this.onSwapBindingData,
+    this.onAddBindingAction,
     required this.childBuilder,
   });
 
   @override
   Widget build(BuildContext context) {
-    return DragTarget<int>(
+    return DragTarget<Object>(
       onAcceptWithDetails: (details) {
-        onSwapBindingData?.call(details.data, keyCode);
+        if (details.data is int) {
+          final firstCode = details.data as int;
+          onSwapBindingData?.call(firstCode, keyCode);
+        } else if (details.data is BindingAction) {
+          final action = details.data as BindingAction;
+          onAddBindingAction?.call(keyCode, action);
+        }
       },
       onWillAcceptWithDetails: (details) {
-        final isHighlighted = details.data != keyCode;
-        context.read<CursorStatusBloc>().add(CursorDrag());
-        return isHighlighted;
+        if (details.data is int) {
+          final isHighlighted = details.data != keyCode;
+          context.read<CursorStatusBloc>().add(CursorDrag());
+          return isHighlighted;
+        } else if (details.data is BindingAction) {
+          context.read<CursorStatusBloc>().add(CursorDrag());
+          return true;
+        }
+        return false;
       },
       onLeave: (_) {
         context.read<CursorStatusBloc>().add(CursorForbidden());
