@@ -83,7 +83,7 @@ class KeyBindingData extends Equatable {
   }
 
   @override
-  List<Object?> get props => [name, backgroundColor, imagePath];
+  List<Object?> get props => [id, name, backgroundColor, imagePath, actions];
 }
 
 typedef KeyBindingMap = Map<String, KeyBindingData>;

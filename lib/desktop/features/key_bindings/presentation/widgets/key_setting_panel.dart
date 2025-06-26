@@ -27,35 +27,38 @@ class KeySettingPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      spacing: Spacing.xs,
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        KeyEditorHeader(
-          keyData: keyData,
-          onClearPressed: onClearPressed,
-        ),
-        KeyNameField(
-          initialValue: keyBindingData.name,
-          onChanged: onNameChanged,
-        ),
-        Row(
-          spacing: Spacing.lg,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            KeyImageField(
-              initialValue: keyBindingData.imagePath,
-              onChanged: onImagePathChanged,
-            ),
-            KeyColorField(
-              initialValue: keyBindingData.backgroundColor,
-              onChanged: onColorChanged,
-            ),
-          ],
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(Spacing.sm),
+      child: Column(
+        spacing: Spacing.xs,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          KeyEditorHeader(
+            keyData: keyData,
+            onClearPressed: onClearPressed,
+          ),
+          KeyNameField(
+            initialValue: keyBindingData.name,
+            onChanged: onNameChanged,
+          ),
+          Row(
+            spacing: Spacing.lg,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              KeyImageField(
+                initialValue: keyBindingData.imagePath,
+                onChanged: onImagePathChanged,
+              ),
+              KeyColorField(
+                initialValue: keyBindingData.backgroundColor,
+                onChanged: onColorChanged,
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }
