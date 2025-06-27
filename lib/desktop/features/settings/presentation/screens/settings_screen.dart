@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/common/widgets/theme_mode_switch.dart';
 import 'package:streamkeys/core/theme/bloc/theme_mode_bloc.dart';
-import 'package:streamkeys/desktop/features/dashboard/presentation/widgets/page_tab.dart';
+import 'package:streamkeys/common/widgets/page_tab.dart';
 
 class SettingsScreen extends StatelessWidget with PageTab {
   const SettingsScreen({super.key});
@@ -14,7 +14,7 @@ class SettingsScreen extends StatelessWidget with PageTab {
   String get label => 'Settings';
 
   @override
-  IconData get iconData => Icons.settings;
+  Widget get icon => const Icon(Icons.settings);
 
   @override
   Widget build(BuildContext context) {

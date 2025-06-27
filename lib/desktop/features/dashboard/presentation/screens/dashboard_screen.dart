@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/core/constants/colors.dart';
 import 'package:streamkeys/desktop/features/dashboard/presentation/widgets/dashboard_tab_bar.dart';
-import 'package:streamkeys/desktop/features/dashboard/presentation/widgets/page_tab.dart';
+import 'package:streamkeys/common/widgets/page_tab.dart';
 
 class DashboardScreen extends StatefulWidget {
   final List<PageTab> tabs;

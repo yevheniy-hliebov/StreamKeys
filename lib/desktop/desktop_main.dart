@@ -4,7 +4,7 @@ import 'package:streamkeys/app.dart';
 import 'package:streamkeys/core/cursor_status/widgets/cursor_status.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/action_registry.dart';
 import 'package:streamkeys/desktop/features/dashboard/presentation/screens/dashboard_screen.dart';
-import 'package:streamkeys/desktop/features/dashboard/presentation/widgets/page_tab.dart';
+import 'package:streamkeys/common/widgets/page_tab.dart';
 import 'package:streamkeys/desktop/features/deck/presentation/screens/grid_deck_screen.dart';
 import 'package:streamkeys/desktop/features/deck/presentation/screens/keyboard_deck_screen.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/bloc/deck_page_list_bloc.dart';

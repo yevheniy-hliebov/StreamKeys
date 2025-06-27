@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:streamkeys/desktop/features/dashboard/presentation/widgets/page_tab.dart';
+import 'package:streamkeys/common/widgets/page_tab.dart';
 
 class DashboardTabBar extends StatelessWidget {
   final List<PageTab> tabs;
@@ -22,7 +22,12 @@ class DashboardTabBar extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             spacing: 8,
             children: <Widget>[
-              Icon(tab.iconData, size: 18),
+              IconTheme(
+                data: const IconThemeData(
+                  size: 18,
+                ),
+                child: tab.icon,
+              ),
               Text(tab.label),
             ],
           ),
