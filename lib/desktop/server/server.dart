@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
+import 'package:streamkeys/desktop/server/auth_middleware.dart';
 import 'package:streamkeys/desktop/server/router.dart';
 import 'package:streamkeys/desktop/utils/helper_functions.dart';
 
@@ -19,6 +20,7 @@ class Server {
 
     final handler = const Pipeline()
         .addMiddleware(logRequests())
+        .addMiddleware(authMiddleware(() => 'password'))
         .addHandler(router.routerCall);
 
     _server = await shelf_io.serve(handler, InternetAddress.anyIPv4, port);
