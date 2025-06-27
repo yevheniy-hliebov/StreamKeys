@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/field_label.dart';
+import 'package:streamkeys/core/constants/spacing.dart';
 
 class SingleFieldBindingActionForm extends StatefulWidget {
   final String label;
@@ -35,7 +36,10 @@ class _SingleFieldBindingActionFormState extends State<SingleFieldBindingActionF
   @override
   Widget build(BuildContext context) {
     return Column(
+      spacing: Spacing.xs,
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
         FieldLabel(widget.label),
         TextFormField(
