@@ -242,7 +242,10 @@ void main() {
       act: (bloc) async {
         bloc.add(KeyBindingsInit());
         await Future.delayed(const Duration(milliseconds: 20));
-        bloc.add(KeyBindingsSaveDataOnPage(1, mockCustomBindingData));
+        bloc.add(KeyBindingsSaveDataOnPage(
+          keyCode: 1,
+          keyBindingData: mockCustomBindingData,
+        ));
       },
       wait: const Duration(milliseconds: 10),
       expect: () => [
@@ -272,7 +275,10 @@ void main() {
       act: (bloc) async {
         bloc.add(KeyBindingsInit());
         await Future.delayed(const Duration(milliseconds: 20));
-        bloc.add(KeyBindingsAddAction(2, mockAction));
+        bloc.add(KeyBindingsAddAction(
+          keyCode: 2,
+          action: mockAction,
+        ));
       },
       wait: const Duration(milliseconds: 10),
       expect: () => [
@@ -378,7 +384,10 @@ void main() {
       act: (bloc) async {
         bloc.add(KeyBindingsInit());
         await Future.delayed(const Duration(milliseconds: 20));
-        bloc.add(const KeyBindingsDeleteAction(2, 0));
+        bloc.add(const KeyBindingsDeleteAction(
+          keyCode: 2,
+          index: 0,
+        ));
       },
       wait: const Duration(milliseconds: 10),
       expect: () => [

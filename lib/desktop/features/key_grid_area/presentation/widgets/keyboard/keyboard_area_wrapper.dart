@@ -60,7 +60,10 @@ class _KeyboardAreaWrapperState extends State<KeyboardAreaWrapper> {
             bloc.add(KeyBindingsSwapKeys(firstCode, secondCode));
           },
           onAddBindingAction: (keyCode, action) {
-            bloc.add(KeyBindingsAddAction(keyCode, action));
+            bloc.add(KeyBindingsAddAction(
+              keyCode: keyCode,
+              action: action,
+            ));
           },
         );
       },

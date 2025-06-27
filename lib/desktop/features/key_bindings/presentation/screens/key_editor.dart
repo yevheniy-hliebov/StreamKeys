@@ -39,26 +39,28 @@ class KeyEditor<T extends KeyBindingsBloc> extends StatelessWidget {
                     keyBindingData: keyBindingData,
                     onClearPressed: () {
                       bloc.add(KeyBindingsSaveDataOnPage(
-                        keyData.keyCode,
-                        keyBindingData.clear(),
+                        keyCode: keyData.keyCode,
+                        keyBindingData: keyBindingData.clear(),
                       ));
                     },
                     onNameChanged: (newValue) {
                       bloc.add(KeyBindingsSaveDataOnPage(
-                        keyData.keyCode,
-                        keyBindingData.copyWith(name: newValue),
+                        keyCode: keyData.keyCode,
+                        keyBindingData: keyBindingData.copyWith(name: newValue),
                       ));
                     },
                     onImagePathChanged: (newValue) {
                       bloc.add(KeyBindingsSaveDataOnPage(
-                        keyData.keyCode,
-                        keyBindingData.copyWith(imagePath: newValue),
+                        keyCode: keyData.keyCode,
+                        keyBindingData:
+                            keyBindingData.copyWith(imagePath: newValue),
                       ));
                     },
                     onColorChanged: (newValue) {
                       bloc.add(KeyBindingsSaveDataOnPage(
-                        keyData.keyCode,
-                        keyBindingData.copyWith(backgroundColor: newValue),
+                        keyCode: keyData.keyCode,
+                        keyBindingData:
+                            keyBindingData.copyWith(backgroundColor: newValue),
                       ));
                     },
                   ),
@@ -69,8 +71,8 @@ class KeyEditor<T extends KeyBindingsBloc> extends StatelessWidget {
                     actions: keyBindingData.actions,
                     onActionAdded: (action) {
                       bloc.add(KeyBindingsAddAction(
-                        keyData.keyCode,
-                        action.copy(),
+                        keyCode: keyData.keyCode,
+                        action: action.copy(),
                       ));
                     },
                     onActionUpdated: (index, updatedAction) {
@@ -82,8 +84,8 @@ class KeyEditor<T extends KeyBindingsBloc> extends StatelessWidget {
                     },
                     onDeleteActionPressed: (index) {
                       bloc.add(KeyBindingsDeleteAction(
-                        keyData.keyCode,
-                        index,
+                        keyCode: keyData.keyCode,
+                        index: index,
                       ));
                     },
                     onReorderActons: (oldIndex, newIndex) {
