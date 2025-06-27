@@ -6,7 +6,7 @@ import 'package:streamkeys/common/widgets/image_preview.dart';
 import 'package:streamkeys/core/constants/colors.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/core/constants/typography.dart';
-import 'package:streamkeys/desktop/utils/helper_function.dart';
+import 'package:streamkeys/desktop/utils/helper_functions.dart';
 
 class KeyImageField extends StatefulWidget {
   final double buttonSize;

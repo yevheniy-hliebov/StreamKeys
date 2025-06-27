@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/core/cursor_status/bloc/cursor_status_bloc.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
-import 'package:streamkeys/desktop/utils/helper_function.dart';
+import 'package:streamkeys/desktop/utils/helper_functions.dart';
 
 class KeyDragWrapper extends StatelessWidget {
   final int keyCode;
