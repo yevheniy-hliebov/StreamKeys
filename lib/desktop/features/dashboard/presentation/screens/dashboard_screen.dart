@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/core/constants/colors.dart';
-import 'package:streamkeys/desktop/features/dashboard/presentation/widgets/dashboard_tab_bar.dart';
+import 'package:streamkeys/common/widgets/screen_tab_bar.dart';
 import 'package:streamkeys/common/widgets/page_tab.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -38,7 +38,7 @@ class _DashboardScreenState extends State<DashboardScreen>
         preferredSize: const Size.fromHeight(45),
         child: Container(
           decoration: _boxDecoration(context),
-          child: DashboardTabBar(
+          child: ScreenTabBar(
             tabs: widget.tabs,
             controller: _tabController,
           ),

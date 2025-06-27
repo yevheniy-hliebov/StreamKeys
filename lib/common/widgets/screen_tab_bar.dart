@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/page_tab.dart';
 
-class DashboardTabBar extends StatelessWidget {
+class ScreenTabBar extends StatelessWidget {
   final List<PageTab> tabs;
   final TabController? controller;
 
-  const DashboardTabBar({
+  const ScreenTabBar({
     super.key,
     required this.tabs,
     this.controller,
