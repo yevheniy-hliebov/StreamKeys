@@ -54,6 +54,18 @@ class KeyBindingsReorderActions extends KeyBindingsEvent {
   });
 }
 
+class KeyBindingsUpdateAction extends KeyBindingsEvent {
+  final int keyCode;
+  final int index;
+  final BindingAction updatedAction;
+
+  const KeyBindingsUpdateAction({
+    required this.keyCode,
+    required this.index,
+    required this.updatedAction,
+  });
+}
+
 final class KeyBindingsSwapKeys extends KeyBindingsEvent {
   final int firstCode;
   final int secondCode;

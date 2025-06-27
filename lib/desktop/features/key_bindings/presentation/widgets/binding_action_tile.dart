@@ -3,14 +3,17 @@ import 'package:streamkeys/common/widgets/small_icon_button.dart';
 import 'package:streamkeys/core/constants/colors.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
+import 'package:streamkeys/desktop/features/key_bindings/presentation/widgets/key_action_config_dialog.dart';
 
 class KeyBindingActionTile extends StatelessWidget {
   final BindingAction action;
+  final void Function(BindingAction updatedAction)? onUpdated;
   final void Function()? onDeletePressed;
 
   const KeyBindingActionTile({
     super.key,
     required this.action,
+    this.onUpdated,
     this.onDeletePressed,
   });
 
@@ -20,6 +23,15 @@ class KeyBindingActionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       mouseCursor: SystemMouseCursors.click,
+      onTap: () async {
+        final result = await KeyActionConfigDialog.showConfigDialog(
+          context,
+          action,
+        );
+        if (result != null) {
+          onUpdated?.call(result);
+        }
+      },
       child: Container(
         padding: const EdgeInsets.only(
           left: Spacing.xs,
@@ -36,7 +48,7 @@ class KeyBindingActionTile extends StatelessWidget {
             ),
             Expanded(
               child: Text(
-                action.name,
+                action.actionLabel,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),

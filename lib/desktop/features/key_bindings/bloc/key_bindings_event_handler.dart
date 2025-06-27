@@ -137,6 +137,37 @@ class KeyBindingsEventHandler {
     );
   }
 
+  Future<void> onUpdateAction(
+    KeyBindingsUpdateAction event,
+    Emitter<KeyBindingsState> emit,
+  ) async {
+    final pageKeyMap = bloc.getOrCreatePageKeyMap();
+
+    final keyBindingData =
+        pageKeyMap[event.keyCode.toString()] ?? KeyBindingData.create();
+
+    if (event.index < 0 || event.index >= keyBindingData.actions.length) {
+      return;
+    }
+
+    final updatedActions = List<BindingAction>.from(keyBindingData.actions);
+    updatedActions[event.index] = event.updatedAction;
+
+    final updatedKeyBindingData = keyBindingData.copyWith(
+      actions: updatedActions,
+    );
+
+    pageKeyMap[event.keyCode.toString()] = updatedKeyBindingData;
+
+    _emitLoaded(emit);
+
+    await repository.saveKeyBindingDataOnPage(
+      bloc.currentPageId,
+      event.keyCode,
+      updatedKeyBindingData,
+    );
+  }
+
   Future<void> onSwap(
     KeyBindingsSwapKeys event,
     Emitter<KeyBindingsState> emit,

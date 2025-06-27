@@ -41,6 +41,7 @@ class KeyBindingsBloc extends Bloc<KeyBindingsEvent, KeyBindingsState>
     on<KeyBindingsAddAction>(_handler.onAddAction);
     on<KeyBindingsDeleteAction>(_handler.onDeleteAction);
     on<KeyBindingsReorderActions>(_handler.onReorderActions);
+    on<KeyBindingsUpdateAction>(_handler.onUpdateAction);
     on<KeyBindingsSwapKeys>(_handler.onSwap);
   }
 

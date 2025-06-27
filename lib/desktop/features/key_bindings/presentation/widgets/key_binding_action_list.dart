@@ -9,12 +9,14 @@ class KeyBindingActionList extends StatelessWidget {
   final List<BindingAction> actions;
   final void Function(int index)? onDeleteActionPressed;
   final void Function(int oldIndex, int newIndex)? onReorder;
+  final void Function(int index, BindingAction updatedAction)? onUpdated;
 
   const KeyBindingActionList({
     super.key,
     required this.actions,
     this.onDeleteActionPressed,
     this.onReorder,
+    this.onUpdated,
   });
 
   @override
@@ -44,6 +46,9 @@ class KeyBindingActionList extends StatelessWidget {
                       action: action,
                       onDeletePressed: () {
                         onDeleteActionPressed?.call(index);
+                      },
+                      onUpdated: (updatedAction) {
+                        onUpdated?.call(index, updatedAction);
                       },
                     ),
                   );

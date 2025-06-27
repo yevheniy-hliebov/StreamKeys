@@ -18,7 +18,8 @@ class KeyEditor<T extends KeyBindingsBloc> extends StatelessWidget {
       child: BlocBuilder<T, KeyBindingsState>(
         builder: (context, state) {
           if (state is KeyBindingsLoaded) {
-            if (state.currentKeyData == null || state.currentKeyBindingData == null) {
+            if (state.currentKeyData == null ||
+                state.currentKeyBindingData == null) {
               return const KeyEditorPlaceholder();
             }
 
@@ -77,6 +78,13 @@ class KeyEditor<T extends KeyBindingsBloc> extends StatelessWidget {
                         keyCode: keyData.keyCode,
                         oldIndex: oldIndex,
                         newIndex: newIndex,
+                      ));
+                    },
+                    onUpdated: (index, updatedAction) {
+                      bloc.add(KeyBindingsUpdateAction(
+                        keyCode: keyData.keyCode,
+                        index: index,
+                        updatedAction: updatedAction,
                       ));
                     },
                   ),
