@@ -26,7 +26,7 @@ class DragableBindingActionTile extends StatelessWidget {
       onDragEnd: (_) {
         context.read<CursorStatusBloc>().add(CursorDefault());
       },
-      dragAnchorStrategy: HelperFunctions.dragAnchorStrategy,
+      dragAnchorStrategy: HelperFunctions.dragAnchorBottomLeftStrategy,
       feedback: Material(
         type: MaterialType.transparency,
         child: ClipRRect(

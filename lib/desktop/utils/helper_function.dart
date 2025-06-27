@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:streamkeys/core/constants/spacing.dart';
 
 class HelperFunctions {
   HelperFunctions._();
@@ -44,7 +45,7 @@ class HelperFunctions {
     return null;
   }
 
-  static Offset dragAnchorStrategy(
+  static Offset dragAnchorCenterStrategy(
     Draggable<Object> draggable,
     BuildContext context,
     Offset position,
@@ -52,5 +53,15 @@ class HelperFunctions {
     final renderBox = context.findRenderObject() as RenderBox;
     final size = renderBox.size;
     return Offset(size.width / 2, size.height / 2);
+  }
+
+  static Offset dragAnchorBottomLeftStrategy(
+    Draggable<Object> draggable,
+    BuildContext context,
+    Offset position,
+  ) {
+    final renderBox = context.findRenderObject() as RenderBox;
+    final size = renderBox.size;
+    return Offset(0 + Spacing.xs, size.height - Spacing.xs);
   }
 }

@@ -56,7 +56,7 @@ class KeyDragWrapper extends StatelessWidget {
 
         final widgetChild = LongPressDraggable<int>(
           data: keyCode,
-          dragAnchorStrategy: HelperFunctions.dragAnchorStrategy,
+          dragAnchorStrategy: HelperFunctions.dragAnchorCenterStrategy,
           feedback: Material(
             type: MaterialType.transparency,
             child: Container(
