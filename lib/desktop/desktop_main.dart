@@ -14,7 +14,7 @@ import 'package:streamkeys/service_locator.dart';
 void desktopMain() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initServiceLocator();
-  
+
   registerBindingActions();
 
   final GridDeckPageListBloc gridDeckBloc = GridDeckPageListBloc();

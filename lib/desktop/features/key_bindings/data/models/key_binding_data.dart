@@ -77,7 +77,7 @@ class KeyBindingData extends Equatable {
       'background_color': ColorHelper.getHexString(backgroundColor),
       'image_path': imagePath,
       'actions': actions.map((e) {
-       return e.toJson(); 
+        return e.toJson();
       }).toList(),
     };
   }

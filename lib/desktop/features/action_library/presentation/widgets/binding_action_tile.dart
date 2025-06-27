@@ -23,7 +23,7 @@ class BindingActionTile extends StatelessWidget {
       tileColor: tileColor ?? AppColors.of(context).background,
       minTileHeight: height,
       leading: _buildIcon(context),
-      minLeadingWidth : size,
+      minLeadingWidth: size,
       title: Text(bindingAction.name),
     );
   }

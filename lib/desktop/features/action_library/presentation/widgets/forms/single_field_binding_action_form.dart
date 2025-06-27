@@ -15,10 +15,12 @@ class SingleFieldBindingActionForm extends StatefulWidget {
   });
 
   @override
-  State<SingleFieldBindingActionForm> createState() => _SingleFieldBindingActionFormState();
+  State<SingleFieldBindingActionForm> createState() =>
+      _SingleFieldBindingActionFormState();
 }
 
-class _SingleFieldBindingActionFormState extends State<SingleFieldBindingActionForm> {
+class _SingleFieldBindingActionFormState
+    extends State<SingleFieldBindingActionForm> {
   late TextEditingController controller;
 
   @override

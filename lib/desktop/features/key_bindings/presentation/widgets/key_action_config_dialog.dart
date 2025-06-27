@@ -44,7 +44,10 @@ class KeyActionConfigDialog extends StatelessWidget {
     );
   }
 
-  static Future<BindingAction?> showConfigDialog(BuildContext context, BindingAction action) async {
+  static Future<BindingAction?> showConfigDialog(
+    BuildContext context,
+    BindingAction action,
+  ) async {
     return showDialog<BindingAction>(
       context: context,
       builder: (context) => KeyActionConfigDialog(action: action),
