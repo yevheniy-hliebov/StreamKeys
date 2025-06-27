@@ -9,6 +9,7 @@ import 'package:streamkeys/desktop/features/deck/presentation/screens/grid_deck_
 import 'package:streamkeys/desktop/features/deck/presentation/screens/keyboard_deck_screen.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/bloc/deck_page_list_bloc.dart';
 import 'package:streamkeys/desktop/features/settings/presentation/screens/settings_screen.dart';
+import 'package:streamkeys/desktop/server/server.dart';
 import 'package:streamkeys/service_locator.dart';
 
 void desktopMain() async {
@@ -16,6 +17,10 @@ void desktopMain() async {
   await initServiceLocator();
 
   registerBindingActions();
+
+  final server = Server();
+  await server.init();
+  await server.start();
 
   final GridDeckPageListBloc gridDeckBloc = GridDeckPageListBloc();
   final KeyboardDeckPageListBloc keyboardDeckBloc = KeyboardDeckPageListBloc();

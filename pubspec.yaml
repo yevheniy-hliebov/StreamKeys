@@ -27,6 +27,8 @@ dependencies:
   file_picker: ^10.2.0
   url_launcher: ^6.3.1
   flutter_svg: ^2.2.0
+  shelf: ^1.4.2
+  shelf_router: ^1.1.4
 
 dev_dependencies:
   flutter_test:

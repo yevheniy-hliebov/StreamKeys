@@ -64,4 +64,17 @@ class HelperFunctions {
     final size = renderBox.size;
     return Offset(0 + Spacing.xs, size.height - Spacing.xs);
   }
+
+  static Future<String> getLocalIPv4() async {
+    for (var interface in await NetworkInterface.list()) {
+      for (var addr in interface.addresses) {
+        if (addr.type == InternetAddressType.IPv4 &&
+            !addr.isLoopback &&
+            !addr.address.startsWith('192.168.56.')) {
+          return addr.address;
+        }
+      }
+    }
+    return '127.0.0.1';
+  }
 }
