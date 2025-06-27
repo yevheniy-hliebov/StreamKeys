@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/models/typedef.dart';
-import 'package:streamkeys/common/widgets/field_label.dart';
-import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/action_registry.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action_icons.dart';
+import 'package:streamkeys/desktop/features/action_library/presentation/widgets/forms/single_field_binding_action_form.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:uuid/uuid.dart';
 
 class WebsiteBindingAction extends BindingAction {
-  String url;
-  late TextEditingController urlController;
+  final String url;
 
   WebsiteBindingAction({this.url = ''})
-      : super(type: ActionTypes.website, name: 'Open website') {
-    urlController = TextEditingController(text: url);
-  }
+      : super(
+          id: const Uuid().v4(),
+          type: ActionTypes.website,
+          name: 'Open website',
+        );
 
   @override
-  String dialogTitle = 'Enter the website URL';
+  String get dialogTitle => 'Enter the website URL';
 
   @override
   String get actionLabel {
@@ -48,7 +49,7 @@ class WebsiteBindingAction extends BindingAction {
   }
 
   @override
-  BindingAction copyWith() {
+  BindingAction copy() {
     return WebsiteBindingAction(url: url);
   }
 
@@ -64,35 +65,20 @@ class WebsiteBindingAction extends BindingAction {
   }
 
   @override
-  Widget? form(BuildContext context) {
-    return Column(
-      spacing: Spacing.xs,
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const FieldLabel('Url'),
-        TextFormField(
-          controller: urlController,
-          onChanged: (value) {
-            url = value;
-          },
-        ),
-      ],
+  Widget? form(
+    BuildContext context, {
+    void Function(BindingAction updatedAction)? onUpdate,
+  }) {
+    return SingleFieldBindingActionForm(
+      label: 'Url',
+      initialValue: url,
+      onUpdate: (newValue) {
+        onUpdate?.call(WebsiteBindingAction(url: newValue));
+      },
     );
   }
 
   @override
-  void save() {
-    url = urlController.text;
-  }
-
-  @override
-  void cancel() {
-    urlController.text = url;
-  }
-
-  @override
-  void dispose() {
-    urlController.dispose();
-  }
+  List<Object?> get props => [id, type, name, url];
 }
+

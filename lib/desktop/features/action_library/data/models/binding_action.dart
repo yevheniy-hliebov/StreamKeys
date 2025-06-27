@@ -1,13 +1,16 @@
-import 'package:flutter/widgets.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:streamkeys/common/models/typedef.dart';
 
 typedef FromJsonFunc = BindingAction Function(Json);
 
-abstract class BindingAction {
+abstract class BindingAction extends Equatable {
+  final String id;
   final String type;
   final String name;
 
-  BindingAction({
+  const BindingAction({
+    required this.id,
     required this.type,
     required this.name,
   });
@@ -16,17 +19,14 @@ abstract class BindingAction {
   String get dialogTitle => '';
   Widget getIcon(BuildContext context);
 
-  BindingAction copyWith();
+  BindingAction copy();
 
   Future<void> execute({Object? data});
 
-  Widget? form(BuildContext context);
-
-  void save() {}
-
-  void cancel() {}
-
-  void clear() {}
+  Widget? form(
+    BuildContext context, {
+    void Function(BindingAction updatedAction)? onUpdate,
+  });
 
   Json toJson();
 
@@ -45,5 +45,6 @@ abstract class BindingAction {
     throw Exception('Unknown action type: $type');
   }
 
-  void dispose();
+  @override
+  List<Object?> get props => [id, type, name];
 }
