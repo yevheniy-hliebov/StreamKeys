@@ -12,6 +12,7 @@ class NavigationBlockMap extends BaseKeysBlock {
     super.pageMap,
     super.currentKeyCode,
     super.onPressedButton,
+    super.onAddBindingAction,
     super.onSwapBindingData,
   });
 

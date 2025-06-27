@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/for.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
 import 'package:streamkeys/desktop/features/key_bindings/data/models/key_binding_data.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/base_key_data.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/grid_key_data.dart';
@@ -14,6 +15,7 @@ class GridArea extends StatelessWidget {
   final KeyBindingMap? pageMap;
   final int? currentKeyCode;
   final void Function(BaseKeyData keyData)? onPressedButton;
+  final void Function(int keyCode, BindingAction action)? onAddBindingAction;
   final void Function(int firstCode, int secondCode)? onSwapBindingData;
 
   const GridArea({
@@ -23,6 +25,7 @@ class GridArea extends StatelessWidget {
     this.pageMap,
     this.currentKeyCode,
     this.onPressedButton,
+    this.onAddBindingAction,
     this.onSwapBindingData,
   });
 
@@ -48,6 +51,7 @@ class GridArea extends StatelessWidget {
                       width: 60,
                       height: 60,
                       onSwapBindingData: onSwapBindingData,
+                      onAddBindingAction: onAddBindingAction,
                       childBuilder: (isHighlighted, feedbackButtonsSize) {
                         return KeyButton(
                           keyData: keyData,

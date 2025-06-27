@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
 import 'package:streamkeys/desktop/features/key_bindings/data/models/key_binding_data.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/base_key_data.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_key_data.dart';
@@ -18,6 +19,7 @@ class KeyboardArea extends StatelessWidget {
   final KeyBindingMap? pageMap;
   final int? currentKeyCode;
   final void Function(BaseKeyData keyData)? onPressedButton;
+  final void Function(int keyCode, BindingAction action)? onAddBindingAction;
   final void Function(int firstCode, int secondCode)? onSwapBindingData;
 
   const KeyboardArea({
@@ -28,6 +30,7 @@ class KeyboardArea extends StatelessWidget {
     this.pageMap,
     this.currentKeyCode,
     this.onPressedButton,
+    this.onAddBindingAction,
     this.onSwapBindingData,
   });
 
@@ -116,6 +119,7 @@ class KeyboardArea extends StatelessWidget {
       KeyBindingMap? pageMap,
       int? currentKeyCode,
       void Function(BaseKeyData keyData)? onPressedButton,
+      void Function(int keyCode, BindingAction action)? onAddBindingAction,
       void Function(int firstCode, int secondCode)? onSwapBindingData,
     }) builder,
     KeyboardKeyBlock block,
@@ -126,6 +130,7 @@ class KeyboardArea extends StatelessWidget {
       pageMap: pageMap,
       currentKeyCode: currentKeyCode,
       onPressedButton: onPressedButton,
+      onAddBindingAction: onAddBindingAction,
       onSwapBindingData: onSwapBindingData,
     );
   }

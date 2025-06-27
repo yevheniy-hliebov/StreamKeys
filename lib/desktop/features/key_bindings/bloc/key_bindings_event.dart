@@ -25,7 +25,54 @@ class KeyBindingsSaveDataOnPage extends KeyBindingsEvent {
   final int keyCode;
   final KeyBindingData keyBindingData;
 
-  const KeyBindingsSaveDataOnPage(this.keyCode, this.keyBindingData);
+  const KeyBindingsSaveDataOnPage({
+    required this.keyCode,
+    required this.keyBindingData,
+  });
+}
+
+class KeyBindingsAddAction extends KeyBindingsEvent {
+  final int keyCode;
+  final BindingAction action;
+
+  const KeyBindingsAddAction({
+    required this.keyCode,
+    required this.action,
+  });
+}
+
+class KeyBindingsDeleteAction extends KeyBindingsEvent {
+  final int keyCode;
+  final int index;
+
+  const KeyBindingsDeleteAction({
+    required this.keyCode,
+    required this.index,
+  });
+}
+
+class KeyBindingsReorderActions extends KeyBindingsEvent {
+  final int keyCode;
+  final int oldIndex;
+  final int newIndex;
+
+  const KeyBindingsReorderActions({
+    required this.keyCode,
+    required this.oldIndex,
+    required this.newIndex,
+  });
+}
+
+class KeyBindingsUpdateAction extends KeyBindingsEvent {
+  final int keyCode;
+  final int index;
+  final BindingAction updatedAction;
+
+  const KeyBindingsUpdateAction({
+    required this.keyCode,
+    required this.index,
+    required this.updatedAction,
+  });
 }
 
 final class KeyBindingsSwapKeys extends KeyBindingsEvent {

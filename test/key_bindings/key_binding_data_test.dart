@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/action_registry.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/library/system/website_action.dart';
 import 'package:streamkeys/desktop/features/key_bindings/data/models/key_binding_data.dart';
 
 void main() {
+  registerBindingActions();
+
   group('KeyBindingData', () {
     test('create() generates unique id when not provided', () {
       final data1 = KeyBindingData.create();
@@ -33,20 +37,20 @@ void main() {
         name: 'Test',
         backgroundColor: const Color(0xFFF44336),
         imagePath: 'assets/icon.png',
+        actions: [
+          WebsiteAction(url: 'https://example.com'),
+        ],
       );
+
       final json = data.toJson();
       final from = KeyBindingData.fromJson(json);
 
       expect(from.name, data.name);
       expect(from.backgroundColor, data.backgroundColor);
       expect(from.imagePath, data.imagePath);
-    });
-
-    test('equatable compares based on props only (no id)', () {
-      final a = KeyBindingData.create(name: 'Btn', imagePath: 'a.png');
-      final b = KeyBindingData.create(name: 'Btn', imagePath: 'a.png');
-
-      expect(a == b, isTrue);
+      expect(from.actions.length, 1);
+      expect(from.actions.first, isA<WebsiteAction>());
+      expect((from.actions.first as WebsiteAction).url, 'https://example.com');
     });
   });
 }

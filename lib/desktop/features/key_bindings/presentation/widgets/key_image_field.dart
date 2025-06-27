@@ -1,11 +1,11 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:streamkeys/common/widgets/field_label.dart';
 import 'package:streamkeys/common/widgets/image_preview.dart';
 import 'package:streamkeys/core/constants/colors.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/core/constants/typography.dart';
-import 'package:streamkeys/desktop/features/key_bindings/presentation/widgets/key_field_label.dart';
 import 'package:streamkeys/desktop/utils/helper_function.dart';
 
 class KeyImageField extends StatefulWidget {
@@ -64,7 +64,7 @@ class _KeyImageFieldState extends State<KeyImageField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        const KeyFieldLabel('Key Image'),
+        const FieldLabel('Key Image'),
         InkWell(
           onTap: _pickImage,
           child: SizedBox(

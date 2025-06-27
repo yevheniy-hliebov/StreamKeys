@@ -15,7 +15,7 @@ class KeyBindingsEventHandler {
     bloc.map = loadedMap;
 
     bloc.completeInit();
-    emit(KeyBindingsLoaded(bloc.pageMap, bloc.currentKeyData));
+    _emitLoaded(emit);
   }
 
   void onPageChanged(
@@ -24,7 +24,7 @@ class KeyBindingsEventHandler {
   ) {
     bloc.currentKeyData = null;
     bloc.currentPageId = event.currentPageId;
-    emit(KeyBindingsLoaded(bloc.pageMap, bloc.currentKeyData));
+    _emitLoaded(emit);
   }
 
   void onSelectKey(
@@ -32,7 +32,7 @@ class KeyBindingsEventHandler {
     Emitter<KeyBindingsState> emit,
   ) {
     bloc.currentKeyData = event.keyData;
-    emit(KeyBindingsLoaded(bloc.pageMap, bloc.currentKeyData));
+    _emitLoaded(emit);
   }
 
   Future<void> onSaveData(
@@ -40,14 +40,131 @@ class KeyBindingsEventHandler {
     Emitter<KeyBindingsState> emit,
   ) async {
     final pageKeyMap = bloc.getOrCreatePageKeyMap();
-    pageKeyMap[event.keyCode.toString()] = event.keyBindingData;
+    pageKeyMap[event.keyCode.toString()] = event.keyBindingData.copyWith();
 
-    emit(KeyBindingsLoaded(bloc.pageMap, bloc.currentKeyData));
+    _emitLoaded(emit);
 
     await repository.saveKeyBindingDataOnPage(
       bloc.currentPageId,
       event.keyCode,
       event.keyBindingData,
+    );
+  }
+
+  Future<void> onAddAction(
+    KeyBindingsAddAction event,
+    Emitter<KeyBindingsState> emit,
+  ) async {
+    final pageKeyMap = bloc.getOrCreatePageKeyMap();
+    final keyBindingData =
+        pageKeyMap[event.keyCode.toString()] ?? KeyBindingData.create();
+
+    final updatedKeyBindingData = keyBindingData.copyWith(
+      actions: [...keyBindingData.actions, event.action],
+    );
+
+    pageKeyMap[event.keyCode.toString()] = updatedKeyBindingData;
+
+    _emitLoaded(emit);
+
+    await repository.saveKeyBindingDataOnPage(
+      bloc.currentPageId,
+      event.keyCode,
+      updatedKeyBindingData,
+    );
+  }
+
+  Future<void> onUpdateAction(
+    KeyBindingsUpdateAction event,
+    Emitter<KeyBindingsState> emit,
+  ) async {
+    final pageKeyMap = bloc.getOrCreatePageKeyMap();
+
+    final keyBindingData =
+        pageKeyMap[event.keyCode.toString()] ?? KeyBindingData.create();
+
+    if (event.index < 0 || event.index >= keyBindingData.actions.length) {
+      return;
+    }
+
+    final updatedActions = List<BindingAction>.from(keyBindingData.actions);
+    updatedActions[event.index] = event.updatedAction;
+
+    final updatedKeyBindingData = keyBindingData.copyWith(
+      actions: updatedActions,
+    );
+
+    pageKeyMap[event.keyCode.toString()] = updatedKeyBindingData;
+
+    _emitLoaded(emit);
+
+    await repository.saveKeyBindingDataOnPage(
+      bloc.currentPageId,
+      event.keyCode,
+      updatedKeyBindingData,
+    );
+  }
+
+  Future<void> onDeleteAction(
+    KeyBindingsDeleteAction event,
+    Emitter<KeyBindingsState> emit,
+  ) async {
+    final pageKeyMap = bloc.getOrCreatePageKeyMap();
+
+    final keyBindingData =
+        pageKeyMap[event.keyCode.toString()] ?? KeyBindingData.create();
+
+    if (event.index < 0 || event.index >= keyBindingData.actions.length) {
+      return;
+    }
+
+    final updatedActions = List<BindingAction>.from(keyBindingData.actions)
+      ..removeAt(event.index);
+
+    final updatedKeyBindingData = keyBindingData.copyWith(
+      actions: updatedActions,
+    );
+
+    pageKeyMap[event.keyCode.toString()] = updatedKeyBindingData;
+
+    _emitLoaded(emit);
+
+    await repository.saveKeyBindingDataOnPage(
+      bloc.currentPageId,
+      event.keyCode,
+      updatedKeyBindingData,
+    );
+  }
+
+  Future<void> onReorderActions(
+    KeyBindingsReorderActions event,
+    Emitter<KeyBindingsState> emit,
+  ) async {
+    final pageKeyMap = bloc.getOrCreatePageKeyMap();
+
+    final keyBindingData =
+        pageKeyMap[event.keyCode.toString()] ?? KeyBindingData.create();
+
+    final actions = List<BindingAction>.from(keyBindingData.actions);
+
+    int newIndex = event.newIndex;
+    if (newIndex > event.oldIndex) {
+      newIndex -= 1;
+    }
+
+    final action = actions.removeAt(event.oldIndex);
+    actions.insert(newIndex, action);
+
+    final updatedKeyBindingData = keyBindingData.copyWith(actions: actions);
+
+    pageKeyMap[event.keyCode.toString()] = updatedKeyBindingData;
+
+    _emitLoaded(emit);
+
+    await repository.saveKeyBindingDataOnPage(
+      bloc.currentPageId,
+      event.keyCode,
+      updatedKeyBindingData,
     );
   }
 
@@ -57,13 +174,15 @@ class KeyBindingsEventHandler {
   ) async {
     final pageKeyMap = bloc.getOrCreatePageKeyMap();
 
-    final firstData = bloc.getKeyBindingData(event.firstCode);
-    final secondData = bloc.getKeyBindingData(event.secondCode);
+    final firstData =
+        bloc.getKeyBindingData(event.firstCode) ?? KeyBindingData.create();
+    final secondData =
+        bloc.getKeyBindingData(event.secondCode) ?? KeyBindingData.create();
 
     pageKeyMap[event.firstCode.toString()] = secondData;
     pageKeyMap[event.secondCode.toString()] = firstData;
 
-    emit(KeyBindingsLoaded(bloc.pageMap, bloc.currentKeyData));
+    _emitLoaded(emit);
 
     await repository.saveKeyBindingDataOnPage(
       bloc.currentPageId,
@@ -75,6 +194,18 @@ class KeyBindingsEventHandler {
       bloc.currentPageId,
       event.secondCode,
       firstData,
+    );
+  }
+
+  _emitLoaded(Emitter<KeyBindingsState> emit) {
+    emit(
+      KeyBindingsLoaded(
+        map: bloc.pageMap,
+        currentKeyData: bloc.currentKeyData,
+        currentKeyBindingData: bloc.getKeyBindingData(
+          bloc.currentKeyData?.keyCode,
+        ),
+      ),
     );
   }
 }

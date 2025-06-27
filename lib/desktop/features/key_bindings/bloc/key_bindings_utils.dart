@@ -12,11 +12,8 @@ mixin KeyBindingsUtils {
     return map.putIfAbsent(currentPageId, () => <String, KeyBindingData>{});
   }
 
-  KeyBindingData getKeyBindingData(int? keyCode) {
+  KeyBindingData? getKeyBindingData(int? keyCode) {
     final KeyBindingMap currentMap = pageMap;
-    if (currentMap.isEmpty) {
-      return const KeyBindingData();
-    }
-    return currentMap[keyCode.toString()] ?? KeyBindingData.create();
+    return currentMap[keyCode.toString()];
   }
 }

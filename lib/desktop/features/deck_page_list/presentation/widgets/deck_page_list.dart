@@ -29,7 +29,7 @@ class DeckPageList<T extends DeckPageListBloc> extends StatelessWidget {
               provider.add(DeckPageListStartEditingPage());
             },
           ),
-          const DeckDevider(axis: Axis.vertical),
+          const DeckDevider(axis: Axis.horizontal),
           BlocBuilder<T, DeckPageListState>(
             builder: (BuildContext context, DeckPageListState state) {
               if (state is DeckPageListLoaded) {

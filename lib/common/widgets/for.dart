@@ -11,4 +11,15 @@ class For {
     }
     return widgetList;
   }
+
+  static List<Widget> fromList<T>({
+    required List<T> items,
+    required List<Widget> Function(T item) generator,
+  }) {
+    final List<Widget> widgetList = <Widget>[];
+    for (var item in items) {
+      widgetList.addAll(generator(item));
+    }
+    return widgetList;
+  }
 }

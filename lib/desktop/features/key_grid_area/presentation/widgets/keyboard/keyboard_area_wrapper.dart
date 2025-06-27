@@ -59,6 +59,12 @@ class _KeyboardAreaWrapperState extends State<KeyboardAreaWrapper> {
           onSwapBindingData: (firstCode, secondCode) {
             bloc.add(KeyBindingsSwapKeys(firstCode, secondCode));
           },
+          onAddBindingAction: (keyCode, action) {
+            bloc.add(KeyBindingsAddAction(
+              keyCode: keyCode,
+              action: action,
+            ));
+          },
         );
       },
     );
