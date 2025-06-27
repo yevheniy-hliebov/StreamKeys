@@ -15,7 +15,7 @@ abstract class BindingAction extends Equatable {
     required this.name,
   });
 
-  String get actionLabel => name;
+  String get label => name;
   String get dialogTitle => '';
   Widget getIcon(BuildContext context);
 

@@ -7,10 +7,10 @@ import 'package:streamkeys/desktop/features/action_library/presentation/widgets/
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 
-class WebsiteBindingAction extends BindingAction {
+class WebsiteAction extends BindingAction {
   final String url;
 
-  WebsiteBindingAction({String? id, this.url = ''})
+  WebsiteAction({String? id, this.url = ''})
       : super(
           id: id ?? const Uuid().v4(),
           type: ActionTypes.website,
@@ -21,7 +21,7 @@ class WebsiteBindingAction extends BindingAction {
   String get dialogTitle => 'Enter the website URL';
 
   @override
-  String get actionLabel {
+  String get label {
     if (url.isEmpty) {
       return name;
     } else {
@@ -42,15 +42,15 @@ class WebsiteBindingAction extends BindingAction {
     };
   }
 
-  factory WebsiteBindingAction.fromJson(Json json) {
-    return WebsiteBindingAction(
+  factory WebsiteAction.fromJson(Json json) {
+    return WebsiteAction(
       url: json['url'] as String,
     );
   }
 
   @override
   BindingAction copy() {
-    return WebsiteBindingAction(url: url);
+    return WebsiteAction(url: url);
   }
 
   @override
@@ -73,7 +73,7 @@ class WebsiteBindingAction extends BindingAction {
       label: 'Url',
       initialValue: url,
       onUpdate: (newValue) {
-        onUpdate?.call(WebsiteBindingAction(url: newValue));
+        onUpdate?.call(WebsiteAction(url: newValue));
       },
     );
   }

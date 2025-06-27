@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:streamkeys/desktop/features/action_library/data/models/library/system/website_binding_action.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/library/system/website_action.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/bloc/deck_page_list_bloc.dart';
 import 'package:streamkeys/desktop/features/key_bindings/bloc/key_bindings_bloc.dart';
 import 'package:streamkeys/desktop/features/key_bindings/data/models/key_binding_data.dart';
@@ -28,11 +28,11 @@ void main() {
     name: 'custom binding',
   );
 
-  final mockAction = WebsiteBindingAction(
+  final mockAction = WebsiteAction(
     id: 'fixed-id',
   );
 
-  final updatedMockAction = WebsiteBindingAction(
+  final updatedMockAction = WebsiteAction(
     id: mockAction.id,
     url: 'https://updated.com',
   );
@@ -367,7 +367,7 @@ void main() {
     blocTest<KeyBindingsBloc, KeyBindingsState>(
       'emits KeyBindingsLoaded when deleting an action',
       build: () {
-        final action = WebsiteBindingAction();
+        final action = WebsiteAction();
         final page1Map = Map<String, KeyBindingData>.from(mockPage1Map);
         page1Map['2'] = KeyBindingData.create(
           id: 'uuid2',
@@ -415,9 +415,9 @@ void main() {
     blocTest<KeyBindingsBloc, KeyBindingsState>(
       'emits KeyBindingsLoaded when reordering actions',
       build: () {
-        final action1 = WebsiteBindingAction(id: 'a1', url: '1');
-        final action2 = WebsiteBindingAction(id: 'a2', url: '2');
-        final action3 = WebsiteBindingAction(id: 'a3', url: '3');
+        final action1 = WebsiteAction(id: 'a1', url: '1');
+        final action2 = WebsiteAction(id: 'a2', url: '2');
+        final action3 = WebsiteAction(id: 'a3', url: '3');
 
         final page1Map = Map<String, KeyBindingData>.from(mockPage1Map);
         page1Map['2'] = KeyBindingData.create(
@@ -450,9 +450,9 @@ void main() {
               id: 'uuid2',
               name: 'page1 button2',
               actions: [
-                WebsiteBindingAction(id: 'a2', url: '2'),
-                WebsiteBindingAction(id: 'a1', url: '1'),
-                WebsiteBindingAction(id: 'a3', url: '3'),
+                WebsiteAction(id: 'a2', url: '2'),
+                WebsiteAction(id: 'a1', url: '1'),
+                WebsiteAction(id: 'a3', url: '3'),
               ],
             ),
           },
@@ -470,9 +470,9 @@ void main() {
               id: 'uuid2',
               name: 'page1 button2',
               actions: [
-                WebsiteBindingAction(id: 'a2', url: '2'),
-                WebsiteBindingAction(id: 'a1', url: '1'),
-                WebsiteBindingAction(id: 'a3', url: '3'),
+                WebsiteAction(id: 'a2', url: '2'),
+                WebsiteAction(id: 'a1', url: '1'),
+                WebsiteAction(id: 'a3', url: '3'),
               ],
             ),
           );

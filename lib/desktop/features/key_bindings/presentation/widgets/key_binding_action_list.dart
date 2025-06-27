@@ -45,7 +45,7 @@ class KeyBindingActionList extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final action = actions[index];
                     return ReorderableDragStartListener(
-                      key: Key('$index-${action.actionLabel}'),
+                      key: Key('$index-${action.label}'),
                       index: index,
                       child: KeyBindingActionTile(
                         action: action,

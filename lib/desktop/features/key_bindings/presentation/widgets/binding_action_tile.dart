@@ -48,7 +48,7 @@ class KeyBindingActionTile extends StatelessWidget {
             ),
             Expanded(
               child: Text(
-                action.actionLabel,
+                action.label,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
