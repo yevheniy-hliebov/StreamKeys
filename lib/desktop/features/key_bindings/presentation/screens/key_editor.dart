@@ -67,24 +67,30 @@ class KeyEditor<T extends KeyBindingsBloc> extends StatelessWidget {
                 Flexible(
                   child: KeyBindingActionList(
                     actions: keyBindingData.actions,
+                    onActionAdded: (action) {
+                      bloc.add(KeyBindingsAddAction(
+                        keyData.keyCode,
+                        action.copy(),
+                      ));
+                    },
+                    onActionUpdated: (index, updatedAction) {
+                      bloc.add(KeyBindingsUpdateAction(
+                        keyCode: keyData.keyCode,
+                        index: index,
+                        updatedAction: updatedAction,
+                      ));
+                    },
                     onDeleteActionPressed: (index) {
                       bloc.add(KeyBindingsDeleteAction(
                         keyData.keyCode,
                         index,
                       ));
                     },
-                    onReorder: (oldIndex, newIndex) {
+                    onReorderActons: (oldIndex, newIndex) {
                       bloc.add(KeyBindingsReorderActions(
                         keyCode: keyData.keyCode,
                         oldIndex: oldIndex,
                         newIndex: newIndex,
-                      ));
-                    },
-                    onUpdated: (index, updatedAction) {
-                      bloc.add(KeyBindingsUpdateAction(
-                        keyCode: keyData.keyCode,
-                        index: index,
-                        updatedAction: updatedAction,
                       ));
                     },
                   ),
