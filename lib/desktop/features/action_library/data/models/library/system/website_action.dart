@@ -4,13 +4,14 @@ import 'package:streamkeys/desktop/features/action_library/data/models/action_re
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action_icons.dart';
 import 'package:streamkeys/desktop/features/action_library/presentation/widgets/forms/single_field_binding_action_form.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:streamkeys/desktop/utils/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 
 class WebsiteAction extends BindingAction {
   final String url;
+  final UrlLauncher? urlLauncher;
 
-  WebsiteAction({String? id, this.url = ''})
+  WebsiteAction({String? id, this.urlLauncher, this.url = ''})
       : super(
           id: id ?? const Uuid().v4(),
           type: ActionTypes.website,
@@ -55,11 +56,13 @@ class WebsiteAction extends BindingAction {
 
   @override
   Future<void> execute({Object? data}) async {
+    final urlLauncher = this.urlLauncher ?? UrlLauncher();
+
     if (url.isNotEmpty) {
       final Uri uri = Uri.parse(url);
 
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri);
+      if (await urlLauncher.canLaunchUrl(uri)) {
+        await urlLauncher.launchUrl(uri);
       }
     }
   }
