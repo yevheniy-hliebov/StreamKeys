@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/library/system/website_binding_action.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/bloc/deck_page_list_bloc.dart';
 import 'package:streamkeys/desktop/features/key_bindings/bloc/key_bindings_bloc.dart';
 import 'package:streamkeys/desktop/features/key_bindings/data/models/key_binding_data.dart';
@@ -25,6 +26,15 @@ void main() {
   final mockCustomBindingData = KeyBindingData.create(
     id: 'uuid-custom',
     name: 'custom binding',
+  );
+
+  final mockAction = WebsiteBindingAction(
+    id: 'fixed-id',
+  );
+
+  final updatedMockAction = WebsiteBindingAction(
+    id: mockAction.id,
+    url: 'https://updated.com',
   );
 
   final mockPage1Map = {
@@ -88,8 +98,9 @@ void main() {
       wait: const Duration(milliseconds: 10),
       expect: () => [
         KeyBindingsLoaded(
-          mockPage1Map,
-          null,
+          map: mockPage1Map,
+          currentKeyData: null,
+          currentKeyBindingData: null,
         ),
       ],
     );
@@ -118,12 +129,14 @@ void main() {
       wait: const Duration(milliseconds: 10),
       expect: () => [
         KeyBindingsLoaded(
-          mockPage1Map,
-          null,
+          map: mockPage1Map,
+          currentKeyData: null,
+          currentKeyBindingData: null,
         ),
         KeyBindingsLoaded(
-          mockPage2Map,
-          null,
+          map: mockPage2Map,
+          currentKeyData: null,
+          currentKeyBindingData: null,
         ),
       ],
       tearDown: () {
@@ -160,8 +173,9 @@ void main() {
       },
       expect: () => [
         KeyBindingsLoaded(
-          mockPage1Map,
-          null,
+          map: mockPage1Map,
+          currentKeyData: null,
+          currentKeyBindingData: null,
         ),
       ],
       tearDown: () {
@@ -182,12 +196,14 @@ void main() {
       wait: const Duration(milliseconds: 10),
       expect: () => [
         KeyBindingsLoaded(
-          mockPage1Map,
-          null,
+          map: mockPage1Map,
+          currentKeyData: null,
+          currentKeyBindingData: null,
         ),
         KeyBindingsLoaded(
-          mockPage2Map,
-          null,
+          map: mockPage2Map,
+          currentKeyData: null,
+          currentKeyBindingData: null,
         ),
       ],
     );
@@ -205,12 +221,15 @@ void main() {
       wait: const Duration(milliseconds: 10),
       expect: () => [
         KeyBindingsLoaded(
-          mockPage1Map,
-          null,
+          map: mockPage1Map,
+          currentKeyData: null,
+          currentKeyBindingData: null,
         ),
         KeyBindingsLoaded(
-          mockPage1Map,
-          mockKeyData,
+          map: mockPage1Map,
+          currentKeyData: mockKeyData,
+          currentKeyBindingData:
+              KeyBindingData.create(id: 'uuid1', name: 'page1 button1'),
         ),
       ],
     );
@@ -228,11 +247,12 @@ void main() {
       wait: const Duration(milliseconds: 10),
       expect: () => [
         KeyBindingsLoaded(
-          {
+          map: {
             '1': mockCustomBindingData,
             '2': KeyBindingData.create(id: 'uuid2', name: 'page1 button2'),
           },
-          null,
+          currentKeyData: null,
+          currentKeyBindingData: null,
         ),
       ],
       skip: 1,
@@ -240,6 +260,213 @@ void main() {
         verify(() {
           return repository.saveKeyBindingDataOnPage(
               'page1', 1, mockCustomBindingData);
+        }).called(1);
+      },
+    );
+
+    blocTest<KeyBindingsBloc, KeyBindingsState>(
+      'emits KeyBindingsAddAction',
+      build: () {
+        return KeyBindingsBloc(repository, deckBloc);
+      },
+      act: (bloc) async {
+        bloc.add(KeyBindingsInit());
+        await Future.delayed(const Duration(milliseconds: 20));
+        bloc.add(KeyBindingsAddAction(2, mockAction));
+      },
+      wait: const Duration(milliseconds: 10),
+      expect: () => [
+        KeyBindingsLoaded(
+          map: {
+            '1': mockPage1Map['1']!,
+            '2': KeyBindingData.create(
+                id: 'uuid2', name: 'page1 button2', actions: [mockAction]),
+          },
+          currentKeyData: null,
+          currentKeyBindingData: null,
+        ),
+      ],
+      skip: 1,
+      verify: (_) {
+        verify(() {
+          return repository.saveKeyBindingDataOnPage(
+            'page1',
+            2,
+            KeyBindingData.create(
+              id: 'uuid2',
+              name: 'page1 button2',
+              actions: [mockAction],
+            ),
+          );
+        }).called(1);
+      },
+    );
+
+    blocTest<KeyBindingsBloc, KeyBindingsState>(
+      'emits KeyBindingsLoaded when updating an action',
+      build: () {
+        final page1Map = Map<String, KeyBindingData>.from(mockPage1Map);
+        page1Map['2'] = KeyBindingData.create(
+          id: 'uuid2',
+          name: 'page1 button2',
+          actions: [mockAction],
+        );
+
+        when(() => repository.getKeyMap()).thenAnswer((_) async {
+          return ('page1', {'page1': page1Map, 'page2': mockPage2Map});
+        });
+
+        return KeyBindingsBloc(repository, deckBloc);
+      },
+      act: (bloc) async {
+        bloc.add(KeyBindingsInit());
+        await Future.delayed(const Duration(milliseconds: 20));
+        bloc.add(KeyBindingsUpdateAction(
+          keyCode: 2,
+          index: 0,
+          updatedAction: updatedMockAction,
+        ));
+      },
+      wait: const Duration(milliseconds: 10),
+      expect: () => [
+        KeyBindingsLoaded(
+          map: {
+            '1': mockPage1Map['1']!,
+            '2': KeyBindingData.create(
+              id: 'uuid2',
+              name: 'page1 button2',
+              actions: [updatedMockAction],
+            ),
+          },
+          currentKeyData: null,
+          currentKeyBindingData: null,
+        ),
+      ],
+      skip: 1,
+      verify: (_) {
+        verify(() {
+          return repository.saveKeyBindingDataOnPage(
+            'page1',
+            2,
+            KeyBindingData.create(
+              id: 'uuid2',
+              name: 'page1 button2',
+              actions: [updatedMockAction],
+            ),
+          );
+        }).called(1);
+      },
+    );
+
+    blocTest<KeyBindingsBloc, KeyBindingsState>(
+      'emits KeyBindingsLoaded when deleting an action',
+      build: () {
+        final action = WebsiteBindingAction();
+        final page1Map = Map<String, KeyBindingData>.from(mockPage1Map);
+        page1Map['2'] = KeyBindingData.create(
+          id: 'uuid2',
+          name: 'page1 button2',
+          actions: [action],
+        );
+
+        when(() => repository.getKeyMap()).thenAnswer((_) async {
+          return ('page1', {'page1': page1Map, 'page2': mockPage2Map});
+        });
+
+        return KeyBindingsBloc(repository, deckBloc);
+      },
+      act: (bloc) async {
+        bloc.add(KeyBindingsInit());
+        await Future.delayed(const Duration(milliseconds: 20));
+        bloc.add(const KeyBindingsDeleteAction(2, 0));
+      },
+      wait: const Duration(milliseconds: 10),
+      expect: () => [
+        KeyBindingsLoaded(
+          map: {
+            '1': mockPage1Map['1']!,
+            '2': KeyBindingData.create(id: 'uuid2', name: 'page1 button2'),
+          },
+          currentKeyData: null,
+          currentKeyBindingData: null,
+        ),
+      ],
+      skip: 1,
+      verify: (_) {
+        verify(() {
+          return repository.saveKeyBindingDataOnPage(
+            'page1',
+            2,
+            KeyBindingData.create(id: 'uuid2', name: 'page1 button2'),
+          );
+        }).called(1);
+      },
+    );
+
+    blocTest<KeyBindingsBloc, KeyBindingsState>(
+      'emits KeyBindingsLoaded when reordering actions',
+      build: () {
+        final action1 = WebsiteBindingAction(id: 'a1', url: '1');
+        final action2 = WebsiteBindingAction(id: 'a2', url: '2');
+        final action3 = WebsiteBindingAction(id: 'a3', url: '3');
+
+        final page1Map = Map<String, KeyBindingData>.from(mockPage1Map);
+        page1Map['2'] = KeyBindingData.create(
+          id: 'uuid2',
+          name: 'page1 button2',
+          actions: [action1, action2, action3],
+        );
+
+        when(() => repository.getKeyMap()).thenAnswer((_) async {
+          return ('page1', {'page1': page1Map, 'page2': mockPage2Map});
+        });
+
+        return KeyBindingsBloc(repository, deckBloc);
+      },
+      act: (bloc) async {
+        bloc.add(KeyBindingsInit());
+        await Future.delayed(const Duration(milliseconds: 20));
+        bloc.add(const KeyBindingsReorderActions(
+          keyCode: 2,
+          oldIndex: 0,
+          newIndex: 2,
+        ));
+      },
+      wait: const Duration(milliseconds: 10),
+      expect: () => [
+        KeyBindingsLoaded(
+          map: {
+            '1': mockPage1Map['1']!,
+            '2': KeyBindingData.create(
+              id: 'uuid2',
+              name: 'page1 button2',
+              actions: [
+                WebsiteBindingAction(id: 'a2', url: '2'),
+                WebsiteBindingAction(id: 'a1', url: '1'),
+                WebsiteBindingAction(id: 'a3', url: '3'),
+              ],
+            ),
+          },
+          currentKeyData: null,
+          currentKeyBindingData: null,
+        ),
+      ],
+      skip: 1,
+      verify: (_) {
+        verify(() {
+          return repository.saveKeyBindingDataOnPage(
+            'page1',
+            2,
+            KeyBindingData.create(
+              id: 'uuid2',
+              name: 'page1 button2',
+              actions: [
+                WebsiteBindingAction(id: 'a2', url: '2'),
+                WebsiteBindingAction(id: 'a1', url: '1'),
+                WebsiteBindingAction(id: 'a3', url: '3'),
+              ],
+            ),
+          );
         }).called(1);
       },
     );
@@ -257,11 +484,12 @@ void main() {
       wait: const Duration(milliseconds: 10),
       expect: () => [
         KeyBindingsLoaded(
-          {
+          map: {
             '1': KeyBindingData.create(id: 'uuid2', name: 'page1 button2'),
             '2': KeyBindingData.create(id: 'uuid1', name: 'page1 button1'),
           },
-          null,
+          currentKeyData: null,
+          currentKeyBindingData: null,
         ),
       ],
       skip: 1,

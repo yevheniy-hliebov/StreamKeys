@@ -74,6 +74,37 @@ class KeyBindingsEventHandler {
     );
   }
 
+  Future<void> onUpdateAction(
+    KeyBindingsUpdateAction event,
+    Emitter<KeyBindingsState> emit,
+  ) async {
+    final pageKeyMap = bloc.getOrCreatePageKeyMap();
+
+    final keyBindingData =
+        pageKeyMap[event.keyCode.toString()] ?? KeyBindingData.create();
+
+    if (event.index < 0 || event.index >= keyBindingData.actions.length) {
+      return;
+    }
+
+    final updatedActions = List<BindingAction>.from(keyBindingData.actions);
+    updatedActions[event.index] = event.updatedAction;
+
+    final updatedKeyBindingData = keyBindingData.copyWith(
+      actions: updatedActions,
+    );
+
+    pageKeyMap[event.keyCode.toString()] = updatedKeyBindingData;
+
+    _emitLoaded(emit);
+
+    await repository.saveKeyBindingDataOnPage(
+      bloc.currentPageId,
+      event.keyCode,
+      updatedKeyBindingData,
+    );
+  }
+
   Future<void> onDeleteAction(
     KeyBindingsDeleteAction event,
     Emitter<KeyBindingsState> emit,
@@ -137,45 +168,16 @@ class KeyBindingsEventHandler {
     );
   }
 
-  Future<void> onUpdateAction(
-    KeyBindingsUpdateAction event,
-    Emitter<KeyBindingsState> emit,
-  ) async {
-    final pageKeyMap = bloc.getOrCreatePageKeyMap();
-
-    final keyBindingData =
-        pageKeyMap[event.keyCode.toString()] ?? KeyBindingData.create();
-
-    if (event.index < 0 || event.index >= keyBindingData.actions.length) {
-      return;
-    }
-
-    final updatedActions = List<BindingAction>.from(keyBindingData.actions);
-    updatedActions[event.index] = event.updatedAction;
-
-    final updatedKeyBindingData = keyBindingData.copyWith(
-      actions: updatedActions,
-    );
-
-    pageKeyMap[event.keyCode.toString()] = updatedKeyBindingData;
-
-    _emitLoaded(emit);
-
-    await repository.saveKeyBindingDataOnPage(
-      bloc.currentPageId,
-      event.keyCode,
-      updatedKeyBindingData,
-    );
-  }
-
   Future<void> onSwap(
     KeyBindingsSwapKeys event,
     Emitter<KeyBindingsState> emit,
   ) async {
     final pageKeyMap = bloc.getOrCreatePageKeyMap();
 
-    final firstData = bloc.getKeyBindingData(event.firstCode);
-    final secondData = bloc.getKeyBindingData(event.secondCode);
+    final firstData =
+        bloc.getKeyBindingData(event.firstCode) ?? KeyBindingData.create();
+    final secondData =
+        bloc.getKeyBindingData(event.secondCode) ?? KeyBindingData.create();
 
     pageKeyMap[event.firstCode.toString()] = secondData;
     pageKeyMap[event.secondCode.toString()] = firstData;
@@ -198,9 +200,11 @@ class KeyBindingsEventHandler {
   _emitLoaded(Emitter<KeyBindingsState> emit) {
     emit(
       KeyBindingsLoaded(
-        bloc.pageMap,
-        bloc.currentKeyData,
-        bloc.getKeyBindingData(bloc.currentKeyData?.keyCode),
+        map: bloc.pageMap,
+        currentKeyData: bloc.currentKeyData,
+        currentKeyBindingData: bloc.getKeyBindingData(
+          bloc.currentKeyData?.keyCode,
+        ),
       ),
     );
   }

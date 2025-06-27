@@ -10,9 +10,9 @@ import 'package:uuid/uuid.dart';
 class WebsiteBindingAction extends BindingAction {
   final String url;
 
-  WebsiteBindingAction({this.url = ''})
+  WebsiteBindingAction({String? id, this.url = ''})
       : super(
-          id: const Uuid().v4(),
+          id: id ?? const Uuid().v4(),
           type: ActionTypes.website,
           name: 'Open website',
         );
@@ -81,4 +81,3 @@ class WebsiteBindingAction extends BindingAction {
   @override
   List<Object?> get props => [id, type, name, url];
 }
-
