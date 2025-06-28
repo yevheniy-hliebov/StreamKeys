@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:streamkeys/common/widgets/theme_mode_switch.dart';
-import 'package:streamkeys/core/theme/bloc/theme_mode_bloc.dart';
+import 'package:streamkeys/common/widgets/screen_tab_bar.dart';
 import 'package:streamkeys/common/widgets/page_tab.dart';
 
-class SettingsScreen extends StatelessWidget with PageTab {
-  const SettingsScreen({super.key});
+class SettingsScreen extends StatefulWidget with PageTab {
+  final List<PageTab> tabs;
+
+  const SettingsScreen({
+    super.key,
+    required this.tabs,
+  });
 
   @override
   Widget get pageView => this;
@@ -14,26 +17,41 @@ class SettingsScreen extends StatelessWidget with PageTab {
   String get label => 'Settings';
 
   @override
-  Widget get icon => const Icon(Icons.settings);
+  Widget get icon => Icon(Icons.settings);
+
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen>
+    with SingleTickerProviderStateMixin {
+  late final TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: widget.tabs.length, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          BlocBuilder<ThemeModeBloc, ThemeMode>(
-            builder: (BuildContext context, ThemeMode themeMode) {
-              return ThemeModeSwitch(
-                themeMode: themeMode,
-                onChanged: (ThemeMode themeMode) {
-                  context.read<ThemeModeBloc>().add(ThemeModeChange(themeMode));
-                },
-              );
-            },
-          ),
-          Text(label),
-        ],
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(45),
+        child: ScreenTabBar(
+          tabs: widget.tabs,
+          controller: _tabController,
+        ),
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: widget.tabs.map((PageTab tab) => tab.pageView).toList(),
       ),
     );
   }
