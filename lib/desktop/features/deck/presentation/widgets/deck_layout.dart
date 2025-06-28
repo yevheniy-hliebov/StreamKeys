@@ -34,7 +34,7 @@ class DeckLayout extends StatelessWidget {
             children: <ResizableChild>[
               ResizableChild(
                 child: mainTop,
-                size: const ResizableSize.expand(min: 400),
+                size: const ResizableSize.expand(min: 200),
                 divider: _buildDivider(context, Axis.vertical),
               ),
               ResizableChild(

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shelf/shelf.dart';
 import 'package:streamkeys/common/models/typedef.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_json_keys.dart';
@@ -8,6 +9,7 @@ import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_type
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/grid_template.dart';
 import 'package:streamkeys/desktop/server/controllers/base_controller.dart';
 import 'package:streamkeys/desktop/utils/local_json_file_manager.dart';
+import 'package:streamkeys/service_locator.dart';
 
 class GridDeckController extends BaseController {
   final jsonHelper = LocalJsonFileManager.storage(
@@ -23,7 +25,10 @@ class GridDeckController extends BaseController {
             body: 'Failed to read grid deck json');
       }
 
-      final GridTemplate gridTemplate = GridTemplate.gridTemplates[2];
+      final prefs = sl<SharedPreferences>();
+      final index = prefs.getInt('selected_grid_template') ?? 0;
+
+      final gridTemplate = GridTemplate.gridTemplates[index];
       final currentPageId = json[DeckJsonKeys.currentPageId];
       final pageMapJson = json[DeckJsonKeys.map][currentPageId] as Json?;
 

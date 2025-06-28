@@ -6,7 +6,7 @@ class GridTemplate {
   GridTemplate(
     this.numberOfColumns,
     this.numberOfRows, {
-    this.type = 'default',
+    this.type = 'Default',
   });
 
   int get totalCells => numberOfColumns * numberOfRows;
