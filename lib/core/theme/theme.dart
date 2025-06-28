@@ -20,8 +20,11 @@ class AppTheme {
       scaffoldBackgroundColor: colors.background,
       tabBarTheme: AppTabThemeData.getTheme(colors),
       iconButtonTheme: AppIconButtonThemeData.getTheme(colors),
+      iconTheme: IconThemeData(color: colors.onBackground),
       progressIndicatorTheme: AppProgressIndicatorTheme.getTheme(colors),
       inputDecorationTheme: AppInputDecorationThemeData.getTheme(colors),
+      outlinedButtonTheme: AppOutlinedButtonThemeData.getTheme(colors),
+      filledButtonTheme: AppFilledButtonThemeData.getTheme(colors),
     );
   }
 }
