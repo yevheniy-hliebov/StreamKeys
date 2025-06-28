@@ -7,7 +7,7 @@ import 'package:streamkeys/desktop/server/router.dart';
 import 'package:streamkeys/desktop/utils/helper_functions.dart';
 
 class Server {
-  final int port = 13560;
+  static const int port = 13560;
   late String ip;
   late HttpServer? _server;
 
@@ -20,7 +20,7 @@ class Server {
 
     final handler = const Pipeline()
         .addMiddleware(logRequests())
-        .addMiddleware(authMiddleware(() => 'password'))
+        .addMiddleware(authMiddleware())
         .addHandler(router.routerCall);
 
     _server = await shelf_io.serve(handler, InternetAddress.anyIPv4, port);
