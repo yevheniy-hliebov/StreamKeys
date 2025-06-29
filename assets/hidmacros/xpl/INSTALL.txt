@@ -1,0 +1,3 @@
+To access Xplane variables via script commands, you must copy directory HidMacros to plugins directory.
+This is usually %XPLANE_HOME%\Resources\plugins\. This is valid for XPL 10.
+For Xplane 9 use only plugin from "32" directory.

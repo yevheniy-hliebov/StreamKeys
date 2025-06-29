@@ -22,7 +22,10 @@ void desktopMain() async {
 
   final server = Server();
   await server.init();
-  await server.start();
+  server.start();
+
+  final hidmacros = sl<HidMacrosService>();
+  await hidmacros.startAndEnsureConfig();
 
   final GridDeckPageListBloc gridDeckBloc = GridDeckPageListBloc();
   final KeyboardDeckPageListBloc keyboardDeckBloc = KeyboardDeckPageListBloc();

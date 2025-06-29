@@ -42,3 +42,6 @@ flutter:
   assets:
     - assets/keyboard_map.json
     - assets/action_icons/
+    - assets/hidmacros/
+    - assets/hidmacros/lang/
+    - assets/hidmacros/xpl/

@@ -1,5 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_service.dart';
+export 'package:shared_preferences/shared_preferences.dart';
+export 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_service.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -10,7 +13,9 @@ final GetIt sl = GetIt.instance;
 ///
 /// Should be called before running the application, typically in `main()`.
 Future<void> initServiceLocator() async {
-  final SharedPreferences sharedPreferences =
-      await SharedPreferences.getInstance();
+  final sharedPreferences = await SharedPreferences.getInstance();
+  final hidmacros = HidMacrosService();
+
   sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
+  sl.registerLazySingleton<HidMacrosService>(() => hidmacros);
 }

@@ -1,0 +1,106 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
+import 'package:streamkeys/desktop/utils/helper_functions.dart';
+
+class HidMacrosService {
+  HidMacrosService._internal();
+
+  static final HidMacrosService _instance = HidMacrosService._internal();
+
+  factory HidMacrosService() => _instance;
+
+  static const exeFileName = 'hidmacros.exe';
+  static const xmlFileName = 'hidmacros.xml';
+  static String assetsPath = HelperFunctions.getAssetsFolderPath();
+
+  final String exePath = '$assetsPath\\hidmacros\\$exeFileName';
+
+  bool get configExists {
+    final configFile = File('$assetsPath\\hidmacros\\$xmlFileName');
+    return configFile.existsSync();
+  }
+
+  Future<bool> isRunning() async {
+    try {
+      final result = await Process.run('tasklist', []);
+      if (result.exitCode != 0) {
+        _log('Error running tasklist: ${result.stderr}');
+        return false;
+      }
+      return result.stdout
+          .toString()
+          .toLowerCase()
+          .contains(exeFileName.toLowerCase());
+    } catch (e) {
+      _log('Error checking process: $e');
+      return false;
+    }
+  }
+
+  Future<void> startAndEnsureConfig() async {
+    await start();
+
+    if (!configExists) {
+      _log('Config file not found after start, restarting HIDMacros...');
+      await restart();
+    }
+  }
+
+  Future<void> start() async {
+    if (!await File(exePath).exists()) {
+      _log('File not found: $exePath');
+      return;
+    }
+
+    try {
+      final process = await Process.start(
+        exePath,
+        [],
+        mode: ProcessStartMode.detached,
+      );
+      _log('HIDMacros started with PID: ${process.pid}');
+    } catch (e) {
+      _log('Failed to start HIDMacros: $e');
+    }
+  }
+
+  Future<void> stop() async {
+    final nircmdPath = '$assetsPath\\hidmacros\\nircmd.exe';
+
+    if (!await File(nircmdPath).exists()) {
+      _log('nircmd.exe not found: $nircmdPath');
+      return;
+    }
+
+    try {
+      final result = await Process.run(
+        nircmdPath,
+        ['closeprocess', exeFileName],
+      );
+
+      if (result.exitCode == 0) {
+        _log('Sent close window command to HIDMacros');
+      } else {
+        _log('Failed to send close command: ${result.stderr}');
+      }
+    } catch (e) {
+      _log('Error stopping HIDMacros: $e');
+    }
+  }
+
+  Future<void> restart({
+    Duration waitDuration = const Duration(seconds: 5),
+  }) async {
+    await stop();
+    _log('HIDMacros stopped. Restarting...');
+    await Future.delayed(waitDuration);
+    await start();
+  }
+
+  void _log(String message) {
+    if (kDebugMode) {
+      print('HIDMacrosService: $message');
+    }
+  }
+}

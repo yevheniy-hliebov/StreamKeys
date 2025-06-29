@@ -9,6 +9,15 @@ import 'package:streamkeys/core/constants/spacing.dart';
 class HelperFunctions {
   HelperFunctions._();
 
+  static String getAssetsFolderPath() {
+    if (!kDebugMode) {
+      final exeDir = File(Platform.resolvedExecutable).parent;
+      return '${exeDir.path}\\data\\flutter_assets\\assets';
+    } else {
+      return '${Directory.current.path}\\assets';
+    }
+  }
+
   static Future<String> getStoragePath() async {
     if (Platform.isWindows) {
       final Directory directory = Directory(
