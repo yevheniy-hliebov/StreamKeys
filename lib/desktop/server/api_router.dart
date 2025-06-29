@@ -14,11 +14,11 @@ class ApiRouter {
     
     _router.get('/grid/buttons', _gridDeckController.getButtons);
     _router.get('/grid/<index>/image', _gridDeckController.getImage);
-    _router.get('/grid/<index>/click', (Request request, String keyCode) {
+    _router.post('/grid/<index>', (Request request, String keyCode) {
       return _keyController.clickKey(request, keyCode, DeckType.grid);
     });
 
-    _router.get('/keyboard/<index>/click', (Request request, String keyCode) {
+    _router.post('/keyboard/<index>', (Request request, String keyCode) {
       return _keyController.clickKey(request, keyCode, DeckType.keyboard);
     });
   }
