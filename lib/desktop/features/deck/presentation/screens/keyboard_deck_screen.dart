@@ -20,7 +20,7 @@ class KeyboardDeckScreen extends StatelessWidget with PageTab {
   String get label => 'Keyboard Deck';
 
   @override
-  Widget get icon => const Icon(Icons.keyboard_outlined);
+  Widget get icon => const Icon(Icons.keyboard_outlined, size: 18);
 
   @override
   Widget build(BuildContext context) {

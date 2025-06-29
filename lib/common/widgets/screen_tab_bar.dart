@@ -22,12 +22,7 @@ class ScreenTabBar extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             spacing: 8,
             children: <Widget>[
-              IconTheme(
-                data: Theme.of(context).iconTheme.copyWith(
-                  size: 18,
-                ),
-                child: tab.icon,
-              ),
+              tab.icon,
               Text(tab.label),
             ],
           ),

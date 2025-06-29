@@ -15,7 +15,7 @@ class GeneralSettingsScreen extends StatelessWidget with PageTab {
   String get label => 'General';
 
   @override
-  Widget get icon => const Icon(Icons.settings_applications_sharp);
+  Widget get icon => const Icon(Icons.settings_applications_sharp, size: 18);
 
   @override
   Widget build(BuildContext context) {

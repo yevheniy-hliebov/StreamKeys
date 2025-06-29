@@ -17,7 +17,7 @@ class SettingsScreen extends StatefulWidget with PageTab {
   String get label => 'Settings';
 
   @override
-  Widget get icon => const Icon(Icons.settings);
+  Widget get icon => const Icon(Icons.settings, size: 18);
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();

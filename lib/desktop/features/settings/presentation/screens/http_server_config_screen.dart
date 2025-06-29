@@ -16,7 +16,7 @@ class HttpServerConfigScreen extends StatelessWidget with PageTab {
   String get label => 'HTTP Server';
 
   @override
-  Widget get icon => const Icon(Icons.public);
+  Widget get icon => const Icon(Icons.public, size: 18);
 
   @override
   Widget build(BuildContext context) {

@@ -20,7 +20,7 @@ class GridDeckScreen extends StatelessWidget with PageTab {
   String get label => 'Grid Deck';
 
   @override
-  Widget get icon => const Icon(Icons.grid_view);
+  Widget get icon => const Icon(Icons.grid_view, size: 18);
 
   @override
   Widget build(BuildContext context) {
