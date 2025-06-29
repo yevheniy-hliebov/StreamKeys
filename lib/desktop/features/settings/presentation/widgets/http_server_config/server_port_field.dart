@@ -13,7 +13,7 @@ class ServerPortField extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.max,
       children: [
-        Text(Server.port.toString()),
+        SelectableText(Server.port.toString()),
         const SizedBox(width: Spacing.xs),
         CopyIconButton(textToCopy: Server.port.toString()),
       ],

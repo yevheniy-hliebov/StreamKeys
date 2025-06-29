@@ -22,7 +22,7 @@ class ServerIPAddressField extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,
             children: [
-              Text(ip),
+              SelectableText(ip),
               const SizedBox(width: Spacing.xs),
               CopyIconButton(textToCopy: ip),
             ],
