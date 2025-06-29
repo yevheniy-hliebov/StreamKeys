@@ -37,7 +37,7 @@ class ColorPickerDialog extends StatelessWidget {
             style: AppTypography.body,
           ),
         ),
-        OutlinedButton(
+        FilledButton(
           onPressed: () {
             if (context.mounted) {
               Navigator.of(context).pop(controller.pickerColor);
