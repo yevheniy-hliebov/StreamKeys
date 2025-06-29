@@ -8,8 +8,9 @@ import 'package:streamkeys/common/widgets/page_tab.dart';
 import 'package:streamkeys/desktop/features/deck/presentation/screens/grid_deck_screen.dart';
 import 'package:streamkeys/desktop/features/deck/presentation/screens/keyboard_deck_screen.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/bloc/deck_page_list_bloc.dart';
+import 'package:streamkeys/desktop/features/settings/presentation/screens/general_settings_screen.dart';
 import 'package:streamkeys/desktop/features/settings/presentation/screens/settings_screen.dart';
-import 'package:streamkeys/desktop/features/settings/presentation/widgets/http_server_config/http_server_config_screen.dart';
+import 'package:streamkeys/desktop/features/settings/presentation/screens/http_server_config_screen.dart';
 import 'package:streamkeys/desktop/server/server.dart';
 import 'package:streamkeys/service_locator.dart';
 
@@ -42,6 +43,7 @@ void desktopMain() async {
             KeyboardDeckScreen(),
             SettingsScreen(
               tabs: <PageTab>[
+                GeneralSettingsScreen(),
                 HttpServerConfigScreen(),
               ],
             ),
