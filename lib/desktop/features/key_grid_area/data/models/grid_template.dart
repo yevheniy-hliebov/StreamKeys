@@ -33,7 +33,7 @@ class GridTemplate {
   }
 
   static List<GridTemplate> gridTemplates = <GridTemplate>[
-    GridTemplate(3, 2),
+    GridTemplate(3, 2, type: '3x2'),
     GridTemplate(4, 4, type: '4x4'),
     GridTemplate(6, 3, type: '6x3'),
     GridTemplate(7, 4, type: '7x4'),

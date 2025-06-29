@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:streamkeys/common/widgets/custom_dropdown_button.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/grid_template.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/grid/grid_area_wrapper.dart';
@@ -14,12 +15,13 @@ class GridAreaStack extends StatefulWidget {
 }
 
 class _GridAreaStackState extends State<GridAreaStack> {
+  final gridTemplates = GridTemplate.gridTemplates;
   late GridTemplate selectedTemplate;
 
   @override
   void initState() {
     super.initState();
-    selectedTemplate = GridTemplate.gridTemplates[2];
+    selectedTemplate = gridTemplates[2];
     _loadTemplate();
   }
 
@@ -27,7 +29,7 @@ class _GridAreaStackState extends State<GridAreaStack> {
     final prefs = sl<SharedPreferences>();
     final index = prefs.getInt('selected_grid_template') ?? 0;
     setState(() {
-      selectedTemplate = GridTemplate.gridTemplates[index];
+      selectedTemplate = gridTemplates[index];
     });
   }
 
@@ -46,15 +48,13 @@ class _GridAreaStackState extends State<GridAreaStack> {
         Positioned(
           top: Spacing.md,
           left: Spacing.md,
-          child: DropdownButton<int>(
-            value: GridTemplate.gridTemplates.indexOf(selectedTemplate),
-            items: List.generate(GridTemplate.gridTemplates.length, (index) {
-              return DropdownMenuItem<int>(
-                value: index,
-                child: Text(GridTemplate.gridTemplates[index].type),
-              );
-            }),
-            onChanged: (int? newIndex) {
+          child: CustomDropdownButton(
+            index: gridTemplates.indexOf(selectedTemplate),
+            itemCount: gridTemplates.length,
+            itemBuilder: (index) {
+              return Text(gridTemplates[index].type);
+            },
+            onChanged: (newIndex) {
               if (newIndex == null) return;
               setState(() {
                 selectedTemplate = GridTemplate.gridTemplates[newIndex];

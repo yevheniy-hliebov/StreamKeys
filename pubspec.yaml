@@ -30,6 +30,7 @@ dependencies:
   shelf: ^1.4.2
   shelf_router: ^1.1.4
   flutter_secure_storage: ^9.2.4
+  dropdown_button2: ^2.3.9
 
 dev_dependencies:
   flutter_test:

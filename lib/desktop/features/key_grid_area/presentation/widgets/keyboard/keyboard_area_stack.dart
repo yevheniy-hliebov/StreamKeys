@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:streamkeys/common/widgets/custom_dropdown_button.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_type.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/key_grid_area.dart';
@@ -54,14 +55,12 @@ class _KeyboardAreaStackState extends State<KeyboardAreaStack> {
         Positioned(
           top: Spacing.md,
           left: Spacing.md,
-          child: DropdownButton<int>(
-            value:KeyboardType.values.indexOf(selectedKeyboardType),
-            items: List.generate(KeyboardType.values.length, (index) {
-              return DropdownMenuItem<int>(
-                value: index,
-                child: Text(KeyboardType.values[index].name),
-              );
-            }),
+          child: CustomDropdownButton(
+            index:KeyboardType.values.indexOf(selectedKeyboardType),
+            itemCount: KeyboardType.values.length,
+            itemBuilder: (index) {
+              return Text(KeyboardType.values[index].name);
+            },
             onChanged: (int? newIndex) {
               if (newIndex == null) return;
               setState(() {
