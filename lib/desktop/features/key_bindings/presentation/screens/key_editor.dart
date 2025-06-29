@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/core/constants/colors.dart';
 import 'package:streamkeys/desktop/features/deck/presentation/widgets/deck_devider.dart';
 import 'package:streamkeys/desktop/features/key_bindings/bloc/key_bindings_bloc.dart';
+import 'package:streamkeys/desktop/features/key_bindings/data/models/key_binding_data.dart';
 import 'package:streamkeys/desktop/features/key_bindings/presentation/widgets/key_binding_action_list.dart';
 import 'package:streamkeys/desktop/features/key_bindings/presentation/widgets/key_editor_loader.dart';
 import 'package:streamkeys/desktop/features/key_bindings/presentation/widgets/key_editor_placeholder.dart';
@@ -18,13 +19,12 @@ class KeyEditor<T extends KeyBindingsBloc> extends StatelessWidget {
       child: BlocBuilder<T, KeyBindingsState>(
         builder: (context, state) {
           if (state is KeyBindingsLoaded) {
-            if (state.currentKeyData == null ||
-                state.currentKeyBindingData == null) {
+            if (state.currentKeyData == null) {
               return const KeyEditorPlaceholder();
             }
 
             final keyData = state.currentKeyData!;
-            final keyBindingData = state.currentKeyBindingData!;
+            final keyBindingData = state.currentKeyBindingData ?? KeyBindingData.create();
             final bloc = context.read<T>();
 
             return Row(
