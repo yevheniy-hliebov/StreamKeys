@@ -1,7 +1,6 @@
 // ignore_for_file: always_specify_types
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:streamkeys/core/theme/bloc/theme_mode_bloc.dart';
 import 'package:streamkeys/core/theme/theme.dart';
 import 'package:streamkeys/service_locator.dart';
