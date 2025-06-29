@@ -25,6 +25,7 @@ class AppTheme {
       inputDecorationTheme: AppInputDecorationThemeData.getTheme(colors),
       outlinedButtonTheme: AppOutlinedButtonThemeData.getTheme(colors),
       filledButtonTheme: AppFilledButtonThemeData.getTheme(colors),
+      switchTheme: AppSwitchThemeData.getTheme(colors),
     );
   }
 }
