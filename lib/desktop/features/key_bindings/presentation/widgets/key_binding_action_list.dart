@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/field_label.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
+import 'package:streamkeys/core/constants/typography.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
 import 'package:streamkeys/desktop/features/key_bindings/presentation/widgets/binding_action_drop_zone.dart';
 import 'package:streamkeys/desktop/features/key_bindings/presentation/widgets/binding_action_tile.dart';
@@ -36,28 +37,30 @@ class KeyBindingActionList extends StatelessWidget {
             child: KeyBindingActionsContainer(
               child: BindingActionDropZone(
                 onActionAdded: onActionAdded,
-                child: ReorderableListView.builder(
-                  buildDefaultDragHandles: false,
-                  itemCount: actions.length,
-                  onReorder: (oldIndex, newIndex) {
-                    onReorderActons?.call(oldIndex, newIndex);
-                  },
-                  itemBuilder: (context, index) {
-                    final action = actions[index];
-                    return ReorderableDragStartListener(
-                      key: Key('$index-${action.label}'),
-                      index: index,
-                      child: KeyBindingActionTile(
-                        action: action,
-                        onDeletePressed: () {
-                          onDeleteActionPressed?.call(index);
-                        },
-                        onUpdated: (updatedAction) {
-                          onActionUpdated?.call(index, updatedAction);
-                        },
-                      ),
-                    );
-                  },
+                child: _buildPlaceholder(
+                  child: ReorderableListView.builder(
+                    buildDefaultDragHandles: false,
+                    itemCount: actions.length,
+                    onReorder: (oldIndex, newIndex) {
+                      onReorderActons?.call(oldIndex, newIndex);
+                    },
+                    itemBuilder: (context, index) {
+                      final action = actions[index];
+                      return ReorderableDragStartListener(
+                        key: Key('$index-${action.label}'),
+                        index: index,
+                        child: KeyBindingActionTile(
+                          action: action,
+                          onDeletePressed: () {
+                            onDeleteActionPressed?.call(index);
+                          },
+                          onUpdated: (updatedAction) {
+                            onActionUpdated?.call(index, updatedAction);
+                          },
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
@@ -65,5 +68,18 @@ class KeyBindingActionList extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _buildPlaceholder({required Widget child}) {
+    if (actions.isEmpty) {
+      return const Center(
+        child: Text(
+          'Drag an action from right, place it on the button or here',
+          style: AppTypography.bodyStrong,
+        ),
+      );
+    }
+
+    return child;
   }
 }
