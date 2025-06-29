@@ -84,7 +84,7 @@ class GridDeckController extends BaseController {
       if (imageFile == null) {
         return Response.notFound('Image not found');
       }
-      
+
       if (!imageFile.existsSync()) {
         return Response.notFound('Image not found');
       }

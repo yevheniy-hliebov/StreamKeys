@@ -42,7 +42,8 @@ class _KeyboardAreaStackState extends State<KeyboardAreaStack> {
 
   Future<void> _saveTemplate(int index) async {
     final prefs = sl<SharedPreferences>();
-    await prefs.setString('selected_keyboard_type', KeyboardType.values[index].name);
+    await prefs.setString(
+        'selected_keyboard_type', KeyboardType.values[index].name);
   }
 
   @override
@@ -56,7 +57,7 @@ class _KeyboardAreaStackState extends State<KeyboardAreaStack> {
           top: Spacing.md,
           left: Spacing.md,
           child: CustomDropdownButton(
-            index:KeyboardType.values.indexOf(selectedKeyboardType),
+            index: KeyboardType.values.indexOf(selectedKeyboardType),
             itemCount: KeyboardType.values.length,
             itemBuilder: (index) {
               return Text(KeyboardType.values[index].name);

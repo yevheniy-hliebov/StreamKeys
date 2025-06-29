@@ -11,7 +11,7 @@ class ApiRouter {
 
   ApiRouter() {
     _router.get('/', (Request request) => Response.ok('API Worked!'));
-    
+
     _router.get('/grid/buttons', _gridDeckController.getButtons);
     _router.get('/grid/<index>/image', _gridDeckController.getImage);
     _router.post('/grid/<index>', (Request request, String keyCode) {

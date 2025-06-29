@@ -24,7 +24,8 @@ class KeyEditor<T extends KeyBindingsBloc> extends StatelessWidget {
             }
 
             final keyData = state.currentKeyData!;
-            final keyBindingData = state.currentKeyBindingData ?? KeyBindingData.create();
+            final keyBindingData =
+                state.currentKeyBindingData ?? KeyBindingData.create();
             final bloc = context.read<T>();
 
             return Row(
