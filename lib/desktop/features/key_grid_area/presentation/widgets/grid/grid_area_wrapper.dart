@@ -6,16 +6,17 @@ import 'package:streamkeys/desktop/features/key_grid_area/data/models/grid_templ
 import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/grid/grid_area.dart';
 
 class GridAreaWrapper extends StatelessWidget {
-  static final GridTemplate gridTemplate = GridTemplate.gridTemplates[2];
-  final List<GridKeyData> keyDataList = List<GridKeyData>.generate(
-    gridTemplate.totalCells,
-    (int index) => GridKeyData(keyCode: index, name: index.toString()),
-  );
+  final GridTemplate gridTemplate;
 
-  GridAreaWrapper({super.key});
+  const GridAreaWrapper({required this.gridTemplate, super.key});
 
   @override
   Widget build(BuildContext context) {
+    final List<GridKeyData> keyDataList = List<GridKeyData>.generate(
+      gridTemplate.totalCells,
+      (int index) => GridKeyData(keyCode: index, name: index.toString()),
+    );
+
     return BlocBuilder<GridKeyBindingsBloc, KeyBindingsState>(
       builder: (context, state) {
         final currentKeyData =

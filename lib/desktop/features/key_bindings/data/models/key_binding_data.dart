@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
+import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_json_keys.dart';
 import 'package:streamkeys/desktop/utils/color_helper.dart';
 import 'package:uuid/uuid.dart';
 
@@ -57,26 +58,29 @@ class KeyBindingData extends Equatable {
 
   factory KeyBindingData.fromJson(Map<String, dynamic> json) {
     List<BindingAction> actions = [];
-    if (json['actions'] != null) {
-      actions = (json['actions'] as List<dynamic>)
+    if (json[DeckJsonKeys.keyActions] != null) {
+      actions = (json[DeckJsonKeys.keyActions] as List<dynamic>)
           .map((actionJson) => BindingAction.fromJson(actionJson))
           .toList();
     }
 
     return KeyBindingData.create(
-      name: json['name'] ?? '',
-      backgroundColor: ColorHelper.hexToColor(json['background_color']),
-      imagePath: json['image_path'] ?? '',
+      name: json[DeckJsonKeys.keyName] ?? '',
+      backgroundColor:
+          ColorHelper.hexToColor(json[DeckJsonKeys.keyBackgroundColor]),
+      imagePath: json[DeckJsonKeys.keyImagePath] ?? '',
       actions: actions,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'name': name,
-      'background_color': ColorHelper.getHexString(backgroundColor),
-      'image_path': imagePath,
-      'actions': actions.map((e) {
+      DeckJsonKeys.keyName: name,
+      DeckJsonKeys.keyBackgroundColor: ColorHelper.getHexString(
+        backgroundColor,
+      ),
+      DeckJsonKeys.keyImagePath: imagePath,
+      DeckJsonKeys.keyActions: actions.map((e) {
         return e.toJson();
       }).toList(),
     };

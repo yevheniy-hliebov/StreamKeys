@@ -4,7 +4,7 @@ import 'package:streamkeys/core/constants/colors.dart';
 import 'package:streamkeys/core/cursor_status/bloc/cursor_status_bloc.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
 import 'package:streamkeys/desktop/features/action_library/presentation/widgets/binding_action_tile.dart';
-import 'package:streamkeys/desktop/utils/helper_function.dart';
+import 'package:streamkeys/desktop/utils/helper_functions.dart';
 
 class DragableBindingActionTile extends StatelessWidget {
   final BindingAction bindingAction;

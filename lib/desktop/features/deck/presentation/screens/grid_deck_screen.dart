@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/core/constants/colors.dart';
 import 'package:streamkeys/desktop/features/action_library/presentation/screen/action_library.dart';
-import 'package:streamkeys/desktop/features/dashboard/presentation/widgets/page_tab.dart';
+import 'package:streamkeys/common/widgets/page_tab.dart';
 import 'package:streamkeys/desktop/features/deck/presentation/widgets/deck_layout.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/bloc/deck_page_list_bloc.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/presentation/widgets/deck_page_list.dart';
 import 'package:streamkeys/desktop/features/key_bindings/bloc/key_bindings_bloc.dart';
 import 'package:streamkeys/desktop/features/key_bindings/presentation/screens/key_editor.dart';
-import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/grid/grid_area_wrapper.dart';
-import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/key_grid_area.dart';
+import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/grid/grid_area_stack.dart';
 
 class GridDeckScreen extends StatelessWidget with PageTab {
   const GridDeckScreen({super.key});
@@ -21,7 +20,7 @@ class GridDeckScreen extends StatelessWidget with PageTab {
   String get label => 'Grid Deck';
 
   @override
-  IconData get iconData => Icons.grid_view;
+  Widget get icon => const Icon(Icons.grid_view, size: 18);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +34,7 @@ class GridDeckScreen extends StatelessWidget with PageTab {
           color: AppColors.of(context).surface,
           child: const ActionLibrary(),
         ),
-        mainTop: KeyGridArea(child: GridAreaWrapper()),
+        mainTop: const GridAreaStack(),
         mainBottom: const KeyEditor<GridKeyBindingsBloc>(),
       ),
     );

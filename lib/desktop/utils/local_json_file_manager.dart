@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:streamkeys/desktop/utils/helper_function.dart';
+import 'package:streamkeys/desktop/utils/helper_functions.dart';
 
 class LocalJsonFileManager {
   final String filePath;

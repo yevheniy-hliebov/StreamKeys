@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:streamkeys/desktop/features/dashboard/presentation/widgets/page_tab.dart';
+import 'package:streamkeys/common/widgets/page_tab.dart';
 
 class PageTabMock extends StatelessWidget with PageTab {
   @override
@@ -9,12 +9,12 @@ class PageTabMock extends StatelessWidget with PageTab {
   final String label;
 
   @override
-  final IconData iconData;
+  final Widget icon;
 
   const PageTabMock({
     super.key,
     required this.label,
-    required this.iconData,
+    required this.icon,
   });
 
   @override
