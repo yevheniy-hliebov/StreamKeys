@@ -2,21 +2,20 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_xml_service.dart';
 import 'package:streamkeys/desktop/utils/helper_functions.dart';
+import 'package:streamkeys/desktop/utils/process_runner.dart';
 
 class HidMacrosService {
-  HidMacrosService._internal();
+  final ProcessRunner _processRunner;
 
-  static final HidMacrosService _instance = HidMacrosService._internal();
-
-  factory HidMacrosService() => _instance;
+  const HidMacrosService(this._processRunner);
 
   static const exeFileName = 'hidmacros.exe';
   static String assetsPath = HelperFunctions.getAssetsFolderPath();
-  final String exePath = '$assetsPath\\hidmacros\\$exeFileName';
+  static final String exePath = '$assetsPath\\hidmacros\\$exeFileName';
 
   Future<bool> isRunning() async {
     try {
-      final result = await Process.run('tasklist', []);
+      final result = await _processRunner.run('tasklist', []);
       if (result.exitCode != 0) {
         _log('Error running tasklist: ${result.stderr}');
         return false;
@@ -49,7 +48,7 @@ class HidMacrosService {
     }
 
     try {
-      final process = await Process.start(
+      final process = await _processRunner.start(
         nircmdPath,
         ['elevate', exePath],
         mode: ProcessStartMode.detached,
@@ -69,7 +68,7 @@ class HidMacrosService {
     }
 
     try {
-      final result = await Process.run(
+      final result = await _processRunner.run(
         nircmdPath,
         ['elevatecmd', 'closeprocess', exeFileName],
       );
