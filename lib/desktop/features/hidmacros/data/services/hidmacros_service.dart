@@ -41,15 +41,17 @@ class HidMacrosService {
   }
 
   Future<void> start() async {
-    if (!await File(exePath).exists()) {
-      _log('File not found: $exePath');
+    final nircmdPath = '$assetsPath\\hidmacros\\nircmd.exe';
+
+    if (!await File(nircmdPath).exists()) {
+      _log('nircmd.exe not found: $nircmdPath');
       return;
     }
 
     try {
       final process = await Process.start(
-        exePath,
-        [],
+        nircmdPath,
+        ['elevate', exePath],
         mode: ProcessStartMode.detached,
       );
       _log('HIDMacros started with PID: ${process.pid}');
@@ -69,7 +71,7 @@ class HidMacrosService {
     try {
       final result = await Process.run(
         nircmdPath,
-        ['closeprocess', exeFileName],
+        ['elevatecmd', 'closeprocess', exeFileName],
       );
 
       if (result.exitCode == 0) {
