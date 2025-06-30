@@ -31,6 +31,7 @@ dependencies:
   shelf_router: ^1.1.4
   flutter_secure_storage: ^9.2.4
   dropdown_button2: ^2.3.9
+  xml: ^6.5.0
 
 dev_dependencies:
   flutter_test:
@@ -41,6 +42,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/keyboard_map.json
+    - assets/keyboard_key_codes.json
     - assets/action_icons/
     - assets/hidmacros/
     - assets/hidmacros/lang/

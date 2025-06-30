@@ -1,6 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
+import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_xml_service.dart';
 import 'package:streamkeys/desktop/utils/helper_functions.dart';
 
 class HidMacrosService {
@@ -11,15 +11,8 @@ class HidMacrosService {
   factory HidMacrosService() => _instance;
 
   static const exeFileName = 'hidmacros.exe';
-  static const xmlFileName = 'hidmacros.xml';
   static String assetsPath = HelperFunctions.getAssetsFolderPath();
-
   final String exePath = '$assetsPath\\hidmacros\\$exeFileName';
-
-  bool get configExists {
-    final configFile = File('$assetsPath\\hidmacros\\$xmlFileName');
-    return configFile.existsSync();
-  }
 
   Future<bool> isRunning() async {
     try {
@@ -41,7 +34,7 @@ class HidMacrosService {
   Future<void> startAndEnsureConfig() async {
     await start();
 
-    if (!configExists) {
+    if (!HidMacrosXmlService().isConfigExists) {
       _log('Config file not found after start, restarting HIDMacros...');
       await restart();
     }
