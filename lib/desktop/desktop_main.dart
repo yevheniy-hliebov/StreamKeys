@@ -27,7 +27,10 @@ void desktopMain() async {
   server.start();
 
   final hidmacros = sl<HidMacrosService>();
-  await hidmacros.startAndEnsureConfig();
+  final hidmacrosPrefs = sl<HidMacrosPreferences>();
+  if (hidmacrosPrefs.getAutoStart()) {
+    await hidmacros.startAndEnsureConfig();
+  }
 
   final gridDeckBloc = GridDeckPageListBloc();
   final keyboardDeckBloc = KeyboardDeckPageListBloc();

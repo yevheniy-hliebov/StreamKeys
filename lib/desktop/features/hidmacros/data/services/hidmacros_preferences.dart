@@ -10,6 +10,7 @@ class HidMacrosPreferences {
   static const _systemIdKey = 'system_id';
   static const _keyboardNameKey = 'keyboard_name';
   static const _keyboardTypeKey = 'keyboard_type';
+  static const _autoStartKey = 'hidmacros_auto_start';
 
   Future<void> saveSelectedKeyboard(KeyboardDevice keyboard) async {
     await prefs.setString(_systemIdKey, Uri.encodeComponent(keyboard.systemId));
@@ -39,5 +40,13 @@ class HidMacrosPreferences {
     }
 
     return null;
+  }
+
+  Future<void> saveAutoStart(bool value) async {
+    await prefs.setBool(_autoStartKey, value);
+  }
+
+  bool getAutoStart() {
+    return prefs.getBool(_autoStartKey) ?? false;
   }
 }

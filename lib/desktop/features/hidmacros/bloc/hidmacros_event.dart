@@ -20,3 +20,9 @@ class HidMacrosSelectKeyboardEvent extends HidMacrosEvent {
 
   const HidMacrosSelectKeyboardEvent(this.keyboard);
 }
+
+class HidMacrosToggleAutoStartEvent extends HidMacrosEvent {
+  final bool enabled;
+  
+  const HidMacrosToggleAutoStartEvent(this.enabled);
+}

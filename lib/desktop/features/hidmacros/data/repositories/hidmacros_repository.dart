@@ -1,5 +1,4 @@
 import 'package:streamkeys/desktop/features/hidmacros/data/models/keyboard_device.dart';
-import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_preferences.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_type.dart';
 import 'package:streamkeys/service_locator.dart';
 
@@ -10,7 +9,7 @@ class HidMacrosRepository {
   HidMacrosRepository({
     HidMacrosPreferences? keyboardPrefs,
     HidMacrosXmlService? xmlService,
-  })  : _keyboardPrefs = keyboardPrefs ?? HidMacrosPreferences(sl<SharedPreferences>()),
+  })  : _keyboardPrefs = keyboardPrefs ?? sl<HidMacrosPreferences>(),
         _xml = xmlService ?? sl<HidMacrosXmlService>();
 
   Future<List<KeyboardDevice>> getDeviceList() async {
@@ -35,6 +34,13 @@ class HidMacrosRepository {
     );
   }
 
+
+  KeyboardDevice? getSelectedKeyboard() => _keyboardPrefs.getSelectedKeyboard();
+  KeyboardType? getSelectedKeyboardType() => _keyboardPrefs.getKeyboardType();
+  
+  Future<void> saveAutoStart(bool value) => _keyboardPrefs.saveAutoStart(value);
+  bool getAutoStart() => _keyboardPrefs.getAutoStart();
+
   Future<void> _performSaveSequence(
     Future<void> Function() saveCallback, {
     Future<void> Function()? onBeforeSave,
@@ -44,7 +50,4 @@ class HidMacrosRepository {
     await saveCallback();
     if (onAfterSave != null) await onAfterSave();
   }
-
-  KeyboardDevice? getSelectedKeyboard() => _keyboardPrefs.getSelectedKeyboard();
-  KeyboardType? getSelectedKeyboardType() => _keyboardPrefs.getKeyboardType();
 }

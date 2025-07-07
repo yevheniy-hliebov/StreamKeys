@@ -1,11 +1,14 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_preferences.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_service.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_xml_service.dart';
 import 'package:streamkeys/desktop/utils/process_runner.dart';
+
 export 'package:shared_preferences/shared_preferences.dart';
 export 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_service.dart';
 export 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_xml_service.dart';
+export 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_preferences.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -19,8 +22,10 @@ Future<void> initServiceLocator() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   final hidmacros = HidMacrosService(RealProcessRunner());
   final hidmacrosXml = HidMacrosXmlService();
+  final hidMacrosPreferences = HidMacrosPreferences(sharedPreferences);
 
   sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
   sl.registerLazySingleton<HidMacrosService>(() => hidmacros);
   sl.registerLazySingleton<HidMacrosXmlService>(() => hidmacrosXml);
+  sl.registerLazySingleton<HidMacrosPreferences>(() => hidMacrosPreferences);
 }
