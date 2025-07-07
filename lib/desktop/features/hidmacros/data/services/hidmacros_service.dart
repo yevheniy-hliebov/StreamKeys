@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_xml_service.dart';
 import 'package:streamkeys/desktop/utils/helper_functions.dart';
 import 'package:streamkeys/desktop/utils/process_runner.dart';
+import 'package:streamkeys/service_locator.dart';
 
 class HidMacrosService {
   final ProcessRunner _processRunner;
@@ -33,23 +33,19 @@ class HidMacrosService {
   Future<void> startAndEnsureConfig() async {
     await start();
 
-    if (!HidMacrosXmlService().isConfigExists) {
+    if (!sl<HidMacrosXmlService>().isConfigExists) {
       _log('Config file not found after start, restarting HIDMacros...');
       await restart();
     }
   }
 
   Future<void> start() async {
-    final nircmdPath = '$assetsPath\\hidmacros\\nircmd.exe';
-
-    if (!await File(nircmdPath).exists()) {
-      _log('nircmd.exe not found: $nircmdPath');
-      return;
-    }
+    final nircmd = _getNircmdFileOrNull();
+    if (nircmd == null) return;
 
     try {
       final process = await _processRunner.start(
-        nircmdPath,
+        nircmd.path,
         ['elevate', exePath],
         mode: ProcessStartMode.detached,
       );
@@ -60,16 +56,12 @@ class HidMacrosService {
   }
 
   Future<void> stop() async {
-    final nircmdPath = '$assetsPath\\hidmacros\\nircmd.exe';
-
-    if (!await File(nircmdPath).exists()) {
-      _log('nircmd.exe not found: $nircmdPath');
-      return;
-    }
+    final nircmd = _getNircmdFileOrNull();
+    if (nircmd == null) return;
 
     try {
       final result = await _processRunner.run(
-        nircmdPath,
+        nircmd.path,
         ['elevatecmd', 'closeprocess', exeFileName],
       );
 
@@ -90,6 +82,16 @@ class HidMacrosService {
     _log('HIDMacros stopped. Restarting...');
     await Future.delayed(waitDuration);
     await start();
+  }
+
+  File? _getNircmdFileOrNull() {
+    final path = '$assetsPath\\hidmacros\\nircmd.exe';
+    final file = File(path);
+    if (!file.existsSync()) {
+      _log('nircmd.exe not found: $path');
+      return null;
+    }
+    return file;
   }
 
   void _log(String message) {
