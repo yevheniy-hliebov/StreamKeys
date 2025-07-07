@@ -5,40 +5,47 @@ import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_t
 import 'package:streamkeys/service_locator.dart';
 
 class HidMacrosRepository {
-  final _prefs = KeyboardPreferences();
-  final _xml = HidMacrosXmlService();
-  final hidmacros = sl<HidMacrosService>();
+  final KeyboardPreferences _keyboardPrefs;
+  final HidMacrosXmlService _xml;
+
+  HidMacrosRepository({
+    KeyboardPreferences? keyboardPrefs,
+    HidMacrosXmlService? xmlService,
+  })  : _keyboardPrefs = keyboardPrefs ?? KeyboardPreferences(sl<SharedPreferences>()),
+        _xml = xmlService ?? HidMacrosXmlService();
 
   Future<List<KeyboardDevice>> getDeviceList() async {
     await _xml.read();
     return _xml.getDevices();
   }
 
-  Future<void> selectKeyboard(KeyboardDevice keyboard) async {
-    await _xml.read();
-    _xml.assignDeviceToMacros(keyboard.name);
-    await _prefs.saveSelectedKeyboard(keyboard);
-
-    await hidmacros.stop();
-    await Future.delayed(const Duration(seconds: 3));
-    await _xml.save();
-    await hidmacros.start();
-  }
-
-  Future<void> selectKeyboardType({
+  Future<void> select({
     required KeyboardDevice keyboard,
     required KeyboardType type,
+    Future<void> Function()? onBeforeSave,
+    Future<void> Function()? onAfterSave,
   }) async {
-    await _prefs.saveKeyboardType(type);
+    await _keyboardPrefs.saveKeyboardType(type);
     await _xml.read();
     await _xml.regenerateMacros(keyboard, type);
-    
-    await hidmacros.stop();
-    await Future.delayed(const Duration(seconds: 3));
-    await _xml.save();
-    await hidmacros.start();
+
+    await _performSaveSequence(
+      () => _xml.save(),
+      onBeforeSave: onBeforeSave,
+      onAfterSave: onAfterSave,
+    );
   }
 
-  Future<KeyboardDevice?> getSelectedKeyboard() => _prefs.getSelectedKeyboard();
-  Future<KeyboardType?> getSelectedKeyboardType() => _prefs.getKeyboardType();
+  Future<void> _performSaveSequence(
+    Future<void> Function() saveCallback, {
+    Future<void> Function()? onBeforeSave,
+    Future<void> Function()? onAfterSave,
+  }) async {
+    if (onBeforeSave != null) await onBeforeSave();
+    await saveCallback();
+    if (onAfterSave != null) await onAfterSave();
+  }
+
+  KeyboardDevice? getSelectedKeyboard() => _keyboardPrefs.getSelectedKeyboard();
+  KeyboardType? getSelectedKeyboardType() => _keyboardPrefs.getKeyboardType();
 }

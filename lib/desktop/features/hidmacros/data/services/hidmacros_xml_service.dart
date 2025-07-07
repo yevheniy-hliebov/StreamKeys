@@ -47,12 +47,6 @@ class HidMacrosXmlService {
     }).toList();
   }
 
-  void assignDeviceToMacros(String name) {
-    for (var macro in xml.findAllElements('Macro')) {
-      macro.findElements('Device').first.innerText = name;
-    }
-  }
-
   Future<void> regenerateMacros(
     KeyboardDevice keyboard,
     KeyboardType type,
