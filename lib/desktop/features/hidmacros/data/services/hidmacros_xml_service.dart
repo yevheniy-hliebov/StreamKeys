@@ -38,6 +38,50 @@ class HidMacrosXmlService {
     );
   }
 
+  void setMinimizeToTray(bool enabled) {
+    final generalElement = xml.findAllElements('General').firstOrNull;
+    if (generalElement == null) return;
+
+    final element = generalElement.findElements('MinimizeToTray').firstOrNull;
+    if (element != null) {
+      element.innerText = enabled ? '1' : '0';
+    } else {
+      generalElement.children.add(XmlElement(XmlName('MinimizeToTray'), [], [
+        XmlText(enabled ? '1' : '0'),
+      ]));
+    }
+  }
+
+  bool getMinimizeToTray() {
+    final generalElement = xml.findAllElements('General').firstOrNull;
+    if (generalElement == null) return false;
+
+    final element = generalElement.findElements('MinimizeToTray').firstOrNull;
+    return element?.innerText.trim() == '1';
+  }
+
+  void setStartMinimized(bool enabled) {
+    final generalElement = xml.findAllElements('General').firstOrNull;
+    if (generalElement == null) return;
+
+    final element = generalElement.findElements('StartMinimized').firstOrNull;
+    if (element != null) {
+      element.innerText = enabled ? '1' : '0';
+    } else {
+      generalElement.children.add(XmlElement(XmlName('StartMinimized'), [], [
+        XmlText(enabled ? '1' : '0'),
+      ]));
+    }
+  }
+
+  bool getStartMinimized() {
+    final generalElement = xml.findAllElements('General').firstOrNull;
+    if (generalElement == null) return false;
+
+    final element = generalElement.findElements('StartMinimized').firstOrNull;
+    return element?.innerText.trim() == '1';
+  }
+
   List<KeyboardDevice> getDevices() {
     final devicesXml = xml.findAllElements('Devices').first;
     return devicesXml.findAllElements('Keyboard').map((k) {

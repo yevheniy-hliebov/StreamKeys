@@ -38,7 +38,7 @@ void desktopMain() async {
 
   gridDeckBloc.add(DeckPageListInit());
   keyboardDeckBloc.add(DeckPageListInit());
-  hidmacrosBloc.add(HidMacrosLoadKeyboardsEvent());
+  hidmacrosBloc.add(HidMacrosLoadEvent());
 
   runApp(
     App(

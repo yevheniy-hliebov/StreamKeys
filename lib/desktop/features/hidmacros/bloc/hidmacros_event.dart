@@ -7,7 +7,7 @@ sealed class HidMacrosEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class HidMacrosLoadKeyboardsEvent extends HidMacrosEvent {}
+class HidMacrosLoadEvent extends HidMacrosEvent {}
 
 class HidMacrosSelectKeyboardTypeEvent extends HidMacrosEvent {
   final KeyboardType type;
@@ -25,4 +25,15 @@ class HidMacrosToggleAutoStartEvent extends HidMacrosEvent {
   final bool enabled;
   
   const HidMacrosToggleAutoStartEvent(this.enabled);
+}
+
+class HidMacrosToggleMinimizeToTrayEvent extends HidMacrosEvent {
+  final bool enabled;
+  
+  const HidMacrosToggleMinimizeToTrayEvent(this.enabled);
+}
+class HidMacrosToggleStartMinizedEvent extends HidMacrosEvent {
+  final bool enabled;
+  
+  const HidMacrosToggleStartMinizedEvent(this.enabled);
 }

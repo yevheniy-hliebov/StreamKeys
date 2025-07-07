@@ -13,13 +13,13 @@ class HidMacrosLoaded extends HidMacrosState {
   final List<KeyboardDevice> keyboards;
   final KeyboardDevice? selectedKeyboard;
   final KeyboardType? selectedKeyboardType;
-  final bool autoStart;
+  final HidMacrosConfig hidmacrosConfig;
 
   const HidMacrosLoaded({
     required this.keyboards,
     this.selectedKeyboard,
     this.selectedKeyboardType,
-    this.autoStart = false,
+    this.hidmacrosConfig = const HidMacrosConfig(),
   });
 
   @override
@@ -27,6 +27,7 @@ class HidMacrosLoaded extends HidMacrosState {
         keyboards,
         selectedKeyboard,
         selectedKeyboardType,
+        hidmacrosConfig,
       ];
 }
 

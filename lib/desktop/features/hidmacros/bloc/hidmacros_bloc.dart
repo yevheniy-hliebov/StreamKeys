@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:streamkeys/desktop/features/hidmacros/data/models/hidmacros_config.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/models/keyboard_device.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/repositories/hidmacros_repository.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_type.dart';
@@ -16,30 +17,67 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
   List<KeyboardDevice> keyboards = [];
   KeyboardDevice? selectedKeyboard;
   KeyboardType? selectedKeyboardType;
-  bool autoStart = true;
+  HidMacrosConfig hidmacrosConfig = const HidMacrosConfig();
 
   HidMacrosBloc({HidMacrosRepository? repository, HidMacrosService? hidmacros})
       : _repository = repository ?? HidMacrosRepository(),
         _hidmacros = hidmacros ?? sl<HidMacrosService>(),
         super(HidMacrosInitial()) {
-    on<HidMacrosLoadKeyboardsEvent>(_load);
+    _repository.onBeforeSave = _hidmacrosStop;
+    _repository.onAfterSave = _hidmacrosStart;
+
+    on<HidMacrosLoadEvent>(_load);
+
+    on<HidMacrosToggleAutoStartEvent>(_toogleAutoStart);
+    on<HidMacrosToggleMinimizeToTrayEvent>(_toggleMinimizedToTray);
+    on<HidMacrosToggleStartMinizedEvent>(_toggleStartMinimized);
+
     on<HidMacrosSelectKeyboardEvent>(_selectKeyboard);
     on<HidMacrosSelectKeyboardTypeEvent>(_selectKeyboardType);
-    on<HidMacrosToggleAutoStartEvent>(_toogleAutoStart);
   }
 
   Future<void> _load(
-    HidMacrosLoadKeyboardsEvent event,
+    HidMacrosLoadEvent event,
     Emitter<HidMacrosState> emit,
   ) async {
     emit(HidMacrosLoading());
 
-    keyboards = await _repository.getDeviceList();
+    await _repository.init();
+
+    hidmacrosConfig = hidmacrosConfig.copyWith(
+      autoStart: _repository.getAutoStart(),
+      minimizeToTray: _repository.getMinimizeToTray(),
+      startMinimized: _repository.getStartMinimized(),
+    );
+
+    keyboards = _repository.getDeviceList();
+
     selectedKeyboard = _repository.getSelectedKeyboard();
     selectedKeyboardType = _repository.getSelectedKeyboardType();
-    autoStart = _repository.getAutoStart();
 
     _emitLoaded(emit);
+  }
+
+  Future<void> _toogleAutoStart(
+    HidMacrosToggleAutoStartEvent event,
+    Emitter<HidMacrosState> emit,
+  ) async {
+    hidmacrosConfig = hidmacrosConfig.copyWith(autoStart: event.enabled);
+    await _repository.saveAutoStart(event.enabled);
+
+    _emitLoaded(emit);
+  }
+
+  Future<void> _toggleMinimizedToTray(event, emit) async {
+    hidmacrosConfig = hidmacrosConfig.copyWith(minimizeToTray: event.enabled);
+    _emitLoaded(emit);
+    _repository.setMinimizeToTray(event.enabled);
+  }
+
+  Future<void> _toggleStartMinimized(event, emit) async {
+    hidmacrosConfig = hidmacrosConfig.copyWith(startMinimized: event.enabled);
+    _emitLoaded(emit);
+    _repository.setStartMinimized(event.enabled);
   }
 
   Future<void> _selectKeyboard(
@@ -53,8 +91,6 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
     await _repository.select(
       keyboard: event.keyboard,
       type: type,
-      onBeforeSave: _hidmacrosStop,
-      onAfterSave: _hidmacros.start,
     );
 
     _emitLoaded(emit);
@@ -71,17 +107,7 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
     await _repository.select(
       keyboard: keyboard,
       type: event.type,
-      onBeforeSave: _hidmacrosStop,
-      onAfterSave: _hidmacrosStart,
     );
-
-    _emitLoaded(emit);
-  }
-
-  Future<void> _toogleAutoStart(
-      HidMacrosToggleAutoStartEvent event, Emitter<HidMacrosState> emit) async {
-    autoStart = event.enabled;
-    await _repository.saveAutoStart(event.enabled);
 
     _emitLoaded(emit);
   }
@@ -92,7 +118,7 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
   }
 
   Future<void> _hidmacrosStart() async {
-    if (autoStart) {
+    if (hidmacrosConfig.autoStart) {
       await _hidmacros.start();
     }
   }
@@ -102,7 +128,6 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
       keyboards: keyboards,
       selectedKeyboard: selectedKeyboard,
       selectedKeyboardType: selectedKeyboardType,
-      autoStart: autoStart,
     ));
   }
 }
