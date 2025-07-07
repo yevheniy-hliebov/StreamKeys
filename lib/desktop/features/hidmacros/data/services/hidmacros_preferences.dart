@@ -3,18 +3,20 @@ import 'package:streamkeys/desktop/features/hidmacros/data/models/keyboard_devic
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_type.dart';
 
 class KeyboardPreferences {
-  final _systemIdKey = 'system_id';
-  final _keyboardNameKey = 'keyboard_name';
-  final _keyboardTypeKey = 'keyboard_type';
+  final SharedPreferences prefs;
+
+  const KeyboardPreferences(this.prefs);
+
+  static const _systemIdKey = 'system_id';
+  static const _keyboardNameKey = 'keyboard_name';
+  static const _keyboardTypeKey = 'keyboard_type';
 
   Future<void> saveSelectedKeyboard(KeyboardDevice keyboard) async {
-    final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_systemIdKey, Uri.encodeComponent(keyboard.systemId));
     await prefs.setString(_keyboardNameKey, keyboard.name);
   }
 
-  Future<KeyboardDevice?> getSelectedKeyboard() async {
-    final prefs = await SharedPreferences.getInstance();
+  KeyboardDevice? getSelectedKeyboard()  {
     final encodedId = prefs.getString(_systemIdKey) ?? '';
     final name = prefs.getString(_keyboardNameKey) ?? '';
     if (encodedId.isEmpty || name.isEmpty) return null;
@@ -24,12 +26,10 @@ class KeyboardPreferences {
   }
 
   Future<void> saveKeyboardType(KeyboardType type) async {
-    final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_keyboardTypeKey, type.name);
   }
 
-  Future<KeyboardType?> getKeyboardType() async {
-    final prefs = await SharedPreferences.getInstance();
+  KeyboardType? getKeyboardType() {
     final type = prefs.getString(_keyboardTypeKey);
 
     for (var keyboardType in KeyboardType.values) {
