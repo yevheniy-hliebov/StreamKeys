@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streamkeys/common/widgets/bottom_border_container.dart';
 import 'package:streamkeys/common/widgets/screen_tab_bar.dart';
 import 'package:streamkeys/common/widgets/page_tab.dart';
 
@@ -43,10 +44,12 @@ class _SettingsScreenState extends State<SettingsScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(45),
-        child: ScreenTabBar(
-          tabs: widget.tabs,
-          controller: _tabController,
+        preferredSize: const Size.fromHeight(30),
+        child: BottomBorderContainer(
+          child: ScreenTabBar(
+            tabs: widget.tabs,
+            controller: _tabController,
+          ),
         ),
       ),
       body: TabBarView(
