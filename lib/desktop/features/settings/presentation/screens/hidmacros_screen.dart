@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/page_tab.dart';
-import 'package:streamkeys/core/constants/spacing.dart';
-import 'package:streamkeys/desktop/features/hidmacros/presentation/widgets/keyboard_list.dart';
+import 'package:streamkeys/desktop/features/deck/presentation/widgets/deck_devider.dart';
+import 'package:streamkeys/desktop/features/hidmacros/presentation/widgets/hid_macros_controls_panel.dart';
+import 'package:streamkeys/desktop/features/hidmacros/presentation/widgets/hid_macros_keyboard_panel.dart';
 
 class HidMacrosScreen extends StatelessWidget with PageTab {
   const HidMacrosScreen({super.key});
@@ -17,17 +18,27 @@ class HidMacrosScreen extends StatelessWidget with PageTab {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            margin: const EdgeInsets.all(Spacing.md),
-            constraints: const BoxConstraints(maxWidth: 400),
-            child: const KeyboardList(),
+    return const Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Flexible(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              HidMacrosControlsPanel(),
+            ],
           ),
-        ],
-      ),
+        ),
+        DeckDevider(axis: Axis.vertical),
+        Flexible(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              HidMacrosKeyboardPanel(),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

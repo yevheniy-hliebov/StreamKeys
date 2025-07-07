@@ -31,7 +31,7 @@ class SelectableTileList<T> extends StatelessWidget {
       children: [
         Text(
           title,
-          style: AppTypography.subtitle,
+          style: AppTypography.captionStrong,
         ),
         Container(
           decoration: BoxDecoration(

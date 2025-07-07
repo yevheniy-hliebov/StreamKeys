@@ -5,25 +5,26 @@ import 'package:streamkeys/desktop/features/hidmacros/bloc/hidmacros_bloc.dart';
 import 'package:streamkeys/desktop/features/hidmacros/presentation/widgets/select_keyboard.dart';
 import 'package:streamkeys/desktop/features/hidmacros/presentation/widgets/select_keyboard_type.dart';
 
-class KeyboardList extends StatefulWidget {
-  const KeyboardList({super.key});
+class HidMacrosKeyboardPanel extends StatelessWidget {
+  const HidMacrosKeyboardPanel({super.key});
 
-  @override
-  State<KeyboardList> createState() => _KeyboardListState();
-}
-
-class _KeyboardListState extends State<KeyboardList> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HidMacrosBloc, HidMacrosState>(
       builder: (context, state) {
         if (state is HidMacrosLoaded) {
-          return const Column(
-            spacing: Spacing.lg,
-            children: [
-              SelectKeyboard(),
-              SelectKeyboardType(),
-            ],
+          return SingleChildScrollView(
+            child: Container(
+              margin: const EdgeInsets.all(Spacing.md),
+              constraints: const BoxConstraints(maxWidth: 400),
+              child: const Column(
+                spacing: Spacing.lg,
+                children: [
+                  SelectKeyboard(),
+                  SelectKeyboardType(),
+                ],
+              ),
+            ),
           );
         } else if (state is HidMacrosLoading) {
           return const Center(child: CircularProgressIndicator());
