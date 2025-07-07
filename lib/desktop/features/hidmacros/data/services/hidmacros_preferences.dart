@@ -2,10 +2,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/models/keyboard_device.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_type.dart';
 
-class KeyboardPreferences {
+class HidMacrosPreferences {
   final SharedPreferences prefs;
 
-  const KeyboardPreferences(this.prefs);
+  const HidMacrosPreferences(this.prefs);
 
   static const _systemIdKey = 'system_id';
   static const _keyboardNameKey = 'keyboard_name';

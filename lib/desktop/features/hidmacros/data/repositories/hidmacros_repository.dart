@@ -4,13 +4,13 @@ import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_t
 import 'package:streamkeys/service_locator.dart';
 
 class HidMacrosRepository {
-  final KeyboardPreferences _keyboardPrefs;
+  final HidMacrosPreferences _keyboardPrefs;
   final HidMacrosXmlService _xml;
 
   HidMacrosRepository({
-    KeyboardPreferences? keyboardPrefs,
+    HidMacrosPreferences? keyboardPrefs,
     HidMacrosXmlService? xmlService,
-  })  : _keyboardPrefs = keyboardPrefs ?? KeyboardPreferences(sl<SharedPreferences>()),
+  })  : _keyboardPrefs = keyboardPrefs ?? HidMacrosPreferences(sl<SharedPreferences>()),
         _xml = xmlService ?? sl<HidMacrosXmlService>();
 
   Future<List<KeyboardDevice>> getDeviceList() async {
