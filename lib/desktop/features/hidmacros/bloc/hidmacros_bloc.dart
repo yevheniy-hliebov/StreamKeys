@@ -128,6 +128,7 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
       keyboards: keyboards,
       selectedKeyboard: selectedKeyboard,
       selectedKeyboardType: selectedKeyboardType,
+      hidmacrosConfig: hidmacrosConfig,
     ));
   }
 }

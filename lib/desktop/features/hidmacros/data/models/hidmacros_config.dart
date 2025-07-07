@@ -18,8 +18,8 @@ class HidMacrosConfig extends Equatable {
   }) {
     return HidMacrosConfig(
       autoStart: autoStart ?? this.autoStart,
-      minimizeToTray: autoStart ?? this.minimizeToTray,
-      startMinimized: autoStart ?? this.startMinimized,
+      minimizeToTray: minimizeToTray ?? this.minimizeToTray,
+      startMinimized: startMinimized ?? this.startMinimized,
     );
   }
 
