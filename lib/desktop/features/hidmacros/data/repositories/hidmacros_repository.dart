@@ -44,7 +44,11 @@ class HidMacrosRepository {
     required KeyboardType type,
   }) async {
     await _keyboardPrefs.saveKeyboardType(type);
-    await _xml.regenerateMacros(keyboard, type);
+    await _xml.regenerateMacros(
+      keyboard: keyboard,
+      type: type,
+      apiPassword: await sl<HttpServerPasswordService>().loadOrCreatePassword(),
+    );
     await _performSaveSequence();
   }
 

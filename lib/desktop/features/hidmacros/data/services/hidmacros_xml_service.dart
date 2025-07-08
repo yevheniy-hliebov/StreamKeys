@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:streamkeys/desktop/features/hidmacros/data/models/keyboard_device.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_type.dart';
-import 'package:streamkeys/desktop/features/settings/data/services/http_server_password_service.dart';
 import 'package:streamkeys/desktop/server/server.dart';
 import 'package:streamkeys/desktop/utils/local_json_file_manager.dart';
 import 'package:xml/xml.dart';
@@ -91,10 +90,11 @@ class HidMacrosXmlService {
     }).toList();
   }
 
-  Future<void> regenerateMacros(
-    KeyboardDevice keyboard,
-    KeyboardType type,
-  ) async {
+  Future<void> regenerateMacros({
+    required KeyboardDevice keyboard,
+    required KeyboardType type,
+    required String apiPassword,
+  }) async {
     final macrosXml = xml.findAllElements('Macros').first;
     macrosXml.children.clear();
 
@@ -102,10 +102,8 @@ class HidMacrosXmlService {
         ? keyCodes ?? await _getKeyCodes(type)
         : await _getKeyCodes(type);
 
-    final password = await HttpServerPasswordService().loadOrCreatePassword();
-
     for (var code in codes) {
-      macrosXml.children.add(_createMacro(password, code, keyboard.name));
+      macrosXml.children.add(_createMacro(apiPassword, code, keyboard.name));
     }
   }
 
