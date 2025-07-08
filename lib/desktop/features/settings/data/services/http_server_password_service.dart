@@ -3,7 +3,10 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class HttpServerPasswordService {
   static const _storageKey = 'http_password';
-  final _storage = const FlutterSecureStorage();
+  
+  final FlutterSecureStorage _storage;
+
+  HttpServerPasswordService(this._storage);
 
   Future<String> loadOrCreatePassword() async {
     final saved = await _storage.read(key: _storageKey);

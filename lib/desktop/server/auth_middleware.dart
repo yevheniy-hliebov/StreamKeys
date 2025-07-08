@@ -1,10 +1,10 @@
 import 'package:shelf/shelf.dart';
-import 'package:streamkeys/desktop/features/settings/data/services/http_server_password_service.dart';
+import 'package:streamkeys/service_locator.dart';
 
 Middleware authMiddleware() {
   return (Handler innerHandler) {
     return (Request request) async {
-      final passwordService = HttpServerPasswordService();
+      final passwordService = sl<HttpServerPasswordService>();
       final password = await passwordService.loadOrCreatePassword();
       final headerPassword = request.headers['X-Api-Password'];
 

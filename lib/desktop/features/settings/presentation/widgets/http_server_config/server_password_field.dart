@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/copy_icon_button.dart';
 import 'package:streamkeys/common/widgets/small_icon_button.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
-import 'package:streamkeys/desktop/features/settings/data/services/http_server_password_service.dart';
+import 'package:streamkeys/service_locator.dart';
 
 class ServerPasswordField extends StatefulWidget {
   const ServerPasswordField({super.key});
@@ -14,7 +14,7 @@ class ServerPasswordField extends StatefulWidget {
 class _ServerPasswordFieldState extends State<ServerPasswordField> {
   final _controller = TextEditingController();
   bool _isObscure = true;
-  final _passwordService = HttpServerPasswordService();
+  final _passwordService = sl<HttpServerPasswordService>();
 
   @override
   void initState() {
