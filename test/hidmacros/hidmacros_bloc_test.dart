@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -44,8 +46,14 @@ void main() {
     when(() => repository.getMinimizeToTray()).thenReturn(false);
     when(() => repository.getStartMinimized()).thenReturn(false);
 
-    when(() => hidmacrosService.stop()).thenAnswer((_) async {});
-    when(() => hidmacrosService.start()).thenAnswer((_) async {});
+    when(() => hidmacrosService.restart(onBetween: any(named: 'onBetween')))
+        .thenAnswer((invocation) async {
+      final onBetween =
+          invocation.namedArguments[#onBetween] as FutureOr<void> Function()?;
+      if (onBetween != null) {
+        await onBetween();
+      }
+    });
 
     bloc = HidMacrosBloc(repository: repository, hidmacros: hidmacrosService);
   });

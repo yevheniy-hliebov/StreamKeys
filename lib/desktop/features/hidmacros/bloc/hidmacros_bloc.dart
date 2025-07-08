@@ -23,9 +23,6 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
       : _repository = repository ?? HidMacrosRepository(),
         _hidmacros = hidmacros ?? sl<HidMacrosService>(),
         super(HidMacrosInitial()) {
-    _repository.onBeforeSave = _hidmacrosStop;
-    _repository.onAfterSave = _hidmacrosStart;
-
     on<HidMacrosLoadEvent>(_load);
 
     on<HidMacrosToggleAutoStartEvent>(_toogleAutoStart);
@@ -71,13 +68,17 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
   Future<void> _toggleMinimizedToTray(event, emit) async {
     hidmacrosConfig = hidmacrosConfig.copyWith(minimizeToTray: event.enabled);
     _emitLoaded(emit);
-    _repository.setMinimizeToTray(event.enabled);
+    _hidmacros.restart(
+      onBetween: () async => _repository.setMinimizeToTray(event.enabled),
+    );
   }
 
   Future<void> _toggleStartMinimized(event, emit) async {
     hidmacrosConfig = hidmacrosConfig.copyWith(startMinimized: event.enabled);
     _emitLoaded(emit);
-    _repository.setStartMinimized(event.enabled);
+    _hidmacros.restart(
+      onBetween: () => _repository.setStartMinimized(event.enabled),
+    );
   }
 
   Future<void> _selectKeyboard(
@@ -88,9 +89,12 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
     selectedKeyboard = event.keyboard;
 
     final type = selectedKeyboardType ?? KeyboardType.numpad;
-    await _repository.select(
-      keyboard: event.keyboard,
-      type: type,
+
+    await _hidmacros.restart(
+      onBetween: () => _repository.select(
+        keyboard: event.keyboard,
+        type: type,
+      ),
     );
 
     _emitLoaded(emit);
@@ -104,23 +108,15 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
     selectedKeyboardType = event.type;
 
     final keyboard = selectedKeyboard ?? keyboards[0];
-    await _repository.select(
-      keyboard: keyboard,
-      type: event.type,
+
+    await _hidmacros.restart(
+      onBetween: () => _repository.select(
+        keyboard: keyboard,
+        type: event.type,
+      ),
     );
 
     _emitLoaded(emit);
-  }
-
-  Future<void> _hidmacrosStop() async {
-    await _hidmacros.stop();
-    await Future.delayed(const Duration(seconds: 3));
-  }
-
-  Future<void> _hidmacrosStart() async {
-    if (hidmacrosConfig.autoStart) {
-      await _hidmacros.start();
-    }
   }
 
   void _emitLoaded(Emitter<HidMacrosState> emit) {

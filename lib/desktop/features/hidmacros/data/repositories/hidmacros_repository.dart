@@ -6,9 +6,6 @@ class HidMacrosRepository {
   final HidMacrosPreferences _keyboardPrefs;
   final HidMacrosXmlService _xml;
 
-  Future<void> Function()? onBeforeSave;
-  Future<void> Function()? onAfterSave;
-
   HidMacrosRepository({
     HidMacrosPreferences? keyboardPrefs,
     HidMacrosXmlService? xmlService,
@@ -23,14 +20,14 @@ class HidMacrosRepository {
 
   Future<void> setMinimizeToTray(bool enabled) async {
     _xml.setMinimizeToTray(enabled);
-    await _performSaveSequence();
+    await _xml.save();
   }
 
   bool getMinimizeToTray() => _xml.getMinimizeToTray();
 
   Future<void> setStartMinimized(bool enabled) async {
     _xml.setStartMinimized(enabled);
-    await _performSaveSequence();
+    await _xml.save();
   }
 
   bool getStartMinimized() => _xml.getStartMinimized();
@@ -49,16 +46,10 @@ class HidMacrosRepository {
       type: type,
       apiPassword: await sl<HttpServerPasswordService>().loadOrCreatePassword(),
     );
-    await _performSaveSequence();
+    await _xml.save();
   }
 
   KeyboardDevice? getSelectedKeyboard() => _keyboardPrefs.getSelectedKeyboard();
 
   KeyboardType? getSelectedKeyboardType() => _keyboardPrefs.getKeyboardType();
-
-  Future<void> _performSaveSequence() async {
-    await onBeforeSave?.call();
-    await _xml.save();
-    await onAfterSave?.call();
-  }
 }

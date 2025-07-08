@@ -76,11 +76,18 @@ class HidMacrosService {
   }
 
   Future<void> restart({
-    Duration waitDuration = const Duration(seconds: 5),
+    Duration waitDuration = const Duration(seconds: 3),
+    Future<void> Function()? onBetween,
   }) async {
     await stop();
     _log('HIDMacros stopped. Restarting...');
+
     await Future.delayed(waitDuration);
+    
+    if (onBetween != null) {
+      await onBetween();
+    }
+    
     await start();
   }
 
