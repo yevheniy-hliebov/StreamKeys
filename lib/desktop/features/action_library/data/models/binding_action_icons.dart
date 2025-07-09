@@ -28,4 +28,11 @@ class BindingActionIcons {
       colorFilter: ColorFilter.mode(_iconColor, BlendMode.srcIn),
     );
   }
+
+  Widget get launcFileOrApp {
+    return SvgPicture.asset(
+      '$assetsPath/launch_file_or_app.svg',
+      colorFilter: ColorFilter.mode(_iconColor, BlendMode.srcIn),
+    );
+  }
 }

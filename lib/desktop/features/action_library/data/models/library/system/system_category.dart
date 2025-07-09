@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action_category.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action_icons.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/library/system/launch_file_or_app_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/system/website_action.dart';
 
 class SystemCategory extends BindingActionCategory {
@@ -16,6 +17,7 @@ class SystemCategory extends BindingActionCategory {
   List<BindingAction> get actions {
     return [
       WebsiteAction(),
+      LaunchFileOrAppAction(),
     ];
   }
 }
