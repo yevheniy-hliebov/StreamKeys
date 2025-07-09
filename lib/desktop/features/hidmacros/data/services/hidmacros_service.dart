@@ -78,17 +78,20 @@ class HidMacrosService {
   Future<void> restart({
     Duration waitDuration = const Duration(seconds: 3),
     Future<void> Function()? onBetween,
+    bool autoStart = true,
   }) async {
     await stop();
-    _log('HIDMacros stopped. Restarting...');
+    _log('HIDMacros stopped.${autoStart ? 'Restarting...' : ''}');
 
     await Future.delayed(waitDuration);
-    
+
     if (onBetween != null) {
       await onBetween();
     }
-    
-    await start();
+
+    if (autoStart) {
+      await start();
+    }
   }
 
   File? _getNircmdFileOrNull() {

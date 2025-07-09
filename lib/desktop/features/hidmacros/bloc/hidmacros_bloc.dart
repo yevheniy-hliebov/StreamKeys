@@ -69,6 +69,7 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
     hidmacrosConfig = hidmacrosConfig.copyWith(minimizeToTray: event.enabled);
     _emitLoaded(emit);
     _hidmacros.restart(
+      autoStart: hidmacrosConfig.autoStart,
       onBetween: () async => _repository.setMinimizeToTray(event.enabled),
     );
   }
@@ -77,6 +78,7 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
     hidmacrosConfig = hidmacrosConfig.copyWith(startMinimized: event.enabled);
     _emitLoaded(emit);
     _hidmacros.restart(
+      autoStart: hidmacrosConfig.autoStart,
       onBetween: () => _repository.setStartMinimized(event.enabled),
     );
   }
@@ -91,6 +93,7 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
     final type = selectedKeyboardType ?? KeyboardType.numpad;
 
     await _hidmacros.restart(
+      autoStart: hidmacrosConfig.autoStart,
       onBetween: () => _repository.select(
         keyboard: event.keyboard,
         type: type,
@@ -110,6 +113,7 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
     final keyboard = selectedKeyboard ?? keyboards[0];
 
     await _hidmacros.restart(
+      autoStart: hidmacrosConfig.autoStart,
       onBetween: () => _repository.select(
         keyboard: keyboard,
         type: event.type,
