@@ -5,6 +5,7 @@ import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_pr
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_service.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_xml_service.dart';
 import 'package:streamkeys/desktop/features/settings/data/services/http_server_password_service.dart';
+import 'package:streamkeys/desktop/utils/launch_file_or_app_service.dart';
 import 'package:streamkeys/desktop/utils/process_runner.dart';
 
 export 'package:shared_preferences/shared_preferences.dart';
@@ -13,6 +14,7 @@ export 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_se
 export 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_xml_service.dart';
 export 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_preferences.dart';
 export 'package:streamkeys/desktop/features/settings/data/services/http_server_password_service.dart';
+export 'package:streamkeys/desktop/utils/launch_file_or_app_service.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -29,6 +31,7 @@ Future<void> initServiceLocator() async {
   final hidMacrosPreferences = HidMacrosPreferences(sharedPreferences);
   const secureStorage = FlutterSecureStorage();
   final apiPasswordService = HttpServerPasswordService(secureStorage);
+  final launchFileOrAppService = LaunchFileOrAppService(RealProcessRunner());
 
   sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
   sl.registerLazySingleton<HidMacrosService>(() => hidmacros);
@@ -36,4 +39,6 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton<HidMacrosPreferences>(() => hidMacrosPreferences);
   sl.registerLazySingleton<FlutterSecureStorage>(() => secureStorage);
   sl.registerLazySingleton<HttpServerPasswordService>(() => apiPasswordService);
+  sl.registerLazySingleton<LaunchFileOrAppService>(
+      () => launchFileOrAppService);
 }
