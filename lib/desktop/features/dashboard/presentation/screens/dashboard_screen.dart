@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:streamkeys/common/widgets/bottom_border_container.dart';
-import 'package:streamkeys/common/widgets/screen_tab_bar.dart';
-import 'package:streamkeys/common/widgets/page_tab.dart';
+import 'package:streamkeys/common/widgets/containers/bottom_border_container.dart';
+import 'package:streamkeys/common/widgets/tabs/screen_tab_bar.dart';
+import 'package:streamkeys/common/widgets/tabs/page_tab.dart';
 
 class DashboardScreen extends StatefulWidget {
   final List<PageTab> tabs;

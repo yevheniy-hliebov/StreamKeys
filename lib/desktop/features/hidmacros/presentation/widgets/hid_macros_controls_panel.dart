@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:streamkeys/common/widgets/checkbox_tile.dart';
-import 'package:streamkeys/common/widgets/field_label.dart';
+import 'package:streamkeys/common/widgets/tiles/checkbox_tile.dart';
+import 'package:streamkeys/common/widgets/forms/field_label.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/desktop/features/hidmacros/bloc/hidmacros_bloc.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/models/hidmacros_config.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:streamkeys/common/widgets/small_icon_button.dart';
+import 'package:streamkeys/common/widgets/buttons/small_icon_button.dart';
 
 class DeckPageListActions extends StatelessWidget {
   final VoidCallback? onPressedAdd;

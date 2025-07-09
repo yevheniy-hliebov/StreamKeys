@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:streamkeys/common/widgets/page_tab.dart';
+import 'package:streamkeys/common/widgets/tabs/page_tab.dart';
 import 'package:streamkeys/desktop/features/deck/presentation/widgets/deck_devider.dart';
 import 'package:streamkeys/desktop/features/hidmacros/presentation/widgets/hid_macros_controls_panel.dart';
 import 'package:streamkeys/desktop/features/hidmacros/presentation/widgets/hid_macros_keyboard_panel.dart';

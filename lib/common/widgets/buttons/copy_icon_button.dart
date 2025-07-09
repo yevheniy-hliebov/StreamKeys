@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:streamkeys/common/widgets/square_icon_button.dart';
+import 'package:streamkeys/common/widgets/buttons/square_icon_button.dart';
 
 class CopyIconButton extends StatelessWidget {
   final double size;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:streamkeys/common/widgets/page_tab.dart';
-import 'package:streamkeys/common/widgets/theme_mode_switch.dart';
+import 'package:streamkeys/common/widgets/tabs/page_tab.dart';
+import 'package:streamkeys/common/widgets/forms/theme_mode_switch.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/core/theme/bloc/theme_mode_bloc.dart';
 
