@@ -107,6 +107,32 @@ class HidMacrosXmlService {
     }
   }
 
+  void updateApiPassword(String newPassword) {
+    final macros = xml.findAllElements('Macro');
+
+    for (final macro in macros) {
+      final scriptSource = macro.getElement('ScriptSource');
+      if (scriptSource == null) continue;
+
+      final cdataNode = scriptSource.children.whereType<XmlCDATA>().firstOrNull;
+
+      if (cdataNode == null) continue;
+
+      final oldScript = cdataNode.value;
+
+      final updatedScript = oldScript.replaceAllMapped(
+        RegExp(r'(X-Api-Password",\s*")(.+?)(")'),
+        (match) => '${match.group(1)}$newPassword${match.group(3)}',
+      );
+
+      if (updatedScript == oldScript) continue;
+
+      scriptSource.children
+        ..clear()
+        ..add(XmlCDATA(updatedScript));
+    }
+  }
+
   Future<List<int>> _getKeyCodes(KeyboardType type) async {
     final helper = LocalJsonFileManager.asset('keyboard_key_codes.json');
     final json = await helper.read();
