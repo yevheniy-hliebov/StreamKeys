@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shelf/shelf.dart';
 import 'package:streamkeys/common/models/typedef.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_json_keys.dart';

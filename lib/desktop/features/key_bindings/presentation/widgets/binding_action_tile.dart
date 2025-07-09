@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:streamkeys/common/widgets/small_icon_button.dart';
+import 'package:streamkeys/common/widgets/buttons/small_icon_button.dart';
 import 'package:streamkeys/core/constants/colors.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';

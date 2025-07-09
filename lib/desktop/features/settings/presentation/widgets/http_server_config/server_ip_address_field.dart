@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:streamkeys/common/widgets/copy_icon_button.dart';
+import 'package:streamkeys/common/widgets/buttons/copy_icon_button.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/desktop/utils/helper_functions.dart';
 

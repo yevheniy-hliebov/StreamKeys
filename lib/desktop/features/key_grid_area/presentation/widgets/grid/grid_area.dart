@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:streamkeys/common/widgets/for.dart';
+import 'package:streamkeys/common/widgets/helpers/for.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
 import 'package:streamkeys/desktop/features/key_bindings/data/models/key_binding_data.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_resizable_container/flutter_resizable_container.dart';
-import 'package:streamkeys/common/widgets/cursor_manager.dart';
+import 'package:streamkeys/common/widgets/helpers/cursor_manager.dart';
 import 'package:streamkeys/core/constants/colors.dart';
 
 class DeckLayout extends StatelessWidget {

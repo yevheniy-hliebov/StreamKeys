@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:streamkeys/common/widgets/screen_tab_bar.dart';
-import 'package:streamkeys/common/widgets/page_tab.dart';
+import 'package:streamkeys/common/widgets/containers/bottom_border_container.dart';
+import 'package:streamkeys/common/widgets/tabs/screen_tab_bar.dart';
+import 'package:streamkeys/common/widgets/tabs/page_tab.dart';
 
 class SettingsScreen extends StatefulWidget with PageTab {
   final List<PageTab> tabs;
@@ -43,10 +44,12 @@ class _SettingsScreenState extends State<SettingsScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(45),
-        child: ScreenTabBar(
-          tabs: widget.tabs,
-          controller: _tabController,
+        preferredSize: const Size.fromHeight(30),
+        child: BottomBorderContainer(
+          child: ScreenTabBar(
+            tabs: widget.tabs,
+            controller: _tabController,
+          ),
         ),
       ),
       body: TabBarView(

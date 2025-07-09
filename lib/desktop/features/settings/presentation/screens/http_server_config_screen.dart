@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:streamkeys/common/widgets/field_label.dart';
-import 'package:streamkeys/common/widgets/page_tab.dart';
+import 'package:streamkeys/common/widgets/forms/field_label.dart';
+import 'package:streamkeys/common/widgets/tabs/page_tab.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/desktop/features/settings/presentation/widgets/http_server_config/server_ip_address_field.dart';
 import 'package:streamkeys/desktop/features/settings/presentation/widgets/http_server_config/server_password_field.dart';

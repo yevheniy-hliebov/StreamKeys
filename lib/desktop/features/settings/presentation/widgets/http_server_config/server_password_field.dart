@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:streamkeys/common/widgets/copy_icon_button.dart';
-import 'package:streamkeys/common/widgets/small_icon_button.dart';
+import 'package:streamkeys/common/widgets/buttons/copy_icon_button.dart';
+import 'package:streamkeys/common/widgets/buttons/small_icon_button.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
-import 'package:streamkeys/desktop/features/settings/data/services/http_server_password_service.dart';
+import 'package:streamkeys/service_locator.dart';
 
 class ServerPasswordField extends StatefulWidget {
   const ServerPasswordField({super.key});
@@ -14,7 +14,10 @@ class ServerPasswordField extends StatefulWidget {
 class _ServerPasswordFieldState extends State<ServerPasswordField> {
   final _controller = TextEditingController();
   bool _isObscure = true;
-  final _passwordService = HttpServerPasswordService();
+  bool _isLoading = false;
+  final _passwordService = sl<HttpServerPasswordService>();
+  final _hidmacros = sl<HidMacrosService>();
+  final _hidmacrosXml = sl<HidMacrosXmlService>();
 
   @override
   void initState() {
@@ -29,14 +32,22 @@ class _ServerPasswordFieldState extends State<ServerPasswordField> {
   }
 
   Future<void> _regeneratePassword() async {
+    if (_isLoading) return;
+    setState(() => _isLoading = true);
+
     final password = await _passwordService.generateAndSavePassword();
     _controller.text = password;
-  }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+    await _hidmacros.restart(
+      autoStart: sl<HidMacrosPreferences>().getAutoStart(),
+      waitDuration: const Duration(seconds: 5),
+      onBetween: () async {
+        _hidmacrosXml.updateApiPassword(password);
+        await _hidmacrosXml.save();
+      },
+    );
+
+    setState(() => _isLoading = false);
   }
 
   @override
@@ -64,7 +75,7 @@ class _ServerPasswordFieldState extends State<ServerPasswordField> {
               suffixIcon: SmallIconButton(
                 tooltip: 'Regenerate password',
                 icon: Icons.replay_outlined,
-                onPressed: _regeneratePassword,
+                onPressed: _isLoading ? null : _regeneratePassword,
               ),
             ),
           ),

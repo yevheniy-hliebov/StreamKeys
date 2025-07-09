@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:streamkeys/core/constants/colors.dart';
-import 'package:streamkeys/common/widgets/screen_tab_bar.dart';
-import 'package:streamkeys/common/widgets/page_tab.dart';
+import 'package:streamkeys/common/widgets/containers/bottom_border_container.dart';
+import 'package:streamkeys/common/widgets/tabs/screen_tab_bar.dart';
+import 'package:streamkeys/common/widgets/tabs/page_tab.dart';
 
 class DashboardScreen extends StatefulWidget {
   final List<PageTab> tabs;
@@ -36,8 +36,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(45),
-        child: Container(
-          decoration: _boxDecoration(context),
+        child: BottomBorderContainer(
           child: ScreenTabBar(
             tabs: widget.tabs,
             controller: _tabController,
@@ -47,17 +46,6 @@ class _DashboardScreenState extends State<DashboardScreen>
       body: TabBarView(
         controller: _tabController,
         children: widget.tabs.map((PageTab tab) => tab.pageView).toList(),
-      ),
-    );
-  }
-
-  BoxDecoration _boxDecoration(BuildContext context) {
-    return BoxDecoration(
-      border: Border(
-        bottom: BorderSide(
-          width: 4,
-          color: AppColors.of(context).outlineVariant,
-        ),
       ),
     );
   }

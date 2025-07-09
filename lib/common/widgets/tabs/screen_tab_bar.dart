@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:streamkeys/common/widgets/page_tab.dart';
+import 'package:streamkeys/common/widgets/tabs/page_tab.dart';
 
 class ScreenTabBar extends StatelessWidget {
   final List<PageTab> tabs;
