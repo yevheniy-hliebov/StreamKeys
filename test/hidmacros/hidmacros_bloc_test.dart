@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -35,25 +33,24 @@ void main() {
     when(() => repository.getSelectedKeyboardType())
         .thenReturn(KeyboardType.full);
     when(() => repository.getAutoStart()).thenReturn(true);
-    when(() => repository.init()).thenAnswer((_) async {});
-    when(() => repository.saveAutoStart(any())).thenAnswer((_) async {});
-    when(() => repository.setMinimizeToTray(any())).thenAnswer((_) async {});
-    when(() => repository.setStartMinimized(any())).thenAnswer((_) async {});
+    when(() => repository.init()).thenAnswer((_) async => {});
+    when(() => repository.saveAutoStart(any())).thenAnswer((_) async => {});
+    when(() => repository.setMinimizeToTray(any())).thenAnswer((_) async => {});
+    when(() => repository.setStartMinimized(any())).thenAnswer((_) async => {});
     when(() => repository.select(
-        keyboard: any(named: 'keyboard'),
-        type: any(named: 'type'))).thenAnswer((_) async {});
+          keyboard: any(named: 'keyboard'),
+          type: any(named: 'type'),
+        )).thenAnswer((_) async => {});
+
+    when(() => hidmacrosService.restart(
+          autoStart: any(named: 'autoStart'),
+          onBetween: any(named: 'onBetween'),
+        )).thenAnswer((_) async {
+      await _.namedArguments[#onBetween]?.call();
+    });
 
     when(() => repository.getMinimizeToTray()).thenReturn(false);
     when(() => repository.getStartMinimized()).thenReturn(false);
-
-    when(() => hidmacrosService.restart(onBetween: any(named: 'onBetween')))
-        .thenAnswer((invocation) async {
-      final onBetween =
-          invocation.namedArguments[#onBetween] as FutureOr<void> Function()?;
-      if (onBetween != null) {
-        await onBetween();
-      }
-    });
 
     bloc = HidMacrosBloc(repository: repository, hidmacros: hidmacrosService);
   });
