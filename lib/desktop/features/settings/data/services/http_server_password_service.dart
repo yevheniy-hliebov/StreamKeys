@@ -3,7 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class HttpServerPasswordService {
   static const _storageKey = 'http_password';
-  
+
   final FlutterSecureStorage _storage;
 
   HttpServerPasswordService(this._storage);

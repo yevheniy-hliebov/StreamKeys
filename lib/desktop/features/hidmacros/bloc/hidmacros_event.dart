@@ -23,17 +23,18 @@ class HidMacrosSelectKeyboardEvent extends HidMacrosEvent {
 
 class HidMacrosToggleAutoStartEvent extends HidMacrosEvent {
   final bool enabled;
-  
+
   const HidMacrosToggleAutoStartEvent(this.enabled);
 }
 
 class HidMacrosToggleMinimizeToTrayEvent extends HidMacrosEvent {
   final bool enabled;
-  
+
   const HidMacrosToggleMinimizeToTrayEvent(this.enabled);
 }
+
 class HidMacrosToggleStartMinizedEvent extends HidMacrosEvent {
   final bool enabled;
-  
+
   const HidMacrosToggleStartMinizedEvent(this.enabled);
 }

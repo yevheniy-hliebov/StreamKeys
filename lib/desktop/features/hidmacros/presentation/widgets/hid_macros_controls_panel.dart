@@ -21,8 +21,9 @@ class HidMacrosControlsPanel extends StatelessWidget {
         builder: (context, state) {
           final bool isLoaded = state is HidMacrosLoaded;
           final bloc = context.read<HidMacrosBloc>();
-          final config = isLoaded ? state.hidmacrosConfig : const HidMacrosConfig();
-    
+          final config =
+              isLoaded ? state.hidmacrosConfig : const HidMacrosConfig();
+
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

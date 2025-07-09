@@ -17,7 +17,7 @@ class HidMacrosPreferences {
     await prefs.setString(_keyboardNameKey, keyboard.name);
   }
 
-  KeyboardDevice? getSelectedKeyboard()  {
+  KeyboardDevice? getSelectedKeyboard() {
     final encodedId = prefs.getString(_systemIdKey) ?? '';
     final name = prefs.getString(_keyboardNameKey) ?? '';
     if (encodedId.isEmpty || name.isEmpty) return null;

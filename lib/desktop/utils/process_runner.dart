@@ -2,7 +2,8 @@ import 'dart:io';
 
 abstract class ProcessRunner {
   Future<ProcessResult> run(String executable, List<String> arguments);
-  Future<Process> start(String executable, List<String> arguments, {ProcessStartMode mode});
+  Future<Process> start(String executable, List<String> arguments,
+      {ProcessStartMode mode});
 }
 
 class RealProcessRunner implements ProcessRunner {
@@ -12,7 +13,8 @@ class RealProcessRunner implements ProcessRunner {
   }
 
   @override
-  Future<Process> start(String executable, List<String> arguments, {ProcessStartMode mode = ProcessStartMode.normal}) {
+  Future<Process> start(String executable, List<String> arguments,
+      {ProcessStartMode mode = ProcessStartMode.normal}) {
     return Process.start(executable, arguments, mode: mode);
   }
 }

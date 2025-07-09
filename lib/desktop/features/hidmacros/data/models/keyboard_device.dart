@@ -5,7 +5,7 @@ class KeyboardDevice extends Equatable {
   final String systemId;
 
   const KeyboardDevice(this.name, this.systemId);
-  
+
   @override
   List<Object?> get props => [name, systemId];
 }
