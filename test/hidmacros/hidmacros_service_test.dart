@@ -7,14 +7,23 @@ import 'package:streamkeys/service_locator.dart';
 
 import 'hidmacros_service_test.mocks.dart';
 
+class TestHidMacrosService extends HidMacrosService {
+  TestHidMacrosService(super.runner);
+
+  @override
+  File? getNircmdFileOrNull() {
+    return File('dummy');
+  }
+}
+
 @GenerateMocks([Process, ProcessRunner])
 void main() {
-  late HidMacrosService service;
+  late TestHidMacrosService service;
   late MockProcessRunner mockRunner;
 
   setUp(() {
     mockRunner = MockProcessRunner();
-    service = HidMacrosService(mockRunner);
+    service = TestHidMacrosService(mockRunner);
   });
 
   group('HidMacrosService', () {
@@ -34,9 +43,8 @@ void main() {
 
     test('start calls processRunner.start and logs', () async {
       final mockProcess = MockProcess();
-      when(mockRunner.start(any, any, mode: anyNamed('mode'))).thenAnswer(
-        (_) async => mockProcess,
-      );
+      when(mockRunner.start(any, any, mode: anyNamed('mode')))
+          .thenAnswer((_) async => mockProcess);
       when(mockProcess.pid).thenReturn(123);
 
       await service.start();
@@ -56,9 +64,8 @@ void main() {
 
     test('restart calls stop and start with delay', () async {
       final mockProcess = MockProcess();
-      when(mockRunner.start(any, any, mode: anyNamed('mode'))).thenAnswer(
-        (_) async => mockProcess,
-      );
+      when(mockRunner.start(any, any, mode: anyNamed('mode')))
+          .thenAnswer((_) async => mockProcess);
       when(mockProcess.pid).thenReturn(123);
       when(mockRunner.run(any, any)).thenAnswer(
         (_) async => ProcessResult(0, 0, '', ''),

@@ -40,7 +40,7 @@ class HidMacrosService {
   }
 
   Future<void> start() async {
-    final nircmd = _getNircmdFileOrNull();
+    final nircmd = getNircmdFileOrNull();
     if (nircmd == null) return;
 
     try {
@@ -56,7 +56,7 @@ class HidMacrosService {
   }
 
   Future<void> stop() async {
-    final nircmd = _getNircmdFileOrNull();
+    final nircmd = getNircmdFileOrNull();
     if (nircmd == null) return;
 
     try {
@@ -94,7 +94,7 @@ class HidMacrosService {
     }
   }
 
-  File? _getNircmdFileOrNull() {
+  File? getNircmdFileOrNull() {
     final path = '$assetsPath\\hidmacros\\nircmd.exe';
     final file = File(path);
     if (!file.existsSync()) {
