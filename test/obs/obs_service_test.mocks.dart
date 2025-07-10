@@ -3,14 +3,14 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i7;
+import 'dart:async' as _i8;
 
 import 'package:loggy/loggy.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:obs_websocket/obs_websocket.dart' as _i2;
 import 'package:obs_websocket/request.dart' as _i4;
 import 'package:streamkeys/desktop/features/obs/data/models/obs_connection_data.dart'
-    as _i8;
+    as _i7;
 import 'package:streamkeys/desktop/features/obs/data/services/obs_secure_storage.dart'
     as _i6;
 import 'package:streamkeys/desktop/features/obs/data/services/obs_web_socket_factory.dart'
@@ -256,27 +256,36 @@ class MockObsSecureStorage extends _i1.Mock implements _i6.ObsSecureStorage {
   }
 
   @override
-  _i7.Future<_i8.ObsConnectionData?> loadConnectionData() =>
+  set cachedDataForTest(_i7.ObsConnectionData? data) => super.noSuchMethod(
+        Invocation.setter(
+          #cachedDataForTest,
+          data,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i8.Future<_i7.ObsConnectionData?> loadConnectionData() =>
       (super.noSuchMethod(
         Invocation.method(
           #loadConnectionData,
           [],
         ),
-        returnValue: _i7.Future<_i8.ObsConnectionData?>.value(),
-      ) as _i7.Future<_i8.ObsConnectionData?>);
+        returnValue: _i8.Future<_i7.ObsConnectionData?>.value(),
+      ) as _i8.Future<_i7.ObsConnectionData?>);
 
   @override
-  _i7.Future<void> updateConnectionData(
-          {required _i8.ObsConnectionData? newData}) =>
+  _i8.Future<void> updateConnectionData(
+          {required _i7.ObsConnectionData? newData}) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateConnectionData,
           [],
           {#newData: newData},
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
 }
 
 /// A class which mocks [ObsWebSocketFactory].
@@ -289,7 +298,7 @@ class MockObsWebSocketFactory extends _i1.Mock
   }
 
   @override
-  _i7.Future<_i2.ObsWebSocket> connect(
+  _i8.Future<_i2.ObsWebSocket> connect(
     String? url, {
     required String? password,
     required void Function(_i2.Event)? fallbackEventHandler,
@@ -303,7 +312,7 @@ class MockObsWebSocketFactory extends _i1.Mock
             #fallbackEventHandler: fallbackEventHandler,
           },
         ),
-        returnValue: _i7.Future<_i2.ObsWebSocket>.value(_FakeObsWebSocket_0(
+        returnValue: _i8.Future<_i2.ObsWebSocket>.value(_FakeObsWebSocket_0(
           this,
           Invocation.method(
             #connect,
@@ -314,7 +323,7 @@ class MockObsWebSocketFactory extends _i1.Mock
             },
           ),
         )),
-      ) as _i7.Future<_i2.ObsWebSocket>);
+      ) as _i8.Future<_i2.ObsWebSocket>);
 }
 
 /// A class which mocks [ObsWebSocket].
@@ -335,10 +344,10 @@ class MockObsWebSocket extends _i1.Mock implements _i2.ObsWebSocket {
       ) as _i3.WebSocketChannel);
 
   @override
-  _i7.Stream<dynamic> get broadcastStream => (super.noSuchMethod(
+  _i8.Stream<dynamic> get broadcastStream => (super.noSuchMethod(
         Invocation.getter(#broadcastStream),
-        returnValue: _i7.Stream<dynamic>.empty(),
-      ) as _i7.Stream<dynamic>);
+        returnValue: _i8.Stream<dynamic>.empty(),
+      ) as _i8.Stream<dynamic>);
 
   @override
   List<Function> get fallbackHandlers => (super.noSuchMethod(
@@ -524,85 +533,85 @@ class MockObsWebSocket extends _i1.Mock implements _i2.ObsWebSocket {
       ) as _i5.Loggy<_i5.UiLoggy>);
 
   @override
-  _i7.Future<void> init() => (super.noSuchMethod(
+  _i8.Future<void> init() => (super.noSuchMethod(
         Invocation.method(
           #init,
           [],
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
 
   @override
-  _i7.Future<void> authenticate() => (super.noSuchMethod(
+  _i8.Future<void> authenticate() => (super.noSuchMethod(
         Invocation.method(
           #authenticate,
           [],
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
 
   @override
-  _i7.Future<_i2.Opcode?> getStreamOpcode(int? webSocketOpCode) =>
+  _i8.Future<_i2.Opcode?> getStreamOpcode(int? webSocketOpCode) =>
       (super.noSuchMethod(
         Invocation.method(
           #getStreamOpcode,
           [webSocketOpCode],
         ),
-        returnValue: _i7.Future<_i2.Opcode?>.value(),
-      ) as _i7.Future<_i2.Opcode?>);
+        returnValue: _i8.Future<_i2.Opcode?>.value(),
+      ) as _i8.Future<_i2.Opcode?>);
 
   @override
-  _i7.Future<_i2.Opcode?> sendOpcode(_i2.Opcode? opcode) => (super.noSuchMethod(
+  _i8.Future<_i2.Opcode?> sendOpcode(_i2.Opcode? opcode) => (super.noSuchMethod(
         Invocation.method(
           #sendOpcode,
           [opcode],
         ),
-        returnValue: _i7.Future<_i2.Opcode?>.value(),
-      ) as _i7.Future<_i2.Opcode?>);
+        returnValue: _i8.Future<_i2.Opcode?>.value(),
+      ) as _i8.Future<_i2.Opcode?>);
 
   @override
-  _i7.Future<void> listenForMask(int? eventSubscriptions) =>
+  _i8.Future<void> listenForMask(int? eventSubscriptions) =>
       (super.noSuchMethod(
         Invocation.method(
           #listenForMask,
           [eventSubscriptions],
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
 
   @override
-  _i7.Future<void> listen(dynamic eventSubscription) => (super.noSuchMethod(
+  _i8.Future<void> listen(dynamic eventSubscription) => (super.noSuchMethod(
         Invocation.method(
           #listen,
           [eventSubscription],
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
 
   @override
-  _i7.Future<void> subscribe(_i2.EventSubscription? eventSubscription) =>
+  _i8.Future<void> subscribe(_i2.EventSubscription? eventSubscription) =>
       (super.noSuchMethod(
         Invocation.method(
           #subscribe,
           [eventSubscription],
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
 
   @override
-  _i7.Future<void> close() => (super.noSuchMethod(
+  _i8.Future<void> close() => (super.noSuchMethod(
         Invocation.method(
           #close,
           [],
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
 
   @override
   void addHandler<T>(Function? listener) => super.noSuchMethod(
@@ -641,7 +650,7 @@ class MockObsWebSocket extends _i1.Mock implements _i2.ObsWebSocket {
       );
 
   @override
-  _i7.Future<_i2.RequestResponse?> send(
+  _i8.Future<_i2.RequestResponse?> send(
     String? command, [
     Map<String, dynamic>? args,
   ]) =>
@@ -653,17 +662,17 @@ class MockObsWebSocket extends _i1.Mock implements _i2.ObsWebSocket {
             args,
           ],
         ),
-        returnValue: _i7.Future<_i2.RequestResponse?>.value(),
-      ) as _i7.Future<_i2.RequestResponse?>);
+        returnValue: _i8.Future<_i2.RequestResponse?>.value(),
+      ) as _i8.Future<_i2.RequestResponse?>);
 
   @override
-  _i7.Future<_i2.RequestBatchResponse> sendBatch(List<_i2.Request>? requests) =>
+  _i8.Future<_i2.RequestBatchResponse> sendBatch(List<_i2.Request>? requests) =>
       (super.noSuchMethod(
         Invocation.method(
           #sendBatch,
           [requests],
         ),
-        returnValue: _i7.Future<_i2.RequestBatchResponse>.value(
+        returnValue: _i8.Future<_i2.RequestBatchResponse>.value(
             _FakeRequestBatchResponse_17(
           this,
           Invocation.method(
@@ -671,17 +680,17 @@ class MockObsWebSocket extends _i1.Mock implements _i2.ObsWebSocket {
             [requests],
           ),
         )),
-      ) as _i7.Future<_i2.RequestBatchResponse>);
+      ) as _i8.Future<_i2.RequestBatchResponse>);
 
   @override
-  _i7.Future<_i2.RequestResponse?> sendRequest(_i2.Request? request) =>
+  _i8.Future<_i2.RequestResponse?> sendRequest(_i2.Request? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #sendRequest,
           [request],
         ),
-        returnValue: _i7.Future<_i2.RequestResponse?>.value(),
-      ) as _i7.Future<_i2.RequestResponse?>);
+        returnValue: _i8.Future<_i2.RequestResponse?>.value(),
+      ) as _i8.Future<_i2.RequestResponse?>);
 }
 
 /// A class which mocks [General].
@@ -702,74 +711,74 @@ class MockGeneral extends _i1.Mock implements _i4.General {
       ) as _i2.ObsWebSocket);
 
   @override
-  _i7.Future<_i2.VersionResponse> get version => (super.noSuchMethod(
+  _i8.Future<_i2.VersionResponse> get version => (super.noSuchMethod(
         Invocation.getter(#version),
         returnValue:
-            _i7.Future<_i2.VersionResponse>.value(_FakeVersionResponse_18(
+            _i8.Future<_i2.VersionResponse>.value(_FakeVersionResponse_18(
           this,
           Invocation.getter(#version),
         )),
-      ) as _i7.Future<_i2.VersionResponse>);
+      ) as _i8.Future<_i2.VersionResponse>);
 
   @override
-  _i7.Future<_i2.StatsResponse> get stats => (super.noSuchMethod(
+  _i8.Future<_i2.StatsResponse> get stats => (super.noSuchMethod(
         Invocation.getter(#stats),
-        returnValue: _i7.Future<_i2.StatsResponse>.value(_FakeStatsResponse_19(
+        returnValue: _i8.Future<_i2.StatsResponse>.value(_FakeStatsResponse_19(
           this,
           Invocation.getter(#stats),
         )),
-      ) as _i7.Future<_i2.StatsResponse>);
+      ) as _i8.Future<_i2.StatsResponse>);
 
   @override
-  _i7.Future<List<String>> get hotkeyList => (super.noSuchMethod(
+  _i8.Future<List<String>> get hotkeyList => (super.noSuchMethod(
         Invocation.getter(#hotkeyList),
-        returnValue: _i7.Future<List<String>>.value(<String>[]),
-      ) as _i7.Future<List<String>>);
+        returnValue: _i8.Future<List<String>>.value(<String>[]),
+      ) as _i8.Future<List<String>>);
 
   @override
-  _i7.Future<_i2.VersionResponse> getVersion() => (super.noSuchMethod(
+  _i8.Future<_i2.VersionResponse> getVersion() => (super.noSuchMethod(
         Invocation.method(
           #getVersion,
           [],
         ),
         returnValue:
-            _i7.Future<_i2.VersionResponse>.value(_FakeVersionResponse_18(
+            _i8.Future<_i2.VersionResponse>.value(_FakeVersionResponse_18(
           this,
           Invocation.method(
             #getVersion,
             [],
           ),
         )),
-      ) as _i7.Future<_i2.VersionResponse>);
+      ) as _i8.Future<_i2.VersionResponse>);
 
   @override
-  _i7.Future<_i2.StatsResponse> getStats() => (super.noSuchMethod(
+  _i8.Future<_i2.StatsResponse> getStats() => (super.noSuchMethod(
         Invocation.method(
           #getStats,
           [],
         ),
-        returnValue: _i7.Future<_i2.StatsResponse>.value(_FakeStatsResponse_19(
+        returnValue: _i8.Future<_i2.StatsResponse>.value(_FakeStatsResponse_19(
           this,
           Invocation.method(
             #getStats,
             [],
           ),
         )),
-      ) as _i7.Future<_i2.StatsResponse>);
+      ) as _i8.Future<_i2.StatsResponse>);
 
   @override
-  _i7.Future<void> broadcastCustomEvent(Map<String, dynamic>? arg) =>
+  _i8.Future<void> broadcastCustomEvent(Map<String, dynamic>? arg) =>
       (super.noSuchMethod(
         Invocation.method(
           #broadcastCustomEvent,
           [arg],
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
 
   @override
-  _i7.Future<_i2.CallVendorRequestResponse> callVendorRequest({
+  _i8.Future<_i2.CallVendorRequestResponse> callVendorRequest({
     required String? vendorName,
     required String? requestType,
     _i2.RequestData? requestData,
@@ -784,7 +793,7 @@ class MockGeneral extends _i1.Mock implements _i4.General {
             #requestData: requestData,
           },
         ),
-        returnValue: _i7.Future<_i2.CallVendorRequestResponse>.value(
+        returnValue: _i8.Future<_i2.CallVendorRequestResponse>.value(
             _FakeCallVendorRequestResponse_20(
           this,
           Invocation.method(
@@ -797,10 +806,10 @@ class MockGeneral extends _i1.Mock implements _i4.General {
             },
           ),
         )),
-      ) as _i7.Future<_i2.CallVendorRequestResponse>);
+      ) as _i8.Future<_i2.CallVendorRequestResponse>);
 
   @override
-  _i7.Future<_i2.CallVendorRequestResponse> obsBrowserEvent({
+  _i8.Future<_i2.CallVendorRequestResponse> obsBrowserEvent({
     required String? eventName,
     dynamic eventData,
   }) =>
@@ -813,7 +822,7 @@ class MockGeneral extends _i1.Mock implements _i4.General {
             #eventData: eventData,
           },
         ),
-        returnValue: _i7.Future<_i2.CallVendorRequestResponse>.value(
+        returnValue: _i8.Future<_i2.CallVendorRequestResponse>.value(
             _FakeCallVendorRequestResponse_20(
           this,
           Invocation.method(
@@ -825,30 +834,30 @@ class MockGeneral extends _i1.Mock implements _i4.General {
             },
           ),
         )),
-      ) as _i7.Future<_i2.CallVendorRequestResponse>);
+      ) as _i8.Future<_i2.CallVendorRequestResponse>);
 
   @override
-  _i7.Future<List<String>> getHotkeyList() => (super.noSuchMethod(
+  _i8.Future<List<String>> getHotkeyList() => (super.noSuchMethod(
         Invocation.method(
           #getHotkeyList,
           [],
         ),
-        returnValue: _i7.Future<List<String>>.value(<String>[]),
-      ) as _i7.Future<List<String>>);
+        returnValue: _i8.Future<List<String>>.value(<String>[]),
+      ) as _i8.Future<List<String>>);
 
   @override
-  _i7.Future<void> triggerHotkeyByName(String? hotkeyName) =>
+  _i8.Future<void> triggerHotkeyByName(String? hotkeyName) =>
       (super.noSuchMethod(
         Invocation.method(
           #triggerHotkeyByName,
           [hotkeyName],
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
 
   @override
-  _i7.Future<void> triggerHotkeyByKeySequence({
+  _i8.Future<void> triggerHotkeyByKeySequence({
     String? keyId,
     _i2.KeyModifiers? keyModifiers,
   }) =>
@@ -861,12 +870,12 @@ class MockGeneral extends _i1.Mock implements _i4.General {
             #keyModifiers: keyModifiers,
           },
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
 
   @override
-  _i7.Future<void> sleep({
+  _i8.Future<void> sleep({
     int? sleepMillis,
     int? sleepFrames,
   }) =>
@@ -879,9 +888,9 @@ class MockGeneral extends _i1.Mock implements _i4.General {
             #sleepFrames: sleepFrames,
           },
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
 }
 
 /// A class which mocks [StatsResponse].
