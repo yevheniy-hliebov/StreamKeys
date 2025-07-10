@@ -33,6 +33,7 @@ dependencies:
   dropdown_button2: ^2.3.9
   xml: ^6.5.0
   path: ^1.9.1
+  obs_websocket: ^5.2.3
 
 dev_dependencies:
   flutter_test:
