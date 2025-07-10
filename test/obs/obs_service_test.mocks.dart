@@ -11,9 +11,10 @@ import 'package:obs_websocket/obs_websocket.dart' as _i2;
 import 'package:obs_websocket/request.dart' as _i4;
 import 'package:streamkeys/desktop/features/obs/data/models/obs_connection_data.dart'
     as _i8;
-import 'package:streamkeys/desktop/features/obs/data/services/obs_web_socket_factory.dart' as _i9;
 import 'package:streamkeys/desktop/features/obs/data/services/obs_secure_storage.dart'
     as _i6;
+import 'package:streamkeys/desktop/features/obs/data/services/obs_web_socket_factory.dart'
+    as _i9;
 import 'package:web_socket_channel/web_socket_channel.dart' as _i3;
 
 // ignore_for_file: type=lint

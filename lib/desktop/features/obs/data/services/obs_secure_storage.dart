@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:streamkeys/desktop/features/obs/data/models/obs_connection_data.dart';
 
@@ -9,6 +10,12 @@ class ObsSecureStorage {
       : _secureStorage = secureStorage;
 
   ObsConnectionData? get cachedData => _cachedData;
+
+  @visibleForTesting
+  set cachedDataForTest(ObsConnectionData? data) => _cachedData = data;
+
+  @visibleForTesting
+  ObsConnectionData? get cachedDataForTest => _cachedData;
 
   Future<ObsConnectionData?> loadConnectionData() async {
     final keys = const ObsConnectionData(
