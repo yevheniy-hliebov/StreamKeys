@@ -14,25 +14,42 @@ class BindingActionIcons {
 
   bool get _isLight => Theme.of(context).brightness == Brightness.light;
   Color get _iconColor => _isLight ? Colors.black : Colors.white;
+  ColorFilter get _colorFilter => ColorFilter.mode(_iconColor, BlendMode.srcIn);
 
+  // System
   Widget get system {
     return SvgPicture.asset(
       '$assetsPath/system.svg',
-      colorFilter: ColorFilter.mode(_iconColor, BlendMode.srcIn),
+      colorFilter: _colorFilter,
     );
   }
 
   Widget get website {
     return SvgPicture.asset(
       '$assetsPath/website.svg',
-      colorFilter: ColorFilter.mode(_iconColor, BlendMode.srcIn),
+      colorFilter: _colorFilter,
     );
   }
 
   Widget get launcFileOrApp {
     return SvgPicture.asset(
       '$assetsPath/launch_file_or_app.svg',
-      colorFilter: ColorFilter.mode(_iconColor, BlendMode.srcIn),
+      colorFilter: _colorFilter,
+    );
+  }
+
+  // OBS Studio
+
+  Widget get obs {
+    return SvgPicture.asset(
+      '$assetsPath/obs.svg',
+    );
+  }
+  
+  Widget get setActiveScene {
+    return SvgPicture.asset(
+      '$assetsPath/set_active_scene.svg',
+      colorFilter: _colorFilter,
     );
   }
 }
