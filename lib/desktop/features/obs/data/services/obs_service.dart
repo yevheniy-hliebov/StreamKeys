@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:obs_websocket/obs_websocket.dart';
 import 'package:streamkeys/common/models/connection_status.dart';
+import 'package:streamkeys/desktop/features/obs/data/services/obs_web_socket_factory.dart';
 import 'package:streamkeys/desktop/features/obs/data/services/obs_secure_storage.dart';
 
 class ObsService {
   final ObsSecureStorage _secureStorage;
+  final ObsWebSocketFactory _obsWebSocketFactory;
   ObsWebSocket? obs;
   Timer? _timer;
 
@@ -16,10 +18,15 @@ class ObsService {
   ConnectionStatus _status = ConnectionStatus.notConnected;
 
   ObsService({
+    ObsWebSocketFactory? obsWebSocketFactory,
     required ObsSecureStorage secureStorage,
-  }) : _secureStorage = secureStorage;
+  })  : _secureStorage = secureStorage,
+        _obsWebSocketFactory = obsWebSocketFactory ?? DefaultObsWebSocketFactory();
 
   ConnectionStatus get status => _status;
+
+  @visibleForTesting
+  Timer? get testTimer => _timer;
 
   Future<void> connect() async {
     _updateConnection(ConnectionStatus.connecting);
@@ -36,7 +43,7 @@ class ObsService {
     try {
       final connectionData = _secureStorage.cachedData!;
 
-      obs = await ObsWebSocket.connect(
+      obs = await _obsWebSocketFactory.connect(
         connectionData.url,
         password: connectionData.password,
         fallbackEventHandler: (Event event) {
