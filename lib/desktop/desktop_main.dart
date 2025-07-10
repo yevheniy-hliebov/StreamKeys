@@ -9,6 +9,9 @@ import 'package:streamkeys/desktop/features/deck/presentation/screens/grid_deck_
 import 'package:streamkeys/desktop/features/deck/presentation/screens/keyboard_deck_screen.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/bloc/deck_page_list_bloc.dart';
 import 'package:streamkeys/desktop/features/hidmacros/bloc/hidmacros_bloc.dart';
+import 'package:streamkeys/desktop/features/obs/bloc/connection/obs_connection_bloc.dart';
+import 'package:streamkeys/desktop/features/obs/presentations/screen/obs_settings_screen.dart';
+import 'package:streamkeys/desktop/features/obs/presentations/widgets/obs_connection_status_indicator.dart';
 import 'package:streamkeys/desktop/features/settings/presentation/screens/general_settings_screen.dart';
 import 'package:streamkeys/desktop/features/settings/presentation/screens/hidmacros_screen.dart';
 import 'package:streamkeys/desktop/features/settings/presentation/screens/settings_screen.dart';
@@ -39,6 +42,9 @@ void desktopMain() async {
   gridDeckBloc.add(DeckPageListInit());
   keyboardDeckBloc.add(DeckPageListInit());
   hidmacrosBloc.add(HidMacrosLoadEvent());
+  
+  final obs = sl<ObsService>();
+  obs.connect();
 
   runApp(
     App(
@@ -46,6 +52,9 @@ void desktopMain() async {
         BlocProvider<GridDeckPageListBloc>(create: (_) => gridDeckBloc),
         BlocProvider<KeyboardDeckPageListBloc>(create: (_) => keyboardDeckBloc),
         BlocProvider<HidMacrosBloc>(create: (context) => hidmacrosBloc),
+        BlocProvider<ObsConnectionBloc>(
+          create: (context) => ObsConnectionBloc(obs),
+        ),
       ],
       home: const CursorStatus(
         child: DashboardScreen(
@@ -56,9 +65,13 @@ void desktopMain() async {
               tabs: <PageTab>[
                 GeneralSettingsScreen(),
                 HttpServerConfigScreen(),
+                ObsSettingsScreen(),
                 HidMacrosScreen(),
               ],
             ),
+          ],
+          statusWidgets: [
+            ObsConnectionStatusIndicator(),
           ],
         ),
       ),

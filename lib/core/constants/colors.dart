@@ -8,6 +8,8 @@ class AppColors {
     onPrimary: Color(0xFFF1F1F1),
     danger: Color(0xFFFE5B5B),
     onDanger: Color(0xFFF1F1F1),
+    warning: Color(0xFFFED85B),
+    success: Color(0xFF5BFE76),
     overlay: Color(0xFF9E9E9E),
     background: Color(0xFFF1F1F1),
     onBackground: Color(0xFF333333),
@@ -25,6 +27,8 @@ class AppColors {
     onPrimary: Color(0xFFF1F1F1),
     danger: Color(0xFFFE5B5B),
     onDanger: Color(0xFFF1F1F1),
+    warning: Color(0xFFFED85B),
+    success: Color(0xFF5BFE76),
     overlay: Color(0xFF212121),
     background: Color(0xFF333333),
     onBackground: Color(0xFFF1F1F1),
@@ -48,6 +52,8 @@ class AppColorsData {
   final Color onPrimary;
   final Color danger;
   final Color onDanger;
+  final Color warning;
+  final Color success;
   final Color overlay;
   final Color background;
   final Color onBackground;
@@ -63,6 +69,8 @@ class AppColorsData {
     required this.onPrimary,
     required this.danger,
     required this.onDanger,
+    required this.warning,
+    required this.success,
     required this.overlay,
     required this.background,
     required this.onBackground,
