@@ -59,4 +59,11 @@ class BindingActionIcons {
       colorFilter: _colorFilter,
     );
   }
+
+  Widget get sourceVisibility {
+    return SvgPicture.asset(
+      '$assetsPath/source_visibility.svg',
+      colorFilter: _colorFilter,
+    );
+  }
 }

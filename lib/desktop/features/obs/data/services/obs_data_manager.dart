@@ -20,7 +20,7 @@ class ObsDataManager {
         if (includeGroupNames) {
           result.add(item.sourceName);
         }
-        
+
         final groupItems = await obs.sceneItems.getGroupSceneItemList(
           item.sourceName,
         );
@@ -33,5 +33,34 @@ class ObsDataManager {
     }
 
     return result;
+  }
+
+  Future<({int itemId, String? groupName})?> findSceneItemId(
+    String sceneName,
+    String sourceName,
+  ) async {
+    final sceneItemList = await obs.sceneItems.getSceneItemList(sceneName);
+
+    for (final sceneItem in sceneItemList) {
+      if (sceneItem.sourceName == sourceName) {
+        return (itemId: sceneItem.sceneItemId, groupName: null);
+      }
+
+      if (sceneItem.isGroup ?? false) {
+        final groupItems = await obs.sceneItems.getGroupSceneItemList(
+          sceneItem.sourceName,
+        );
+        for (final groupItem in groupItems) {
+          if (groupItem.sourceName == sourceName) {
+            return (
+              itemId: groupItem.sceneItemId,
+              groupName: sceneItem.sourceName
+            );
+          }
+        }
+      }
+    }
+
+    return null;
   }
 }

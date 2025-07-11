@@ -1,6 +1,7 @@
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/obs/set_active_scene_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/obs/source_mute_action.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/library/obs/source_visibility_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/system/launch_file_or_app_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/system/website_action.dart';
 
@@ -10,6 +11,7 @@ class ActionTypes {
 
   static const setActiveScene = 'set_active_scene';
   static const sourceMute = 'source_mute';
+  static const sourceVisibility = 'source_visibility';
 }
 
 void registerBindingActions() {
@@ -25,5 +27,9 @@ void registerBindingActions() {
   BindingAction.register(
     ActionTypes.sourceMute,
     SourceMuteAction.fromJson,
+  );
+  BindingAction.register(
+    ActionTypes.sourceVisibility,
+    SourceVisibilityAction.fromJson,
   );
 }

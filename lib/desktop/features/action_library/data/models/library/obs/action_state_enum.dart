@@ -30,3 +30,32 @@ enum MuteState implements ActionStateEnum {
     return MuteState.toggle;
   }
 }
+
+enum VisibilityState implements ActionStateEnum {
+  hidden,
+  visible,
+  toggle;
+
+  @override
+  String get nameString {
+    switch (this) {
+      case VisibilityState.hidden:
+        return 'Hidden';
+      case VisibilityState.visible:
+        return 'Visible';
+      case VisibilityState.toggle:
+        return 'Toggle';
+    }
+  }
+
+  bool get isHidden => this == VisibilityState.hidden;
+  bool get isVisible => this == VisibilityState.visible;
+  bool get isToggle => this == VisibilityState.toggle;
+
+  static VisibilityState fromString(String value) {
+    for (final state in VisibilityState.values) {
+      if (state.name == value) return state;
+    }
+    return VisibilityState.toggle;
+  }
+}
