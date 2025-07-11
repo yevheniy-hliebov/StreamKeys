@@ -52,4 +52,11 @@ class BindingActionIcons {
       colorFilter: _colorFilter,
     );
   }
+
+  Widget get sourceMute {
+    return SvgPicture.asset(
+      '$assetsPath/source_mute.svg',
+      colorFilter: _colorFilter,
+    );
+  }
 }
