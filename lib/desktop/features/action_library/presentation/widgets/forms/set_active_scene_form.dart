@@ -36,7 +36,8 @@ class _SetActiveSceneFormState extends State<SetActiveSceneForm> {
 
     final index = widget.initialSceneName == null
         ? 0
-        : scenes.indexWhere((scene) => scene.sceneName == widget.initialSceneName);
+        : scenes
+            .indexWhere((scene) => scene.sceneName == widget.initialSceneName);
     if (index == -1) {
       selectedIndex = 0;
       if (scenes.isNotEmpty) _notifySceneChanged(scenes[0]);
@@ -54,7 +55,14 @@ class _SetActiveSceneFormState extends State<SetActiveSceneForm> {
   @override
   Widget build(BuildContext context) {
     if (scenes.isEmpty) {
-      return const Center(child: CircularProgressIndicator());
+      return const Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CircularProgressIndicator(),
+        ],
+      );
     }
 
     final currentIndex = selectedIndex ?? 0;
