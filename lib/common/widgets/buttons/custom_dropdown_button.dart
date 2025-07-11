@@ -40,6 +40,9 @@ class CustomDropdownButton extends StatelessWidget {
           }),
           onChanged: onChanged,
           buttonStyleData: _getButtonStyle(context),
+          dropdownStyleData: const DropdownStyleData(
+            maxHeight: 200,
+          ),
         ),
       ),
     );
