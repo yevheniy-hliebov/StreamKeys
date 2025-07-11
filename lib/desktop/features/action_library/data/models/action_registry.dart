@@ -1,5 +1,5 @@
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
-import 'package:streamkeys/desktop/features/action_library/data/models/library/obs/set_active_scene.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/library/obs/set_active_scene_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/system/launch_file_or_app_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/system/website_action.dart';
 
@@ -18,6 +18,6 @@ void registerBindingActions() {
   );
   BindingAction.register(
     ActionTypes.setActiveScene,
-    SetActiveScene.fromJson,
+    SetActiveSceneAction.fromJson,
   );
 }

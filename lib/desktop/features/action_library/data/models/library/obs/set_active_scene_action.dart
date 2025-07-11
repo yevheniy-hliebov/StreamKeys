@@ -9,10 +9,10 @@ import 'package:streamkeys/desktop/features/action_library/presentation/widgets/
 import 'package:streamkeys/service_locator.dart';
 import 'package:uuid/uuid.dart';
 
-class SetActiveScene extends BindingAction {
+class SetActiveSceneAction extends BindingAction {
   final String sceneName;
 
-  SetActiveScene({String? id, this.sceneName = ''})
+  SetActiveSceneAction({String? id, this.sceneName = ''})
       : super(
           id: id ?? const Uuid().v4(),
           type: ActionTypes.setActiveScene,
@@ -44,15 +44,15 @@ class SetActiveScene extends BindingAction {
     };
   }
 
-  factory SetActiveScene.fromJson(Json json) {
-    return SetActiveScene(
+  factory SetActiveSceneAction.fromJson(Json json) {
+    return SetActiveSceneAction(
       sceneName: json['scene_name'] as String,
     );
   }
 
   @override
   BindingAction copy() {
-    return SetActiveScene(sceneName: sceneName);
+    return SetActiveSceneAction(sceneName: sceneName);
   }
 
   @override
@@ -72,7 +72,7 @@ class SetActiveScene extends BindingAction {
       initialSceneName: sceneName,
       getSceneList: _loadScenes,
       onSceneChanged: (scene) {
-        onUpdate?.call(SetActiveScene(
+        onUpdate?.call(SetActiveSceneAction(
           sceneName: scene.sceneName,
         ));
       },

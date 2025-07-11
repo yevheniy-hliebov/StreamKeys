@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action_category.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action_icons.dart';
-import 'package:streamkeys/desktop/features/action_library/data/models/library/obs/set_active_scene.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/library/obs/set_active_scene_action.dart';
 
 class ObsCategory extends BindingActionCategory {
   const ObsCategory() : super(name: 'OBS Studio');
@@ -15,7 +15,7 @@ class ObsCategory extends BindingActionCategory {
   @override
   List<BindingAction> get actions {
     return [
-      SetActiveScene(),
+      SetActiveSceneAction(),
     ];
   }
 }
