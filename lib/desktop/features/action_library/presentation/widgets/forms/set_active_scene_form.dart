@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:obs_websocket/obs_websocket.dart';
 import 'package:streamkeys/common/widgets/buttons/custom_dropdown_button.dart';
 import 'package:streamkeys/common/widgets/forms/field_label.dart';
+import 'package:streamkeys/common/widgets/placeholders/loader_placeholder.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
+import 'package:streamkeys/desktop/features/action_library/presentation/widgets/obs_not_connected_placeholder.dart';
+import 'package:streamkeys/desktop/features/obs/data/services/obs_data_manager.dart';
 
 class SetActiveSceneForm extends StatefulWidget {
+  final ObsWebSocket? obs;
   final String? initialSceneName;
   final void Function(Scene scene)? onSceneChanged;
-  final Future<List<Scene>?> Function() getSceneList;
 
   const SetActiveSceneForm({
     super.key,
+    this.obs,
     this.initialSceneName,
     this.onSceneChanged,
-    required this.getSceneList,
   });
 
   @override
@@ -34,16 +37,18 @@ class _SetActiveSceneFormState extends State<SetActiveSceneForm> {
   }
 
   Future<void> _loadScenesAndInitSelected() async {
-    final loadedScenes = await widget.getSceneList();
+    final obs = widget.obs;
 
-    if (loadedScenes == null) {
+    if (obs == null) {
       obsNotConnected = true;
       isLoading = false;
       if (mounted) setState(() {});
       return;
     }
 
-    scenes = loadedScenes.reversed.toList();
+    final manager = ObsDataManager(obs);
+
+    scenes = await manager.getScenes();
     isLoading = false;
 
     final initialName = widget.initialSceneName;
@@ -71,11 +76,11 @@ class _SetActiveSceneFormState extends State<SetActiveSceneForm> {
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
-      return _buildCenteredMessage(const CircularProgressIndicator());
+      return _buildCenteredMessage(const LoaderPlaceholder());
     }
 
     if (obsNotConnected) {
-      return _buildCenteredMessage(const Text('Not connected to OBS'));
+      return _buildCenteredMessage(const ObsNotConnectedPlaceholder());
     }
 
     if (scenes.isEmpty) {

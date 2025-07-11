@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:obs_websocket/obs_websocket.dart';
 import 'package:streamkeys/common/models/typedef.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/action_registry.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
@@ -20,14 +19,14 @@ class SetActiveSceneAction extends BindingAction {
         );
 
   @override
-  String get dialogTitle => 'Enter the website URL';
+  String get dialogTitle => 'Set a scene name';
 
   @override
   String get label {
     if (sceneName.isEmpty) {
-      return name;
+      return 'OBS | $name';
     } else {
-      return '$name ($sceneName)';
+      return 'OBS | $name ($sceneName)';
     }
   }
 
@@ -68,24 +67,16 @@ class SetActiveSceneAction extends BindingAction {
     BuildContext context, {
     void Function(BindingAction updatedAction)? onUpdated,
   }) {
+    final obs = sl<ObsService>().obs;
     return SetActiveSceneForm(
+      obs: obs,
       initialSceneName: sceneName,
-      getSceneList: _loadScenes,
       onSceneChanged: (scene) {
         onUpdated?.call(SetActiveSceneAction(
           sceneName: scene.sceneName,
         ));
       },
     );
-  }
-
-  Future<List<Scene>?> _loadScenes() async {
-    final obs = sl<ObsService>().obs;
-    if (obs == null) {
-      return null;
-    }
-    final scenes = await obs.scenes.getSceneList();
-    return scenes.scenes;
   }
 
   @override
