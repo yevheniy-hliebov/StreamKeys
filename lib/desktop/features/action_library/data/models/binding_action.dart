@@ -25,7 +25,7 @@ abstract class BindingAction extends Equatable {
 
   Widget? form(
     BuildContext context, {
-    void Function(BindingAction updatedAction)? onUpdate,
+    void Function(BindingAction updatedAction)? onUpdated,
   });
 
   Json toJson();

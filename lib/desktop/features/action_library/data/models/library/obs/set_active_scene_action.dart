@@ -66,13 +66,13 @@ class SetActiveSceneAction extends BindingAction {
   @override
   Widget? form(
     BuildContext context, {
-    void Function(BindingAction updatedAction)? onUpdate,
+    void Function(BindingAction updatedAction)? onUpdated,
   }) {
     return SetActiveSceneForm(
       initialSceneName: sceneName,
       getSceneList: _loadScenes,
       onSceneChanged: (scene) {
-        onUpdate?.call(SetActiveSceneAction(
+        onUpdated?.call(SetActiveSceneAction(
           sceneName: scene.sceneName,
         ));
       },

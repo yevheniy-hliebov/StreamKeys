@@ -70,13 +70,13 @@ class WebsiteAction extends BindingAction {
   @override
   Widget? form(
     BuildContext context, {
-    void Function(BindingAction updatedAction)? onUpdate,
+    void Function(BindingAction updatedAction)? onUpdated,
   }) {
     return SingleFieldBindingActionForm(
       label: 'Url',
       initialValue: url,
       onUpdate: (newValue) {
-        onUpdate?.call(WebsiteAction(url: newValue));
+        onUpdated?.call(WebsiteAction(url: newValue));
       },
     );
   }

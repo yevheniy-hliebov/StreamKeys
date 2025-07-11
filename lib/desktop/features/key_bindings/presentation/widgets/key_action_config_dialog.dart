@@ -22,7 +22,7 @@ class KeyActionConfigDialog extends StatelessWidget {
         constraints: const BoxConstraints(maxWidth: 350),
         child: action.form(
           context,
-          onUpdate: (updatedAction) {
+          onUpdated: (updatedAction) {
             localAction = updatedAction;
           },
         ),
