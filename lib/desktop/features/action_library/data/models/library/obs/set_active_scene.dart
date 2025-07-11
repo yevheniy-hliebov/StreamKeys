@@ -79,13 +79,12 @@ class SetActiveScene extends BindingAction {
     );
   }
 
-  Future<List<Scene>> _loadScenes() async {
+  Future<List<Scene>?> _loadScenes() async {
     final obs = sl<ObsService>().obs;
     if (obs == null) {
-      return [];
+      return null;
     }
     final scenes = await obs.scenes.getSceneList();
-
     return scenes.scenes;
   }
 

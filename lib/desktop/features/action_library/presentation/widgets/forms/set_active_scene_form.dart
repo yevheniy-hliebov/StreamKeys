@@ -7,7 +7,7 @@ import 'package:streamkeys/core/constants/spacing.dart';
 class SetActiveSceneForm extends StatefulWidget {
   final String? initialSceneName;
   final void Function(Scene scene)? onSceneChanged;
-  final Future<List<Scene>> Function() getSceneList;
+  final Future<List<Scene>?> Function() getSceneList;
 
   const SetActiveSceneForm({
     super.key,
@@ -24,6 +24,9 @@ class _SetActiveSceneFormState extends State<SetActiveSceneForm> {
   int? selectedIndex;
   List<Scene> scenes = [];
 
+  bool isLoading = true;
+  bool obsNotConnected = false;
+
   @override
   void initState() {
     super.initState();
@@ -31,13 +34,25 @@ class _SetActiveSceneFormState extends State<SetActiveSceneForm> {
   }
 
   Future<void> _loadScenesAndInitSelected() async {
-    final loadedScenes = (await widget.getSceneList()).reversed.toList();
-    scenes = loadedScenes;
+    final loadedScenes = await widget.getSceneList();
 
-    final index = widget.initialSceneName == null
-        ? 0
-        : scenes
-            .indexWhere((scene) => scene.sceneName == widget.initialSceneName);
+    if (loadedScenes == null) {
+      obsNotConnected = true;
+      isLoading = false;
+      if (mounted) setState(() {});
+      return;
+    }
+
+    scenes = loadedScenes.reversed.toList();
+    isLoading = false;
+
+    final initialName = widget.initialSceneName;
+    int index = 0;
+
+    if (initialName != null) {
+      index = scenes.indexWhere((scene) => scene.sceneName == initialName);
+    }
+
     if (index == -1) {
       selectedIndex = 0;
       if (scenes.isNotEmpty) _notifySceneChanged(scenes[0]);
@@ -45,6 +60,7 @@ class _SetActiveSceneFormState extends State<SetActiveSceneForm> {
       selectedIndex = index;
       _notifySceneChanged(scenes[index]);
     }
+
     if (mounted) setState(() {});
   }
 
@@ -54,15 +70,16 @@ class _SetActiveSceneFormState extends State<SetActiveSceneForm> {
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return _buildCenteredMessage(const CircularProgressIndicator());
+    }
+
+    if (obsNotConnected) {
+      return _buildCenteredMessage(const Text('Not connected to OBS'));
+    }
+
     if (scenes.isEmpty) {
-      return const Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          CircularProgressIndicator(),
-        ],
-      );
+      return _buildCenteredMessage(const Text('No scenes found'));
     }
 
     final currentIndex = selectedIndex ?? 0;
@@ -88,6 +105,15 @@ class _SetActiveSceneFormState extends State<SetActiveSceneForm> {
           },
         ),
       ],
+    );
+  }
+
+  Widget _buildCenteredMessage(Widget child) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [child],
     );
   }
 }
