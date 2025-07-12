@@ -73,4 +73,18 @@ class BindingActionIcons {
       colorFilter: _colorFilter,
     );
   }
+
+  Widget get obsRecord {
+    return SvgPicture.asset(
+      '$assetsPath/obs_record.svg',
+      colorFilter: _colorFilter,
+    );
+  }
+
+  Widget get obsStream {
+    return SvgPicture.asset(
+      '$assetsPath/obs_stream.svg',
+      colorFilter: _colorFilter,
+    );
+  }
 }
