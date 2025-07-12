@@ -17,7 +17,7 @@ void main() {
   group('HidMacrosPreferences', () {
     test('saveSelectedKeyboard / getSelectedKeyboard', () async {
       const keyboard = KeyboardDevice('My Keyboard', 'usb://device-123');
-      await preferences.saveSelectedKeyboard(keyboard);
+      await preferences.saveKeyboard(keyboard);
 
       final restored = preferences.getSelectedKeyboard();
       expect(restored, isNotNull);
