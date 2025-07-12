@@ -42,7 +42,7 @@ void desktopMain() async {
   gridDeckBloc.add(DeckPageListInit());
   keyboardDeckBloc.add(DeckPageListInit());
   hidmacrosBloc.add(HidMacrosLoadEvent());
-  
+
   final obs = sl<ObsService>();
   obs.connect();
 

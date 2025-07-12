@@ -17,7 +17,7 @@ class ObsConnectionTitle extends StatelessWidget {
 
     if (status == ConnectionStatus.connected) {
       connectionStatus = 'Connected';
-      statusColor =AppColors.of(context).success;
+      statusColor = AppColors.of(context).success;
     } else if (status == ConnectionStatus.connecting) {
       connectionStatus = 'Connecting...';
       statusColor = AppColors.of(context).warning;

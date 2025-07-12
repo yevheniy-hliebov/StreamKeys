@@ -26,11 +26,14 @@ class ObsSecureStorage {
     ).toMap().keys;
 
     final entries = await Future.wait(
-      keys.map((key) async => MapEntry(key, await _secureStorage.read(key: key))),
+      keys.map(
+          (key) async => MapEntry(key, await _secureStorage.read(key: key))),
     );
 
     final map = Map<String, String>.fromEntries(
-      entries.where((e) => e.value != null).map((e) => MapEntry(e.key, e.value!)),
+      entries
+          .where((e) => e.value != null)
+          .map((e) => MapEntry(e.key, e.value!)),
     );
 
     if (map.length != keys.length) return null;

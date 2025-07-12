@@ -21,7 +21,8 @@ class ObsService {
     ObsWebSocketFactory? obsWebSocketFactory,
     required ObsSecureStorage secureStorage,
   })  : _secureStorage = secureStorage,
-        _obsWebSocketFactory = obsWebSocketFactory ?? DefaultObsWebSocketFactory();
+        _obsWebSocketFactory =
+            obsWebSocketFactory ?? DefaultObsWebSocketFactory();
 
   ConnectionStatus get status => _status;
 

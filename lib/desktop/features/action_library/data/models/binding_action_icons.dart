@@ -45,7 +45,7 @@ class BindingActionIcons {
       '$assetsPath/obs.svg',
     );
   }
-  
+
   Widget get setActiveScene {
     return SvgPicture.asset(
       '$assetsPath/set_active_scene.svg',
