@@ -36,9 +36,9 @@ class ScreenshotAction extends BindingAction {
     this.delay = Duration.zero,
     this.playSound = false,
     SoundService? soundService,
-    FileManager fileManager = const FileManager(),
+    FileManager? fileManager,
   })  : _soundService = soundService ?? SoundService(),
-        _fileManager = fileManager,
+        _fileManager = fileManager ?? const FileManager(),
         super(
           id: id ?? const Uuid().v4(),
           type: ActionTypes.obsScreenshot,
@@ -72,12 +72,18 @@ class ScreenshotAction extends BindingAction {
     };
   }
 
-  factory ScreenshotAction.fromJson(Json json) {
+  factory ScreenshotAction.fromJson(
+    Json json, {
+    SoundService? soundService,
+    FileManager? fileManager,
+  }) {
     final delay = int.parse(json['delay'] as String);
     return ScreenshotAction(
       recordingPath: json['recording_path'] ?? '',
       delay: Duration(seconds: delay),
       playSound: json['play_sound'] as bool? ?? false,
+      soundService: soundService,
+      fileManager: fileManager,
     );
   }
 
@@ -87,6 +93,8 @@ class ScreenshotAction extends BindingAction {
       recordingPath: recordingPath,
       delay: delay,
       playSound: playSound,
+      soundService: _soundService,
+      fileManager: _fileManager,
     );
   }
 
