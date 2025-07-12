@@ -34,6 +34,7 @@ dependencies:
   xml: ^6.5.0
   path: ^1.9.1
   obs_websocket: ^5.2.3
+  audioplayers: ^6.5.0
 
 dev_dependencies:
   flutter_test:
@@ -49,3 +50,4 @@ flutter:
     - assets/hidmacros/
     - assets/hidmacros/lang/
     - assets/hidmacros/xpl/
+    - assets/sounds/
