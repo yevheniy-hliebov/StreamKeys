@@ -4,6 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_preferences.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_service.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_xml_service.dart';
+import 'package:streamkeys/desktop/features/obs/data/services/obs_secure_storage.dart';
+import 'package:streamkeys/desktop/features/obs/data/services/obs_service.dart';
 import 'package:streamkeys/desktop/features/settings/data/services/http_server_password_service.dart';
 import 'package:streamkeys/desktop/utils/launch_file_or_app_service.dart';
 import 'package:streamkeys/desktop/utils/process_runner.dart';
@@ -15,6 +17,8 @@ export 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_xm
 export 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_preferences.dart';
 export 'package:streamkeys/desktop/features/settings/data/services/http_server_password_service.dart';
 export 'package:streamkeys/desktop/utils/launch_file_or_app_service.dart';
+export 'package:streamkeys/desktop/features/obs/data/services/obs_secure_storage.dart';
+export 'package:streamkeys/desktop/features/obs/data/services/obs_service.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -26,19 +30,37 @@ final GetIt sl = GetIt.instance;
 /// Should be called before running the application, typically in `main()`.
 Future<void> initServiceLocator() async {
   final sharedPreferences = await SharedPreferences.getInstance();
+
   final hidmacros = HidMacrosService(RealProcessRunner());
   final hidmacrosXml = HidMacrosXmlService();
   final hidMacrosPreferences = HidMacrosPreferences(sharedPreferences);
+
   const secureStorage = FlutterSecureStorage();
+
   final apiPasswordService = HttpServerPasswordService(secureStorage);
+
   final launchFileOrAppService = LaunchFileOrAppService(RealProcessRunner());
 
+  final obsSecureStorage = ObsSecureStorage(secureStorage: secureStorage);
+
+  final obs = ObsService(
+    secureStorage: obsSecureStorage,
+  );
+
   sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
+
   sl.registerLazySingleton<HidMacrosService>(() => hidmacros);
   sl.registerLazySingleton<HidMacrosXmlService>(() => hidmacrosXml);
   sl.registerLazySingleton<HidMacrosPreferences>(() => hidMacrosPreferences);
+
   sl.registerLazySingleton<FlutterSecureStorage>(() => secureStorage);
+
   sl.registerLazySingleton<HttpServerPasswordService>(() => apiPasswordService);
+
   sl.registerLazySingleton<LaunchFileOrAppService>(
-      () => launchFileOrAppService);
+    () => launchFileOrAppService,
+  );
+
+  sl.registerLazySingleton<ObsSecureStorage>(() => obsSecureStorage);
+  sl.registerLazySingleton<ObsService>(() => obs);
 }

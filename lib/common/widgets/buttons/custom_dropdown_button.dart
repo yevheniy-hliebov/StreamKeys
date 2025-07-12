@@ -22,6 +22,7 @@ class CustomDropdownButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.maxFinite,
       constraints: constraints ??
           const BoxConstraints(
             maxWidth: 200,
@@ -39,6 +40,9 @@ class CustomDropdownButton extends StatelessWidget {
           }),
           onChanged: onChanged,
           buttonStyleData: _getButtonStyle(context),
+          dropdownStyleData: const DropdownStyleData(
+            maxHeight: 200,
+          ),
         ),
       ),
     );

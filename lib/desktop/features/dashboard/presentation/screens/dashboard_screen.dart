@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/containers/bottom_border_container.dart';
+import 'package:streamkeys/common/widgets/containers/status_overlay.dart';
 import 'package:streamkeys/common/widgets/tabs/screen_tab_bar.dart';
 import 'package:streamkeys/common/widgets/tabs/page_tab.dart';
 
 class DashboardScreen extends StatefulWidget {
   final List<PageTab> tabs;
+  final List<Widget> statusWidgets;
 
   const DashboardScreen({
     super.key,
     required this.tabs,
+    this.statusWidgets = const [],
   });
 
   @override
@@ -46,6 +49,9 @@ class _DashboardScreenState extends State<DashboardScreen>
       body: TabBarView(
         controller: _tabController,
         children: widget.tabs.map((PageTab tab) => tab.pageView).toList(),
+      ),
+      bottomNavigationBar: StatusOverlay(
+        children: widget.statusWidgets,
       ),
     );
   }

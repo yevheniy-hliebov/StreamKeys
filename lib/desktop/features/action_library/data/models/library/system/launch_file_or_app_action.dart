@@ -73,12 +73,12 @@ class LaunchFileOrAppAction extends BindingAction {
   @override
   Widget? form(
     BuildContext context, {
-    void Function(BindingAction updatedAction)? onUpdate,
+    void Function(BindingAction updatedAction)? onUpdated,
   }) {
     return LaunchFileOrAppActionForm(
       initialAction: this,
       onUpdate: (newValue) {
-        onUpdate?.call(newValue);
+        onUpdated?.call(newValue);
       },
     );
   }

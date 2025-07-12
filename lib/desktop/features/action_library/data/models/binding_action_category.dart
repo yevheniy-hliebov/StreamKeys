@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/library/obs/obs_category.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/system/system_category.dart';
 
 abstract class BindingActionCategory {
@@ -14,5 +15,6 @@ abstract class BindingActionCategory {
 
   static List<BindingActionCategory> library = const [
     SystemCategory(),
+    ObsCategory(),
   ];
 }

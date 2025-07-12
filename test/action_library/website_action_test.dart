@@ -46,7 +46,7 @@ void main() {
               return Scaffold(
                 body: action.form(
                   context,
-                  onUpdate: (a) => updatedAction = a as WebsiteAction,
+                  onUpdated: (a) => updatedAction = a as WebsiteAction,
                 ),
               );
             },

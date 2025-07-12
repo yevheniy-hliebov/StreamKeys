@@ -40,6 +40,7 @@ class HidMacrosRepository {
     required KeyboardDevice keyboard,
     required KeyboardType type,
   }) async {
+    await _keyboardPrefs.saveKeyboard(keyboard);
     await _keyboardPrefs.saveKeyboardType(type);
     await _xml.regenerateMacros(
       keyboard: keyboard,
