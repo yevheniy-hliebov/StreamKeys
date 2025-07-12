@@ -1,4 +1,5 @@
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/library/obs/screenshot_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/obs/set_active_scene_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/obs/source_mute_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/obs/source_visibility_action.dart';
@@ -12,6 +13,7 @@ class ActionTypes {
   static const setActiveScene = 'set_active_scene';
   static const sourceMute = 'source_mute';
   static const sourceVisibility = 'source_visibility';
+  static const obsScreenshot = 'obs_screenshot';
 }
 
 void registerBindingActions() {
@@ -31,5 +33,9 @@ void registerBindingActions() {
   BindingAction.register(
     ActionTypes.sourceVisibility,
     SourceVisibilityAction.fromJson,
+  );
+  BindingAction.register(
+    ActionTypes.obsScreenshot,
+    ScreenshotAction.fromJson,
   );
 }

@@ -66,4 +66,11 @@ class BindingActionIcons {
       colorFilter: _colorFilter,
     );
   }
+
+  Widget get obsScreenshot {
+    return SvgPicture.asset(
+      '$assetsPath/obs_screenshot.svg',
+      colorFilter: _colorFilter,
+    );
+  }
 }
