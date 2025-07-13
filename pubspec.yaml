@@ -36,6 +36,7 @@ dependencies:
   obs_websocket: ^5.2.3
   intl: ^0.20.2
   audioplayers: ^6.5.0
+  crypto: ^3.0.6
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +49,7 @@ flutter:
     - assets/keyboard_map.json
     - assets/keyboard_key_codes.json
     - assets/action_icons/
+    - assets/action_icons/streamerbot.png
     - assets/hidmacros/
     - assets/hidmacros/lang/
     - assets/hidmacros/xpl/
