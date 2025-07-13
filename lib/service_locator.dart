@@ -51,7 +51,8 @@ Future<void> initServiceLocator() async {
     secureStorage: obsSecureStorage,
   );
 
-  final streamerBotSecureStorage = StreamerBotSecureStorage(secureStorage: secureStorage);
+  final streamerBotSecureStorage =
+      StreamerBotSecureStorage(secureStorage: secureStorage);
   final streamerBot = StreamerBotService(
     secureStorage: streamerBotSecureStorage,
     webSocket: StreamerBotWebSocket(),
@@ -74,6 +75,8 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton<ObsSecureStorage>(() => obsSecureStorage);
   sl.registerLazySingleton<ObsService>(() => obs);
 
-  sl.registerLazySingleton<StreamerBotSecureStorage>(() => streamerBotSecureStorage);
+  sl.registerLazySingleton<StreamerBotSecureStorage>(
+    () => streamerBotSecureStorage,
+  );
   sl.registerLazySingleton<StreamerBotService>(() => streamerBot);
 }

@@ -6,10 +6,12 @@ import 'package:streamkeys/desktop/features/streamerbot/data/repositories/stream
 part 'streamerbot_settings_event.dart';
 part 'streamerbot_settings_state.dart';
 
-class StreamerBotSettingsBloc extends Bloc<StreamerBotSettingsEvent, StreamerBotSettingsState> {
+class StreamerBotSettingsBloc
+    extends Bloc<StreamerBotSettingsEvent, StreamerBotSettingsState> {
   final StreamerBotSettingsRepository _repository;
 
-  StreamerBotSettingsBloc(this._repository) : super(StreamerBotSettingsInitial()) {
+  StreamerBotSettingsBloc(this._repository)
+      : super(StreamerBotSettingsInitial()) {
     on<StreamerBotSettingsLoad>((event, emit) async {
       final data = await _repository.loadConnectionData();
       emit(StreamerBotSettingsLoaded(data));

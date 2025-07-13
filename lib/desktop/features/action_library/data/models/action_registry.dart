@@ -40,5 +40,8 @@ void registerBindingActions() {
   BindingAction.register(ActionTypes.obsScreenshot, ScreenshotAction.fromJson);
   BindingAction.register(ActionTypes.obsRecord, RecordOrStreamAction.fromJson);
   BindingAction.register(ActionTypes.obsStream, RecordOrStreamAction.fromJson);
-  BindingAction.register(ActionTypes.streamerBotDoAction, StreamerBotDoAction.fromJson);
+  BindingAction.register(
+    ActionTypes.streamerBotDoAction,
+    StreamerBotDoAction.fromJson,
+  );
 }

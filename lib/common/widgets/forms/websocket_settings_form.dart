@@ -7,7 +7,8 @@ import 'package:streamkeys/common/widgets/forms/field_label.dart';
 import 'package:streamkeys/common/widgets/tiles/checkbox_tile.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 
-class WebSocketSettingsForm<T extends BaseConnectionData> extends StatefulWidget {
+class WebSocketSettingsForm<T extends BaseConnectionData>
+    extends StatefulWidget {
   final ConnectionStatus status;
   final T? initialData;
   final Future<void> Function(T updatedData)? onUpdated;
@@ -37,7 +38,8 @@ class WebSocketSettingsForm<T extends BaseConnectionData> extends StatefulWidget
   });
 
   @override
-  State<WebSocketSettingsForm<T>> createState() => _WebSocketSettingsFormState<T>();
+  State<WebSocketSettingsForm<T>> createState() =>
+      _WebSocketSettingsFormState<T>();
 }
 
 class _WebSocketSettingsFormState<T extends BaseConnectionData>

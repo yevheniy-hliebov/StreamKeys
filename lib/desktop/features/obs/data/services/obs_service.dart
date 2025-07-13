@@ -121,7 +121,6 @@ class ObsService {
     return loadedData;
   }
 
-
   void _updateConnection(ConnectionStatus status) {
     if (_status != status) {
       _status = status;

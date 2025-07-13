@@ -65,7 +65,8 @@ class StreamerBotSettingsScreen extends StatelessWidget with PageTab {
                             sl<StreamerBotService>().connect(data: data);
                           },
                           onReconnect: (data) {
-                            sl<StreamerBotService>().reconnect(data: data, force: true);
+                            sl<StreamerBotService>()
+                                .reconnect(data: data, force: true);
                           },
                           onDisconnect: () {
                             sl<StreamerBotService>().disconnect();

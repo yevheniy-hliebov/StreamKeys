@@ -40,7 +40,7 @@ class StreamerBotService {
     try {
       await webSocket.connect(
         connectionData.url,
-        password: connectionData.password
+        password: connectionData.password,
       );
 
       _updateConnection(ConnectionStatus.connected);
@@ -64,7 +64,7 @@ class StreamerBotService {
     bool force = false,
   }) async {
     final isConnected = status == ConnectionStatus.connected;
-    
+
     if (!force && isConnected) {
       _log('StreamerBot already connected, skipping reconnect');
       return;
