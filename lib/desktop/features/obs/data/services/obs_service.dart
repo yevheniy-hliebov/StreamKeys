@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:obs_websocket/obs_websocket.dart';
 import 'package:streamkeys/common/models/connection_status.dart';
+import 'package:streamkeys/desktop/features/obs/data/models/obs_connection_data.dart';
 import 'package:streamkeys/desktop/features/obs/data/services/obs_web_socket_factory.dart';
 import 'package:streamkeys/desktop/features/obs/data/services/obs_secure_storage.dart';
 
@@ -29,20 +30,22 @@ class ObsService {
   @visibleForTesting
   Timer? get testTimer => _timer;
 
-  Future<void> connect() async {
+  Future<void> autoConnect() async {
+    final data = await loadData();
+    if (data.autoReconnect) {
+      await connect();
+    }
+  }
+
+  Future<void> connect({ObsConnectionData? data}) async {
     _updateConnection(ConnectionStatus.connecting);
 
     if (_secureStorage.cachedData == null) {
-      final connectionData = await _secureStorage.loadConnectionData();
-      if (connectionData == null) {
-        obs = null;
-        _updateConnection(ConnectionStatus.notConnected);
-        throw Exception('Connection data not set');
-      }
+      await loadData();
     }
 
     try {
-      final connectionData = _secureStorage.cachedData!;
+      final connectionData = data ?? _secureStorage.cachedData!;
 
       obs = await _obsWebSocketFactory.connect(
         connectionData.url,
@@ -93,7 +96,7 @@ class ObsService {
     });
   }
 
-  Future<void> reconnect({bool force = false}) async {
+  Future<void> reconnect({ObsConnectionData? data, bool force = false}) async {
     if (!force && obs != null) {
       try {
         await obs!.general.getStats();
@@ -106,7 +109,16 @@ class ObsService {
     }
 
     await disconnect();
-    await connect();
+    await connect(data: data);
+  }
+
+  Future<ObsConnectionData> loadData() async {
+    final loadedData = await _secureStorage.loadConnectionData();
+    if (loadedData == null) {
+      _updateConnection(ConnectionStatus.notConnected);
+      throw Exception('Connection data not set');
+    }
+    return loadedData;
   }
 
   void _updateConnection(ConnectionStatus status) {

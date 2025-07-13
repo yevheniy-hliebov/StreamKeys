@@ -4,6 +4,7 @@ import 'package:streamkeys/desktop/features/action_library/data/models/library/o
 import 'package:streamkeys/desktop/features/action_library/data/models/library/obs/set_active_scene_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/obs/source_mute_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/obs/source_visibility_action.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/library/streamerbot/do_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/system/launch_file_or_app_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/system/website_action.dart';
 
@@ -17,6 +18,8 @@ class ActionTypes {
   static const sourceMute = 'source_mute';
   static const sourceVisibility = 'source_visibility';
   static const obsScreenshot = 'obs_screenshot';
+
+  static const streamerBotDoAction = 'streamerbot_do_action';
 }
 
 void registerBindingActions() {
@@ -37,4 +40,8 @@ void registerBindingActions() {
   BindingAction.register(ActionTypes.obsScreenshot, ScreenshotAction.fromJson);
   BindingAction.register(ActionTypes.obsRecord, RecordOrStreamAction.fromJson);
   BindingAction.register(ActionTypes.obsStream, RecordOrStreamAction.fromJson);
+  BindingAction.register(
+    ActionTypes.streamerBotDoAction,
+    StreamerBotDoAction.fromJson,
+  );
 }

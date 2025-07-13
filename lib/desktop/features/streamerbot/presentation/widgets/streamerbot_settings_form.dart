@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/models/connection_status.dart';
 import 'package:streamkeys/common/widgets/forms/websocket_settings_form.dart';
-import 'package:streamkeys/desktop/features/obs/data/models/obs_connection_data.dart';
+import 'package:streamkeys/desktop/features/streamerbot/data/models/streamerbot_connection_data.dart';
 
-class ObsSettingsForm extends StatelessWidget {
+class StreamBotSettingsForm extends StatelessWidget {
   final ConnectionStatus status;
-  final ObsConnectionData? initialData;
-  final Future<void> Function(ObsConnectionData updatedData)? onUpdated;
-  final void Function(ObsConnectionData data)? onConnect;
-  final void Function(ObsConnectionData data)? onReconnect;
+  final StreamerBotConnectionData? initialData;
+  final Future<void> Function(StreamerBotConnectionData updatedData)? onUpdated;
+  final void Function(StreamerBotConnectionData data)? onConnect;
+  final void Function(StreamerBotConnectionData data)? onReconnect;
   final void Function()? onDisconnect;
 
-  const ObsSettingsForm({
+  const StreamBotSettingsForm({
     super.key,
     this.status = ConnectionStatus.notConnected,
     this.initialData,
@@ -23,8 +23,8 @@ class ObsSettingsForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WebSocketSettingsForm<ObsConnectionData>(
-      title: 'OBS Settings',
+    return WebSocketSettingsForm<StreamerBotConnectionData>(
+      title: 'Streamer.bot',
       status: status,
       initialData: initialData,
       onUpdated: onUpdated,
@@ -37,7 +37,7 @@ class ObsSettingsForm extends StatelessWidget {
         required String? password,
         required bool autoReconnect,
       }) {
-        return ObsConnectionData(
+        return StreamerBotConnectionData(
           ip: ip,
           port: port,
           password: password ?? '',

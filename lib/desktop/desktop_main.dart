@@ -16,6 +16,9 @@ import 'package:streamkeys/desktop/features/settings/presentation/screens/genera
 import 'package:streamkeys/desktop/features/settings/presentation/screens/hidmacros_screen.dart';
 import 'package:streamkeys/desktop/features/settings/presentation/screens/settings_screen.dart';
 import 'package:streamkeys/desktop/features/settings/presentation/screens/http_server_config_screen.dart';
+import 'package:streamkeys/desktop/features/streamerbot/bloc/connection/streamerbot_connection_bloc.dart';
+import 'package:streamkeys/desktop/features/streamerbot/presentation/screens/streamerbot_settings_screen.dart';
+import 'package:streamkeys/desktop/features/streamerbot/presentation/widgets/streamerbot_connection_status_indicator.dart';
 import 'package:streamkeys/desktop/server/server.dart';
 import 'package:streamkeys/service_locator.dart';
 
@@ -44,7 +47,10 @@ void desktopMain() async {
   hidmacrosBloc.add(HidMacrosLoadEvent());
 
   final obs = sl<ObsService>();
-  obs.connect();
+  obs.autoConnect();
+
+  final streamerBot = sl<StreamerBotService>();
+  streamerBot.autoConnect();
 
   runApp(
     App(
@@ -54,6 +60,9 @@ void desktopMain() async {
         BlocProvider<HidMacrosBloc>(create: (context) => hidmacrosBloc),
         BlocProvider<ObsConnectionBloc>(
           create: (context) => ObsConnectionBloc(obs),
+        ),
+        BlocProvider<StreamerBotConnectionBloc>(
+          create: (context) => StreamerBotConnectionBloc(streamerBot),
         ),
       ],
       home: const CursorStatus(
@@ -66,11 +75,13 @@ void desktopMain() async {
                 GeneralSettingsScreen(),
                 HttpServerConfigScreen(),
                 ObsSettingsScreen(),
+                StreamerBotSettingsScreen(),
                 HidMacrosScreen(),
               ],
             ),
           ],
           statusWidgets: [
+            StreamerBotConnectionStatusIndicator(),
             ObsConnectionStatusIndicator(),
           ],
         ),

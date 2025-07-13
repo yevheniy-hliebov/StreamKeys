@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/models/connection_status.dart';
 import 'package:streamkeys/core/constants/colors.dart';
+import 'package:streamkeys/core/constants/typography.dart';
 
-class ObsConnectionTitle extends StatelessWidget {
+class ConnectionTitle extends StatelessWidget {
+  final String title;
   final ConnectionStatus status;
 
-  const ObsConnectionTitle({
+  const ConnectionTitle({
     super.key,
+    required this.title,
     this.status = ConnectionStatus.notConnected,
   });
 
@@ -28,17 +31,13 @@ class ObsConnectionTitle extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
-            'OBS Connection',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-            ),
+          Text(
+            title,
+            style: AppTypography.bodyStrong,
           ),
           Text(
             connectionStatus,
-            style: TextStyle(
-              fontSize: 14,
+            style: AppTypography.caption.copyWith(
               color: statusColor,
             ),
           ),
