@@ -7,10 +7,12 @@ import 'dart:async' as _i7;
 
 import 'package:loggy/loggy.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i9;
+import 'package:mockito/src/dummies.dart' as _i10;
 import 'package:obs_websocket/obs_websocket.dart' as _i3;
 import 'package:obs_websocket/request.dart' as _i4;
 import 'package:streamkeys/common/models/connection_status.dart' as _i8;
+import 'package:streamkeys/desktop/features/obs/data/models/obs_connection_data.dart'
+    as _i9;
 import 'package:streamkeys/desktop/features/obs/data/services/obs_service.dart'
     as _i6;
 import 'package:web_socket_channel/web_socket_channel.dart' as _i2;
@@ -265,10 +267,12 @@ class MockObsService extends _i1.Mock implements _i6.ObsService {
       );
 
   @override
-  _i7.Future<void> connect() => (super.noSuchMethod(
+  _i7.Future<void> connect({_i9.ObsConnectionData? data}) =>
+      (super.noSuchMethod(
         Invocation.method(
           #connect,
           [],
+          {#data: data},
         ),
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
@@ -294,11 +298,18 @@ class MockObsService extends _i1.Mock implements _i6.ObsService {
       );
 
   @override
-  _i7.Future<void> reconnect({bool? force = false}) => (super.noSuchMethod(
+  _i7.Future<void> reconnect({
+    _i9.ObsConnectionData? data,
+    bool? force = false,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
           #reconnect,
           [],
-          {#force: force},
+          {
+            #data: data,
+            #force: force,
+          },
         ),
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
@@ -777,7 +788,7 @@ class MockRecord extends _i1.Mock implements _i4.Record {
           #stopRecord,
           [],
         ),
-        returnValue: _i7.Future<String>.value(_i9.dummyValue<String>(
+        returnValue: _i7.Future<String>.value(_i10.dummyValue<String>(
           this,
           Invocation.method(
             #stopRecord,
@@ -792,7 +803,7 @@ class MockRecord extends _i1.Mock implements _i4.Record {
           #stop,
           [],
         ),
-        returnValue: _i7.Future<String>.value(_i9.dummyValue<String>(
+        returnValue: _i7.Future<String>.value(_i10.dummyValue<String>(
           this,
           Invocation.method(
             #stop,

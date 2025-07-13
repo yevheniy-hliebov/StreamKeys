@@ -4,19 +4,21 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i7;
-import 'dart:typed_data' as _i13;
+import 'dart:typed_data' as _i14;
 
-import 'package:file_picker/file_picker.dart' as _i12;
+import 'package:file_picker/file_picker.dart' as _i13;
 import 'package:loggy/loggy.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i9;
+import 'package:mockito/src/dummies.dart' as _i10;
 import 'package:obs_websocket/obs_websocket.dart' as _i3;
 import 'package:obs_websocket/request.dart' as _i4;
 import 'package:streamkeys/common/models/connection_status.dart' as _i8;
+import 'package:streamkeys/desktop/features/obs/data/models/obs_connection_data.dart'
+    as _i9;
 import 'package:streamkeys/desktop/features/obs/data/services/obs_service.dart'
     as _i6;
-import 'package:streamkeys/desktop/utils/file_manager.dart' as _i11;
-import 'package:streamkeys/desktop/utils/sound_service.dart' as _i10;
+import 'package:streamkeys/desktop/utils/file_manager.dart' as _i12;
+import 'package:streamkeys/desktop/utils/sound_service.dart' as _i11;
 import 'package:web_socket_channel/web_socket_channel.dart' as _i2;
 
 // ignore_for_file: type=lint
@@ -291,10 +293,12 @@ class MockObsService extends _i1.Mock implements _i6.ObsService {
       );
 
   @override
-  _i7.Future<void> connect() => (super.noSuchMethod(
+  _i7.Future<void> connect({_i9.ObsConnectionData? data}) =>
+      (super.noSuchMethod(
         Invocation.method(
           #connect,
           [],
+          {#data: data},
         ),
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
@@ -320,11 +324,18 @@ class MockObsService extends _i1.Mock implements _i6.ObsService {
       );
 
   @override
-  _i7.Future<void> reconnect({bool? force = false}) => (super.noSuchMethod(
+  _i7.Future<void> reconnect({
+    _i9.ObsConnectionData? data,
+    bool? force = false,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
           #reconnect,
           [],
-          {#force: force},
+          {
+            #data: data,
+            #force: force,
+          },
         ),
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
@@ -787,7 +798,7 @@ class MockScenes extends _i1.Mock implements _i4.Scenes {
           #getCurrentProgramScene,
           [],
         ),
-        returnValue: _i7.Future<String>.value(_i9.dummyValue<String>(
+        returnValue: _i7.Future<String>.value(_i10.dummyValue<String>(
           this,
           Invocation.method(
             #getCurrentProgramScene,
@@ -802,7 +813,7 @@ class MockScenes extends _i1.Mock implements _i4.Scenes {
           #getCurrentProgram,
           [],
         ),
-        returnValue: _i7.Future<String>.value(_i9.dummyValue<String>(
+        returnValue: _i7.Future<String>.value(_i10.dummyValue<String>(
           this,
           Invocation.method(
             #getCurrentProgram,
@@ -838,7 +849,7 @@ class MockScenes extends _i1.Mock implements _i4.Scenes {
           #getCurrentPreviewScene,
           [],
         ),
-        returnValue: _i7.Future<String>.value(_i9.dummyValue<String>(
+        returnValue: _i7.Future<String>.value(_i10.dummyValue<String>(
           this,
           Invocation.method(
             #getCurrentPreviewScene,
@@ -853,7 +864,7 @@ class MockScenes extends _i1.Mock implements _i4.Scenes {
           #getCurrentPreview,
           [],
         ),
-        returnValue: _i7.Future<String>.value(_i9.dummyValue<String>(
+        returnValue: _i7.Future<String>.value(_i10.dummyValue<String>(
           this,
           Invocation.method(
             #getCurrentPreview,
@@ -1108,7 +1119,7 @@ class MockSources extends _i1.Mock implements _i4.Sources {
 /// A class which mocks [SoundService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSoundService extends _i1.Mock implements _i10.SoundService {
+class MockSoundService extends _i1.Mock implements _i11.SoundService {
   MockSoundService() {
     _i1.throwOnMissingStub(this);
   }
@@ -1156,13 +1167,13 @@ class MockSoundService extends _i1.Mock implements _i10.SoundService {
 /// A class which mocks [FileManager].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockFileManager extends _i1.Mock implements _i11.FileManager {
+class MockFileManager extends _i1.Mock implements _i12.FileManager {
   MockFileManager() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i7.Future<String?> pickFile({_i12.FileType? type = _i12.FileType.any}) =>
+  _i7.Future<String?> pickFile({_i13.FileType? type = _i13.FileType.any}) =>
       (super.noSuchMethod(
         Invocation.method(
           #pickFile,
@@ -1182,18 +1193,18 @@ class MockFileManager extends _i1.Mock implements _i11.FileManager {
       ) as _i7.Future<String?>);
 
   @override
-  _i13.Uint8List decodeBase64Image(String? imageData) => (super.noSuchMethod(
+  _i14.Uint8List decodeBase64Image(String? imageData) => (super.noSuchMethod(
         Invocation.method(
           #decodeBase64Image,
           [imageData],
         ),
-        returnValue: _i13.Uint8List(0),
-      ) as _i13.Uint8List);
+        returnValue: _i14.Uint8List(0),
+      ) as _i14.Uint8List);
 
   @override
   _i7.Future<String> saveScreenshot({
     String? recordingPath = 'C:/Screenshots',
-    required _i13.Uint8List? bytes,
+    required _i14.Uint8List? bytes,
     required String? fileNamePart,
   }) =>
       (super.noSuchMethod(
@@ -1206,7 +1217,7 @@ class MockFileManager extends _i1.Mock implements _i11.FileManager {
             #fileNamePart: fileNamePart,
           },
         ),
-        returnValue: _i7.Future<String>.value(_i9.dummyValue<String>(
+        returnValue: _i7.Future<String>.value(_i10.dummyValue<String>(
           this,
           Invocation.method(
             #saveScreenshot,

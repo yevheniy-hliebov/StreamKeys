@@ -8,6 +8,8 @@ import 'dart:async' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:obs_websocket/obs_websocket.dart' as _i5;
 import 'package:streamkeys/common/models/connection_status.dart' as _i4;
+import 'package:streamkeys/desktop/features/obs/data/models/obs_connection_data.dart'
+    as _i6;
 import 'package:streamkeys/desktop/features/obs/data/services/obs_service.dart'
     as _i2;
 
@@ -55,10 +57,12 @@ class MockObsService extends _i1.Mock implements _i2.ObsService {
       );
 
   @override
-  _i3.Future<void> connect() => (super.noSuchMethod(
+  _i3.Future<void> connect({_i6.ObsConnectionData? data}) =>
+      (super.noSuchMethod(
         Invocation.method(
           #connect,
           [],
+          {#data: data},
         ),
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
@@ -84,11 +88,18 @@ class MockObsService extends _i1.Mock implements _i2.ObsService {
       );
 
   @override
-  _i3.Future<void> reconnect({bool? force = false}) => (super.noSuchMethod(
+  _i3.Future<void> reconnect({
+    _i6.ObsConnectionData? data,
+    bool? force = false,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
           #reconnect,
           [],
-          {#force: force},
+          {
+            #data: data,
+            #force: force,
+          },
         ),
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
