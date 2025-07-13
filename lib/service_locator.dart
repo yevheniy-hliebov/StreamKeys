@@ -7,6 +7,8 @@ import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_xm
 import 'package:streamkeys/desktop/features/obs/data/services/obs_secure_storage.dart';
 import 'package:streamkeys/desktop/features/obs/data/services/obs_service.dart';
 import 'package:streamkeys/desktop/features/settings/data/services/http_server_password_service.dart';
+import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_secure_storage.dart';
+import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_service.dart';
 import 'package:streamkeys/desktop/utils/launch_file_or_app_service.dart';
 import 'package:streamkeys/desktop/utils/process_runner.dart';
 
@@ -19,6 +21,8 @@ export 'package:streamkeys/desktop/features/settings/data/services/http_server_p
 export 'package:streamkeys/desktop/utils/launch_file_or_app_service.dart';
 export 'package:streamkeys/desktop/features/obs/data/services/obs_secure_storage.dart';
 export 'package:streamkeys/desktop/features/obs/data/services/obs_service.dart';
+export 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_secure_storage.dart';
+export 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_service.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -42,9 +46,13 @@ Future<void> initServiceLocator() async {
   final launchFileOrAppService = LaunchFileOrAppService(RealProcessRunner());
 
   final obsSecureStorage = ObsSecureStorage(secureStorage: secureStorage);
-
   final obs = ObsService(
     secureStorage: obsSecureStorage,
+  );
+
+  final streamerBotSecureStorage = StreamerBotSecureStorage(secureStorage: secureStorage);
+  final streamerBot = StreamerBotService(
+    secureStorage: streamerBotSecureStorage,
   );
 
   sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
@@ -63,4 +71,7 @@ Future<void> initServiceLocator() async {
 
   sl.registerLazySingleton<ObsSecureStorage>(() => obsSecureStorage);
   sl.registerLazySingleton<ObsService>(() => obs);
+
+  sl.registerLazySingleton<StreamerBotSecureStorage>(() => streamerBotSecureStorage);
+  sl.registerLazySingleton<StreamerBotService>(() => streamerBot);
 }
