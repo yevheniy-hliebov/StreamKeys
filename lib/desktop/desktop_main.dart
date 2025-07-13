@@ -44,7 +44,7 @@ void desktopMain() async {
   hidmacrosBloc.add(HidMacrosLoadEvent());
 
   final obs = sl<ObsService>();
-  obs.connect();
+  obs.autoConnect();
 
   runApp(
     App(
