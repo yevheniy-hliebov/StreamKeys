@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:streamkeys/common/models/connection_status.dart';
 import 'package:streamkeys/core/constants/colors.dart';
 
-class ObsConnectionControls extends StatelessWidget {
+class ConnectionControls extends StatelessWidget {
   final ConnectionStatus status;
   final void Function()? onConnect;
   final void Function()? onDisconnect;
 
-  const ObsConnectionControls({
+  const ConnectionControls({
     super.key,
     this.status = ConnectionStatus.notConnected,
     this.onConnect,

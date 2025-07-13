@@ -58,8 +58,11 @@ class ObsSettingsScreen extends StatelessWidget with PageTab {
                               .read<ObsSettingsBloc>()
                               .add(ObsSettingsSave(updatedData));
                         },
-                        onConnect: () {
-                          sl<ObsService>().connect();
+                        onConnect: (data) {
+                          sl<ObsService>().connect(data: data);
+                        },
+                        onReconnect: (data) {
+                          sl<ObsService>().reconnect(data: data, force: true);
                         },
                         onDisconnect: () {
                           sl<ObsService>().disconnect();
