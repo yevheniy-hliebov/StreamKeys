@@ -48,18 +48,18 @@ class ConnectionStatusIndicator extends StatelessWidget {
           child: Row(
             spacing: Spacing.xs,
             children: [
-              Text(
-                label,
-                style: AppTypography.caption.copyWith(
-                  color: AppColors.of(context).onSurface,
-                ),
-              ),
               Container(
                 width: Spacing.sm,
                 height: Spacing.sm,
                 decoration: BoxDecoration(
                   color: statusColor,
                   shape: BoxShape.circle,
+                ),
+              ),
+              Text(
+                label,
+                style: AppTypography.caption.copyWith(
+                  color: AppColors.of(context).onSurface,
                 ),
               ),
             ],
