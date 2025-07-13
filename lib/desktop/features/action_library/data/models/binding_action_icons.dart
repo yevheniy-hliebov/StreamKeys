@@ -16,75 +16,36 @@ class BindingActionIcons {
   Color get _iconColor => _isLight ? Colors.black : Colors.white;
   ColorFilter get _colorFilter => ColorFilter.mode(_iconColor, BlendMode.srcIn);
 
+  Widget _getSvgPicture(
+    String fileName, {
+    bool isColorChangeAllowed = true,
+  }) {
+    return SvgPicture.asset(
+      '$assetsPath/$fileName',
+      colorFilter: isColorChangeAllowed ? _colorFilter : null,
+    );
+  }
+
   // System
-  Widget get system {
-    return SvgPicture.asset(
-      '$assetsPath/system.svg',
-      colorFilter: _colorFilter,
-    );
-  }
+  Widget get system => _getSvgPicture('system.svg');
 
-  Widget get website {
-    return SvgPicture.asset(
-      '$assetsPath/website.svg',
-      colorFilter: _colorFilter,
-    );
-  }
+  Widget get website => _getSvgPicture('website.svg');
 
-  Widget get launcFileOrApp {
-    return SvgPicture.asset(
-      '$assetsPath/launch_file_or_app.svg',
-      colorFilter: _colorFilter,
-    );
-  }
+  Widget get launcFileOrApp => _getSvgPicture('launch_file_or_app.svg');
 
   // OBS Studio
 
-  Widget get obs {
-    return SvgPicture.asset(
-      '$assetsPath/obs.svg',
-    );
-  }
+  Widget get obs => _getSvgPicture('obs.svg', isColorChangeAllowed: false);
 
-  Widget get setActiveScene {
-    return SvgPicture.asset(
-      '$assetsPath/set_active_scene.svg',
-      colorFilter: _colorFilter,
-    );
-  }
+  Widget get setActiveScene => _getSvgPicture('set_active_scene.svg');
 
-  Widget get sourceMute {
-    return SvgPicture.asset(
-      '$assetsPath/source_mute.svg',
-      colorFilter: _colorFilter,
-    );
-  }
+  Widget get sourceMute => _getSvgPicture('source_mute.svg');
 
-  Widget get sourceVisibility {
-    return SvgPicture.asset(
-      '$assetsPath/source_visibility.svg',
-      colorFilter: _colorFilter,
-    );
-  }
+  Widget get sourceVisibility => _getSvgPicture('source_visibility.svg');
 
-  Widget get obsScreenshot {
-    return SvgPicture.asset(
-      '$assetsPath/obs_screenshot.svg',
-      colorFilter: _colorFilter,
-    );
-  }
+  Widget get obsScreenshot => _getSvgPicture('obs_screenshot.svg');
 
-  Widget get obsRecord {
-    return SvgPicture.asset(
-      '$assetsPath/obs_record.svg',
-      colorFilter: _colorFilter,
-    );
-  }
+  Widget get obsRecord => _getSvgPicture('obs_record.svg');
 
-  Widget get obsStream {
-    return SvgPicture.asset(
-      '$assetsPath/obs_stream.svg',
-      colorFilter: _colorFilter,
-    );
-  }
+  Widget get obsStream => _getSvgPicture('obs_stream.svg');
 }
