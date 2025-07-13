@@ -9,6 +9,7 @@ import 'package:streamkeys/desktop/features/obs/data/services/obs_service.dart';
 import 'package:streamkeys/desktop/features/settings/data/services/http_server_password_service.dart';
 import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_secure_storage.dart';
 import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_service.dart';
+import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_web_socket.dart';
 import 'package:streamkeys/desktop/utils/launch_file_or_app_service.dart';
 import 'package:streamkeys/desktop/utils/process_runner.dart';
 
@@ -53,6 +54,7 @@ Future<void> initServiceLocator() async {
   final streamerBotSecureStorage = StreamerBotSecureStorage(secureStorage: secureStorage);
   final streamerBot = StreamerBotService(
     secureStorage: streamerBotSecureStorage,
+    webSocket: StreamerBotWebSocket(),
   );
 
   sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);

@@ -8,7 +8,7 @@ import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbo
 
 class StreamerBotService {
   final StreamerBotSecureStorage _secureStorage;
-  final webSocket = StreamerBotWebSocket();
+  final StreamerBotWebSocket webSocket;
 
   Timer? _timer;
   final _connectionController = StreamController<ConnectionStatus>.broadcast();
@@ -19,6 +19,7 @@ class StreamerBotService {
 
   StreamerBotService({
     required StreamerBotSecureStorage secureStorage,
+    required this.webSocket,
   }) : _secureStorage = secureStorage;
 
   Future<void> autoConnect() async {
