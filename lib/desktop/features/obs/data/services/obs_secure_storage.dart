@@ -18,16 +18,12 @@ class ObsSecureStorage {
   ObsConnectionData? get cachedDataForTest => _cachedData;
 
   Future<ObsConnectionData?> loadConnectionData() async {
-    final keys = const ObsConnectionData(
-      ip: '',
-      port: '',
-      password: '',
-      autoReconnect: false,
-    ).toMap().keys;
+    final keys = const ObsConnectionData().mapKeys;
 
     final entries = await Future.wait(
       keys.map(
-          (key) async => MapEntry(key, await _secureStorage.read(key: key))),
+        (key) async => MapEntry(key, await _secureStorage.read(key: key)),
+      ),
     );
 
     final map = Map<String, String>.fromEntries(
