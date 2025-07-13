@@ -48,4 +48,12 @@ class BindingActionIcons {
   Widget get obsRecord => _getSvgPicture('obs_record.svg');
 
   Widget get obsStream => _getSvgPicture('obs_stream.svg');
+
+  // Streamer.bot
+  Widget get streamerbot {
+    return Image.asset(
+      '$assetsPath/streamerbot.png',
+      fit: BoxFit.contain,
+    );
+  }
 }
