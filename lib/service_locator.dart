@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,48 +37,49 @@ final GetIt sl = GetIt.instance;
 /// Should be called before running the application, typically in `main()`.
 Future<void> initServiceLocator() async {
   final sharedPreferences = await SharedPreferences.getInstance();
-
-  final hidmacros = HidMacrosService(RealProcessRunner());
-  final hidmacrosXml = HidMacrosXmlService();
-  final hidMacrosPreferences = HidMacrosPreferences(sharedPreferences);
-
   const secureStorage = FlutterSecureStorage();
 
-  final apiPasswordService = HttpServerPasswordService(secureStorage);
-
-  final launchFileOrAppService = LaunchFileOrAppService(RealProcessRunner());
-
-  final obsSecureStorage = ObsSecureStorage(secureStorage: secureStorage);
-  final obs = ObsService(
-    secureStorage: obsSecureStorage,
-  );
-
-  final streamerBotSecureStorage =
-      StreamerBotSecureStorage(secureStorage: secureStorage);
-  final streamerBot = StreamerBotService(
-    secureStorage: streamerBotSecureStorage,
-    webSocket: StreamerBotWebSocket(),
-  );
-
   sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
-
-  sl.registerLazySingleton<HidMacrosService>(() => hidmacros);
-  sl.registerLazySingleton<HidMacrosXmlService>(() => hidmacrosXml);
-  sl.registerLazySingleton<HidMacrosPreferences>(() => hidMacrosPreferences);
-
   sl.registerLazySingleton<FlutterSecureStorage>(() => secureStorage);
 
-  sl.registerLazySingleton<HttpServerPasswordService>(() => apiPasswordService);
+  if (Platform.isWindows) {
+    final hidmacros = HidMacrosService(RealProcessRunner());
+    final hidmacrosXml = HidMacrosXmlService();
+    final hidMacrosPreferences = HidMacrosPreferences(sharedPreferences);
 
-  sl.registerLazySingleton<LaunchFileOrAppService>(
-    () => launchFileOrAppService,
-  );
+    final apiPasswordService = HttpServerPasswordService(secureStorage);
 
-  sl.registerLazySingleton<ObsSecureStorage>(() => obsSecureStorage);
-  sl.registerLazySingleton<ObsService>(() => obs);
+    final launchFileOrAppService = LaunchFileOrAppService(RealProcessRunner());
 
-  sl.registerLazySingleton<StreamerBotSecureStorage>(
-    () => streamerBotSecureStorage,
-  );
-  sl.registerLazySingleton<StreamerBotService>(() => streamerBot);
+    final obsSecureStorage = ObsSecureStorage(secureStorage: secureStorage);
+    final obs = ObsService(
+      secureStorage: obsSecureStorage,
+    );
+
+    final streamerBotSecureStorage =
+        StreamerBotSecureStorage(secureStorage: secureStorage);
+    final streamerBot = StreamerBotService(
+      secureStorage: streamerBotSecureStorage,
+      webSocket: StreamerBotWebSocket(),
+    );
+
+    sl.registerLazySingleton<HidMacrosService>(() => hidmacros);
+    sl.registerLazySingleton<HidMacrosXmlService>(() => hidmacrosXml);
+    sl.registerLazySingleton<HidMacrosPreferences>(() => hidMacrosPreferences);
+
+    sl.registerLazySingleton<HttpServerPasswordService>(
+        () => apiPasswordService);
+
+    sl.registerLazySingleton<LaunchFileOrAppService>(
+      () => launchFileOrAppService,
+    );
+
+    sl.registerLazySingleton<ObsSecureStorage>(() => obsSecureStorage);
+    sl.registerLazySingleton<ObsService>(() => obs);
+
+    sl.registerLazySingleton<StreamerBotSecureStorage>(
+      () => streamerBotSecureStorage,
+    );
+    sl.registerLazySingleton<StreamerBotService>(() => streamerBot);
+  }
 }
