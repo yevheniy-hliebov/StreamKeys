@@ -4,7 +4,6 @@ import 'package:streamkeys/common/widgets/tabs/page_tab.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/desktop/features/streamerbot/bloc/connection/streamerbot_connection_bloc.dart';
 import 'package:streamkeys/desktop/features/streamerbot/bloc/settings/streamerbot_settings_bloc.dart';
-import 'package:streamkeys/desktop/features/streamerbot/data/repositories/streamerbot_repository.dart';
 import 'package:streamkeys/desktop/features/streamerbot/presentation/widgets/streamerbot_settings_form.dart';
 import 'package:streamkeys/service_locator.dart';
 

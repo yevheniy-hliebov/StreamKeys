@@ -3,22 +3,20 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i6;
+import 'dart:async' as _i7;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i8;
+import 'package:mockito/src/dummies.dart' as _i6;
+import 'package:streamkeys/core/storage/generic_secure_storage.dart' as _i5;
+import 'package:streamkeys/core/storage/secure_storable.dart' as _i4;
 import 'package:streamkeys/desktop/features/streamerbot/data/models/do_action_response.dart'
     as _i3;
 import 'package:streamkeys/desktop/features/streamerbot/data/models/get_actions_response.dart'
     as _i2;
 import 'package:streamkeys/desktop/features/streamerbot/data/models/streamerbot_action.dart'
     as _i9;
-import 'package:streamkeys/desktop/features/streamerbot/data/models/streamerbot_connection_data.dart'
-    as _i5;
-import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_secure_storage.dart'
-    as _i4;
 import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_web_socket.dart'
-    as _i7;
+    as _i8;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -56,18 +54,35 @@ class _FakeDoActionResponse_1 extends _i1.SmartFake
         );
 }
 
-/// A class which mocks [StreamerBotSecureStorage].
+/// A class which mocks [GenericSecureStorage].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockStreamerBotSecureStorage extends _i1.Mock
-    implements _i4.StreamerBotSecureStorage {
-  MockStreamerBotSecureStorage() {
+class MockGenericSecureStorage<T extends _i4.SecureStorable> extends _i1.Mock
+    implements _i5.GenericSecureStorage<T> {
+  MockGenericSecureStorage() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  set cachedDataForTest(_i5.StreamerBotConnectionData? data) =>
-      super.noSuchMethod(
+  T Function() get emptyInstance => (super.noSuchMethod(
+        Invocation.getter(#emptyInstance),
+        returnValue: () => _i6.dummyValue<T>(
+          this,
+          Invocation.getter(#emptyInstance),
+        ),
+      ) as T Function());
+
+  @override
+  T Function(Map<String, String>) get fromMap => (super.noSuchMethod(
+        Invocation.getter(#fromMap),
+        returnValue: (Map<String, String> __p0) => _i6.dummyValue<T>(
+          this,
+          Invocation.getter(#fromMap),
+        ),
+      ) as T Function(Map<String, String>));
+
+  @override
+  set cachedDataForTest(T? data) => super.noSuchMethod(
         Invocation.setter(
           #cachedDataForTest,
           data,
@@ -76,34 +91,32 @@ class MockStreamerBotSecureStorage extends _i1.Mock
       );
 
   @override
-  _i6.Future<_i5.StreamerBotConnectionData?> loadConnectionData() =>
-      (super.noSuchMethod(
+  _i7.Future<T?> loadConnectionData() => (super.noSuchMethod(
         Invocation.method(
           #loadConnectionData,
           [],
         ),
-        returnValue: _i6.Future<_i5.StreamerBotConnectionData?>.value(),
-      ) as _i6.Future<_i5.StreamerBotConnectionData?>);
+        returnValue: _i7.Future<T?>.value(),
+      ) as _i7.Future<T?>);
 
   @override
-  _i6.Future<void> updateConnectionData(
-          {required _i5.StreamerBotConnectionData? newData}) =>
+  _i7.Future<void> updateConnectionData({required T? newData}) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateConnectionData,
           [],
           {#newData: newData},
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 }
 
 /// A class which mocks [StreamerBotWebSocket].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockStreamerBotWebSocket extends _i1.Mock
-    implements _i7.StreamerBotWebSocket {
+    implements _i8.StreamerBotWebSocket {
   MockStreamerBotWebSocket() {
     _i1.throwOnMissingStub(this);
   }
@@ -111,17 +124,17 @@ class MockStreamerBotWebSocket extends _i1.Mock
   @override
   String get generatedId => (super.noSuchMethod(
         Invocation.getter(#generatedId),
-        returnValue: _i8.dummyValue<String>(
+        returnValue: _i6.dummyValue<String>(
           this,
           Invocation.getter(#generatedId),
         ),
       ) as String);
 
   @override
-  _i6.Future<void> connect(
+  _i7.Future<void> connect(
     String? url, {
     String? password,
-    _i7.EventHandler? fallbackEventHandler,
+    _i8.EventHandler? fallbackEventHandler,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -132,48 +145,48 @@ class MockStreamerBotWebSocket extends _i1.Mock
             #fallbackEventHandler: fallbackEventHandler,
           },
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 
   @override
-  _i6.Future<void> close() => (super.noSuchMethod(
+  _i7.Future<void> close() => (super.noSuchMethod(
         Invocation.method(
           #close,
           [],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 
   @override
-  _i6.Future<_i2.GetActionsResponse> getActions() => (super.noSuchMethod(
+  _i7.Future<_i2.GetActionsResponse> getActions() => (super.noSuchMethod(
         Invocation.method(
           #getActions,
           [],
         ),
         returnValue:
-            _i6.Future<_i2.GetActionsResponse>.value(_FakeGetActionsResponse_0(
+            _i7.Future<_i2.GetActionsResponse>.value(_FakeGetActionsResponse_0(
           this,
           Invocation.method(
             #getActions,
             [],
           ),
         )),
-      ) as _i6.Future<_i2.GetActionsResponse>);
+      ) as _i7.Future<_i2.GetActionsResponse>);
 
   @override
-  _i6.Future<_i9.StreamerBotAction?> getAction(String? id) =>
+  _i7.Future<_i9.StreamerBotAction?> getAction(String? id) =>
       (super.noSuchMethod(
         Invocation.method(
           #getAction,
           [id],
         ),
-        returnValue: _i6.Future<_i9.StreamerBotAction?>.value(),
-      ) as _i6.Future<_i9.StreamerBotAction?>);
+        returnValue: _i7.Future<_i9.StreamerBotAction?>.value(),
+      ) as _i7.Future<_i9.StreamerBotAction?>);
 
   @override
-  _i6.Future<_i3.DoActionResponse> doAction({
+  _i7.Future<_i3.DoActionResponse> doAction({
     required String? id,
     required String? name,
     Map<String, dynamic>? args,
@@ -189,7 +202,7 @@ class MockStreamerBotWebSocket extends _i1.Mock
           },
         ),
         returnValue:
-            _i6.Future<_i3.DoActionResponse>.value(_FakeDoActionResponse_1(
+            _i7.Future<_i3.DoActionResponse>.value(_FakeDoActionResponse_1(
           this,
           Invocation.method(
             #doAction,
@@ -201,5 +214,5 @@ class MockStreamerBotWebSocket extends _i1.Mock
             },
           ),
         )),
-      ) as _i6.Future<_i3.DoActionResponse>);
+      ) as _i7.Future<_i3.DoActionResponse>);
 }

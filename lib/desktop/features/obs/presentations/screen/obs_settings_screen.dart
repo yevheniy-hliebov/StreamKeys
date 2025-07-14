@@ -5,7 +5,6 @@ import 'package:streamkeys/common/widgets/tabs/page_tab.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/desktop/features/obs/bloc/connection/obs_connection_bloc.dart';
 import 'package:streamkeys/desktop/features/obs/bloc/settings/obs_settings_bloc.dart';
-import 'package:streamkeys/desktop/features/obs/data/repositories/obs_repository.dart';
 import 'package:streamkeys/desktop/features/obs/presentations/widgets/obs_settings_form.dart';
 import 'package:streamkeys/service_locator.dart';
 

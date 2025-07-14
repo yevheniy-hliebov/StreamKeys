@@ -4,7 +4,7 @@ import 'package:mockito/mockito.dart';
 import 'package:obs_websocket/request.dart';
 import 'package:streamkeys/desktop/features/obs/data/models/obs_connection_data.dart';
 import 'package:streamkeys/desktop/features/obs/data/services/obs_web_socket_factory.dart';
-import 'package:streamkeys/desktop/features/obs/data/services/obs_secure_storage.dart';
+import 'package:streamkeys/core/storage/generic_secure_storage.dart';
 import 'package:streamkeys/common/models/connection_status.dart';
 import 'package:streamkeys/desktop/features/obs/data/services/obs_service.dart';
 import 'package:obs_websocket/obs_websocket.dart';
@@ -24,19 +24,19 @@ class FakeObsConnectionData extends ObsConnectionData {
 }
 
 @GenerateMocks([
-  ObsSecureStorage,
+  GenericSecureStorage,
   ObsWebSocketFactory,
   ObsWebSocket,
   General,
   StatsResponse,
 ])
 void main() {
-  late MockObsSecureStorage mockStorage;
+  late MockGenericSecureStorage<ObsConnectionData> mockStorage;
   late MockObsWebSocketFactory mockObsWebSocketFactory;
   late ObsService service;
 
   setUp(() {
-    mockStorage = MockObsSecureStorage();
+    mockStorage = MockGenericSecureStorage<ObsConnectionData>();
     mockObsWebSocketFactory = MockObsWebSocketFactory();
     service = ObsService(
       secureStorage: mockStorage,
@@ -56,12 +56,11 @@ void main() {
     test('connects successfully', () async {
       const fakeData = FakeObsConnectionData();
       final mockWebSocket = MockObsWebSocket();
-      final mockFactory = MockObsWebSocketFactory();
 
       when(mockStorage.cachedData).thenReturn(fakeData);
       when(mockStorage.loadConnectionData()).thenAnswer((_) async => fakeData);
 
-      when(mockFactory.connect(
+      when(mockObsWebSocketFactory.connect(
         any,
         password: anyNamed('password'),
         fallbackEventHandler: anyNamed('fallbackEventHandler'),
@@ -69,7 +68,7 @@ void main() {
 
       service = ObsService(
         secureStorage: mockStorage,
-        obsWebSocketFactory: mockFactory,
+        obsWebSocketFactory: mockObsWebSocketFactory,
       );
 
       await service.connect();

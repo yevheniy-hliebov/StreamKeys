@@ -3,7 +3,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:streamkeys/desktop/features/streamerbot/bloc/settings/streamerbot_settings_bloc.dart';
 import 'package:streamkeys/desktop/features/streamerbot/data/models/streamerbot_connection_data.dart';
-import 'package:streamkeys/desktop/features/streamerbot/data/repositories/streamerbot_repository.dart';
 
 import 'streamerbot_settings_bloc_test.mocks.dart';
 

@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:obs_websocket/obs_websocket.dart';
 import 'package:streamkeys/common/models/connection_status.dart';
+import 'package:streamkeys/core/storage/generic_secure_storage.dart';
 import 'package:streamkeys/desktop/features/obs/data/models/obs_connection_data.dart';
 import 'package:streamkeys/desktop/features/obs/data/services/obs_web_socket_factory.dart';
-import 'package:streamkeys/desktop/features/obs/data/services/obs_secure_storage.dart';
 
 class ObsService {
-  final ObsSecureStorage _secureStorage;
+  final GenericSecureStorage<ObsConnectionData> _secureStorage;
   final ObsWebSocketFactory _obsWebSocketFactory;
   ObsWebSocket? obs;
   Timer? _timer;
@@ -20,7 +20,7 @@ class ObsService {
 
   ObsService({
     ObsWebSocketFactory? obsWebSocketFactory,
-    required ObsSecureStorage secureStorage,
+    required GenericSecureStorage<ObsConnectionData> secureStorage,
   })  : _secureStorage = secureStorage,
         _obsWebSocketFactory =
             obsWebSocketFactory ?? DefaultObsWebSocketFactory();

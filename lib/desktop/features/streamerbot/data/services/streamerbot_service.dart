@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:streamkeys/common/models/connection_status.dart';
 import 'package:streamkeys/desktop/features/streamerbot/data/models/streamerbot_connection_data.dart';
-import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_secure_storage.dart';
 import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_web_socket.dart';
+import 'package:streamkeys/service_locator.dart';
 
 class StreamerBotService {
   final StreamerBotSecureStorage _secureStorage;
