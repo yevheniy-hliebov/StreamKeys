@@ -15,6 +15,7 @@ import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbo
 import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_web_socket.dart';
 import 'package:streamkeys/desktop/utils/launch_file_or_app_service.dart';
 import 'package:streamkeys/desktop/utils/process_runner.dart';
+import 'package:streamkeys/mobile/features/api_connection/data/models/api_connection_data.dart';
 
 export 'package:shared_preferences/shared_preferences.dart';
 export 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -30,7 +31,9 @@ export 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbo
 final GetIt sl = GetIt.instance;
 
 typedef ObsSecureStorage = GenericSecureStorage<ObsConnectionData>;
-typedef StreamerBotSecureStorage = GenericSecureStorage<StreamerBotConnectionData>;
+typedef StreamerBotSecureStorage
+    = GenericSecureStorage<StreamerBotConnectionData>;
+typedef ApiSecureStorage = GenericSecureStorage<ApiConnectionData>;
 
 /// Initializes the service locator with all necessary dependencies for the app.
 ///
@@ -78,7 +81,8 @@ Future<void> initServiceLocator() async {
     sl.registerLazySingleton<HidMacrosPreferences>(() => hidMacrosPreferences);
 
     sl.registerLazySingleton<HttpServerPasswordService>(
-        () => apiPasswordService);
+      () => apiPasswordService,
+    );
 
     sl.registerLazySingleton<LaunchFileOrAppService>(
       () => launchFileOrAppService,
@@ -93,5 +97,17 @@ Future<void> initServiceLocator() async {
       () => streamerBotSecureStorage,
     );
     sl.registerLazySingleton<StreamerBotService>(() => streamerBot);
+  }
+
+  if (Platform.isAndroid) {
+    final apiSecureStorage = ApiSecureStorage(
+      secureStorage: secureStorage,
+      emptyInstance: () => const ApiConnectionData(),
+      fromMap: ApiConnectionData.fromMap,
+    );
+
+    sl.registerLazySingleton<ApiSecureStorage>(
+      () => apiSecureStorage,
+    );
   }
 }
