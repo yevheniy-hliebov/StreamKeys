@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/app.dart';
 import 'package:streamkeys/mobile/features/api_connection/bloc/api_connection_bloc.dart';
+import 'package:streamkeys/mobile/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:streamkeys/service_locator.dart';
 
 void mobileMain() async {
@@ -25,6 +26,6 @@ void mobileMain() async {
         create: (context) => apiConnectionBloc,
       ),
     ],
-    child: const App(home: Scaffold()),
+    child: const App(home: DashboardScreen()),
   ));
 }
