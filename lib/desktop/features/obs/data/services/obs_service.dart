@@ -60,7 +60,6 @@ class ObsService {
       _addConnectionHadler();
 
       _updateConnection(ConnectionStatus.connected);
-
     } catch (e) {
       _updateConnection(ConnectionStatus.notConnected);
       _log('Error connecting to OBS WebSocket: $e');
