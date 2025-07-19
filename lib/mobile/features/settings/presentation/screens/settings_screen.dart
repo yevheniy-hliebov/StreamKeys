@@ -58,7 +58,7 @@ class SettingsScreen extends StatelessWidget {
         },
         icon: const Icon(Icons.arrow_back),
       ),
-      actions: [SizedBox()],
+      actions: const [SizedBox()],
       builder: (appShell, isAppBar, isLandscapeLeft) {
         Widget body;
 
