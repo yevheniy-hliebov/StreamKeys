@@ -9,6 +9,7 @@ import 'package:streamkeys/desktop/features/key_grid_area/data/models/grid_templ
 import 'package:streamkeys/desktop/server/controllers/base_controller.dart';
 import 'package:streamkeys/desktop/utils/local_json_file_manager.dart';
 import 'package:streamkeys/service_locator.dart';
+import 'package:mime/mime.dart';
 
 class GridDeckController extends BaseController {
   final jsonHelper = LocalJsonFileManager.storage(
@@ -58,10 +59,7 @@ class GridDeckController extends BaseController {
     }
   }
 
-  Future<Response> getImage(
-    Request request,
-    String keyCode,
-  ) async {
+  Future<Response> getImage(Request request, String keyCode) async {
     try {
       final json = await jsonHelper.read();
 
@@ -80,17 +78,15 @@ class GridDeckController extends BaseController {
 
       final imagePath = keyBindingDataJson[DeckJsonKeys.keyImagePath] as String;
       final imageFile = imagePath.isNotEmpty ? File(imagePath) : null;
-      if (imageFile == null) {
+      if (imageFile == null || !imageFile.existsSync()) {
         return Response.notFound('Image not found');
       }
 
-      if (!imageFile.existsSync()) {
-        return Response.notFound('Image not found');
-      }
+      final mimeType = lookupMimeType(imagePath) ?? 'application/octet-stream';
 
       return Response.ok(
         imageFile.readAsBytesSync(),
-        headers: {'Content-Type': 'image/jpeg'},
+        headers: {'Content-Type': mimeType},
       );
     } catch (e) {
       return handleError(e);
