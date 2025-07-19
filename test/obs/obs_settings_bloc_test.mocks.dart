@@ -6,10 +6,10 @@
 import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:streamkeys/desktop/features/obs/bloc/settings/obs_settings_bloc.dart'
+    as _i2;
 import 'package:streamkeys/desktop/features/obs/data/models/obs_connection_data.dart'
     as _i4;
-import 'package:streamkeys/desktop/features/obs/data/repositories/obs_repository.dart'
-    as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values

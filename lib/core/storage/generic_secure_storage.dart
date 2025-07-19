@@ -1,21 +1,26 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:streamkeys/desktop/features/streamerbot/data/models/streamerbot_connection_data.dart';
+import 'package:streamkeys/core/storage/secure_storable.dart';
 
-class StreamerBotSecureStorage {
+class GenericSecureStorage<T extends SecureStorable> {
   final FlutterSecureStorage _secureStorage;
-  StreamerBotConnectionData? _cachedData;
+  final T Function() emptyInstance;
+  final T Function(Map<String, String>) fromMap;
+  T? _cachedData;
 
-  StreamerBotSecureStorage({required FlutterSecureStorage secureStorage})
-      : _secureStorage = secureStorage;
+  GenericSecureStorage({
+    required FlutterSecureStorage secureStorage,
+    required this.emptyInstance,
+    required this.fromMap,
+  }) : _secureStorage = secureStorage;
 
-  StreamerBotConnectionData? get cachedData => _cachedData;
+  T? get cachedData => _cachedData;
 
   @visibleForTesting
-  set cachedDataForTest(StreamerBotConnectionData? data) => _cachedData = data;
+  set cachedDataForTest(T? data) => _cachedData = data;
 
-  Future<StreamerBotConnectionData?> loadConnectionData() async {
-    final keys = const StreamerBotConnectionData().mapKeys;
+  Future<T?> loadConnectionData() async {
+    final keys = emptyInstance().mapKeys;
 
     final entries = await Future.wait(
       keys.map((key) async {
@@ -31,13 +36,11 @@ class StreamerBotSecureStorage {
 
     if (map.length != keys.length) return null;
 
-    _cachedData = StreamerBotConnectionData.fromMap(map);
+    _cachedData = fromMap(map);
     return _cachedData;
   }
 
-  Future<void> updateConnectionData({
-    required StreamerBotConnectionData newData,
-  }) async {
+  Future<void> updateConnectionData({required T newData}) async {
     final newMap = newData.toMap();
     final oldMap = _cachedData?.toMap() ?? {};
 

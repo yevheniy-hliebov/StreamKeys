@@ -3,15 +3,14 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:streamkeys/common/models/connection_status.dart';
 import 'package:streamkeys/desktop/features/streamerbot/data/models/streamerbot_connection_data.dart';
-import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_secure_storage.dart';
 import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_web_socket.dart';
-import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_service.dart';
+import 'package:streamkeys/service_locator.dart';
 
 import 'streamerbot_service_test.mocks.dart';
 
-@GenerateMocks([StreamerBotSecureStorage, StreamerBotWebSocket])
+@GenerateMocks([GenericSecureStorage, StreamerBotWebSocket])
 void main() {
-  late MockStreamerBotSecureStorage mockStorage;
+  late MockGenericSecureStorage<StreamerBotConnectionData> mockStorage;
   late MockStreamerBotWebSocket mockWebSocket;
   late StreamerBotService service;
 
@@ -23,7 +22,7 @@ void main() {
   );
 
   setUp(() {
-    mockStorage = MockStreamerBotSecureStorage();
+    mockStorage = MockGenericSecureStorage();
     mockWebSocket = MockStreamerBotWebSocket();
     service = StreamerBotService(
       secureStorage: mockStorage,

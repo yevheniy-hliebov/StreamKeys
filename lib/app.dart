@@ -1,4 +1,3 @@
-// ignore_for_file: always_specify_types
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/core/theme/bloc/theme_mode_bloc.dart';

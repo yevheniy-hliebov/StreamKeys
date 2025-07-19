@@ -1,6 +1,6 @@
-import 'package:equatable/equatable.dart';
+import 'package:streamkeys/core/storage/secure_storable.dart';
 
-abstract class BaseConnectionData extends Equatable {
+abstract class BaseConnectionData extends SecureStorable {
   final String ip;
   final String port;
   final String password;
@@ -17,8 +17,7 @@ abstract class BaseConnectionData extends Equatable {
 
   String get url => 'ws://$ip:$port';
 
-  Iterable<String> get mapKeys => toMap().keys;
-
+  @override
   Map<String, dynamic> toMap() {
     return {
       '${prefixKey}_ip': ip,

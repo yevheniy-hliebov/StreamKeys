@@ -3,7 +3,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:streamkeys/desktop/features/obs/bloc/settings/obs_settings_bloc.dart';
 import 'package:streamkeys/desktop/features/obs/data/models/obs_connection_data.dart';
-import 'package:streamkeys/desktop/features/obs/data/repositories/obs_repository.dart';
 
 import 'obs_settings_bloc_test.mocks.dart';
 

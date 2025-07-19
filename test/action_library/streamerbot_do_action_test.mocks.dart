@@ -20,10 +20,9 @@ import 'package:streamkeys/desktop/features/streamerbot/data/models/streamerbot_
     as _i10;
 import 'package:streamkeys/desktop/features/streamerbot/data/models/streamerbot_connection_data.dart'
     as _i5;
-import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_service.dart'
-    as _i11;
 import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_web_socket.dart'
     as _i4;
+import 'package:streamkeys/service_locator.dart' as _i11;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values

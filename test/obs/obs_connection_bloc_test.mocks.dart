@@ -3,15 +3,15 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:obs_websocket/obs_websocket.dart' as _i5;
-import 'package:streamkeys/common/models/connection_status.dart' as _i4;
+import 'package:obs_websocket/obs_websocket.dart' as _i6;
+import 'package:streamkeys/common/models/connection_status.dart' as _i5;
 import 'package:streamkeys/desktop/features/obs/data/models/obs_connection_data.dart'
-    as _i6;
-import 'package:streamkeys/desktop/features/obs/data/services/obs_service.dart'
     as _i2;
+import 'package:streamkeys/desktop/features/obs/data/services/obs_service.dart'
+    as _i3;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -27,28 +27,39 @@ import 'package:streamkeys/desktop/features/obs/data/services/obs_service.dart'
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeObsConnectionData_0 extends _i1.SmartFake
+    implements _i2.ObsConnectionData {
+  _FakeObsConnectionData_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [ObsService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockObsService extends _i1.Mock implements _i2.ObsService {
+class MockObsService extends _i1.Mock implements _i3.ObsService {
   MockObsService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Stream<_i4.ConnectionStatus> get connectionStream => (super.noSuchMethod(
+  _i4.Stream<_i5.ConnectionStatus> get connectionStream => (super.noSuchMethod(
         Invocation.getter(#connectionStream),
-        returnValue: _i3.Stream<_i4.ConnectionStatus>.empty(),
-      ) as _i3.Stream<_i4.ConnectionStatus>);
+        returnValue: _i4.Stream<_i5.ConnectionStatus>.empty(),
+      ) as _i4.Stream<_i5.ConnectionStatus>);
 
   @override
-  _i4.ConnectionStatus get status => (super.noSuchMethod(
+  _i5.ConnectionStatus get status => (super.noSuchMethod(
         Invocation.getter(#status),
-        returnValue: _i4.ConnectionStatus.notConnected,
-      ) as _i4.ConnectionStatus);
+        returnValue: _i5.ConnectionStatus.notConnected,
+      ) as _i5.ConnectionStatus);
 
   @override
-  set obs(_i5.ObsWebSocket? _obs) => super.noSuchMethod(
+  set obs(_i6.ObsWebSocket? _obs) => super.noSuchMethod(
         Invocation.setter(
           #obs,
           _obs,
@@ -57,26 +68,36 @@ class MockObsService extends _i1.Mock implements _i2.ObsService {
       );
 
   @override
-  _i3.Future<void> connect({_i6.ObsConnectionData? data}) =>
+  _i4.Future<void> autoConnect() => (super.noSuchMethod(
+        Invocation.method(
+          #autoConnect,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> connect({_i2.ObsConnectionData? data}) =>
       (super.noSuchMethod(
         Invocation.method(
           #connect,
           [],
           {#data: data},
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  _i3.Future<void> disconnect() => (super.noSuchMethod(
+  _i4.Future<void> disconnect() => (super.noSuchMethod(
         Invocation.method(
           #disconnect,
           [],
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
   void startAutoReconnectTimer() => super.noSuchMethod(
@@ -88,8 +109,8 @@ class MockObsService extends _i1.Mock implements _i2.ObsService {
       );
 
   @override
-  _i3.Future<void> reconnect({
-    _i6.ObsConnectionData? data,
+  _i4.Future<void> reconnect({
+    _i2.ObsConnectionData? data,
     bool? force = false,
   }) =>
       (super.noSuchMethod(
@@ -101,7 +122,23 @@ class MockObsService extends _i1.Mock implements _i2.ObsService {
             #force: force,
           },
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<_i2.ObsConnectionData> loadData() => (super.noSuchMethod(
+        Invocation.method(
+          #loadData,
+          [],
+        ),
+        returnValue:
+            _i4.Future<_i2.ObsConnectionData>.value(_FakeObsConnectionData_0(
+          this,
+          Invocation.method(
+            #loadData,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i2.ObsConnectionData>);
 }

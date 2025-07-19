@@ -9,10 +9,9 @@ import 'package:mockito/mockito.dart' as _i1;
 import 'package:streamkeys/common/models/connection_status.dart' as _i6;
 import 'package:streamkeys/desktop/features/streamerbot/data/models/streamerbot_connection_data.dart'
     as _i3;
-import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_service.dart'
-    as _i4;
 import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_web_socket.dart'
     as _i2;
+import 'package:streamkeys/service_locator.dart' as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values

@@ -1,10 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:streamkeys/core/storage/connection_settings_repository.dart';
 import 'package:streamkeys/desktop/features/streamerbot/data/models/streamerbot_connection_data.dart';
-import 'package:streamkeys/desktop/features/streamerbot/data/repositories/streamerbot_repository.dart';
 
 part 'streamerbot_settings_event.dart';
 part 'streamerbot_settings_state.dart';
+
+typedef StreamerBotSettingsRepository
+    = ConnectionSettingsRepository<StreamerBotConnectionData>;
 
 class StreamerBotSettingsBloc
     extends Bloc<StreamerBotSettingsEvent, StreamerBotSettingsState> {

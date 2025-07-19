@@ -6,10 +6,10 @@
 import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:streamkeys/desktop/features/streamerbot/bloc/settings/streamerbot_settings_bloc.dart'
+    as _i2;
 import 'package:streamkeys/desktop/features/streamerbot/data/models/streamerbot_connection_data.dart'
     as _i4;
-import 'package:streamkeys/desktop/features/streamerbot/data/repositories/streamerbot_repository.dart'
-    as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
