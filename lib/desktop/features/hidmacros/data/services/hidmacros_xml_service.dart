@@ -152,11 +152,8 @@ class HidMacrosXmlService {
   }
 
   XmlElement _createMacro(String apiPassword, int code, String name) {
-    final script = 'Set http = CreateObject("MSXML2.XMLHTTP")\n'
-        'http.Open "POST", "http://localhost:${Server.port}/api/keyboard/$code", False\n'
-        'http.setRequestHeader "Content-Type", "application/json"\n'
-        'http.setRequestHeader "X-Api-Password", "$apiPassword"\n'
-        'http.send';
+    final script = 'Set shell = CreateObject("WScript.Shell")\n'
+        'shell.Run """$assetsPath\\click_button.exe"" $code $apiPassword ${Server.port}", 0, False';
 
     return XmlElement(XmlName('Macro'), [], [
       XmlElement(XmlName('Device'), [], [XmlText(name)]),
