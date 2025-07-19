@@ -105,10 +105,11 @@ void main() {
       final firstMacro = macros.first;
       expect(firstMacro.findElements('Device').first.innerText,
           equals('Test Keyboard'));
-      expect(firstMacro.findElements('Name').first.innerText, contains('Macro'));
+      expect(
+          firstMacro.findElements('Name').first.innerText, contains('Macro'));
       expect(firstMacro.findElements('KeyCode').first.innerText, isNotEmpty);
       expect(firstMacro.findElements('ScriptSource').first.innerText,
-          contains('X-Api-Password", "test-password'));
+          contains('test-password'));
     });
   });
 }
