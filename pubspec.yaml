@@ -37,6 +37,7 @@ dependencies:
   intl: ^0.20.2
   audioplayers: ^6.5.0
   crypto: ^3.0.6
+  http: ^1.4.0
   mime: ^2.0.0
 
 dev_dependencies:

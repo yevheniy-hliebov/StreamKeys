@@ -16,6 +16,7 @@ import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbo
 import 'package:streamkeys/desktop/utils/launch_file_or_app_service.dart';
 import 'package:streamkeys/desktop/utils/process_runner.dart';
 import 'package:streamkeys/mobile/features/api_connection/data/models/api_connection_data.dart';
+import 'package:streamkeys/mobile/features/buttons/data/services/http_buttons_api.dart';
 
 export 'package:shared_preferences/shared_preferences.dart';
 export 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -27,6 +28,7 @@ export 'package:streamkeys/desktop/features/settings/data/services/http_server_p
 export 'package:streamkeys/desktop/utils/launch_file_or_app_service.dart';
 export 'package:streamkeys/desktop/features/obs/data/services/obs_service.dart';
 export 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_service.dart';
+export 'package:streamkeys/mobile/features/buttons/data/services/http_buttons_api.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -105,9 +107,13 @@ Future<void> initServiceLocator() async {
       emptyInstance: () => const ApiConnectionData(),
       fromMap: ApiConnectionData.fromMap,
     );
+    final api = HttpButtonsApi(apiSecureStorage);
 
     sl.registerLazySingleton<ApiSecureStorage>(
       () => apiSecureStorage,
+    );
+    sl.registerLazySingleton<HttpButtonsApi>(
+      () => api,
     );
   }
 }
