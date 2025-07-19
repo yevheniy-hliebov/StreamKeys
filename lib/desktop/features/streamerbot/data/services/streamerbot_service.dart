@@ -44,11 +44,12 @@ class StreamerBotService {
       );
 
       _updateConnection(ConnectionStatus.connected);
-      _startAutoReconnectTimer(connectionData);
     } catch (e) {
       _updateConnection(ConnectionStatus.notConnected);
       _log('Connection error: $e');
       rethrow;
+    } finally {
+      _startAutoReconnectTimer(connectionData);
     }
   }
 
