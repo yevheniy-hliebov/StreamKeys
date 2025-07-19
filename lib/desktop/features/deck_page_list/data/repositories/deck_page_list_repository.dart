@@ -33,6 +33,7 @@ class DeckPageListRepository {
   Future<void> init() => _loadJson();
 
   Future<void> addAndSelectPage(DeckPage page) async {
+    await _loadJson();
     json[DeckJsonKeys.currentPageId] = page.id;
     _orderPagesJson.add(page.toJson());
     _mapJson[page.id] = <String, dynamic>{};
@@ -41,11 +42,13 @@ class DeckPageListRepository {
   }
 
   Future<void> selectPage(String pageId) async {
+    await _loadJson();
     json[DeckJsonKeys.currentPageId] = pageId;
     await _save();
   }
 
   Future<void> renameCurrentPage(String newName) async {
+    await _loadJson();
     final int index = _orderPagesJson.indexWhere(
       (p) => p[DeckJsonKeys.pageId] == currentPageId,
     );
@@ -56,6 +59,7 @@ class DeckPageListRepository {
   }
 
   Future<void> deletePage(String pageId) async {
+    await _loadJson();
     final orderPagesJson = _orderPagesJson;
     if (orderPagesJson.length <= 1) return;
 
@@ -79,6 +83,7 @@ class DeckPageListRepository {
   }
 
   Future<void> reorderPages(int oldIndex, int newIndex) async {
+    await _loadJson();
     if (newIndex > oldIndex) {
       newIndex -= 1;
     }
