@@ -8,10 +8,13 @@ class ApiConnectionData extends BaseConnectionData {
   }) : super(autoReconnect: false);
 
   bool get isEmpty {
-    return ip.isEmpty && port.isEmpty && password.isEmpty;
+    return ip.isEmpty || port.isEmpty || password.isEmpty;
   }
 
   bool get isNotEmpty => !isEmpty;
+
+  @override
+  String get url => 'http://$ip:$port';
 
   static const String _type = 'http_api';
 

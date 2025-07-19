@@ -8,11 +8,11 @@ import 'package:streamkeys/mobile/features/api_connection/data/models/api_connec
 import 'package:streamkeys/mobile/features/api_connection/presentation/widgets/api_connection_form.dart';
 
 class ApiConnectionGate extends StatelessWidget {
-  final Widget child;
+  final Widget Function() builder;
 
   const ApiConnectionGate({
     super.key,
-    required this.child,
+    required this.builder,
   });
 
   @override
@@ -46,7 +46,7 @@ class ApiConnectionGate extends StatelessWidget {
             );
           }
 
-          return child;
+          return builder();
         }
 
         return const LoaderPlaceholder();

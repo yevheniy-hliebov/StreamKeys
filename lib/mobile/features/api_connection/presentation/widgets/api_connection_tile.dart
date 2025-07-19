@@ -4,7 +4,7 @@ import 'package:streamkeys/mobile/features/api_connection/data/models/api_connec
 import 'package:streamkeys/mobile/features/api_connection/presentation/widgets/api_connection_dialog.dart';
 
 class ApiConnectionTile extends StatelessWidget {
-  final ApiConnectionData initialData;
+  final ApiConnectionData? initialData;
   final void Function(ApiConnectionData data)? onUpdated;
 
   const ApiConnectionTile({
@@ -21,7 +21,10 @@ class ApiConnectionTile extends StatelessWidget {
         style: AppTypography.bodyStrong,
       ),
       onTap: () async {
-        final result = await ApiConnectionDialog.showConfigDialog(context, initialData: initialData);
+        final result = await ApiConnectionDialog.showConfigDialog(
+          context,
+          initialData: initialData,
+        );
         if (result == null) return;
         onUpdated?.call(result);
       },
