@@ -98,16 +98,5 @@ void main() {
 
       expect(service.status, ConnectionStatus.connected);
     });
-
-    test('startAutoReconnectTimer does nothing if autoReconnect is false', () {
-      when(mockStorage.cachedData)
-          .thenReturn(const FakeObsConnectionData(autoReconnect: false));
-
-      service.startAutoReconnectTimer();
-
-      expect(service.testTimer, isNull);
-
-      expect(service.status, ConnectionStatus.notConnected);
-    });
   });
 }

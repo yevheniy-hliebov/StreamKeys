@@ -310,15 +310,6 @@ class MockObsService extends _i1.Mock implements _i7.ObsService {
       ) as _i8.Future<void>);
 
   @override
-  void startAutoReconnectTimer() => super.noSuchMethod(
-        Invocation.method(
-          #startAutoReconnectTimer,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   _i8.Future<void> reconnect({
     _i2.ObsConnectionData? data,
     bool? force = false,
