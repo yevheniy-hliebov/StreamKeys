@@ -41,7 +41,9 @@ class SettingsScreen extends StatelessWidget {
               return ApiConnectionTile(
                 initialData: state is ApiConnectionLoaded ? state.data : null,
                 onUpdated: (data) {
-                  context.read<ApiConnectionBloc>().add(ApiConnectionSave(data));
+                  context
+                      .read<ApiConnectionBloc>()
+                      .add(ApiConnectionSave(data));
                 },
               );
             },

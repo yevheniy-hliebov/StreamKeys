@@ -60,12 +60,12 @@ class ObsService {
       _addConnectionHadler();
 
       _updateConnection(ConnectionStatus.connected);
-
-      startAutoReconnectTimer();
     } catch (e) {
       _updateConnection(ConnectionStatus.notConnected);
       _log('Error connecting to OBS WebSocket: $e');
       throw Exception('Error connecting to OBS WebSocket: $e');
+    } finally {
+      _startAutoReconnectTimer();
     }
   }
 
@@ -77,7 +77,7 @@ class ObsService {
     _log('Disconnected from OBS WebSocket');
   }
 
-  void startAutoReconnectTimer() {
+  void _startAutoReconnectTimer() {
     _timer?.cancel();
 
     final connectionData = _secureStorage.cachedData;

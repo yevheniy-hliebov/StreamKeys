@@ -15,8 +15,8 @@ class ButtonsBloc extends Bloc<ButtonsEvent, ButtonsState> {
   }
 
   Future<void> _onLoad(
-      ButtonsEvent event,
-      Emitter<ButtonsState> emit,
+    ButtonsEvent event,
+    Emitter<ButtonsState> emit,
   ) async {
     emit(ButtonsLoading());
     try {
@@ -28,8 +28,8 @@ class ButtonsBloc extends Bloc<ButtonsEvent, ButtonsState> {
   }
 
   Future<void> _onRefresh(
-      ButtonsRefresh event,
-      Emitter<ButtonsState> emit,
+    ButtonsRefresh event,
+    Emitter<ButtonsState> emit,
   ) async {
     await _onLoad(event, emit);
   }
