@@ -11,14 +11,18 @@ Future<void> main(List<String> args) async {
     ..addOption('mode',
         abbr: 'm', allowed: ['stable', 'beta'], defaultsTo: 'stable')
     ..addOption('target',
-        abbr: 't', help: 'Path to application folder', defaultsTo: '.');
+        abbr: 't', help: 'Path to application folder', defaultsTo: '.')
+    ..addOption('version',
+        abbr: 'v', help: 'Release version to install (optional)');
+
   final result = parser.parse(args);
 
   final repo = result['repo'] as String;
   final mode = result['mode'] as String;
   final targetDir = result['target'] as String;
+  final version = result['version'] as String?;
 
-  final releaseZipPath = await downloadLatestRelease(repo, mode);
+  final releaseZipPath = await downloadRelease(repo, mode, version);
   final tempDir = p.dirname(releaseZipPath);
   final appFolder = await extractArchive(releaseZipPath, tempDir);
 
@@ -32,7 +36,11 @@ Future<void> main(List<String> args) async {
   await launchStreamKeys(p.join(targetDir, 'StreamKeys.exe'));
 }
 
-Future<String> downloadLatestRelease(String repo, String mode) async {
+Future<String> downloadRelease(
+  String repo,
+  String mode,
+  String? version,
+) async {
   final response = await http.get(
     Uri.parse('https://api.github.com/repos/$repo/releases'),
     headers: {'Accept': 'application/vnd.github.v3+json'},
@@ -44,25 +52,38 @@ Future<String> downloadLatestRelease(String repo, String mode) async {
   }
 
   final releases = json.decode(response.body) as List<dynamic>;
-  final filtered = releases.where((r) {
-    final prerelease = r['prerelease'] as bool;
-    return mode == 'beta' ? prerelease : !prerelease;
-  }).toList();
 
-  if (filtered.isEmpty) {
-    stdout.writeln('No releases found for mode "$mode".');
-    exit(0);
+  Map<String, dynamic>? selectedRelease;
+
+  if (version != null) {
+    selectedRelease = releases.cast<Map<String, dynamic>>().firstWhere(
+          (r) => r['tag_name'] == version,
+          orElse: () => throw Exception('Version $version not found.'),
+        );
+  } else {
+    final filtered = releases.where((r) {
+      final prerelease = r['prerelease'] as bool;
+      return mode == 'beta' ? prerelease : !prerelease;
+    }).toList();
+
+    if (filtered.isEmpty) {
+      stdout.writeln('No releases found for mode "$mode".');
+      exit(0);
+    }
+
+    filtered.sort(
+      (a, b) => (b['tag_name'] as String).compareTo(a['tag_name'] as String),
+    );
+
+    selectedRelease = filtered.first as Map<String, dynamic>;
   }
 
-  filtered.sort(
-      (a, b) => (b['tag_name'] as String).compareTo(a['tag_name'] as String));
-  final latest = filtered.first as Map<String, dynamic>;
-  final asset = (latest['assets'] as List)
+  final asset = (selectedRelease['assets'] as List)
           .firstWhere((a) => (a['name'] as String).endsWith('.zip'))
       as Map<String, dynamic>;
 
   final url = asset['browser_download_url'] as String;
-  stdout.writeln('Downloading ${latest['tag_name']} from $url');
+  stdout.writeln('Downloading ${selectedRelease['tag_name']} from $url');
 
   final tempDir = await Directory.systemTemp.createTemp('update_');
   final zipPath = p.join(tempDir.path, 'update.zip');
@@ -98,7 +119,10 @@ Future<Directory> extractArchive(String zipPath, String tempDirPath) async {
 }
 
 Future<void> tryRestoreHidmacros(
-    String targetDir, Directory targetAppDir, Directory newAppFolder) async {
+  String targetDir,
+  Directory targetAppDir,
+  Directory newAppFolder,
+) async {
   final previousVersions = Directory(targetDir)
       .listSync()
       .whereType<Directory>()
