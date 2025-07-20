@@ -4,6 +4,10 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:streamkeys/core/storage/generic_secure_storage.dart';
+import 'package:streamkeys/desktop/features/app_update/data/services/app_update_preferences.dart';
+import 'package:streamkeys/desktop/features/app_update/data/services/app_update_service.dart';
+import 'package:streamkeys/desktop/features/app_update/data/services/updater_launcher.dart';
+import 'package:streamkeys/desktop/features/app_update/data/services/version_checker.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_preferences.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_service.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_xml_service.dart';
@@ -29,6 +33,7 @@ export 'package:streamkeys/desktop/utils/launch_file_or_app_service.dart';
 export 'package:streamkeys/desktop/features/obs/data/services/obs_service.dart';
 export 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_service.dart';
 export 'package:streamkeys/mobile/features/buttons/data/services/http_buttons_api.dart';
+export 'package:streamkeys/desktop/features/app_update/data/services/app_update_service.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -78,6 +83,12 @@ Future<void> initServiceLocator() async {
       webSocket: StreamerBotWebSocket(),
     );
 
+    final appUpdateService = AppUpdateService(
+      preferences: AppUpdatePreferences(sharedPreferences),
+      versionChecker: const VersionChecker(repo: 'yevheniy-hliebov/StreamKeys'),
+      updaterLauncher: const UpdaterLauncher(),
+    );
+
     sl.registerLazySingleton<HidMacrosService>(() => hidmacros);
     sl.registerLazySingleton<HidMacrosXmlService>(() => hidmacrosXml);
     sl.registerLazySingleton<HidMacrosPreferences>(() => hidMacrosPreferences);
@@ -99,6 +110,7 @@ Future<void> initServiceLocator() async {
       () => streamerBotSecureStorage,
     );
     sl.registerLazySingleton<StreamerBotService>(() => streamerBot);
+    sl.registerLazySingleton<AppUpdateService>(() => appUpdateService);
   }
 
   if (Platform.isAndroid) {
