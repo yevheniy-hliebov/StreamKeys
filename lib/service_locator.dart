@@ -85,8 +85,8 @@ Future<void> initServiceLocator() async {
 
     final appUpdateService = AppUpdateService(
       preferences: AppUpdatePreferences(sharedPreferences),
-      versionChecker: const VersionChecker(repo: 'yevheniy-hliebov/StreamKeys'),
-      updaterLauncher: const UpdaterLauncher(),
+      versionChecker: VersionChecker(repo: 'yevheniy-hliebov/StreamKeys'),
+      updaterLauncher: UpdaterLauncher(),
     );
 
     sl.registerLazySingleton<HidMacrosService>(() => hidmacros);

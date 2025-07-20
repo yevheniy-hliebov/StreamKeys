@@ -6,13 +6,17 @@ import 'package:http/http.dart' as http;
 
 class VersionChecker {
   final String repo;
+  final http.Client client;
 
-  const VersionChecker({required this.repo});
+  VersionChecker({
+    required this.repo,
+    http.Client? client,
+  }) : client = client ?? http.Client();
 
   Future<VersionInfo?> fetchLatestVersionInfo({
     AppVersionMode mode = AppVersionMode.stable,
   }) async {
-    final response = await http.get(
+    final response = await client.get(
       Uri.parse('https://api.github.com/repos/$repo/releases'),
       headers: {'Accept': 'application/vnd.github.v3+json'},
     );
@@ -28,8 +32,9 @@ class VersionChecker {
 
     if (filtered.isEmpty) return null;
 
-    filtered.toList().sort((a, b) =>
-        (b['tag_name'] as String).compareTo(a['tag_name'] as String));
+    filtered.toList().sort((a, b) {
+      return (b['tag_name'] as String).compareTo(a['tag_name'] as String);
+    });
 
     final latest = filtered.first as Map<String, dynamic>;
     return VersionInfo.fromJson(latest);
