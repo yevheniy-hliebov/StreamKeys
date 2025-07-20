@@ -5,6 +5,7 @@ import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/core/cursor_status/widgets/cursor_status.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/action_registry.dart';
 import 'package:streamkeys/desktop/features/app_update/presentation/widgets/app_version_status.dart';
+import 'package:streamkeys/desktop/features/app_update/presentation/widgets/update_dialog.dart';
 import 'package:streamkeys/desktop/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:streamkeys/common/widgets/tabs/page_tab.dart';
 import 'package:streamkeys/desktop/features/deck/presentation/screens/grid_deck_screen.dart';
@@ -54,6 +55,23 @@ void desktopMain() async {
   final streamerBot = sl<StreamerBotService>();
   streamerBot.autoConnect();
 
+  Future<void> checkUpdateHandler(BuildContext context) async {
+    final appUpdateService = sl<AppUpdateService>();
+    final updateVersion = await appUpdateService.checkForUpdate();
+    
+    if (updateVersion?.version == appUpdateService.getIgnoredVersion()) {
+      return;
+    }
+    
+    if (updateVersion?.version == appUpdateService.getCurrentVersion()) {
+      return;
+    }
+    
+    if (updateVersion != null && context.mounted) {
+      await UpdateDialog.showUpdateDialog(context, updateVersion);
+    }
+  }
+
   runApp(
     App(
       providersBuilder: (context) => [
@@ -67,9 +85,10 @@ void desktopMain() async {
           create: (context) => StreamerBotConnectionBloc(streamerBot),
         ),
       ],
-      home: const CursorStatus(
+      home: CursorStatus(
         child: DashboardScreen(
-          tabs: <PageTab>[
+          onInit: checkUpdateHandler,
+          tabs: const <PageTab>[
             GridDeckScreen(),
             KeyboardDeckScreen(),
             SettingsScreen(
@@ -82,7 +101,7 @@ void desktopMain() async {
               ],
             ),
           ],
-          statusWidgets: [
+          statusWidgets: const [
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: Spacing.md),

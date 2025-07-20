@@ -15,8 +15,8 @@ class AppUpdateService {
     required this.updaterLauncher,
   });
 
-  bool get ignoreVersion {
-    return getCurrentVersion() == preferences.loadIgnoredVersion();
+  String? getIgnoredVersion() {
+    return preferences.loadIgnoredVersion();
   }
 
   Future<void> setIgnoreVersion(String version) async {
@@ -26,14 +26,13 @@ class AppUpdateService {
   Future<VersionInfo?> checkForUpdate() async {
     final currentVersion = getCurrentVersion();
     final currentVersionMode = getCurrentVersionMode();
-    final ignoredVersion = preferences.loadIgnoredVersion();
     final latest = await versionChecker.fetchLatestVersionInfo(mode: currentVersionMode);
 
     if (latest == null) {
       return null;
     }
 
-    if (latest.version == currentVersion || latest.version == ignoredVersion) {
+    if (latest.version == currentVersion) {
       return null;
     }
 

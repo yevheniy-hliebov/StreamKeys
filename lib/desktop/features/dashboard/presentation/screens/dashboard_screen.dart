@@ -7,11 +7,13 @@ import 'package:streamkeys/common/widgets/tabs/page_tab.dart';
 class DashboardScreen extends StatefulWidget {
   final List<PageTab> tabs;
   final List<Widget> statusWidgets;
+  final void Function(BuildContext context)? onInit;
 
   const DashboardScreen({
     super.key,
     required this.tabs,
     this.statusWidgets = const [],
+    this.onInit,
   });
 
   @override
@@ -26,6 +28,12 @@ class _DashboardScreenState extends State<DashboardScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: widget.tabs.length, vsync: this);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        widget.onInit?.call(context);
+      }
+    });
   }
 
   @override
