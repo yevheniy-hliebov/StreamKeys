@@ -4,6 +4,7 @@ import 'package:streamkeys/common/widgets/tabs/page_tab.dart';
 import 'package:streamkeys/common/widgets/forms/theme_mode_switch.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/core/theme/bloc/theme_mode_bloc.dart';
+import 'package:streamkeys/desktop/features/app_update/presentation/widgets/app_version_tile.dart';
 
 class GeneralSettingsScreen extends StatelessWidget with PageTab {
   const GeneralSettingsScreen({super.key});
@@ -49,6 +50,7 @@ class GeneralSettingsScreen extends StatelessWidget with PageTab {
                 );
               },
             ),
+            const AppVersionTile(),
           ],
         ),
       ),
