@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:streamkeys/core/constants/version.dart';
-import 'package:streamkeys/desktop/features/app_update/data/services/updater_launcher.dart';
+import 'package:streamkeys/core/app_update/data/services/updater_launcher.dart';
 import 'package:streamkeys/desktop/utils/process_runner.dart';
 
 import 'updater_launcher_test.mocks.dart';

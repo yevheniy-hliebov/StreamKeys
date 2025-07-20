@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:streamkeys/core/constants/version.dart';
-import 'package:streamkeys/desktop/features/app_update/data/services/version_checker.dart';
+import 'package:streamkeys/core/app_update/data/services/version_checker.dart';
 
 import 'version_checker_test.mocks.dart';
 

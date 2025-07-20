@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/core/constants/typography.dart';
-import 'package:streamkeys/desktop/features/app_update/data/models/version_info.dart';
+import 'package:streamkeys/core/app_update/data/models/version_info.dart';
 import 'package:streamkeys/service_locator.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 

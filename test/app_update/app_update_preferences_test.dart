@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:streamkeys/desktop/features/app_update/data/services/app_update_preferences.dart';
+import 'package:streamkeys/core/app_update/data/services/app_update_preferences.dart';
 
 void main() {
   late SharedPreferences prefs;

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:streamkeys/core/constants/version.dart';
-import 'package:streamkeys/desktop/features/app_update/data/models/version_info.dart';
+import 'package:streamkeys/core/app_update/data/models/version_info.dart';
 import 'package:http/http.dart' as http;
 
 class VersionChecker {
