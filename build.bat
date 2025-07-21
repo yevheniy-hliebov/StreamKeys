@@ -22,23 +22,23 @@ IF EXIST "%PROJECT_PATH%\build\release" (
     echo [INFO] No previous release folder found — skipping cleanup.
 )
 
-:: ---------------------- Build Main Application ----------------------
-echo [INFO] Building main application...
+:: ---------------------- Build Windows Application ----------------------
+echo [INFO] Building windows application...
 call "%PROJECT_PATH%\tools\build_windows_command.bat"
 IF ERRORLEVEL 1 (
-    echo [ERROR] Main application build failed. Exiting...
+    echo [ERROR] Windows application build failed. Exiting...
     exit /b 1
 )
-echo [OK] Main application build completed.
+echo [OK] Windows application build completed.
 
 :: ---------------------- Copy Build Files ----------------------
-echo [INFO] Copying build files...
+echo [INFO] Copying build windows files...
 xcopy /E /Y /I "%PROJECT_PATH%\build\windows\x64\runner\Release\*" "%RELEASE_PATH%"
 IF ERRORLEVEL 1 (
-    echo [ERROR] Failed to copy build files.
+    echo [ERROR] Failed to copy build windows files.
     exit /b 1
 )
-echo [OK] Files copied to %RELEASE_PATH%.
+echo [OK] Windows Files copied to %RELEASE_PATH%.
 
 :: ---------------------- Build Updater ----------------------
 echo [INFO] Building updater...
@@ -93,6 +93,24 @@ IF ERRORLEVEL 1 (
     exit /b 1
 )
 echo [OK] ZIP archive created successfully.
+
+:: ---------------------- Build Apk Application ----------------------
+echo [INFO] Building apk application...
+call "%PROJECT_PATH%\tools\build_apk_command.bat"
+IF ERRORLEVEL 1 (
+    echo [ERROR] Apk application build failed. Exiting...
+    exit /b 1
+)
+echo [OK] Apk application build completed.
+
+:: ---------------------- Copy Build Apk file ----------------------
+echo [INFO] Copying build apk file...
+copy "%PROJECT_PATH%\build\app\outputs\flutter-apk\app-release.apk" "%PROJECT_PATH%\build\release\StreamKeys-Android-v%VERSION%.apk"
+IF ERRORLEVEL 1 (
+    echo [ERROR] Failed to copy build apk file.
+    exit /b 1
+)
+echo [OK] Apk file copied to %RELEASE_PATH%.
 
 :: ---------------------- Done ----------------------
 echo [SUCCESS] Build and packaging completed successfully!
