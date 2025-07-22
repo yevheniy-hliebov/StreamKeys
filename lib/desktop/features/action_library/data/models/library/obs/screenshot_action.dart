@@ -120,6 +120,7 @@ class ScreenshotAction extends BindingAction {
 
       await _fileManager.saveScreenshot(
         bytes: bytes,
+        recordingPath: recordingPath,
         fileNamePart: currentScene,
       );
 
