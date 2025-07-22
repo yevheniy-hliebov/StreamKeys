@@ -21,9 +21,7 @@ class StreamerBotSettingsScreen extends StatelessWidget with PageTab {
     return SizedBox(
       width: 18,
       height: 18,
-      child: Image.asset(
-        'assets/action_icons/streamerbot.png',
-      ),
+      child: Image.asset('assets/action_icons/streamerbot.png'),
     );
   }
 
@@ -36,50 +34,60 @@ class StreamerBotSettingsScreen extends StatelessWidget with PageTab {
         children: [
           Container(
             width: double.maxFinite,
-            constraints: const BoxConstraints(
-              maxWidth: 400,
-            ),
+            constraints: const BoxConstraints(maxWidth: 400),
             margin: const EdgeInsets.symmetric(vertical: Spacing.xs),
-            child: BlocBuilder<StreamerBotConnectionBloc,
-                StreamerBotConnectionState>(
-              builder: (context, connectionState) {
-                return BlocProvider(
-                  create: (_) => StreamerBotSettingsBloc(
-                    StreamerBotSettingsRepository(
-                      sl<StreamerBotSecureStorage>(),
-                    ),
-                  )..add(StreamerBotSettingsLoad()),
-                  child: BlocBuilder<StreamerBotSettingsBloc,
-                      StreamerBotSettingsState>(
-                    builder: (context, state) {
-                      if (state is StreamerBotSettingsLoaded) {
-                        return StreamBotSettingsForm(
-                          initialData: state.data,
-                          onUpdated: (updatedData) async {
-                            context
-                                .read<StreamerBotSettingsBloc>()
-                                .add(StreamerBotSettingsSave(updatedData));
-                          },
-                          onConnect: (data) {
-                            sl<StreamerBotService>().connect(data: data);
-                          },
-                          onReconnect: (data) {
-                            sl<StreamerBotService>()
-                                .reconnect(data: data, force: true);
-                          },
-                          onDisconnect: () {
-                            sl<StreamerBotService>().disconnect();
-                          },
-                          status: connectionState.status,
-                        );
-                      } else {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                    },
-                  ),
-                );
-              },
-            ),
+            child:
+                BlocBuilder<
+                  StreamerBotConnectionBloc,
+                  StreamerBotConnectionState
+                >(
+                  builder: (context, connectionState) {
+                    return BlocProvider(
+                      create: (_) => StreamerBotSettingsBloc(
+                        StreamerBotSettingsRepository(
+                          sl<StreamerBotSecureStorage>(),
+                        ),
+                      )..add(StreamerBotSettingsLoad()),
+                      child:
+                          BlocBuilder<
+                            StreamerBotSettingsBloc,
+                            StreamerBotSettingsState
+                          >(
+                            builder: (context, state) {
+                              if (state is StreamerBotSettingsLoaded) {
+                                return StreamBotSettingsForm(
+                                  initialData: state.data,
+                                  onUpdated: (updatedData) async {
+                                    context.read<StreamerBotSettingsBloc>().add(
+                                      StreamerBotSettingsSave(updatedData),
+                                    );
+                                  },
+                                  onConnect: (data) {
+                                    sl<StreamerBotService>().connect(
+                                      data: data,
+                                    );
+                                  },
+                                  onReconnect: (data) {
+                                    sl<StreamerBotService>().reconnect(
+                                      data: data,
+                                      force: true,
+                                    );
+                                  },
+                                  onDisconnect: () {
+                                    sl<StreamerBotService>().disconnect();
+                                  },
+                                  status: connectionState.status,
+                                );
+                              } else {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                            },
+                          ),
+                    );
+                  },
+                ),
           ),
         ],
       ),

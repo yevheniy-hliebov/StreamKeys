@@ -45,7 +45,7 @@ class ConnectionControls extends StatelessWidget {
               foregroundColor: AppColors.of(context).onBackground,
             ),
             child: const Text('Disconnect'),
-          )
+          ),
         ],
       ],
     );

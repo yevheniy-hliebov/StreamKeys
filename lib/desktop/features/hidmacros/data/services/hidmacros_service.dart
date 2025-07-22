@@ -20,10 +20,9 @@ class HidMacrosService {
         _log('Error running tasklist: ${result.stderr}');
         return false;
       }
-      return result.stdout
-          .toString()
-          .toLowerCase()
-          .contains(exeFileName.toLowerCase());
+      return result.stdout.toString().toLowerCase().contains(
+        exeFileName.toLowerCase(),
+      );
     } catch (e) {
       _log('Error checking process: $e');
       return false;
@@ -44,11 +43,10 @@ class HidMacrosService {
     if (nircmd == null) return;
 
     try {
-      final process = await _processRunner.start(
-        nircmd.path,
-        ['elevate', exePath],
-        mode: ProcessStartMode.detached,
-      );
+      final process = await _processRunner.start(nircmd.path, [
+        'elevate',
+        exePath,
+      ], mode: ProcessStartMode.detached);
       _log('HIDMacros started with PID: ${process.pid}');
     } catch (e) {
       _log('Failed to start HIDMacros: $e');
@@ -60,10 +58,11 @@ class HidMacrosService {
     if (nircmd == null) return;
 
     try {
-      final result = await _processRunner.run(
-        nircmd.path,
-        ['elevatecmd', 'closeprocess', exeFileName],
-      );
+      final result = await _processRunner.run(nircmd.path, [
+        'elevatecmd',
+        'closeprocess',
+        exeFileName,
+      ]);
 
       if (result.exitCode == 0) {
         _log('Sent close window command to HIDMacros');

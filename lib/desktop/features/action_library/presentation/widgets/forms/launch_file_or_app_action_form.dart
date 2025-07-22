@@ -54,10 +54,7 @@ class _LaunchFileOrAppActionFormState extends State<LaunchFileOrAppActionForm> {
     }
   }
 
-  void _onUpdate({
-    String? filePath,
-    bool? asAdmin,
-  }) {
+  void _onUpdate({String? filePath, bool? asAdmin}) {
     final updated = LaunchFileOrAppAction(
       id: widget.initialAction.id,
       filePath: filePath ?? controller.text,

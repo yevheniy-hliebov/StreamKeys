@@ -5,10 +5,7 @@ import 'package:streamkeys/core/constants/spacing.dart';
 class StatusOverlay extends StatelessWidget {
   final List<Widget> children;
 
-  const StatusOverlay({
-    super.key,
-    this.children = const [],
-  });
+  const StatusOverlay({super.key, this.children = const []});
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +25,7 @@ class StatusOverlay extends StatelessWidget {
     return BoxDecoration(
       color: AppColors.of(context).surface,
       border: Border(
-        top: BorderSide(
-          width: 4,
-          color: AppColors.of(context).outlineVariant,
-        ),
+        top: BorderSide(width: 4, color: AppColors.of(context).outlineVariant),
       ),
     );
   }

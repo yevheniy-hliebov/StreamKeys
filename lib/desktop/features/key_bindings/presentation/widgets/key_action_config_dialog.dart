@@ -5,10 +5,7 @@ import 'package:streamkeys/desktop/features/action_library/data/models/binding_a
 class KeyActionConfigDialog extends StatelessWidget {
   final BindingAction action;
 
-  const KeyActionConfigDialog({
-    super.key,
-    required this.action,
-  });
+  const KeyActionConfigDialog({super.key, required this.action});
 
   @override
   Widget build(BuildContext context) {

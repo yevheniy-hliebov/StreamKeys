@@ -19,10 +19,10 @@ class SourceMuteAction extends BindingAction {
     this.sourceName = '',
     this.muteState = MuteState.toggle,
   }) : super(
-          id: id ?? const Uuid().v4(),
-          type: ActionTypes.sourceMute,
-          name: 'Source Mute',
-        );
+         id: id ?? const Uuid().v4(),
+         type: ActionTypes.sourceMute,
+         name: 'Source Mute',
+       );
 
   @override
   String get dialogTitle => 'Set Source Mute State';
@@ -74,9 +74,7 @@ class SourceMuteAction extends BindingAction {
     if (sourceName.isNotEmpty) {
       final obs = sl<ObsService>().obs;
       if (muteState.isToggle) {
-        await obs?.inputs.toggleInputMute(
-          inputName: sourceName,
-        );
+        await obs?.inputs.toggleInputMute(inputName: sourceName);
       } else {
         await obs?.inputs.setInputMute(
           inputName: sourceName,

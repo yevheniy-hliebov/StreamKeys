@@ -15,9 +15,6 @@ class SystemCategory extends BindingActionCategory {
 
   @override
   List<BindingAction> get actions {
-    return [
-      WebsiteAction(),
-      LaunchFileOrAppAction(),
-    ];
+    return [WebsiteAction(), LaunchFileOrAppAction()];
   }
 }

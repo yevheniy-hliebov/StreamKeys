@@ -56,7 +56,8 @@ class LaunchFileOrAppService {
     final command = 'Set-Location -Path "$dir"; .\\$fileName $joinedArgs';
 
     if (asAdmin) {
-      final adminCommand = '''
+      final adminCommand =
+          '''
 Start-Process powershell -ArgumentList '-NoProfile -Command "$command"' -Verb RunAs
 ''';
       await _runPowerShell(adminCommand);
@@ -65,11 +66,7 @@ Start-Process powershell -ArgumentList '-NoProfile -Command "$command"' -Verb Ru
     }
   }
 
-  Future<void> _runExecutable(
-    String filePath,
-    String dir,
-    bool asAdmin,
-  ) async {
+  Future<void> _runExecutable(String filePath, String dir, bool asAdmin) async {
     final args = [
       'Start-Process',
       '-FilePath',
@@ -83,11 +80,10 @@ Start-Process powershell -ArgumentList '-NoProfile -Command "$command"' -Verb Ru
   }
 
   Future<void> _runPowerShell(String command) async {
-    await _processRunner.start(
-      'powershell',
-      ['-Command', command],
-      runInShell: true,
-    );
+    await _processRunner.start('powershell', [
+      '-Command',
+      command,
+    ], runInShell: true);
   }
 
   void _log(String message) {

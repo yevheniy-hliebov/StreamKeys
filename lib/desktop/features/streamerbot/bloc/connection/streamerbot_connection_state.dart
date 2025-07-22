@@ -7,9 +7,7 @@ class StreamerBotConnectionState extends Equatable {
   const StreamerBotConnectionState(this.status, [this.errorMessage]);
 
   factory StreamerBotConnectionState.initial() {
-    return const StreamerBotConnectionState(
-      ConnectionStatus.notConnected,
-    );
+    return const StreamerBotConnectionState(ConnectionStatus.notConnected);
   }
 
   @override

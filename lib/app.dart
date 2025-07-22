@@ -8,22 +8,17 @@ class App extends StatelessWidget {
   final List<BlocProvider>? Function(BuildContext context)? providersBuilder;
   final Widget home;
 
-  const App({
-    super.key,
-    this.providersBuilder,
-    required this.home,
-  });
+  const App({super.key, this.providersBuilder, required this.home});
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider<ThemeModeBloc>(
-          create: (BuildContext context) => ThemeModeBloc(
-            ThemeModeRepository(sl<SharedPreferences>()),
-          ),
+          create: (BuildContext context) =>
+              ThemeModeBloc(ThemeModeRepository(sl<SharedPreferences>())),
         ),
-        ...(providersBuilder?.call(context) ?? [])
+        ...(providersBuilder?.call(context) ?? []),
       ],
       child: BlocBuilder<ThemeModeBloc, ThemeMode>(
         builder: (BuildContext context, ThemeMode thememode) {

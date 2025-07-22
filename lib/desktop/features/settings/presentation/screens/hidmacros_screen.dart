@@ -24,18 +24,14 @@ class HidMacrosScreen extends StatelessWidget with PageTab {
         Flexible(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              HidMacrosControlsPanel(),
-            ],
+            children: [HidMacrosControlsPanel()],
           ),
         ),
         DeckDevider(axis: Axis.vertical),
         Flexible(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              HidMacrosKeyboardPanel(),
-            ],
+            children: [HidMacrosKeyboardPanel()],
           ),
         ),
       ],

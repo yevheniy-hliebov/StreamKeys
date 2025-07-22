@@ -7,9 +7,11 @@ class WindowsUpdaterLauncher {
   final ProcessRunner _processRunner;
   final void Function(int code) _exitFn;
 
-  WindowsUpdaterLauncher([ProcessRunner? processRunner, void Function(int)? exitFn])
-      : _processRunner = processRunner ?? RealProcessRunner(),
-        _exitFn = exitFn ?? exit;
+  WindowsUpdaterLauncher([
+    ProcessRunner? processRunner,
+    void Function(int)? exitFn,
+  ]) : _processRunner = processRunner ?? RealProcessRunner(),
+       _exitFn = exitFn ?? exit;
 
   Future<void> launch({
     required AppVersionMode mode,
@@ -23,18 +25,14 @@ class WindowsUpdaterLauncher {
       throw Exception('Updater.exe not found at ${updaterPath.path}');
     }
 
-    await _processRunner.start(
-      updaterPath.path,
-      [
-        '--mode',
-        mode.name,
-        '--version',
-        version,
-        '--target',
-        Directory.current.path,
-      ],
-      mode: ProcessStartMode.detached,
-    );
+    await _processRunner.start(updaterPath.path, [
+      '--mode',
+      mode.name,
+      '--version',
+      version,
+      '--target',
+      Directory.current.path,
+    ], mode: ProcessStartMode.detached);
 
     _exitFn(0);
   }

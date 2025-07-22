@@ -55,7 +55,7 @@ class DeckPageList<T extends DeckPageListBloc> extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             },
-          )
+          ),
         ],
       ),
     );

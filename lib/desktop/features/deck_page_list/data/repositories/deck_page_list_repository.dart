@@ -109,12 +109,8 @@ class DeckPageListRepository {
 
     final generatedJson = {
       DeckJsonKeys.currentPageId: defaultPage.id,
-      DeckJsonKeys.orderPages: [
-        defaultPage.toJson(),
-      ],
-      DeckJsonKeys.map: {
-        defaultPage.id: <String, dynamic>{},
-      }
+      DeckJsonKeys.orderPages: [defaultPage.toJson()],
+      DeckJsonKeys.map: {defaultPage.id: <String, dynamic>{}},
     };
     await _jsonFile.save(generatedJson);
     return generatedJson;

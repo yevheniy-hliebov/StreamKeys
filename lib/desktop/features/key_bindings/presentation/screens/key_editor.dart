@@ -31,38 +31,48 @@ class KeyEditor<T extends KeyBindingsBloc> extends StatelessWidget {
             return Row(
               children: [
                 ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    maxWidth: 318,
-                  ),
+                  constraints: const BoxConstraints(maxWidth: 318),
                   child: KeySettingPanel(
                     key: Key(keyBindingData.id),
                     keyData: keyData,
                     keyBindingData: keyBindingData,
                     onClearPressed: () {
-                      bloc.add(KeyBindingsSaveDataOnPage(
-                        keyCode: keyData.keyCode,
-                        keyBindingData: keyBindingData.clear(),
-                      ));
+                      bloc.add(
+                        KeyBindingsSaveDataOnPage(
+                          keyCode: keyData.keyCode,
+                          keyBindingData: keyBindingData.clear(),
+                        ),
+                      );
                     },
                     onNameChanged: (newValue) {
-                      bloc.add(KeyBindingsSaveDataOnPage(
-                        keyCode: keyData.keyCode,
-                        keyBindingData: keyBindingData.copyWith(name: newValue),
-                      ));
+                      bloc.add(
+                        KeyBindingsSaveDataOnPage(
+                          keyCode: keyData.keyCode,
+                          keyBindingData: keyBindingData.copyWith(
+                            name: newValue,
+                          ),
+                        ),
+                      );
                     },
                     onImagePathChanged: (newValue) {
-                      bloc.add(KeyBindingsSaveDataOnPage(
-                        keyCode: keyData.keyCode,
-                        keyBindingData:
-                            keyBindingData.copyWith(imagePath: newValue),
-                      ));
+                      bloc.add(
+                        KeyBindingsSaveDataOnPage(
+                          keyCode: keyData.keyCode,
+                          keyBindingData: keyBindingData.copyWith(
+                            imagePath: newValue,
+                          ),
+                        ),
+                      );
                     },
                     onColorChanged: (newValue) {
-                      bloc.add(KeyBindingsSaveDataOnPage(
-                        keyCode: keyData.keyCode,
-                        keyBindingData:
-                            keyBindingData.copyWith(backgroundColor: newValue),
-                      ));
+                      bloc.add(
+                        KeyBindingsSaveDataOnPage(
+                          keyCode: keyData.keyCode,
+                          keyBindingData: keyBindingData.copyWith(
+                            backgroundColor: newValue,
+                          ),
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -71,30 +81,38 @@ class KeyEditor<T extends KeyBindingsBloc> extends StatelessWidget {
                   child: KeyBindingActionList(
                     actions: keyBindingData.actions,
                     onActionAdded: (action) {
-                      bloc.add(KeyBindingsAddAction(
-                        keyCode: keyData.keyCode,
-                        action: action.copy(),
-                      ));
+                      bloc.add(
+                        KeyBindingsAddAction(
+                          keyCode: keyData.keyCode,
+                          action: action.copy(),
+                        ),
+                      );
                     },
                     onActionUpdated: (index, updatedAction) {
-                      bloc.add(KeyBindingsUpdateAction(
-                        keyCode: keyData.keyCode,
-                        index: index,
-                        updatedAction: updatedAction,
-                      ));
+                      bloc.add(
+                        KeyBindingsUpdateAction(
+                          keyCode: keyData.keyCode,
+                          index: index,
+                          updatedAction: updatedAction,
+                        ),
+                      );
                     },
                     onDeleteActionPressed: (index) {
-                      bloc.add(KeyBindingsDeleteAction(
-                        keyCode: keyData.keyCode,
-                        index: index,
-                      ));
+                      bloc.add(
+                        KeyBindingsDeleteAction(
+                          keyCode: keyData.keyCode,
+                          index: index,
+                        ),
+                      );
                     },
                     onReorderActons: (oldIndex, newIndex) {
-                      bloc.add(KeyBindingsReorderActions(
-                        keyCode: keyData.keyCode,
-                        oldIndex: oldIndex,
-                        newIndex: newIndex,
-                      ));
+                      bloc.add(
+                        KeyBindingsReorderActions(
+                          keyCode: keyData.keyCode,
+                          oldIndex: oldIndex,
+                          newIndex: newIndex,
+                        ),
+                      );
                     },
                   ),
                 ),

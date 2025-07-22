@@ -32,11 +32,7 @@ void mobileMain() async {
         BlocProvider(create: (context) => buttonsBloc),
         BlocProvider(create: (context) => ApkDownloadBloc(appUpdate)),
       ],
-      child: const App(
-        home: DashboardScreen(
-          onInit: showReleaseDialog,
-        ),
-      ),
+      child: const App(home: DashboardScreen(onInit: showReleaseDialog)),
     ),
   );
 }

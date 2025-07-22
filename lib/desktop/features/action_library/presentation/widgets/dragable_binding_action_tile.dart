@@ -9,10 +9,7 @@ import 'package:streamkeys/desktop/utils/helper_functions.dart';
 class DragableBindingActionTile extends StatelessWidget {
   final BindingAction bindingAction;
 
-  const DragableBindingActionTile({
-    super.key,
-    required this.bindingAction,
-  });
+  const DragableBindingActionTile({super.key, required this.bindingAction});
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +43,7 @@ class DragableBindingActionTile extends StatelessWidget {
           ),
         ),
       ),
-      childWhenDragging: Opacity(
-        opacity: 0.5,
-        child: child,
-      ),
+      childWhenDragging: Opacity(opacity: 0.5, child: child),
       child: child,
     );
   }

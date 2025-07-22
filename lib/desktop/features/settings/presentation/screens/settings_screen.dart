@@ -6,10 +6,7 @@ import 'package:streamkeys/common/widgets/tabs/page_tab.dart';
 class SettingsScreen extends StatefulWidget with PageTab {
   final List<PageTab> tabs;
 
-  const SettingsScreen({
-    super.key,
-    required this.tabs,
-  });
+  const SettingsScreen({super.key, required this.tabs});
 
   @override
   Widget get pageView => this;
@@ -46,10 +43,7 @@ class _SettingsScreenState extends State<SettingsScreen>
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(30),
         child: BottomBorderContainer(
-          child: ScreenTabBar(
-            tabs: widget.tabs,
-            controller: _tabController,
-          ),
+          child: ScreenTabBar(tabs: widget.tabs, controller: _tabController),
         ),
       ),
       body: TabBarView(

@@ -29,11 +29,8 @@ class NavigationBlockMap extends BaseKeysBlock {
           return <Widget>[
             if (i == 1) ...<Widget>[
               SizedBox(height: Spacing.keyGrid.btwBlock),
-            ] else if (i == 3) ...<Widget>[
-              const Spacer(),
-            ] else if (i != 0) ...<Widget>[
-              SizedBox(height: Spacing.keyGrid.btwKey),
-            ],
+            ] else if (i == 3) ...<Widget>[const Spacer()] else if (i !=
+                0) ...<Widget>[SizedBox(height: Spacing.keyGrid.btwKey)],
             Row(
               spacing: Spacing.keyGrid.btwKey,
               children: For.generateChildren(

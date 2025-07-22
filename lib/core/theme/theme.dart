@@ -26,9 +26,7 @@ class AppTheme {
       outlinedButtonTheme: AppOutlinedButtonThemeData.getTheme(colors),
       filledButtonTheme: AppFilledButtonThemeData.getTheme(colors),
       switchTheme: AppSwitchThemeData.getTheme(colors),
-      dialogTheme: DialogThemeData(
-        backgroundColor: colors.background,
-      ),
+      dialogTheme: DialogThemeData(backgroundColor: colors.background),
       popupMenuTheme: PopupMenuThemeData(
         color: colors.background,
         menuPadding: EdgeInsets.zero,

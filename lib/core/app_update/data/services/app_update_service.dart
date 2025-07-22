@@ -25,8 +25,10 @@ class AppUpdateService {
   Future<GitHubReleaseInfo?> checkForUpdate() async {
     final currentVersion = getCurrentVersion();
     final currentVersionMode = getCurrentVersionMode();
-    
-    final latest = await githubApkUpdater.releaseService.fetchLatestRelease(mode: currentVersionMode);
+
+    final latest = await githubApkUpdater.releaseService.fetchLatestRelease(
+      mode: currentVersionMode,
+    );
 
     if (latest == null) {
       return null;

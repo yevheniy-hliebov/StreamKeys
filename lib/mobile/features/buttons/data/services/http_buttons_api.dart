@@ -10,10 +10,8 @@ class HttpButtonsApi {
   final GenericSecureStorage<ApiConnectionData> _secureStorage;
   final http.Client _client;
 
-  HttpButtonsApi(
-    this._secureStorage, {
-    http.Client? client,
-  }) : _client = client ?? http.Client();
+  HttpButtonsApi(this._secureStorage, {http.Client? client})
+    : _client = client ?? http.Client();
 
   Uri _buildUri(String path) {
     return Uri.parse('${_secureStorage.cachedData?.url}/api/grid/$path');
@@ -23,10 +21,7 @@ class HttpButtonsApi {
     await _checkConnectionData();
 
     final uri = _buildUri('buttons');
-    final response = await _client.get(
-      uri,
-      headers: _headers(),
-    );
+    final response = await _client.get(uri, headers: _headers());
 
     if (response.statusCode != 200) {
       throw Exception('Failed to load buttons: ${response.body}');
@@ -40,10 +35,7 @@ class HttpButtonsApi {
     await _checkConnectionData();
 
     final uri = _buildUri('$keyCode/image');
-    final response = await _client.get(
-      uri,
-      headers: _headers(),
-    );
+    final response = await _client.get(uri, headers: _headers());
 
     if (response.statusCode != 200) {
       throw Exception('Failed to load image for key $keyCode');
@@ -59,10 +51,7 @@ class HttpButtonsApi {
     await _checkConnectionData();
 
     final uri = _buildUri(keyCode);
-    final response = await _client.post(
-      uri,
-      headers: _headers(),
-    );
+    final response = await _client.post(uri, headers: _headers());
 
     if (response.statusCode != 200) {
       throw Exception('Failed to click button $keyCode: ${response.body}');
@@ -79,8 +68,6 @@ class HttpButtonsApi {
   }
 
   Map<String, String> _headers() {
-    return {
-      'X-Api-Password': _secureStorage.cachedData?.password ?? '',
-    };
+    return {'X-Api-Password': _secureStorage.cachedData?.password ?? ''};
   }
 }

@@ -19,9 +19,9 @@ class SelectKeyboardType extends StatelessWidget {
           selectedItem: state.selectedKeyboardType,
           getLabel: (type) => type.name,
           onTap: (type) {
-            context
-                .read<HidMacrosBloc>()
-                .add(HidMacrosSelectKeyboardTypeEvent(type));
+            context.read<HidMacrosBloc>().add(
+              HidMacrosSelectKeyboardTypeEvent(type),
+            );
           },
         );
       },

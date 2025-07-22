@@ -6,8 +6,8 @@ import 'package:streamkeys/mobile/features/api_connection/data/models/api_connec
 part 'api_connection_event.dart';
 part 'api_connection_state.dart';
 
-typedef ApiConnectionRepository
-    = ConnectionSettingsRepository<ApiConnectionData>;
+typedef ApiConnectionRepository =
+    ConnectionSettingsRepository<ApiConnectionData>;
 
 class ApiConnectionBloc extends Bloc<ApiConnectionEvent, ApiConnectionState> {
   final ApiConnectionRepository _repository;

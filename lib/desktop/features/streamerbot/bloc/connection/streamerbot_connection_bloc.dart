@@ -11,7 +11,7 @@ class StreamerBotConnectionBloc
   final StreamerBotService streamerBot;
 
   StreamerBotConnectionBloc(this.streamerBot)
-      : super(StreamerBotConnectionState.initial()) {
+    : super(StreamerBotConnectionState.initial()) {
     streamerBot.connectionStream.listen((connected) {
       add(StreamerBotConnectionChanged(connected));
     });

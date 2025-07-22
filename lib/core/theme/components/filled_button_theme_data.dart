@@ -17,8 +17,6 @@ class AppFilledButtonThemeData {
   }
 
   static RoundedRectangleBorder get _borderRadius {
-    return RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(5),
-    );
+    return RoundedRectangleBorder(borderRadius: BorderRadius.circular(5));
   }
 }

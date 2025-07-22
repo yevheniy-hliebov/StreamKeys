@@ -5,9 +5,7 @@ class AppIconButtonThemeData {
 
   static IconButtonThemeData getTheme(AppColorsData colors) {
     return IconButtonThemeData(
-      style: IconButton.styleFrom(
-        foregroundColor: colors.onBackground,
-      ),
+      style: IconButton.styleFrom(foregroundColor: colors.onBackground),
     );
   }
 }

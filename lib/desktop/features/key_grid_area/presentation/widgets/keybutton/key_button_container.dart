@@ -33,10 +33,7 @@ class KeyButtonContainer extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(10),
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(8.5),
-        child: child,
-      ),
+      child: ClipRRect(borderRadius: BorderRadius.circular(8.5), child: child),
     );
   }
 }

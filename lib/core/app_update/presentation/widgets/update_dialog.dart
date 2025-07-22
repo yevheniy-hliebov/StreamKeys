@@ -20,10 +20,7 @@ class UpdateDialog extends StatelessWidget {
         style: AppTypography.title,
       ),
       content: ConstrainedBox(
-        constraints: const BoxConstraints(
-          maxWidth: 500,
-          maxHeight: 500,
-        ),
+        constraints: const BoxConstraints(maxWidth: 500, maxHeight: 500),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,13 +37,8 @@ class UpdateDialog extends StatelessWidget {
                 Container(
                   width: double.maxFinite,
                   height: double.maxFinite,
-                  constraints: const BoxConstraints(
-                    maxHeight: 200,
-                  ),
-                  child: Markdown(
-                    padding: EdgeInsets.zero,
-                    data: update.body,
-                  ),
+                  constraints: const BoxConstraints(maxHeight: 200),
+                  child: Markdown(padding: EdgeInsets.zero, data: update.body),
                 ),
             ],
           ),
@@ -58,29 +50,20 @@ class UpdateDialog extends StatelessWidget {
             appUpdateService.setIgnoreVersion(update.tagName);
             Navigator.of(context).pop();
           },
-          child: const Text(
-            'Ignore this version',
-            style: AppTypography.body,
-          ),
+          child: const Text('Ignore this version', style: AppTypography.body),
         ),
         OutlinedButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: const Text(
-            'Remind me later',
-            style: AppTypography.body,
-          ),
+          child: const Text('Remind me later', style: AppTypography.body),
         ),
         FilledButton(
           onPressed: () async {
             Navigator.of(context).pop();
             await appUpdateService.launchUpdate(update);
           },
-          child: const Text(
-            'Update',
-            style: AppTypography.body,
-          ),
+          child: const Text('Update', style: AppTypography.body),
         ),
       ],
     );
@@ -100,10 +83,7 @@ class UpdateDialog extends StatelessWidget {
     return showDialog(
       context: context,
       builder: (_) => const AlertDialog(
-        title: Text(
-          'No Updates',
-          style: AppTypography.title,
-        ),
+        title: Text('No Updates', style: AppTypography.title),
         content: Text(
           'You have the latest version.',
           style: AppTypography.body,

@@ -32,9 +32,9 @@ class HidMacrosXmlService {
   }
 
   Future<void> save() async {
-    await File(filePath).writeAsString(
-      xml.toXmlString(pretty: true, indent: '  '),
-    );
+    await File(
+      filePath,
+    ).writeAsString(xml.toXmlString(pretty: true, indent: '  '));
   }
 
   void setMinimizeToTray(bool enabled) {
@@ -45,9 +45,11 @@ class HidMacrosXmlService {
     if (element != null) {
       element.innerText = enabled ? '1' : '0';
     } else {
-      generalElement.children.add(XmlElement(XmlName('MinimizeToTray'), [], [
-        XmlText(enabled ? '1' : '0'),
-      ]));
+      generalElement.children.add(
+        XmlElement(XmlName('MinimizeToTray'), [], [
+          XmlText(enabled ? '1' : '0'),
+        ]),
+      );
     }
   }
 
@@ -67,9 +69,11 @@ class HidMacrosXmlService {
     if (element != null) {
       element.innerText = enabled ? '1' : '0';
     } else {
-      generalElement.children.add(XmlElement(XmlName('StartMinimized'), [], [
-        XmlText(enabled ? '1' : '0'),
-      ]));
+      generalElement.children.add(
+        XmlElement(XmlName('StartMinimized'), [], [
+          XmlText(enabled ? '1' : '0'),
+        ]),
+      );
     }
   }
 
@@ -152,7 +156,8 @@ class HidMacrosXmlService {
   }
 
   XmlElement _createMacro(String apiPassword, int code, String name) {
-    final script = 'Set shell = CreateObject("WScript.Shell")\n'
+    final script =
+        'Set shell = CreateObject("WScript.Shell")\n'
         'shell.Run """$assetsPath\\click_button.exe"" $code $apiPassword ${Server.port}", 0, False';
 
     return XmlElement(XmlName('Macro'), [], [

@@ -5,11 +5,7 @@ class ThemeModeSwitch extends StatelessWidget {
   final ThemeMode themeMode;
   final void Function(ThemeMode themeMode)? onChanged;
 
-  const ThemeModeSwitch({
-    super.key,
-    required this.themeMode,
-    this.onChanged,
-  });
+  const ThemeModeSwitch({super.key, required this.themeMode, this.onChanged});
 
   @override
   Widget build(BuildContext context) {

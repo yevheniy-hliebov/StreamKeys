@@ -25,9 +25,9 @@ class KeyboardDeckScreen extends StatelessWidget with PageTab {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => KeyboardKeyBindingsBloc(
-        context.read<KeyboardDeckPageListBloc>(),
-      )..add(KeyBindingsInit()),
+      create: (BuildContext context) =>
+          KeyboardKeyBindingsBloc(context.read<KeyboardDeckPageListBloc>())
+            ..add(KeyBindingsInit()),
       child: DeckLayout(
         leftSide: const DeckPageList<KeyboardDeckPageListBloc>(),
         rightSide: Container(

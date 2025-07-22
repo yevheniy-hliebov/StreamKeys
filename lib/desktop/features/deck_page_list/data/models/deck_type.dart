@@ -1,7 +1,4 @@
-enum DeckType {
-  grid,
-  keyboard,
-}
+enum DeckType { grid, keyboard }
 
 extension DeckTypeExtension on DeckType {
   bool get isGrid => this == DeckType.grid;

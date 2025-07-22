@@ -45,9 +45,7 @@ class ColorIndicator extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      decoration: BoxDecoration(
-        color: controller.pickerColor,
-      ),
+      decoration: BoxDecoration(color: controller.pickerColor),
     );
   }
 
@@ -70,9 +68,7 @@ class ColorIndicator extends StatelessWidget {
               color: controller.pickerColor,
               onSelectColor: controller.onColorChanged,
             ),
-            child: Center(
-              child: Icon(Icons.colorize, size: width / 2),
-            ),
+            child: Center(child: Icon(Icons.colorize, size: width / 2)),
           ),
         ),
       ],

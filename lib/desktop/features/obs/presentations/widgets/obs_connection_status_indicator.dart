@@ -5,9 +5,7 @@ import 'package:streamkeys/desktop/features/obs/bloc/connection/obs_connection_b
 import 'package:streamkeys/service_locator.dart';
 
 class ObsConnectionStatusIndicator extends StatelessWidget {
-  const ObsConnectionStatusIndicator({
-    super.key,
-  });
+  const ObsConnectionStatusIndicator({super.key});
 
   @override
   Widget build(BuildContext context) {

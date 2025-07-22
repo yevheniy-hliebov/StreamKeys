@@ -4,7 +4,7 @@ class ApkDownloadState extends Equatable {
   final int? progress;
 
   const ApkDownloadState([this.progress]);
-  
+
   @override
   List<Object?> get props => [progress];
 }

@@ -25,10 +25,7 @@ class KeyBindingsRepository {
       final rawBindings = pageContent as Map<String, dynamic>;
 
       final KeyBindingMap bindings = rawBindings.map((keyCode, keyData) {
-        return MapEntry(
-          keyCode,
-          KeyBindingData.fromJson(keyData),
-        );
+        return MapEntry(keyCode, KeyBindingData.fromJson(keyData));
       });
 
       return MapEntry(pageName, bindings);

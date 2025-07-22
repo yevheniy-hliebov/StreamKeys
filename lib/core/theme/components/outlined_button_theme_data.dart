@@ -16,32 +16,23 @@ class AppOutlinedButtonThemeData {
         side: WidgetStateProperty.all(_borderSide(colors.outline)),
         foregroundColor: WidgetStateProperty.all(colors.onBackground),
         textStyle: WidgetStateProperty.all(
-          AppTypography.body.copyWith(
-            color: colors.onBackground,
-          ),
+          AppTypography.body.copyWith(color: colors.onBackground),
         ),
-        backgroundColor: WidgetStateProperty.resolveWith(
-          (states) {
-            if (states.contains(WidgetState.hovered)) {
-              return colors.overlay;
-            }
-            return Colors.transparent;
-          },
-        ),
+        backgroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.hovered)) {
+            return colors.overlay;
+          }
+          return Colors.transparent;
+        }),
       ),
     );
   }
 
   static RoundedRectangleBorder get _borderRadius {
-    return RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(5),
-    );
+    return RoundedRectangleBorder(borderRadius: BorderRadius.circular(5));
   }
 
   static BorderSide _borderSide(Color color) {
-    return BorderSide(
-      color: color,
-      width: 1,
-    );
+    return BorderSide(color: color, width: 1);
   }
 }

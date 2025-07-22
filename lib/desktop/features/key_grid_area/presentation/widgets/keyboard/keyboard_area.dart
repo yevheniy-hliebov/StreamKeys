@@ -69,7 +69,8 @@ class KeyboardArea extends StatelessWidget {
     KeyboardKeyBlock mainBlock,
   ) {
     final int keyCount = functionBlock[0].length;
-    final double maxWidth = (buttonSize * keyCount) +
+    final double maxWidth =
+        (buttonSize * keyCount) +
         (Spacing.keyGrid.btwKey * (keyCount - 4)) +
         3 * Spacing.keyGrid.btwSections;
 
@@ -91,7 +92,8 @@ class KeyboardArea extends StatelessWidget {
     KeyboardKeyBlock mainBlock,
     KeyboardKeyBlock navBlock,
   ) {
-    final double height = buttonSize +
+    final double height =
+        buttonSize +
         Spacing.keyGrid.btwBlock +
         buttonSize * mainBlock.length +
         Spacing.keyGrid.btwKey * (mainBlock.length - 1);
@@ -121,7 +123,8 @@ class KeyboardArea extends StatelessWidget {
       void Function(BaseKeyData keyData)? onPressedButton,
       void Function(int keyCode, BindingAction action)? onAddBindingAction,
       void Function(int firstCode, int secondCode)? onSwapBindingData,
-    }) builder,
+    })
+    builder,
     KeyboardKeyBlock block,
   ) {
     return builder(

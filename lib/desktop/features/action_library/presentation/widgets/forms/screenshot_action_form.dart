@@ -96,10 +96,7 @@ class _ScreenshotActionFormState extends State<ScreenshotActionForm> {
                 onChanged: (value) => _onUpdate(),
               ),
             ),
-            SquareIconButton(
-              icon: Icons.add,
-              onPressed: () => changeDelay(1),
-            ),
+            SquareIconButton(icon: Icons.add, onPressed: () => changeDelay(1)),
           ],
         ),
         CheckboxTile(

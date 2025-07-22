@@ -13,7 +13,7 @@ class KeyDragWrapper extends StatelessWidget {
   final void Function(int firstCode, int secondCode)? onSwapBindingData;
   final void Function(int keyCode, BindingAction action)? onAddBindingAction;
   final Widget Function(bool isHighlighted, double? feedbackButtonsSize)
-      childBuilder;
+  childBuilder;
 
   const KeyDragWrapper({
     super.key,

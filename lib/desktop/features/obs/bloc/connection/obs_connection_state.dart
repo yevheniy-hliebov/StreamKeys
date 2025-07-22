@@ -7,9 +7,7 @@ class ObsConnectionState extends Equatable {
   const ObsConnectionState(this.status, [this.errorMessage]);
 
   factory ObsConnectionState.initial() {
-    return const ObsConnectionState(
-      ConnectionStatus.notConnected,
-    );
+    return const ObsConnectionState(ConnectionStatus.notConnected);
   }
 
   @override

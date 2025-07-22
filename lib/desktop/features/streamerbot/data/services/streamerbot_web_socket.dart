@@ -90,10 +90,7 @@ class StreamerBotWebSocket {
     final completer = Completer<Map<String, dynamic>>();
     _pendingResponses[id] = completer;
 
-    final request = jsonEncode({
-      'request': 'GetActions',
-      'id': id,
-    });
+    final request = jsonEncode({'request': 'GetActions', 'id': id});
 
     _socket?.add(request);
     _log('Sent GetActions request');

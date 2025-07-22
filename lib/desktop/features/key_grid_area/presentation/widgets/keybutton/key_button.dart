@@ -30,8 +30,9 @@ class KeyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final message = keyBindingData?.name ?? '';
-    final highlightedColor =
-        AppColors.of(context).primary.withValues(alpha: 0.2);
+    final highlightedColor = AppColors.of(
+      context,
+    ).primary.withValues(alpha: 0.2);
 
     return Tooltip(
       message: message.isNotEmpty ? message : keyData.name,

@@ -8,7 +8,7 @@ class AppShell extends StatelessWidget {
   final String title;
   final List<Widget>? actions;
   final Widget Function(Widget appShell, bool isAppBar, bool isLandscapeLeft)
-      builder;
+  builder;
 
   const AppShell({
     super.key,
@@ -44,10 +44,7 @@ class AppShell extends StatelessWidget {
     return AppBar(
       leading: leading,
       centerTitle: true,
-      title: Text(
-        title,
-        style: AppTypography.subtitle,
-      ),
+      title: Text(title, style: AppTypography.subtitle),
       actions: actions,
     );
   }

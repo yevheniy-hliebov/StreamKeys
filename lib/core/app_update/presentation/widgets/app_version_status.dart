@@ -7,10 +7,7 @@ import 'package:streamkeys/service_locator.dart';
 class AppVersionStatus extends StatelessWidget {
   final AppUpdateService appUpdateService;
 
-  const AppVersionStatus({
-    super.key,
-    required this.appUpdateService,
-  });
+  const AppVersionStatus({super.key, required this.appUpdateService});
 
   @override
   Widget build(BuildContext context) {

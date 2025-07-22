@@ -58,15 +58,15 @@ void desktopMain() async {
   Future<void> checkUpdateHandler(BuildContext context) async {
     final appUpdateService = sl<AppUpdateService>();
     final updateVersion = await appUpdateService.checkForUpdate();
-    
+
     if (updateVersion?.tagName == appUpdateService.getIgnoredVersion()) {
       return;
     }
-    
+
     if (updateVersion?.tagName == appUpdateService.getCurrentVersion()) {
       return;
     }
-    
+
     if (updateVersion != null && context.mounted) {
       await UpdateDialog.showUpdateDialog(context, updateVersion);
     }

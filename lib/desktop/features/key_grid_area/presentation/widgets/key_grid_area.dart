@@ -6,10 +6,7 @@ import 'package:streamkeys/core/constants/spacing.dart';
 class KeyGridArea extends StatelessWidget {
   final Widget child;
 
-  const KeyGridArea({
-    super.key,
-    required this.child,
-  });
+  const KeyGridArea({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +20,7 @@ class KeyGridArea extends StatelessWidget {
           decoration: BoxDecoration(
             color: AppColors.of(context).surface,
             borderRadius: BorderRadius.circular(Spacing.xs),
-            border: Border.all(
-              width: 1,
-              color: AppColors.of(context).outline,
-            ),
+            border: Border.all(width: 1, color: AppColors.of(context).outline),
           ),
           child: child,
         ),

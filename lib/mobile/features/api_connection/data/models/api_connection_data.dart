@@ -1,11 +1,8 @@
 import 'package:streamkeys/common/models/base_connection_data.dart';
 
 class ApiConnectionData extends BaseConnectionData {
-  const ApiConnectionData({
-    super.ip,
-    super.port,
-    super.password,
-  }) : super(autoReconnect: false);
+  const ApiConnectionData({super.ip, super.port, super.password})
+    : super(autoReconnect: false);
 
   bool get isEmpty {
     return ip.isEmpty || port.isEmpty || password.isEmpty;
@@ -26,11 +23,7 @@ class ApiConnectionData extends BaseConnectionData {
       map: map,
       prefixKey: _type,
       factory: (ip, port, password, _) {
-        return ApiConnectionData(
-          ip: ip,
-          port: port,
-          password: password,
-        );
+        return ApiConnectionData(ip: ip, port: port, password: password);
       },
     );
   }

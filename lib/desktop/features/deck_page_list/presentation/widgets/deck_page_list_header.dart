@@ -29,10 +29,7 @@ class DeckPageListHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         spacing: Spacing.xs,
         children: <Widget>[
-          const Text(
-            'Pages',
-            style: AppTypography.bodyStrong,
-          ),
+          const Text('Pages', style: AppTypography.bodyStrong),
           DeckPageListActions(
             onPressedAdd: onPressedAdd,
             onPressedEdit: onPressedEdit,

@@ -48,19 +48,14 @@ class _DashboardScreenState extends State<DashboardScreen>
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(45),
         child: BottomBorderContainer(
-          child: ScreenTabBar(
-            tabs: widget.tabs,
-            controller: _tabController,
-          ),
+          child: ScreenTabBar(tabs: widget.tabs, controller: _tabController),
         ),
       ),
       body: TabBarView(
         controller: _tabController,
         children: widget.tabs.map((PageTab tab) => tab.pageView).toList(),
       ),
-      bottomNavigationBar: StatusOverlay(
-        children: widget.statusWidgets,
-      ),
+      bottomNavigationBar: StatusOverlay(children: widget.statusWidgets),
     );
   }
 }

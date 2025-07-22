@@ -31,15 +31,10 @@ class ConnectionTitle extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            title,
-            style: AppTypography.bodyStrong,
-          ),
+          Text(title, style: AppTypography.bodyStrong),
           Text(
             connectionStatus,
-            style: AppTypography.caption.copyWith(
-              color: statusColor,
-            ),
+            style: AppTypography.caption.copyWith(color: statusColor),
           ),
         ],
       ),

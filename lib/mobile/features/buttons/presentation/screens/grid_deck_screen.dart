@@ -31,10 +31,7 @@ class GridDeckScreen extends StatelessWidget {
           );
         } else if (state is ButtonsError) {
           return Center(
-            child: Text(
-              state.message,
-              textAlign: TextAlign.center,
-            ),
+            child: Text(state.message, textAlign: TextAlign.center),
           );
         } else {
           return const LoaderPlaceholder();

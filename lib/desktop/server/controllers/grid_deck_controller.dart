@@ -22,7 +22,8 @@ class GridDeckController extends BaseController {
 
       if (json == null) {
         return Response.internalServerError(
-            body: 'Failed to read grid deck json');
+          body: 'Failed to read grid deck json',
+        );
       }
 
       final prefs = sl<SharedPreferences>();
@@ -35,19 +36,17 @@ class GridDeckController extends BaseController {
       final Json jsonResponse = {
         'grid_template': gridTemplate.toJson(),
         DeckJsonKeys.currentPageId: json[DeckJsonKeys.currentPageId],
-        'page_map': pageMapJson?.map(
-          (key, value) {
-            final keyBindingDataJson = value as Json;
+        'page_map': pageMapJson?.map((key, value) {
+          final keyBindingDataJson = value as Json;
 
-            return MapEntry(key, {
-              DeckJsonKeys.keyName: keyBindingDataJson[DeckJsonKeys.keyName],
-              DeckJsonKeys.keyBackgroundColor:
-                  keyBindingDataJson[DeckJsonKeys.keyBackgroundColor],
-              DeckJsonKeys.keyImagePath:
-                  keyBindingDataJson[DeckJsonKeys.keyImagePath],
-            });
-          },
-        ),
+          return MapEntry(key, {
+            DeckJsonKeys.keyName: keyBindingDataJson[DeckJsonKeys.keyName],
+            DeckJsonKeys.keyBackgroundColor:
+                keyBindingDataJson[DeckJsonKeys.keyBackgroundColor],
+            DeckJsonKeys.keyImagePath:
+                keyBindingDataJson[DeckJsonKeys.keyImagePath],
+          });
+        }),
       };
 
       return Response.ok(

@@ -67,10 +67,7 @@ class _ApiConnectionFormState extends State<ApiConnectionForm> {
             keyboardType: TextInputType.number,
           ),
           const FieldLabel('Password'),
-          TextFormField(
-            controller: _passwordController,
-            obscureText: true,
-          ),
+          TextFormField(controller: _passwordController, obscureText: true),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -79,9 +76,7 @@ class _ApiConnectionFormState extends State<ApiConnectionForm> {
                 child: FilledButton(
                   onPressed: _save,
                   style: const ButtonStyle(
-                    padding: WidgetStatePropertyAll(
-                      EdgeInsets.all(Spacing.xs),
-                    ),
+                    padding: WidgetStatePropertyAll(EdgeInsets.all(Spacing.xs)),
                   ),
                   child: const Text('Save'),
                 ),

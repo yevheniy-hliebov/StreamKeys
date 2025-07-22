@@ -6,19 +6,10 @@ class DeckPage {
   final String id;
   final String name;
 
-  DeckPage({
-    required this.id,
-    required this.name,
-  });
+  DeckPage({required this.id, required this.name});
 
-  factory DeckPage.create({
-    String? id,
-    required String name,
-  }) {
-    return DeckPage(
-      id: id ?? const Uuid().v4(),
-      name: name,
-    );
+  factory DeckPage.create({String? id, required String name}) {
+    return DeckPage(id: id ?? const Uuid().v4(), name: name);
   }
 
   factory DeckPage.createWithUniqueName({
@@ -40,10 +31,7 @@ class DeckPage {
   int get hashCode => id.hashCode;
 
   Json toJson() {
-    return {
-      DeckJsonKeys.pageId: id,
-      DeckJsonKeys.pageName: name,
-    };
+    return {DeckJsonKeys.pageId: id, DeckJsonKeys.pageName: name};
   }
 
   factory DeckPage.fromJson(Json json) {

@@ -49,10 +49,7 @@ class DeckPageListTile extends StatelessWidget {
     if (isEditing && isCurrent) {
       return _buildTextField(context);
     }
-    return Text(
-      page.name,
-      style: AppTypography.body,
-    );
+    return Text(page.name, style: AppTypography.body);
   }
 
   TextFormField _buildTextField(BuildContext context) {

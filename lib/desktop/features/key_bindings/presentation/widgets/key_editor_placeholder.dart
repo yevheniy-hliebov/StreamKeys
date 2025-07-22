@@ -7,10 +7,7 @@ class KeyEditorPlaceholder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text(
-        'Select a key button',
-        style: AppTypography.subtitle,
-      ),
+      child: Text('Select a key button', style: AppTypography.subtitle),
     );
   }
 }
