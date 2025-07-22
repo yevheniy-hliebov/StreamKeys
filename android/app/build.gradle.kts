@@ -1,5 +1,3 @@
-import org.gradle.api.JavaVersion
-
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -17,7 +15,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
     defaultConfig {
