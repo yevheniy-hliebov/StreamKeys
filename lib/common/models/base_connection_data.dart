@@ -35,7 +35,8 @@ abstract class BaseConnectionData extends SecureStorable {
       String port,
       String password,
       bool autoReconnect,
-    ) factory,
+    )
+    factory,
   }) {
     return factory(
       map['${prefixKey}_ip'] ?? '',

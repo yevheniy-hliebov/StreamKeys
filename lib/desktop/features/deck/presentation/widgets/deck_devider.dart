@@ -4,10 +4,7 @@ import 'package:streamkeys/core/constants/colors.dart';
 class DeckDevider extends StatelessWidget {
   final Axis axis;
 
-  const DeckDevider({
-    super.key,
-    required this.axis,
-  });
+  const DeckDevider({super.key, required this.axis});
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +18,7 @@ class DeckDevider extends StatelessWidget {
         color: color,
       );
     } else {
-      return Divider(
-        height: thickness,
-        thickness: thickness,
-        color: color,
-      );
+      return Divider(height: thickness, thickness: thickness, color: color);
     }
   }
 }

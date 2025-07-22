@@ -16,9 +16,9 @@ class RecordOrStreamAction extends BindingAction {
     required super.type,
     this.state = ProcessState.start,
   }) : super(
-          id: id ?? const Uuid().v4(),
-          name: type == ActionTypes.obsRecord ? 'Record' : 'Stream',
-        );
+         id: id ?? const Uuid().v4(),
+         name: type == ActionTypes.obsRecord ? 'Record' : 'Stream',
+       );
 
   @override
   String get dialogTitle => 'Set $name State';
@@ -38,10 +38,7 @@ class RecordOrStreamAction extends BindingAction {
 
   @override
   Json toJson() {
-    return {
-      'type': type,
-      'state': state.name,
-    };
+    return {'type': type, 'state': state.name};
   }
 
   factory RecordOrStreamAction.fromJson(Json json) {
@@ -53,10 +50,7 @@ class RecordOrStreamAction extends BindingAction {
 
   @override
   BindingAction copy() {
-    return RecordOrStreamAction(
-      type: type,
-      state: state,
-    );
+    return RecordOrStreamAction(type: type, state: state);
   }
 
   @override
@@ -92,10 +86,7 @@ class RecordOrStreamAction extends BindingAction {
     return RecordOrStreamActionForm(
       initialState: state,
       onUpdated: (updated) {
-        onUpdated?.call(RecordOrStreamAction(
-          type: type,
-          state: updated,
-        ));
+        onUpdated?.call(RecordOrStreamAction(type: type, state: updated));
       },
     );
   }

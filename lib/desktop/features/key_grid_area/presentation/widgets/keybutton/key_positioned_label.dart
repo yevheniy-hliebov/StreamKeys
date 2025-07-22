@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/core/constants/colors.dart';
 
-enum LabelPosition {
-  topLeft,
-  topRight,
-  bottomLeft,
-  bottomRight,
-  center,
-}
+enum LabelPosition { topLeft, topRight, bottomLeft, bottomRight, center }
 
 class KeyPositionedLabel extends StatelessWidget {
   final String text;
@@ -33,11 +27,7 @@ class KeyPositionedLabel extends StatelessWidget {
     if (iconData != null && text.isNotEmpty) {
       content = Icon(iconData, size: fontSize + 10);
     } else {
-      content = _buildLabel(
-        context,
-        text,
-        fontSize: fontSize,
-      );
+      content = _buildLabel(context, text, fontSize: fontSize);
     }
 
     switch (position) {
@@ -66,18 +56,11 @@ class KeyPositionedLabel extends StatelessWidget {
           child: content,
         );
       case LabelPosition.center:
-        return Align(
-          alignment: Alignment.center,
-          child: content,
-        );
+        return Align(alignment: Alignment.center, child: content);
     }
   }
 
-  Text _buildLabel(
-    BuildContext context,
-    String label, {
-    double fontSize = 12,
-  }) {
+  Text _buildLabel(BuildContext context, String label, {double fontSize = 12}) {
     return Text(
       label.toUpperCase(),
       style: TextStyle(

@@ -16,7 +16,7 @@ class SourceActionForm<T extends ActionStateEnum> extends StatefulWidget {
   final List<T> stateValues;
   final bool includeGroupNamesInSources;
   final BindingAction Function(String sceneName, String sourceName, T state)
-      createAction;
+  createAction;
   final void Function(BindingAction updatedAction)? onUpdated;
 
   const SourceActionForm({
@@ -73,17 +73,22 @@ class _SourceActionFormState<T extends ActionStateEnum>
     try {
       scenes = await _dataManager!.getScenes();
 
-      final sceneIndex =
-          scenes.indexWhere((s) => s.sceneName == widget.initialSceneName);
+      final sceneIndex = scenes.indexWhere(
+        (s) => s.sceneName == widget.initialSceneName,
+      );
       selectedSceneIndex = sceneIndex >= 0 ? sceneIndex : 0;
 
-      final sceneName =
-          scenes.isEmpty ? '' : scenes[selectedSceneIndex ?? 0].sceneName;
-      sources = await _dataManager!.getSourcesInScene(sceneName,
-          includeGroupNames: widget.includeGroupNamesInSources);
+      final sceneName = scenes.isEmpty
+          ? ''
+          : scenes[selectedSceneIndex ?? 0].sceneName;
+      sources = await _dataManager!.getSourcesInScene(
+        sceneName,
+        includeGroupNames: widget.includeGroupNamesInSources,
+      );
 
-      final sourceIndex =
-          sources.indexWhere((src) => src == widget.initialSourceName);
+      final sourceIndex = sources.indexWhere(
+        (src) => src == widget.initialSourceName,
+      );
       selectedSourceIndex = sourceIndex >= 0 ? sourceIndex : 0;
 
       selectedStateIndex = widget.stateValues.indexOf(widget.initialState);
@@ -97,8 +102,9 @@ class _SourceActionFormState<T extends ActionStateEnum>
   }
 
   void _notifyChanged() {
-    final sceneName =
-        scenes.isEmpty ? '' : scenes[selectedSceneIndex ?? 0].sceneName;
+    final sceneName = scenes.isEmpty
+        ? ''
+        : scenes[selectedSceneIndex ?? 0].sceneName;
     final sourceName = sources.isEmpty ? '' : sources[selectedSourceIndex ?? 0];
     final state = widget.stateValues[selectedStateIndex ?? 0];
 
@@ -138,8 +144,10 @@ class _SourceActionFormState<T extends ActionStateEnum>
               });
 
               final sceneName = scenes[newIndex].sceneName;
-              sources = await _dataManager!.getSourcesInScene(sceneName,
-                  includeGroupNames: widget.includeGroupNamesInSources);
+              sources = await _dataManager!.getSourcesInScene(
+                sceneName,
+                includeGroupNames: widget.includeGroupNamesInSources,
+              );
               selectedSourceIndex = sources.isNotEmpty ? 0 : null;
 
               isLoading = false;

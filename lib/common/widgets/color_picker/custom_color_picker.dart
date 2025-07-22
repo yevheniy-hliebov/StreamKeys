@@ -56,8 +56,9 @@ class ColorPickerController extends ChangeNotifier {
   void onHexChanged(String hex) {
     final color = ColorHelper.hexToColor(hex);
     pickerColor = color ?? Colors.transparent;
-    opacityPercentController.text =
-        ColorHelper.getOpacityPercentageString(pickerColor);
+    opacityPercentController.text = ColorHelper.getOpacityPercentageString(
+      pickerColor,
+    );
 
     notifyListeners();
   }

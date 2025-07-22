@@ -27,10 +27,7 @@ class KeyEditorHeader extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              'Bind key: ${keyData.name}',
-              style: AppTypography.subtitle,
-            ),
+            Text('Bind key: ${keyData.name}', style: AppTypography.subtitle),
             SmallIconButton(
               tooltip: 'Clear',
               onPressed: onClearPressed,

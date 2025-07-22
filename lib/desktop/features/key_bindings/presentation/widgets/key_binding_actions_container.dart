@@ -4,10 +4,7 @@ import 'package:streamkeys/core/constants/colors.dart';
 class KeyBindingActionsContainer extends StatefulWidget {
   final Widget child;
 
-  const KeyBindingActionsContainer({
-    super.key,
-    required this.child,
-  });
+  const KeyBindingActionsContainer({super.key, required this.child});
 
   @override
   State<KeyBindingActionsContainer> createState() =>
@@ -21,9 +18,7 @@ class _KeyBindingActionsContainerState
   @override
   void initState() {
     super.initState();
-    _entry = OverlayEntry(
-      builder: (context) => widget.child,
-    );
+    _entry = OverlayEntry(builder: (context) => widget.child);
   }
 
   @override
@@ -52,9 +47,7 @@ class _KeyBindingActionsContainerState
       clipBehavior: Clip.hardEdge,
       child: ClipRRect(
         borderRadius: borderRadius,
-        child: Overlay(
-          initialEntries: [_entry],
-        ),
+        child: Overlay(initialEntries: [_entry]),
       ),
     );
   }

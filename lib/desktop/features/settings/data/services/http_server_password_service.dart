@@ -25,7 +25,9 @@ class HttpServerPasswordService {
     const chars =
         'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#\$%^&*()-_=+[]{}|;:,.<>?';
     final rand = Random.secure();
-    return List.generate(length, (_) => chars[rand.nextInt(chars.length)])
-        .join();
+    return List.generate(
+      length,
+      (_) => chars[rand.nextInt(chars.length)],
+    ).join();
   }
 }

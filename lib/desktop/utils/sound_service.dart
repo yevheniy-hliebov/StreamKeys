@@ -8,10 +8,7 @@ class SoundService {
   SoundService([AudioPlayer? player]) : _player = player ?? AudioPlayer();
 
   Future<void> _playSound(String assetPath) async {
-    await _player.play(
-      AssetSource(assetPath),
-      mode: PlayerMode.lowLatency,
-    );
+    await _player.play(AssetSource(assetPath), mode: PlayerMode.lowLatency);
   }
 
   Future<void> playTick() => _playSound('sounds/tick.mp3');

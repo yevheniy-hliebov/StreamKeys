@@ -5,10 +5,7 @@ import 'package:streamkeys/common/widgets/color_picker/custom_color_picker.dart'
 class OpacityInputField extends StatelessWidget {
   final ColorPickerController controller;
 
-  const OpacityInputField({
-    super.key,
-    required this.controller,
-  });
+  const OpacityInputField({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +38,7 @@ class _OpacityRangeFormatter extends TextInputFormatter {
     if (newValue.text.isEmpty) {
       return const TextEditingValue(
         text: '0',
-        selection: TextSelection.collapsed(
-          offset: 1,
-        ),
+        selection: TextSelection.collapsed(offset: 1),
       );
     }
 

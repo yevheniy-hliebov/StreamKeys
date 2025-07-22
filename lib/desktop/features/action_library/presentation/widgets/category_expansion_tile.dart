@@ -9,10 +9,7 @@ import 'package:streamkeys/desktop/features/action_library/presentation/widgets/
 class CategoryExpansionTile extends StatelessWidget {
   final BindingActionCategory category;
 
-  const CategoryExpansionTile({
-    super.key,
-    required this.category,
-  });
+  const CategoryExpansionTile({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +47,7 @@ class CategoryExpansionTile extends StatelessWidget {
             children: For.fromList<BindingAction>(
               items: category.actions,
               generator: (action) {
-                return [
-                  DragableBindingActionTile(bindingAction: action),
-                ];
+                return [DragableBindingActionTile(bindingAction: action)];
               },
             ),
           ),

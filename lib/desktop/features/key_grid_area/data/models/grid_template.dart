@@ -25,11 +25,7 @@ class GridTemplate {
   }
 
   static GridTemplate fromJson(Map<String, dynamic> json) {
-    return GridTemplate(
-      json['columns'],
-      json['rows'],
-      type: json['type'],
-    );
+    return GridTemplate(json['columns'], json['rows'], type: json['type']);
   }
 
   static List<GridTemplate> gridTemplates = <GridTemplate>[

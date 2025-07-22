@@ -34,10 +34,7 @@ class KeySettingPanel extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          KeyEditorHeader(
-            keyData: keyData,
-            onClearPressed: onClearPressed,
-          ),
+          KeyEditorHeader(keyData: keyData, onClearPressed: onClearPressed),
           KeyNameField(
             initialValue: keyBindingData.name,
             onChanged: onNameChanged,
@@ -56,7 +53,7 @@ class KeySettingPanel extends StatelessWidget {
                 onChanged: onColorChanged,
               ),
             ],
-          )
+          ),
         ],
       ),
     );

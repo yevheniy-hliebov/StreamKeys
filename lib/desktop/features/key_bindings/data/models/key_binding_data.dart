@@ -66,8 +66,9 @@ class KeyBindingData extends Equatable {
 
     return KeyBindingData.create(
       name: json[DeckJsonKeys.keyName] ?? '',
-      backgroundColor:
-          ColorHelper.hexToColor(json[DeckJsonKeys.keyBackgroundColor]),
+      backgroundColor: ColorHelper.hexToColor(
+        json[DeckJsonKeys.keyBackgroundColor],
+      ),
       imagePath: json[DeckJsonKeys.keyImagePath] ?? '',
       actions: actions,
     );

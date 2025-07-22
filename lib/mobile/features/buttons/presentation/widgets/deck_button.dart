@@ -38,10 +38,7 @@ class DeckButton extends StatelessWidget {
           decoration: BoxDecoration(
             color: buttonData?.backgroundColor,
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: AppColors.of(context).outline,
-              width: 1,
-            ),
+            border: Border.all(color: AppColors.of(context).outline, width: 1),
           ),
           child: _buildImage(),
         ),
@@ -62,10 +59,7 @@ class DeckButton extends StatelessWidget {
         }
 
         final bytes = snapshot.data!;
-        return Image.memory(
-          bytes,
-          fit: BoxFit.cover,
-        );
+        return Image.memory(bytes, fit: BoxFit.cover);
       },
     );
   }

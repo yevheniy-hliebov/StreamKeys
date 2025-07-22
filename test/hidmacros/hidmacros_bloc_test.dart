@@ -30,23 +30,28 @@ void main() {
 
     when(() => repository.getDeviceList()).thenReturn([keyboard1, keyboard2]);
     when(() => repository.getSelectedKeyboard()).thenReturn(keyboard1);
-    when(() => repository.getSelectedKeyboardType())
-        .thenReturn(KeyboardType.full);
+    when(
+      () => repository.getSelectedKeyboardType(),
+    ).thenReturn(KeyboardType.full);
     when(() => repository.getAutoStart()).thenReturn(true);
     when(() => repository.init()).thenAnswer((_) async => {});
     when(() => repository.saveAutoStart(any())).thenAnswer((_) async => {});
     when(() => repository.setMinimizeToTray(any())).thenAnswer((_) async => {});
     when(() => repository.setStartMinimized(any())).thenAnswer((_) async => {});
-    when(() => repository.select(
-          keyboard: any(named: 'keyboard'),
-          type: any(named: 'type'),
-        )).thenAnswer((_) async => {});
+    when(
+      () => repository.select(
+        keyboard: any(named: 'keyboard'),
+        type: any(named: 'type'),
+      ),
+    ).thenAnswer((_) async => {});
 
-    when(() => hidmacrosService.restart(
-          autoStart: any(named: 'autoStart'),
-          onBetween: any(named: 'onBetween'),
-        )).thenAnswer((_) async {
-      await _.namedArguments[#onBetween]?.call();
+    when(
+      () => hidmacrosService.restart(
+        autoStart: any(named: 'autoStart'),
+        onBetween: any(named: 'onBetween'),
+      ),
+    ).thenAnswer((invocation) async {
+      await invocation.namedArguments[#onBetween]?.call();
     });
 
     when(() => repository.getMinimizeToTray()).thenReturn(false);
@@ -67,8 +72,11 @@ void main() {
       wait: const Duration(milliseconds: 100),
       expect: () => [
         isA<HidMacrosLoading>(),
-        isA<HidMacrosLoaded>()
-            .having((s) => s.keyboards.length, 'keyboards length', 2),
+        isA<HidMacrosLoaded>().having(
+          (s) => s.keyboards.length,
+          'keyboards length',
+          2,
+        ),
       ],
       verify: (_) {
         verify(() => repository.init()).called(1);
@@ -86,8 +94,11 @@ void main() {
       build: () => bloc,
       act: (bloc) => bloc.add(const HidMacrosToggleAutoStartEvent(false)),
       expect: () => [
-        isA<HidMacrosLoaded>()
-            .having((s) => s.hidmacrosConfig.autoStart, 'autoStart', false),
+        isA<HidMacrosLoaded>().having(
+          (s) => s.hidmacrosConfig.autoStart,
+          'autoStart',
+          false,
+        ),
       ],
       verify: (_) {
         verify(() => repository.saveAutoStart(false)).called(1);
@@ -100,7 +111,10 @@ void main() {
       act: (bloc) => bloc.add(const HidMacrosToggleMinimizeToTrayEvent(true)),
       expect: () => [
         isA<HidMacrosLoaded>().having(
-            (s) => s.hidmacrosConfig.minimizeToTray, 'minimizeToTray', true),
+          (s) => s.hidmacrosConfig.minimizeToTray,
+          'minimizeToTray',
+          true,
+        ),
       ],
       verify: (_) {
         verify(() => repository.setMinimizeToTray(true)).called(1);
@@ -113,7 +127,10 @@ void main() {
       act: (bloc) => bloc.add(const HidMacrosToggleStartMinizedEvent(true)),
       expect: () => [
         isA<HidMacrosLoaded>().having(
-            (s) => s.hidmacrosConfig.startMinimized, 'startMinimized', true),
+          (s) => s.hidmacrosConfig.startMinimized,
+          'startMinimized',
+          true,
+        ),
       ],
       verify: (_) {
         verify(() => repository.setStartMinimized(true)).called(1);
@@ -126,12 +143,17 @@ void main() {
       act: (bloc) => bloc.add(const HidMacrosSelectKeyboardEvent(keyboard2)),
       expect: () => [
         isA<HidMacrosLoading>(),
-        isA<HidMacrosLoaded>()
-            .having((s) => s.selectedKeyboard, 'selectedKeyboard', keyboard2),
+        isA<HidMacrosLoaded>().having(
+          (s) => s.selectedKeyboard,
+          'selectedKeyboard',
+          keyboard2,
+        ),
       ],
       verify: (_) {
-        verify(() => repository.select(
-            keyboard: keyboard2, type: KeyboardType.numpad)).called(1);
+        verify(
+          () =>
+              repository.select(keyboard: keyboard2, type: KeyboardType.numpad),
+        ).called(1);
       },
     );
 
@@ -153,10 +175,12 @@ void main() {
         ),
       ],
       verify: (_) {
-        verify(() => repository.select(
-              keyboard: keyboard1,
-              type: KeyboardType.compact,
-            )).called(1);
+        verify(
+          () => repository.select(
+            keyboard: keyboard1,
+            type: KeyboardType.compact,
+          ),
+        ).called(1);
       },
     );
   });

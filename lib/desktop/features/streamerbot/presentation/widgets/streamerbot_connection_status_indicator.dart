@@ -5,9 +5,7 @@ import 'package:streamkeys/desktop/features/streamerbot/bloc/connection/streamer
 import 'package:streamkeys/service_locator.dart';
 
 class StreamerBotConnectionStatusIndicator extends StatelessWidget {
-  const StreamerBotConnectionStatusIndicator({
-    super.key,
-  });
+  const StreamerBotConnectionStatusIndicator({super.key});
 
   @override
   Widget build(BuildContext context) {

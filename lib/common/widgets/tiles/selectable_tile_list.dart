@@ -29,10 +29,7 @@ class SelectableTileList<T> extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       spacing: Spacing.md,
       children: [
-        Text(
-          title,
-          style: AppTypography.captionStrong,
-        ),
+        Text(title, style: AppTypography.captionStrong),
         Container(
           decoration: BoxDecoration(
             color: AppColors.of(context).surface,
@@ -69,7 +66,7 @@ class SelectableTileList<T> extends StatelessWidget {
                   Material(
                     type: MaterialType.transparency,
                     child: getTooltip != null ? tileWithTooltip : tile,
-                  )
+                  ),
                 ];
               },
             ),

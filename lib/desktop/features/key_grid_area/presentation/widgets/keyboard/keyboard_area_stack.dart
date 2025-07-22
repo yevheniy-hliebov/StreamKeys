@@ -33,8 +33,9 @@ class KeyboardAreaStack extends StatelessWidget {
                   top: Spacing.md,
                   left: Spacing.md,
                   child: CustomDropdownButton(
-                    index: KeyboardType.values
-                        .indexOf(state.selectedKeyboardType!),
+                    index: KeyboardType.values.indexOf(
+                      state.selectedKeyboardType!,
+                    ),
                     itemCount: KeyboardType.values.length,
                     itemBuilder: (index) {
                       return Text(KeyboardType.values[index].name);
@@ -42,9 +43,9 @@ class KeyboardAreaStack extends StatelessWidget {
                     onChanged: (int? newIndex) {
                       if (newIndex == null) return;
                       final keyboardType = KeyboardType.values[newIndex];
-                      context
-                          .read<HidMacrosBloc>()
-                          .add(HidMacrosSelectKeyboardTypeEvent(keyboardType));
+                      context.read<HidMacrosBloc>().add(
+                        HidMacrosSelectKeyboardTypeEvent(keyboardType),
+                      );
                     },
                   ),
                 ),
@@ -74,9 +75,7 @@ class _CenteredConstrained extends StatelessWidget {
           child: SizedBox(
             width: double.infinity,
             child: Container(
-              constraints: BoxConstraints(
-                minHeight: constraints.maxHeight,
-              ),
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
               padding: const EdgeInsets.all(24),
               child: Center(
                 child: ConstrainedBox(

@@ -27,8 +27,8 @@ class KeyBindingsBloc extends Bloc<KeyBindingsEvent, KeyBindingsState>
   BaseKeyData? currentKeyData;
 
   KeyBindingsBloc(this.repository, DeckPageListBloc deckPageListBloc)
-      : _deckPageListBloc = deckPageListBloc,
-        super(KeyBindingsInitial()) {
+    : _deckPageListBloc = deckPageListBloc,
+      super(KeyBindingsInitial()) {
     _initCompleter = Completer<void>();
     _handleDeckSubscription();
 
@@ -52,14 +52,14 @@ class KeyBindingsBloc extends Bloc<KeyBindingsEvent, KeyBindingsState>
   }
 
   void _handleDeckSubscription() {
-    _deckSubscription = _deckPageListBloc.stream.listen(
-      (DeckPageListState deckState) async {
-        if (deckState is DeckPageListLoaded) {
-          await _initCompleter.future;
-          add(KeyBindingsPageChanged(deckState.currentPageId));
-        }
-      },
-    );
+    _deckSubscription = _deckPageListBloc.stream.listen((
+      DeckPageListState deckState,
+    ) async {
+      if (deckState is DeckPageListLoaded) {
+        await _initCompleter.future;
+        add(KeyBindingsPageChanged(deckState.currentPageId));
+      }
+    });
   }
 
   @override

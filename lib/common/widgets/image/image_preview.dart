@@ -11,10 +11,7 @@ class ImagePreview extends StatelessWidget {
   Widget build(BuildContext context) {
     if (imagePath.isNotEmpty) {
       final imageFile = File(imagePath);
-      return Image.file(
-        imageFile,
-        fit: BoxFit.cover,
-      );
+      return Image.file(imageFile, fit: BoxFit.cover);
     }
     return const SizedBox.shrink();
   }

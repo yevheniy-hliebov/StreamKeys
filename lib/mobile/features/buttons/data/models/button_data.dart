@@ -21,7 +21,7 @@ class ButtonData {
       name: json[DeckJsonKeys.keyName] ?? '',
       backgroundColor:
           ColorHelper.hexToColor(json[DeckJsonKeys.keyBackgroundColor]) ??
-              Colors.transparent,
+          Colors.transparent,
       imagePath: json[DeckJsonKeys.keyImagePath] ?? '',
     );
   }

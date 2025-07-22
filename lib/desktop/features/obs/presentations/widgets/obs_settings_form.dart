@@ -31,19 +31,20 @@ class ObsSettingsForm extends StatelessWidget {
       onConnect: onConnect,
       onReconnect: onReconnect,
       onDisconnect: onDisconnect,
-      fromInput: ({
-        required String ip,
-        required String port,
-        required String? password,
-        required bool autoReconnect,
-      }) {
-        return ObsConnectionData(
-          ip: ip,
-          port: port,
-          password: password ?? '',
-          autoReconnect: autoReconnect,
-        );
-      },
+      fromInput:
+          ({
+            required String ip,
+            required String port,
+            required String? password,
+            required bool autoReconnect,
+          }) {
+            return ObsConnectionData(
+              ip: ip,
+              port: port,
+              password: password ?? '',
+              autoReconnect: autoReconnect,
+            );
+          },
     );
   }
 }

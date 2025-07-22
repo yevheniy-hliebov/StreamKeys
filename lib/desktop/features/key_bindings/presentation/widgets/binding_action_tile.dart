@@ -43,9 +43,7 @@ class KeyBindingActionTile extends StatelessWidget {
         child: Row(
           children: [
             _buildIcon(context),
-            const SizedBox(
-              width: Spacing.xs,
-            ),
+            const SizedBox(width: Spacing.xs),
             Expanded(
               child: Text(
                 action.label,
@@ -53,10 +51,7 @@ class KeyBindingActionTile extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            SmallIconButton(
-              onPressed: onDeletePressed,
-              icon: Icons.delete,
-            ),
+            SmallIconButton(onPressed: onDeletePressed, icon: Icons.delete),
           ],
         ),
       ),
@@ -64,10 +59,6 @@ class KeyBindingActionTile extends StatelessWidget {
   }
 
   Widget _buildIcon(BuildContext context) {
-    return SizedBox(
-      width: size,
-      height: size,
-      child: action.getIcon(context),
-    );
+    return SizedBox(width: size, height: size, child: action.getIcon(context));
   }
 }

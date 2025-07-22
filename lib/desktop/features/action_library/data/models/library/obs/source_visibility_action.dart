@@ -21,10 +21,10 @@ class SourceVisibilityAction extends BindingAction {
     this.sourceName = '',
     this.visibility = VisibilityState.toggle,
   }) : super(
-          id: id ?? const Uuid().v4(),
-          type: ActionTypes.sourceVisibility,
-          name: 'Source Visibility',
-        );
+         id: id ?? const Uuid().v4(),
+         type: ActionTypes.sourceVisibility,
+         name: 'Source Visibility',
+       );
 
   @override
   String get dialogTitle => 'Set Source Visibility State';
@@ -124,6 +124,12 @@ class SourceVisibilityAction extends BindingAction {
   }
 
   @override
-  List<Object?> get props =>
-      [id, type, name, sceneName, sourceName, visibility];
+  List<Object?> get props => [
+    id,
+    type,
+    name,
+    sceneName,
+    sourceName,
+    visibility,
+  ];
 }

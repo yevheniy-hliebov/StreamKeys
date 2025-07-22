@@ -41,9 +41,7 @@ class _GridAreaStackState extends State<GridAreaStack> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        KeyGridArea(
-          child: GridAreaWrapper(gridTemplate: selectedTemplate),
-        ),
+        KeyGridArea(child: GridAreaWrapper(gridTemplate: selectedTemplate)),
         Positioned(
           top: Spacing.md,
           left: Spacing.md,

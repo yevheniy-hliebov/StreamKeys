@@ -9,8 +9,8 @@ class HidMacrosRepository {
   HidMacrosRepository({
     HidMacrosPreferences? keyboardPrefs,
     HidMacrosXmlService? xmlService,
-  })  : _keyboardPrefs = keyboardPrefs ?? sl<HidMacrosPreferences>(),
-        _xml = xmlService ?? sl<HidMacrosXmlService>();
+  }) : _keyboardPrefs = keyboardPrefs ?? sl<HidMacrosPreferences>(),
+       _xml = xmlService ?? sl<HidMacrosXmlService>();
 
   Future<void> init() async => _xml.read();
 

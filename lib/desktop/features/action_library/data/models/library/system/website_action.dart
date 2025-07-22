@@ -12,11 +12,11 @@ class WebsiteAction extends BindingAction {
   final UrlLauncher? urlLauncher;
 
   WebsiteAction({String? id, this.urlLauncher, this.url = ''})
-      : super(
-          id: id ?? const Uuid().v4(),
-          type: ActionTypes.website,
-          name: 'Open website',
-        );
+    : super(
+        id: id ?? const Uuid().v4(),
+        type: ActionTypes.website,
+        name: 'Open website',
+      );
 
   @override
   String get dialogTitle => 'Enter the website URL';
@@ -37,16 +37,11 @@ class WebsiteAction extends BindingAction {
 
   @override
   Json toJson() {
-    return {
-      'type': type,
-      'url': url,
-    };
+    return {'type': type, 'url': url};
   }
 
   factory WebsiteAction.fromJson(Json json) {
-    return WebsiteAction(
-      url: json['url'] as String,
-    );
+    return WebsiteAction(url: json['url'] as String);
   }
 
   @override

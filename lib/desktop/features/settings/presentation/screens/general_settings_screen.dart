@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/common/widgets/tabs/page_tab.dart';
 import 'package:streamkeys/common/widgets/forms/theme_mode_switch.dart';
+import 'package:streamkeys/core/app_update/presentation/widgets/update_dialog.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/core/theme/bloc/theme_mode_bloc.dart';
+import 'package:streamkeys/core/app_update/presentation/widgets/app_version_tile.dart';
+import 'package:streamkeys/service_locator.dart';
 
 class GeneralSettingsScreen extends StatelessWidget with PageTab {
   const GeneralSettingsScreen({super.key});
@@ -32,9 +35,7 @@ class GeneralSettingsScreen extends StatelessWidget with PageTab {
                 return ListTile(
                   title: const Text(
                     'Theme mode',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.w500),
                   ),
                   trailing: Transform.scale(
                     scale: 0.8,
@@ -47,6 +48,22 @@ class GeneralSettingsScreen extends StatelessWidget with PageTab {
                     ),
                   ),
                 );
+              },
+            ),
+            AppVersionTile(
+              onTap: () async {
+                final appUpdateService = sl<AppUpdateService>();
+                final updateVersion = await appUpdateService.checkForUpdate();
+
+                if (updateVersion == null) {
+                  if (context.mounted) {
+                    await UpdateDialog.showNoUpdatesDialog(context);
+                  }
+                } else {
+                  if (context.mounted) {
+                    await UpdateDialog.showUpdateDialog(context, updateVersion);
+                  }
+                }
               },
             ),
           ],

@@ -16,10 +16,7 @@ class BindingActionIcons {
   Color get _iconColor => _isLight ? Colors.black : Colors.white;
   ColorFilter get _colorFilter => ColorFilter.mode(_iconColor, BlendMode.srcIn);
 
-  Widget _getSvgPicture(
-    String fileName, {
-    bool isColorChangeAllowed = true,
-  }) {
+  Widget _getSvgPicture(String fileName, {bool isColorChangeAllowed = true}) {
     return SvgPicture.asset(
       '$assetsPath/$fileName',
       colorFilter: isColorChangeAllowed ? _colorFilter : null,
@@ -51,9 +48,6 @@ class BindingActionIcons {
 
   // Streamer.bot
   Widget get streamerbot {
-    return Image.asset(
-      '$assetsPath/streamerbot.png',
-      fit: BoxFit.contain,
-    );
+    return Image.asset('$assetsPath/streamerbot.png', fit: BoxFit.contain);
   }
 }

@@ -22,9 +22,7 @@ class ObsSettingsScreen extends StatelessWidget with PageTab {
     return SizedBox(
       width: 18,
       height: 18,
-      child: SvgPicture.asset(
-        'assets/action_icons/obs.svg',
-      ),
+      child: SvgPicture.asset('assets/action_icons/obs.svg'),
     );
   }
 
@@ -37,44 +35,43 @@ class ObsSettingsScreen extends StatelessWidget with PageTab {
         children: [
           Container(
             width: double.maxFinite,
-            constraints: const BoxConstraints(
-              maxWidth: 400,
-            ),
+            constraints: const BoxConstraints(maxWidth: 400),
             margin: const EdgeInsets.symmetric(vertical: Spacing.xs),
             child: BlocBuilder<ObsConnectionBloc, ObsConnectionState>(
-                builder: (context, connectionState) {
-              return BlocProvider(
-                create: (_) => ObsSettingsBloc(
-                  ObsSettingsRepository(sl<ObsSecureStorage>()),
-                )..add(ObsSettingsLoad()),
-                child: BlocBuilder<ObsSettingsBloc, ObsSettingsState>(
-                  builder: (context, state) {
-                    if (state is ObsSettingsLoaded) {
-                      return ObsSettingsForm(
-                        initialData: state.data,
-                        onUpdated: (updatedData) async {
-                          context
-                              .read<ObsSettingsBloc>()
-                              .add(ObsSettingsSave(updatedData));
-                        },
-                        onConnect: (data) {
-                          sl<ObsService>().connect(data: data);
-                        },
-                        onReconnect: (data) {
-                          sl<ObsService>().reconnect(data: data, force: true);
-                        },
-                        onDisconnect: () {
-                          sl<ObsService>().disconnect();
-                        },
-                        status: connectionState.status,
-                      );
-                    } else {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                  },
-                ),
-              );
-            }),
+              builder: (context, connectionState) {
+                return BlocProvider(
+                  create: (_) => ObsSettingsBloc(
+                    ObsSettingsRepository(sl<ObsSecureStorage>()),
+                  )..add(ObsSettingsLoad()),
+                  child: BlocBuilder<ObsSettingsBloc, ObsSettingsState>(
+                    builder: (context, state) {
+                      if (state is ObsSettingsLoaded) {
+                        return ObsSettingsForm(
+                          initialData: state.data,
+                          onUpdated: (updatedData) async {
+                            context.read<ObsSettingsBloc>().add(
+                              ObsSettingsSave(updatedData),
+                            );
+                          },
+                          onConnect: (data) {
+                            sl<ObsService>().connect(data: data);
+                          },
+                          onReconnect: (data) {
+                            sl<ObsService>().reconnect(data: data, force: true);
+                          },
+                          onDisconnect: () {
+                            sl<ObsService>().disconnect();
+                          },
+                          status: connectionState.status,
+                        );
+                      } else {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                    },
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),

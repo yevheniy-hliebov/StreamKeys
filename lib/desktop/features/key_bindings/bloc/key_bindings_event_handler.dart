@@ -27,10 +27,7 @@ class KeyBindingsEventHandler {
     _emitLoaded(emit);
   }
 
-  void onSelectKey(
-    KeyBindingsSelectKey event,
-    Emitter<KeyBindingsState> emit,
-  ) {
+  void onSelectKey(KeyBindingsSelectKey event, Emitter<KeyBindingsState> emit) {
     bloc.currentKeyData = event.keyData;
     _emitLoaded(emit);
   }

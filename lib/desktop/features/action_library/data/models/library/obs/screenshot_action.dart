@@ -17,9 +17,7 @@ extension DurationExtensions on Duration {
   }
 
   static Duration getDelayFromDouble(double seconds) {
-    return Duration(
-      milliseconds: (seconds * 1000).round(),
-    );
+    return Duration(milliseconds: (seconds * 1000).round());
   }
 }
 
@@ -37,13 +35,13 @@ class ScreenshotAction extends BindingAction {
     this.playSound = false,
     SoundService? soundService,
     FileManager? fileManager,
-  })  : _soundService = soundService ?? SoundService(),
-        _fileManager = fileManager ?? const FileManager(),
-        super(
-          id: id ?? const Uuid().v4(),
-          type: ActionTypes.obsScreenshot,
-          name: 'Screenshot',
-        );
+  }) : _soundService = soundService ?? SoundService(),
+       _fileManager = fileManager ?? const FileManager(),
+       super(
+         id: id ?? const Uuid().v4(),
+         type: ActionTypes.obsScreenshot,
+         name: 'Screenshot',
+       );
 
   @override
   String get dialogTitle => 'Set Screenshot Delay';

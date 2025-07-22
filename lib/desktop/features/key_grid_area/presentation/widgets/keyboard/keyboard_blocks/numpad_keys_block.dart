@@ -49,8 +49,9 @@ class NumpadKeysBlock extends BaseKeysBlock {
                       if (isLastRowNumpad &&
                           colIndex == row.length - 1) ...<Widget>[
                         buildKeyButton(
-                            keyData: row[colIndex],
-                            width: buttonSize * 2 + Spacing.keyGrid.btwKey),
+                          keyData: row[colIndex],
+                          width: buttonSize * 2 + Spacing.keyGrid.btwKey,
+                        ),
                       ] else ...<Widget>[
                         buildKeyButton(keyData: row[colIndex]),
                       ],
@@ -70,11 +71,10 @@ class NumpadKeysBlock extends BaseKeysBlock {
               return <Widget>[
                 if (index == row.length - 1) ...<Widget>[
                   buildKeyButton(
-                      keyData: row[index],
-                      height: buttonSize * 2 + Spacing.keyGrid.btwKey),
-                ] else ...<Widget>[
-                  buildKeyButton(keyData: row[index]),
-                ],
+                    keyData: row[index],
+                    height: buttonSize * 2 + Spacing.keyGrid.btwKey,
+                  ),
+                ] else ...<Widget>[buildKeyButton(keyData: row[index])],
               ];
             },
           ),

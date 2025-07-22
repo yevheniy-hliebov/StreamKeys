@@ -34,47 +34,50 @@ class _DraggableWithinParentState extends State<DraggableWithinParent> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      final Size parentSize = constraints.biggest;
+      builder: (BuildContext context, BoxConstraints constraints) {
+        final Size parentSize = constraints.biggest;
 
-      _updateChildSizeAndRecenter(parentSize);
+        _updateChildSizeAndRecenter(parentSize);
 
-      final Offset topLeft = Offset(
-        centerPosition.dx - childSize.width / 2,
-        centerPosition.dy - childSize.height / 2,
-      );
+        final Offset topLeft = Offset(
+          centerPosition.dx - childSize.width / 2,
+          centerPosition.dy - childSize.height / 2,
+        );
 
-      return Stack(
-        children: <Widget>[
-          Positioned(
-            left: topLeft.dx,
-            top: topLeft.dy,
-            child: GestureDetector(
-              onPanUpdate: (DragUpdateDetails details) {
-                setState(() {
-                  final Offset newCenter = centerPosition + details.delta;
+        return Stack(
+          children: <Widget>[
+            Positioned(
+              left: topLeft.dx,
+              top: topLeft.dy,
+              child: GestureDetector(
+                onPanUpdate: (DragUpdateDetails details) {
+                  setState(() {
+                    final Offset newCenter = centerPosition + details.delta;
 
-                  final double minX = childSize.width / 2;
-                  final double maxX = parentSize.width - childSize.width / 2;
-                  final double minY = childSize.height / 2;
-                  final double maxY = parentSize.height - childSize.height / 2;
+                    final double minX = childSize.width / 2;
+                    final double maxX = parentSize.width - childSize.width / 2;
+                    final double minY = childSize.height / 2;
+                    final double maxY =
+                        parentSize.height - childSize.height / 2;
 
-                  centerPosition = Offset(
-                    newCenter.dx.clamp(
-                        minX - childSize.width / 2, maxX + childSize.width / 2),
-                    newCenter.dy.clamp(minY - childSize.height / 2,
-                        maxY + childSize.height / 2),
-                  );
-                });
-              },
-              child: KeyedSubtree(
-                key: _childKey,
-                child: widget.child,
+                    centerPosition = Offset(
+                      newCenter.dx.clamp(
+                        minX - childSize.width / 2,
+                        maxX + childSize.width / 2,
+                      ),
+                      newCenter.dy.clamp(
+                        minY - childSize.height / 2,
+                        maxY + childSize.height / 2,
+                      ),
+                    );
+                  });
+                },
+                child: KeyedSubtree(key: _childKey, child: widget.child),
               ),
             ),
-          ),
-        ],
-      );
-    });
+          ],
+        );
+      },
+    );
   }
 }

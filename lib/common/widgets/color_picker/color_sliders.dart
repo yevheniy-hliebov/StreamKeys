@@ -6,10 +6,7 @@ import 'package:streamkeys/core/constants/spacing.dart';
 class ColorSliders extends StatelessWidget {
   final ColorPickerController controller;
 
-  const ColorSliders({
-    super.key,
-    required this.controller,
-  });
+  const ColorSliders({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {

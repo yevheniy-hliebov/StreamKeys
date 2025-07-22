@@ -9,10 +9,7 @@ import 'package:streamkeys/desktop/features/key_grid_area/presentation/widgets/k
 class KeyboardAreaWrapper extends StatefulWidget {
   final KeyboardType keyboardType;
 
-  const KeyboardAreaWrapper({
-    super.key,
-    this.keyboardType = KeyboardType.full,
-  });
+  const KeyboardAreaWrapper({super.key, this.keyboardType = KeyboardType.full});
 
   @override
   State<KeyboardAreaWrapper> createState() => _KeyboardAreaWrapperState();
@@ -29,8 +26,8 @@ class _KeyboardAreaWrapperState extends State<KeyboardAreaWrapper> {
   }
 
   Future<void> init() async {
-    final Map<String, KeyboardKeyBlock> loadedMap =
-        await repository.loadKeyboardMap();
+    final Map<String, KeyboardKeyBlock> loadedMap = await repository
+        .loadKeyboardMap();
 
     setState(() {
       keyMap = loadedMap;
@@ -41,8 +38,9 @@ class _KeyboardAreaWrapperState extends State<KeyboardAreaWrapper> {
   Widget build(BuildContext context) {
     return BlocBuilder<KeyboardKeyBindingsBloc, KeyBindingsState>(
       builder: (context, state) {
-        final currentKeyCode =
-            state is KeyBindingsLoaded ? state.currentKeyData : null;
+        final currentKeyCode = state is KeyBindingsLoaded
+            ? state.currentKeyData
+            : null;
 
         final bloc = context.read<KeyboardKeyBindingsBloc>();
         return KeyboardArea(
@@ -60,10 +58,7 @@ class _KeyboardAreaWrapperState extends State<KeyboardAreaWrapper> {
             bloc.add(KeyBindingsSwapKeys(firstCode, secondCode));
           },
           onAddBindingAction: (keyCode, action) {
-            bloc.add(KeyBindingsAddAction(
-              keyCode: keyCode,
-              action: action,
-            ));
+            bloc.add(KeyBindingsAddAction(keyCode: keyCode, action: action));
           },
         );
       },

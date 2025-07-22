@@ -7,11 +7,7 @@ class KeyNameField extends StatefulWidget {
   final String initialValue;
   final void Function(String newValue)? onChanged;
 
-  const KeyNameField({
-    super.key,
-    this.initialValue = '',
-    this.onChanged,
-  });
+  const KeyNameField({super.key, this.initialValue = '', this.onChanged});
 
   @override
   State<KeyNameField> createState() => _KeyNameFieldState();

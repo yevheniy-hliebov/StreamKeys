@@ -24,11 +24,11 @@ class HidMacrosLoaded extends HidMacrosState {
 
   @override
   List<Object?> get props => [
-        keyboards,
-        selectedKeyboard,
-        selectedKeyboardType,
-        hidmacrosConfig,
-      ];
+    keyboards,
+    selectedKeyboard,
+    selectedKeyboardType,
+    hidmacrosConfig,
+  ];
 }
 
 class HidMacrosLoading extends HidMacrosState {}

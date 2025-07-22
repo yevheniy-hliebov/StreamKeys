@@ -12,11 +12,11 @@ class SetActiveSceneAction extends BindingAction {
   final String sceneName;
 
   SetActiveSceneAction({String? id, this.sceneName = ''})
-      : super(
-          id: id ?? const Uuid().v4(),
-          type: ActionTypes.setActiveScene,
-          name: 'Set Active Scene',
-        );
+    : super(
+        id: id ?? const Uuid().v4(),
+        type: ActionTypes.setActiveScene,
+        name: 'Set Active Scene',
+      );
 
   @override
   String get dialogTitle => 'Set a scene name';
@@ -37,16 +37,11 @@ class SetActiveSceneAction extends BindingAction {
 
   @override
   Json toJson() {
-    return {
-      'type': type,
-      'scene_name': sceneName,
-    };
+    return {'type': type, 'scene_name': sceneName};
   }
 
   factory SetActiveSceneAction.fromJson(Json json) {
-    return SetActiveSceneAction(
-      sceneName: json['scene_name'] as String,
-    );
+    return SetActiveSceneAction(sceneName: json['scene_name'] as String);
   }
 
   @override
@@ -72,9 +67,7 @@ class SetActiveSceneAction extends BindingAction {
       obs: obs,
       initialSceneName: sceneName,
       onSceneChanged: (scene) {
-        onUpdated?.call(SetActiveSceneAction(
-          sceneName: scene.sceneName,
-        ));
+        onUpdated?.call(SetActiveSceneAction(sceneName: scene.sceneName));
       },
     );
   }

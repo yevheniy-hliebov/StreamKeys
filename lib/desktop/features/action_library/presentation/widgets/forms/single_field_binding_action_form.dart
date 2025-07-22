@@ -44,10 +44,7 @@ class _SingleFieldBindingActionFormState
       mainAxisSize: MainAxisSize.min,
       children: [
         FieldLabel(widget.label),
-        TextFormField(
-          controller: controller,
-          onChanged: widget.onUpdate,
-        ),
+        TextFormField(controller: controller, onChanged: widget.onUpdate),
       ],
     );
   }

@@ -4,10 +4,7 @@ import 'package:streamkeys/common/widgets/color_picker/custom_color_picker.dart'
 class ColorAndInputFields extends StatelessWidget {
   final ColorPickerController controller;
 
-  const ColorAndInputFields({
-    super.key,
-    required this.controller,
-  });
+  const ColorAndInputFields({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {

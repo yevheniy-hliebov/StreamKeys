@@ -8,10 +8,7 @@ class BottomBorderContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: _boxDecoration(context),
-      child: child,
-    );
+    return Container(decoration: _boxDecoration(context), child: child);
   }
 
   BoxDecoration _boxDecoration(BuildContext context) {

@@ -21,6 +21,9 @@ final class KeyBindingsLoaded extends KeyBindingsState {
   });
 
   @override
-  List<Object?> get props =>
-      <Object?>[map, currentKeyData, currentKeyBindingData];
+  List<Object?> get props => <Object?>[
+    map,
+    currentKeyData,
+    currentKeyBindingData,
+  ];
 }

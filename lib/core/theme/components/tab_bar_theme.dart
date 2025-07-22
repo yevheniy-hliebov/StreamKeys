@@ -12,9 +12,7 @@ class AppTabThemeData {
       tabAlignment: TabAlignment.fill,
       indicatorSize: TabBarIndicatorSize.tab,
       indicatorColor: Colors.transparent,
-      indicator: BoxDecoration(
-        color: colors.primary,
-      ),
+      indicator: BoxDecoration(color: colors.primary),
       // overlayColor: WidgetStatePropertyAll<Color>(colors.primary),
     );
   }

@@ -6,19 +6,35 @@ import 'package:streamkeys/mobile/features/buttons/presentation/screens/grid_dec
 import 'package:streamkeys/mobile/features/dashboard/presentation/widgets/app_shell.dart';
 import 'package:streamkeys/mobile/features/settings/presentation/screens/settings_screen.dart';
 
-class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({super.key});
+class DashboardScreen extends StatefulWidget {
+  final void Function(BuildContext context)? onInit;
+
+  const DashboardScreen({super.key, this.onInit});
+
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        widget.onInit?.call(context);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final content = Expanded(
-      child: SafeArea(
-        child: ApiConnectionGate(
-          builder: () {
-            context.read<ButtonsBloc>().add(ButtonsLoad());
-            return const GridDeckScreen();
-          },
-        ),
+    final content = SafeArea(
+      child: ApiConnectionGate(
+        builder: () {
+          context.read<ButtonsBloc>().add(ButtonsLoad());
+          return const GridDeckScreen();
+        },
       ),
     );
 
@@ -39,7 +55,7 @@ class DashboardScreen extends StatelessWidget {
             );
           },
           icon: const Icon(Icons.settings),
-        )
+        ),
       ],
       builder: (appShell, isAppBar, isLandscapeLeft) {
         Widget body;

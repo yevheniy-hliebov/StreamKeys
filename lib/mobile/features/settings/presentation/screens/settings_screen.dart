@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/common/widgets/forms/theme_mode_switch.dart';
+import 'package:streamkeys/core/app_update/presentation/widgets/app_version_tile.dart';
 import 'package:streamkeys/core/theme/bloc/theme_mode_bloc.dart';
 import 'package:streamkeys/mobile/features/api_connection/bloc/api_connection_bloc.dart';
 import 'package:streamkeys/mobile/features/api_connection/presentation/widgets/api_connection_tile.dart';
+import 'package:streamkeys/mobile/features/app_update/presentation/widgets/show_release_dialog.dart';
 import 'package:streamkeys/mobile/features/dashboard/presentation/widgets/app_shell.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -19,9 +21,7 @@ class SettingsScreen extends StatelessWidget {
               return ListTile(
                 title: const Text(
                   'Theme mode',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.w500),
                 ),
                 trailing: Transform.scale(
                   scale: 0.8,
@@ -41,11 +41,16 @@ class SettingsScreen extends StatelessWidget {
               return ApiConnectionTile(
                 initialData: state is ApiConnectionLoaded ? state.data : null,
                 onUpdated: (data) {
-                  context
-                      .read<ApiConnectionBloc>()
-                      .add(ApiConnectionSave(data));
+                  context.read<ApiConnectionBloc>().add(
+                    ApiConnectionSave(data),
+                  );
                 },
               );
+            },
+          ),
+          AppVersionTile(
+            onTap: () {
+              showReleaseDialog(context, showDialogForce: true);
             },
           ),
         ],

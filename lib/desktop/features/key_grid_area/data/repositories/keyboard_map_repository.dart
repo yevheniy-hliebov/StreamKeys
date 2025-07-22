@@ -5,9 +5,7 @@ class KeyboardMapRepository {
   late LocalJsonFileManager keyboardMapJsonFile;
 
   KeyboardMapRepository() {
-    keyboardMapJsonFile = LocalJsonFileManager.asset(
-      'keyboard_map.json',
-    );
+    keyboardMapJsonFile = LocalJsonFileManager.asset('keyboard_map.json');
   }
 
   static const String functionsBlockKey = 'function_block';
@@ -24,8 +22,9 @@ class KeyboardMapRepository {
       if (blockJson is List) {
         for (final dynamic row in blockJson) {
           if (row is List) {
-            final List<KeyboardKeyData> parsedRow =
-                row.map<KeyboardKeyData>((Object? keyJson) {
+            final List<KeyboardKeyData> parsedRow = row.map<KeyboardKeyData>((
+              Object? keyJson,
+            ) {
               return KeyboardKeyData.fromJson(keyJson as Map<String, dynamic>);
             }).toList();
             result.add(parsedRow);

@@ -8,9 +8,6 @@ class FieldLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: AppTypography.captionStrong,
-    );
+    return Text(text, style: AppTypography.captionStrong);
   }
 }

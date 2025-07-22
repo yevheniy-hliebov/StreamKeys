@@ -14,10 +14,7 @@ class ButtonsBloc extends Bloc<ButtonsEvent, ButtonsState> {
     on<ButtonsRefresh>(_onRefresh);
   }
 
-  Future<void> _onLoad(
-    ButtonsEvent event,
-    Emitter<ButtonsState> emit,
-  ) async {
+  Future<void> _onLoad(ButtonsEvent event, Emitter<ButtonsState> emit) async {
     emit(ButtonsLoading());
     try {
       final buttons = await repository.fetchButtons();

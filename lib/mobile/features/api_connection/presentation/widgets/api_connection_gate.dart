@@ -10,10 +10,7 @@ import 'package:streamkeys/mobile/features/api_connection/presentation/widgets/a
 class ApiConnectionGate extends StatelessWidget {
   final Widget Function() builder;
 
-  const ApiConnectionGate({
-    super.key,
-    required this.builder,
-  });
+  const ApiConnectionGate({super.key, required this.builder});
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +26,13 @@ class ApiConnectionGate extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text(
-                    'HTTP connection',
-                    style: AppTypography.subtitle,
-                  ),
+                  const Text('HTTP connection', style: AppTypography.subtitle),
                   ApiConnectionForm(
                     initialData: data ?? const ApiConnectionData(),
                     onUpdated: (data) {
-                      context
-                          .read<ApiConnectionBloc>()
-                          .add(ApiConnectionSave(data));
+                      context.read<ApiConnectionBloc>().add(
+                        ApiConnectionSave(data),
+                      );
                     },
                   ),
                 ],

@@ -35,20 +35,14 @@ class KeyBindingsAddAction extends KeyBindingsEvent {
   final int keyCode;
   final BindingAction action;
 
-  const KeyBindingsAddAction({
-    required this.keyCode,
-    required this.action,
-  });
+  const KeyBindingsAddAction({required this.keyCode, required this.action});
 }
 
 class KeyBindingsDeleteAction extends KeyBindingsEvent {
   final int keyCode;
   final int index;
 
-  const KeyBindingsDeleteAction({
-    required this.keyCode,
-    required this.index,
-  });
+  const KeyBindingsDeleteAction({required this.keyCode, required this.index});
 }
 
 class KeyBindingsReorderActions extends KeyBindingsEvent {

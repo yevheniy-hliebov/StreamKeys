@@ -10,8 +10,10 @@ class ObsDataManager {
     return sceneListResponse.scenes.reversed.toList();
   }
 
-  Future<List<String>> getSourcesInScene(String sceneName,
-      {bool includeGroupNames = false}) async {
+  Future<List<String>> getSourcesInScene(
+    String sceneName, {
+    bool includeGroupNames = false,
+  }) async {
     final result = <String>[];
     final sceneItems = await obs.sceneItems.getSceneItemList(sceneName);
 
@@ -54,7 +56,7 @@ class ObsDataManager {
           if (groupItem.sourceName == sourceName) {
             return (
               itemId: groupItem.sceneItemId,
-              groupName: sceneItem.sourceName
+              groupName: sceneItem.sourceName,
             );
           }
         }

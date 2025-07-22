@@ -19,9 +19,7 @@ class ColorHexInputField extends StatelessWidget {
       builder: (context, __) {
         return TextFormField(
           controller: controller.hexTextController,
-          decoration: InputDecoration(
-            contentPadding: contentPadding,
-          ),
+          decoration: InputDecoration(contentPadding: contentPadding),
           inputFormatters: [
             FilteringTextInputFormatter.allow(RegExp(r'^[0-9a-fA-F]+$')),
             LengthLimitingTextInputFormatter(8),

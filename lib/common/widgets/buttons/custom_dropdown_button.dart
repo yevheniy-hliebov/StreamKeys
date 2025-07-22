@@ -23,26 +23,18 @@ class CustomDropdownButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      constraints: constraints ??
-          const BoxConstraints(
-            maxWidth: 200,
-            minWidth: 200,
-          ),
+      constraints:
+          constraints ?? const BoxConstraints(maxWidth: 200, minWidth: 200),
       child: DropdownButtonHideUnderline(
         child: DropdownButton2<int>(
           isExpanded: true,
           value: index,
           items: List.generate(itemCount, (index) {
-            return DropdownMenuItem(
-              value: index,
-              child: itemBuilder(index),
-            );
+            return DropdownMenuItem(value: index, child: itemBuilder(index));
           }),
           onChanged: onChanged,
           buttonStyleData: _getButtonStyle(context),
-          dropdownStyleData: const DropdownStyleData(
-            maxHeight: 200,
-          ),
+          dropdownStyleData: const DropdownStyleData(maxHeight: 200),
         ),
       ),
     );
@@ -55,9 +47,7 @@ class CustomDropdownButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: Spacing.md),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        border: Border.all(
-          color: AppColors.of(context).outline,
-        ),
+        border: Border.all(color: AppColors.of(context).outline),
         color: AppColors.of(context).surface,
       ),
       elevation: 2,

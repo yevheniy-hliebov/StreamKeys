@@ -6,10 +6,7 @@ import 'package:streamkeys/mobile/features/api_connection/presentation/widgets/a
 class ApiConnectionDialog extends StatelessWidget {
   final ApiConnectionData? initialData;
 
-  const ApiConnectionDialog({
-    super.key,
-    this.initialData,
-  });
+  const ApiConnectionDialog({super.key, this.initialData});
 
   @override
   Widget build(BuildContext context) {

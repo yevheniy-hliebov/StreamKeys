@@ -24,59 +24,61 @@ class GridDeck extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      final isPortrait =
-          MediaQuery.of(context).orientation == Orientation.portrait;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isPortrait =
+            MediaQuery.of(context).orientation == Orientation.portrait;
 
-      final rows = isPortrait ? grid.numberOfColumns : grid.numberOfRows;
-      final columns = isPortrait ? grid.numberOfRows : grid.numberOfColumns;
+        final rows = isPortrait ? grid.numberOfColumns : grid.numberOfRows;
+        final columns = isPortrait ? grid.numberOfRows : grid.numberOfColumns;
 
-      final spacing = Spacing.keyGrid.btwKey;
+        final spacing = Spacing.keyGrid.btwKey;
 
-      final totalRowGaps = (columns - 1) * spacing;
-      final width = (constraints.maxWidth - totalRowGaps) / columns;
+        final totalRowGaps = (columns - 1) * spacing;
+        final width = (constraints.maxWidth - totalRowGaps) / columns;
 
-      final totalColumnGaps = (rows - 1) * spacing;
-      final height =
-          ((constraints.maxHeight - totalColumnGaps) / rows) - Spacing.xxs;
+        final totalColumnGaps = (rows - 1) * spacing;
+        final height =
+            ((constraints.maxHeight - totalColumnGaps) / rows) - Spacing.xxs;
 
-      final buttonSize = Size.square(min(width, height));
+        final buttonSize = Size.square(min(width, height));
 
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Column(
-            spacing: spacing,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: For.generateChildren(
-              rows,
-              generator: (rowIndex) => [
-                Row(
-                  spacing: spacing,
-                  children: For.generateChildren(
-                    columns,
-                    generator: (colIndex) {
-                      final itemIndex = rowIndex * columns + colIndex;
-                      final keyCode = itemIndex.toString();
-                      return [
-                        DeckButton(
-                          size: buttonSize,
-                          keyCode: keyCode,
-                          buttonData: buttons[keyCode],
-                          getImage: getImage,
-                          onTap: onTap,
-                        ),
-                      ];
-                    },
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
+              spacing: spacing,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: For.generateChildren(
+                rows,
+                generator: (rowIndex) => [
+                  Row(
+                    spacing: spacing,
+                    children: For.generateChildren(
+                      columns,
+                      generator: (colIndex) {
+                        final itemIndex = rowIndex * columns + colIndex;
+                        final keyCode = itemIndex.toString();
+                        return [
+                          DeckButton(
+                            size: buttonSize,
+                            keyCode: keyCode,
+                            buttonData: buttons[keyCode],
+                            getImage: getImage,
+                            onTap: onTap,
+                          ),
+                        ];
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
-      );
-    });
+          ],
+        );
+      },
+    );
   }
 }

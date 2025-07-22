@@ -5,11 +5,7 @@ class ScreenTabBar extends StatelessWidget {
   final List<PageTab> tabs;
   final TabController? controller;
 
-  const ScreenTabBar({
-    super.key,
-    required this.tabs,
-    this.controller,
-  });
+  const ScreenTabBar({super.key, required this.tabs, this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +17,7 @@ class ScreenTabBar extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             spacing: 8,
-            children: <Widget>[
-              tab.icon,
-              Text(tab.label),
-            ],
+            children: <Widget>[tab.icon, Text(tab.label)],
           ),
         );
       }).toList(),

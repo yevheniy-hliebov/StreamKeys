@@ -16,10 +16,10 @@ class LaunchFileOrAppAction extends BindingAction {
     this.filePath = '',
     this.launchAsAdmin = false,
   }) : super(
-          id: id ?? const Uuid().v4(),
-          type: ActionTypes.launcFileOrApp,
-          name: 'Launch file or app',
-        );
+         id: id ?? const Uuid().v4(),
+         type: ActionTypes.launcFileOrApp,
+         name: 'Launch file or app',
+       );
 
   @override
   String get dialogTitle => 'Enter the file path';
@@ -65,8 +65,10 @@ class LaunchFileOrAppAction extends BindingAction {
   @override
   Future<void> execute({Object? data}) async {
     if (filePath.isNotEmpty) {
-      await sl<LaunchFileOrAppService>()
-          .launch(filePath, asAdmin: launchAsAdmin);
+      await sl<LaunchFileOrAppService>().launch(
+        filePath,
+        asAdmin: launchAsAdmin,
+      );
     }
   }
 

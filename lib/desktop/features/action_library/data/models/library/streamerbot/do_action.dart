@@ -11,14 +11,12 @@ import 'package:uuid/uuid.dart';
 class StreamerBotDoAction extends BindingAction {
   final StreamerBotAction? action;
 
-  StreamerBotDoAction({
-    String? id,
-    this.action,
-  }) : super(
-          id: id ?? const Uuid().v4(),
-          type: ActionTypes.streamerBotDoAction,
-          name: 'Do Action',
-        );
+  StreamerBotDoAction({String? id, this.action})
+    : super(
+        id: id ?? const Uuid().v4(),
+        type: ActionTypes.streamerBotDoAction,
+        name: 'Do Action',
+      );
 
   @override
   String get dialogTitle => 'Select action';
@@ -39,10 +37,7 @@ class StreamerBotDoAction extends BindingAction {
 
   @override
   Json toJson() {
-    return {
-      'type': type,
-      'action': action?.toJson(),
-    };
+    return {'type': type, 'action': action?.toJson()};
   }
 
   factory StreamerBotDoAction.fromJson(Json json) {

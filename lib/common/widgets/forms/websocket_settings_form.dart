@@ -22,7 +22,8 @@ class WebSocketSettingsForm<T extends BaseConnectionData>
     required String port,
     required String? password,
     required bool autoReconnect,
-  }) fromInput;
+  })
+  fromInput;
 
   const WebSocketSettingsForm({
     super.key,
@@ -54,8 +55,9 @@ class _WebSocketSettingsFormState<T extends BaseConnectionData>
     super.initState();
     _ipController = TextEditingController(text: widget.initialData?.ip);
     _portController = TextEditingController(text: widget.initialData?.port);
-    _passwordController =
-        TextEditingController(text: widget.initialData?.password ?? '');
+    _passwordController = TextEditingController(
+      text: widget.initialData?.password ?? '',
+    );
     _autoReconnect = widget.initialData?.autoReconnect ?? false;
   }
 
@@ -94,10 +96,7 @@ class _WebSocketSettingsFormState<T extends BaseConnectionData>
         spacing: Spacing.xs,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ConnectionTitle(
-            title: widget.title,
-            status: widget.status,
-          ),
+          ConnectionTitle(title: widget.title, status: widget.status),
           const FieldLabel('Server IP'),
           TextFormField(controller: _ipController),
           const FieldLabel('Server port'),
@@ -106,10 +105,7 @@ class _WebSocketSettingsFormState<T extends BaseConnectionData>
             keyboardType: TextInputType.number,
           ),
           FieldLabel('Password${widget.passwordOptional ? ' (optinal)' : ''}'),
-          TextFormField(
-            controller: _passwordController,
-            obscureText: true,
-          ),
+          TextFormField(controller: _passwordController, obscureText: true),
           CheckboxTile(
             value: _autoReconnect,
             onChanged: (v) => setState(() => _autoReconnect = v),

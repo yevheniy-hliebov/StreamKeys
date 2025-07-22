@@ -20,9 +20,9 @@ class SelectKeyboard extends StatelessWidget {
           getLabel: (k) => k.name,
           getTooltip: (k) => k.systemId,
           onTap: (keyboard) {
-            context
-                .read<HidMacrosBloc>()
-                .add(HidMacrosSelectKeyboardEvent(keyboard));
+            context.read<HidMacrosBloc>().add(
+              HidMacrosSelectKeyboardEvent(keyboard),
+            );
           },
         );
       },

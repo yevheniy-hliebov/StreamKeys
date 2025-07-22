@@ -20,9 +20,9 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
   HidMacrosConfig hidmacrosConfig = const HidMacrosConfig();
 
   HidMacrosBloc({HidMacrosRepository? repository, HidMacrosService? hidmacros})
-      : _repository = repository ?? HidMacrosRepository(),
-        _hidmacros = hidmacros ?? sl<HidMacrosService>(),
-        super(HidMacrosInitial()) {
+    : _repository = repository ?? HidMacrosRepository(),
+      _hidmacros = hidmacros ?? sl<HidMacrosService>(),
+      super(HidMacrosInitial()) {
     on<HidMacrosLoadEvent>(_load);
 
     on<HidMacrosToggleAutoStartEvent>(_toogleAutoStart);
@@ -94,10 +94,7 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
 
     await _hidmacros.restart(
       autoStart: hidmacrosConfig.autoStart,
-      onBetween: () => _repository.select(
-        keyboard: event.keyboard,
-        type: type,
-      ),
+      onBetween: () => _repository.select(keyboard: event.keyboard, type: type),
     );
 
     _emitLoaded(emit);
@@ -114,21 +111,20 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
 
     await _hidmacros.restart(
       autoStart: hidmacrosConfig.autoStart,
-      onBetween: () => _repository.select(
-        keyboard: keyboard,
-        type: event.type,
-      ),
+      onBetween: () => _repository.select(keyboard: keyboard, type: event.type),
     );
 
     _emitLoaded(emit);
   }
 
   void _emitLoaded(Emitter<HidMacrosState> emit) {
-    emit(HidMacrosLoaded(
-      keyboards: keyboards,
-      selectedKeyboard: selectedKeyboard,
-      selectedKeyboardType: selectedKeyboardType,
-      hidmacrosConfig: hidmacrosConfig,
-    ));
+    emit(
+      HidMacrosLoaded(
+        keyboards: keyboards,
+        selectedKeyboard: selectedKeyboard,
+        selectedKeyboardType: selectedKeyboardType,
+        hidmacrosConfig: hidmacrosConfig,
+      ),
+    );
   }
 }

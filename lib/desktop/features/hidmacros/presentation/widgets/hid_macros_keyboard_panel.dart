@@ -19,10 +19,7 @@ class HidMacrosKeyboardPanel extends StatelessWidget {
               constraints: const BoxConstraints(maxWidth: 400),
               child: const Column(
                 spacing: Spacing.lg,
-                children: [
-                  SelectKeyboard(),
-                  SelectKeyboardType(),
-                ],
+                children: [SelectKeyboard(), SelectKeyboardType()],
               ),
             ),
           );

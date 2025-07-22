@@ -14,8 +14,6 @@ class StreamerBotCategory extends BindingActionCategory {
 
   @override
   List<BindingAction> get actions {
-    return [
-      StreamerBotDoAction(),
-    ];
+    return [StreamerBotDoAction()];
   }
 }

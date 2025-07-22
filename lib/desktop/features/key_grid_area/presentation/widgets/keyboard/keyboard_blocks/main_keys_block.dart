@@ -18,32 +18,34 @@ class MainKeysBlock extends BaseKeysBlock {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      final maxWidth = constraints.maxWidth;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final maxWidth = constraints.maxWidth;
 
-      return Column(
-        spacing: Spacing.keyGrid.btwKey,
-        children: For.generateChildren(
-          block.length,
-          generator: (int index) {
-            final List<KeyboardKeyData> row = block[index];
-            return <Widget>[
-              Row(
-                spacing: Spacing.keyGrid.btwKey,
-                children: For.generateChildren(
-                  row.length,
-                  generator: (int colIndex) {
-                    return <Widget>[
-                      _buildButton(maxWidth, row, index, colIndex),
-                    ];
-                  },
+        return Column(
+          spacing: Spacing.keyGrid.btwKey,
+          children: For.generateChildren(
+            block.length,
+            generator: (int index) {
+              final List<KeyboardKeyData> row = block[index];
+              return <Widget>[
+                Row(
+                  spacing: Spacing.keyGrid.btwKey,
+                  children: For.generateChildren(
+                    row.length,
+                    generator: (int colIndex) {
+                      return <Widget>[
+                        _buildButton(maxWidth, row, index, colIndex),
+                      ];
+                    },
+                  ),
                 ),
-              )
-            ];
-          },
-        ),
-      );
-    });
+              ];
+            },
+          ),
+        );
+      },
+    );
   }
 
   Widget _buildButton(
@@ -55,7 +57,8 @@ class MainKeysBlock extends BaseKeysBlock {
     final int lastRowIndex = block.length - 1;
 
     final bool isSpaceKey = index == lastRowIndex && colIndex == 3;
-    final bool isEdgeKey = index != lastRowIndex &&
+    final bool isEdgeKey =
+        index != lastRowIndex &&
         (colIndex == row.length - 1 || (index != 0 && colIndex == 0));
 
     final rowLength = row.length;
@@ -75,9 +78,6 @@ class MainKeysBlock extends BaseKeysBlock {
       }
     }
 
-    return buildKeyButton(
-      keyData: row[colIndex],
-      width: buttonWidth,
-    );
+    return buildKeyButton(keyData: row[colIndex], width: buttonWidth);
   }
 }

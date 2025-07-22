@@ -93,10 +93,12 @@ class DeckPageListBloc extends Bloc<DeckPageListEvent, DeckPageListState> {
     bool isEdit = false,
   }) async {
     isEditing = isEdit;
-    emit(DeckPageListLoaded(
-      currentPageId: repository.currentPageId,
-      pages: repository.orderPages,
-      isEditing: isEditing,
-    ));
+    emit(
+      DeckPageListLoaded(
+        currentPageId: repository.currentPageId,
+        pages: repository.orderPages,
+        isEditing: isEditing,
+      ),
+    );
   }
 }

@@ -11,14 +11,11 @@ class CursorStatusBloc extends Bloc<CursorStatusEvent, CursorStatusState> {
       emit(const CursorStatusState(SystemMouseCursors.click));
     });
     on<CursorForbidden>(
-      (event, emit) => emit(
-        const CursorStatusState(SystemMouseCursors.forbidden),
-      ),
+      (event, emit) =>
+          emit(const CursorStatusState(SystemMouseCursors.forbidden)),
     );
     on<CursorDefault>(
-      (event, emit) => emit(
-        const CursorStatusState(MouseCursor.defer),
-      ),
+      (event, emit) => emit(const CursorStatusState(MouseCursor.defer)),
     );
   }
 }

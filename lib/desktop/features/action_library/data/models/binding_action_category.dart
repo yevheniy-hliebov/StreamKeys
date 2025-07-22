@@ -7,9 +7,7 @@ import 'package:streamkeys/desktop/features/action_library/data/models/library/s
 abstract class BindingActionCategory {
   final String name;
 
-  const BindingActionCategory({
-    required this.name,
-  });
+  const BindingActionCategory({required this.name});
 
   List<BindingAction> get actions => [];
   Widget getIcon(BuildContext context);
