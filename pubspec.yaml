@@ -1,14 +1,15 @@
 name: streamkeys
 description: "StreamKeys is a cross-platform application that allows you to configure and control actions on a Windows computer using a keyboard or an Android mobile device or Web over a local Wi-Fi network."
 publish_to: "none"
-version: 3.0.0
+version: 2.9.0
 
 environment:
-  sdk: ">=3.4.1 <4.0.0"
+  sdk: ^3.8.1
 
 dependencies:
   flutter:
     sdk: flutter
+    
   bloc: ^9.0.0
   flutter_bloc: ^9.1.1
   equatable: ^2.0.7
@@ -43,6 +44,10 @@ dependencies:
   args: ^2.7.0
   archive: ^4.0.7
   flutter_markdown_plus: ^1.0.3
+  github_apk_updater:
+    git:
+      url: https://github.com/yevheniy-hliebov/github_apk_updater.git
+      ref: main
 
 dev_dependencies:
   flutter_test:

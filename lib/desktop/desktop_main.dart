@@ -59,11 +59,11 @@ void desktopMain() async {
     final appUpdateService = sl<AppUpdateService>();
     final updateVersion = await appUpdateService.checkForUpdate();
     
-    if (updateVersion?.version == appUpdateService.getIgnoredVersion()) {
+    if (updateVersion?.tagName == appUpdateService.getIgnoredVersion()) {
       return;
     }
     
-    if (updateVersion?.version == appUpdateService.getCurrentVersion()) {
+    if (updateVersion?.tagName == appUpdateService.getCurrentVersion()) {
       return;
     }
     
@@ -101,15 +101,17 @@ void desktopMain() async {
               ],
             ),
           ],
-          statusWidgets: const [
+          statusWidgets: [
             Expanded(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: Spacing.md),
-                child: AppVersionStatus(),
+                padding: const EdgeInsets.symmetric(horizontal: Spacing.md),
+                child: AppVersionStatus(
+                  appUpdateService: sl<AppUpdateService>(),
+                ),
               ),
             ),
-            StreamerBotConnectionStatusIndicator(),
-            ObsConnectionStatusIndicator(),
+            const StreamerBotConnectionStatusIndicator(),
+            const ObsConnectionStatusIndicator(),
           ],
         ),
       ),

@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:github_apk_updater/github_apk_updater.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:streamkeys/core/constants/version.dart';
-import 'package:streamkeys/core/app_update/data/services/updater_launcher.dart';
+import 'package:streamkeys/core/app_update/data/services/windows_updater_launcher.dart';
 import 'package:streamkeys/desktop/utils/process_runner.dart';
 
 import 'updater_launcher_test.mocks.dart';
@@ -18,12 +18,12 @@ class FakeProcess implements Process {
 void main() {
   late MockProcessRunner mockRunner;
   late bool exited;
-  late UpdaterLauncher launcher;
+  late WindowsUpdaterLauncher launcher;
 
   setUp(() {
     mockRunner = MockProcessRunner();
     exited = false;
-    launcher = UpdaterLauncher(mockRunner, (_) => exited = true);
+    launcher = WindowsUpdaterLauncher(mockRunner, (_) => exited = true);
   });
 
   group('UpdaterLauncher', () {

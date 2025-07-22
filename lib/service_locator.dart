@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:github_apk_updater/github_apk_updater.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:streamkeys/core/storage/generic_secure_storage.dart';
 import 'package:streamkeys/core/app_update/data/services/app_update_preferences.dart';
 import 'package:streamkeys/core/app_update/data/services/app_update_service.dart';
-import 'package:streamkeys/core/app_update/data/services/updater_launcher.dart';
-import 'package:streamkeys/core/app_update/data/services/version_checker.dart';
+import 'package:streamkeys/core/app_update/data/services/windows_updater_launcher.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_preferences.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_service.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_xml_service.dart';
@@ -38,8 +38,8 @@ export 'package:streamkeys/core/app_update/data/services/app_update_service.dart
 final GetIt sl = GetIt.instance;
 
 typedef ObsSecureStorage = GenericSecureStorage<ObsConnectionData>;
-typedef StreamerBotSecureStorage
-    = GenericSecureStorage<StreamerBotConnectionData>;
+typedef StreamerBotSecureStorage =
+    GenericSecureStorage<StreamerBotConnectionData>;
 typedef ApiSecureStorage = GenericSecureStorage<ApiConnectionData>;
 
 /// Initializes the service locator with all necessary dependencies for the app.
@@ -52,8 +52,16 @@ Future<void> initServiceLocator() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   const secureStorage = FlutterSecureStorage();
 
+  final appUpdateService = AppUpdateService(
+    preferences: AppUpdatePreferences(sharedPreferences),
+    githubApkUpdater: GithubApkUpdater(repo: 'yevheniy-hliebov/StreamKeys'),
+    windowsUpdaterLauncher: WindowsUpdaterLauncher(),
+  );
+
   sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
   sl.registerLazySingleton<FlutterSecureStorage>(() => secureStorage);
+
+  sl.registerLazySingleton<AppUpdateService>(() => appUpdateService);
 
   if (Platform.isWindows) {
     final hidmacros = HidMacrosService(RealProcessRunner());
@@ -69,9 +77,7 @@ Future<void> initServiceLocator() async {
       emptyInstance: () => const ObsConnectionData(),
       fromMap: ObsConnectionData.fromMap,
     );
-    final obs = ObsService(
-      secureStorage: obsSecureStorage,
-    );
+    final obs = ObsService(secureStorage: obsSecureStorage);
 
     final streamerBotSecureStorage = StreamerBotSecureStorage(
       secureStorage: secureStorage,
@@ -81,12 +87,6 @@ Future<void> initServiceLocator() async {
     final streamerBot = StreamerBotService(
       secureStorage: streamerBotSecureStorage,
       webSocket: StreamerBotWebSocket(),
-    );
-
-    final appUpdateService = AppUpdateService(
-      preferences: AppUpdatePreferences(sharedPreferences),
-      versionChecker: VersionChecker(repo: 'yevheniy-hliebov/StreamKeys'),
-      updaterLauncher: UpdaterLauncher(),
     );
 
     sl.registerLazySingleton<HidMacrosService>(() => hidmacros);
@@ -101,16 +101,13 @@ Future<void> initServiceLocator() async {
       () => launchFileOrAppService,
     );
 
-    sl.registerLazySingleton<ObsSecureStorage>(
-      () => obsSecureStorage,
-    );
+    sl.registerLazySingleton<ObsSecureStorage>(() => obsSecureStorage);
     sl.registerLazySingleton<ObsService>(() => obs);
 
     sl.registerLazySingleton<StreamerBotSecureStorage>(
       () => streamerBotSecureStorage,
     );
     sl.registerLazySingleton<StreamerBotService>(() => streamerBot);
-    sl.registerLazySingleton<AppUpdateService>(() => appUpdateService);
   }
 
   if (Platform.isAndroid) {
@@ -121,11 +118,7 @@ Future<void> initServiceLocator() async {
     );
     final api = HttpButtonsApi(apiSecureStorage);
 
-    sl.registerLazySingleton<ApiSecureStorage>(
-      () => apiSecureStorage,
-    );
-    sl.registerLazySingleton<HttpButtonsApi>(
-      () => api,
-    );
+    sl.registerLazySingleton<ApiSecureStorage>(() => apiSecureStorage);
+    sl.registerLazySingleton<HttpButtonsApi>(() => api);
   }
 }

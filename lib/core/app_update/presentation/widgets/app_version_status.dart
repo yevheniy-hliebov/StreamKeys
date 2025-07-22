@@ -5,12 +5,15 @@ import 'package:streamkeys/core/app_update/presentation/widgets/version_status_m
 import 'package:streamkeys/service_locator.dart';
 
 class AppVersionStatus extends StatelessWidget {
-  const AppVersionStatus({super.key});
+  final AppUpdateService appUpdateService;
+
+  const AppVersionStatus({
+    super.key,
+    required this.appUpdateService,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final appUpdateService = sl<AppUpdateService>();
-
     Future<void> checkUpdateHandler() async {
       final updateVersion = await appUpdateService.checkForUpdate();
 

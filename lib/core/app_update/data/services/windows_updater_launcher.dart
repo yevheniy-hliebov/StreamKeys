@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:streamkeys/core/constants/version.dart';
+import 'package:github_apk_updater/github_apk_updater.dart';
 import 'package:streamkeys/desktop/utils/process_runner.dart';
 
-class UpdaterLauncher {
+class WindowsUpdaterLauncher {
   final ProcessRunner _processRunner;
   final void Function(int code) _exitFn;
 
-  UpdaterLauncher([ProcessRunner? processRunner, void Function(int)? exitFn])
+  WindowsUpdaterLauncher([ProcessRunner? processRunner, void Function(int)? exitFn])
       : _processRunner = processRunner ?? RealProcessRunner(),
         _exitFn = exitFn ?? exit;
 

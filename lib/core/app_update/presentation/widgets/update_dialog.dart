@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:github_apk_updater/github_apk_updater.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/core/constants/typography.dart';
-import 'package:streamkeys/core/app_update/data/models/version_info.dart';
 import 'package:streamkeys/service_locator.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 
 class UpdateDialog extends StatelessWidget {
-  final VersionInfo update;
+  final GitHubReleaseInfo update;
 
   const UpdateDialog(this.update, {super.key});
 
@@ -16,7 +16,7 @@ class UpdateDialog extends StatelessWidget {
 
     return AlertDialog(
       title: Text(
-        'New Version Available (${update.version})',
+        'New Version Available (${update.tagName})',
         style: AppTypography.title,
       ),
       content: ConstrainedBox(
@@ -28,7 +28,7 @@ class UpdateDialog extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (update.isPrerelease)
+              if (update.prerelease)
                 const Padding(
                   padding: EdgeInsets.only(bottom: Spacing.xs),
                   child: Text(
@@ -36,7 +36,7 @@ class UpdateDialog extends StatelessWidget {
                     style: TextStyle(color: Colors.orange),
                   ),
                 ),
-              if (update.changelog.isNotEmpty)
+              if (update.body.isNotEmpty)
                 Container(
                   width: double.maxFinite,
                   height: double.maxFinite,
@@ -45,7 +45,7 @@ class UpdateDialog extends StatelessWidget {
                   ),
                   child: Markdown(
                     padding: EdgeInsets.zero,
-                    data: update.changelog,
+                    data: update.body,
                   ),
                 ),
             ],
@@ -55,7 +55,7 @@ class UpdateDialog extends StatelessWidget {
       actions: [
         OutlinedButton(
           onPressed: () {
-            appUpdateService.setIgnoreVersion(update.version);
+            appUpdateService.setIgnoreVersion(update.tagName);
             Navigator.of(context).pop();
           },
           child: const Text(
@@ -87,7 +87,9 @@ class UpdateDialog extends StatelessWidget {
   }
 
   static Future<void> showUpdateDialog(
-      BuildContext context, VersionInfo versionInfo) async {
+    BuildContext context,
+    GitHubReleaseInfo versionInfo,
+  ) async {
     return showDialog(
       context: context,
       builder: (_) => UpdateDialog(versionInfo),
