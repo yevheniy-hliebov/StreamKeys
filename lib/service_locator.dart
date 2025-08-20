@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
-import 'package:github_apk_updater/github_apk_updater.dart';
+import 'package:github_updater/github_updater.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:streamkeys/core/storage/generic_secure_storage.dart';
 import 'package:streamkeys/core/app_update/data/services/app_update_preferences.dart';
@@ -54,7 +54,7 @@ Future<void> initServiceLocator() async {
 
   final appUpdateService = AppUpdateService(
     preferences: AppUpdatePreferences(sharedPreferences),
-    githubApkUpdater: GithubApkUpdater(repo: 'yevheniy-hliebov/StreamKeys'),
+    githubUpdater: GithubUpdater(repo: 'yevheniy-hliebov/StreamKeys'),
     windowsUpdaterLauncher: WindowsUpdaterLauncher(),
   );
 

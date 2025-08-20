@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:github_apk_updater/widgets/show_update_dialog.dart';
+import 'package:github_updater/widgets/show_update_dialog.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:streamkeys/core/constants/version.dart';
@@ -12,7 +12,7 @@ void showReleaseDialog(BuildContext context, {bool showDialogForce = false}) {
   final ignoredVersion = appUpdate.preferences.loadIgnoredVersion();
   showUpdateDialog(
     context,
-    apkUpdater: appUpdate.githubApkUpdater,
+    apkUpdater: appUpdate.githubUpdater,
     currentVersion: AppVersion.appVersion,
     ignoredVersion: showDialogForce == true ? null : ignoredVersion,
     onUpdate: (releaseInfo) async {
@@ -28,13 +28,13 @@ void showReleaseDialog(BuildContext context, {bool showDialogForce = false}) {
             builder: (_) => UpdateScreen(
               releaseInfo: releaseInfo,
               onInit: () {
-                appUpdate.githubApkUpdater.apkDownloader.start(
+                appUpdate.githubUpdater.downloader.start(
                   asset.browserDownloadUrl,
                   filePath,
                 );
               },
               onUpdated: () {
-                appUpdate.githubApkUpdater.installApk(filePath);
+                appUpdate.githubUpdater.installApk(filePath);
               },
             ),
           ),
