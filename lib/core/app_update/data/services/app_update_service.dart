@@ -1,17 +1,17 @@
+import 'package:github_updater/github_updater.dart';
 import 'package:streamkeys/core/constants/version.dart';
 import 'package:streamkeys/core/app_update/data/services/app_update_preferences.dart';
 import 'package:streamkeys/core/app_update/data/services/windows_updater_launcher.dart';
-import 'package:github_apk_updater/github_apk_updater.dart';
 
 class AppUpdateService {
   final AppUpdatePreferences preferences;
   final WindowsUpdaterLauncher windowsUpdaterLauncher;
-  final GithubApkUpdater githubApkUpdater;
+  final GithubUpdater githubUpdater;
 
   const AppUpdateService({
     required this.preferences,
     required this.windowsUpdaterLauncher,
-    required this.githubApkUpdater,
+    required this.githubUpdater,
   });
 
   String? getIgnoredVersion() {
@@ -26,7 +26,7 @@ class AppUpdateService {
     final currentVersion = getCurrentVersion();
     final currentVersionMode = getCurrentVersionMode();
 
-    final latest = await githubApkUpdater.releaseService.fetchLatestRelease(
+    final latest = await githubUpdater.fetchLatestRelease(
       mode: currentVersionMode,
     );
 

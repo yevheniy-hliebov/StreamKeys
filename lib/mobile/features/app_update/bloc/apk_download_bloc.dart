@@ -9,10 +9,11 @@ class ApkDownloadBloc extends Bloc<ApkDownloadEvent, ApkDownloadState> {
   final AppUpdateService appUpdateService;
 
   ApkDownloadBloc(this.appUpdateService) : super(const ApkDownloadState()) {
-    appUpdateService.githubApkUpdater.apkDownloader.downloadProgressStream
-        .listen((progress) {
-          add(ApkDownloadUpdateProgress(progress));
-        });
+    appUpdateService.githubUpdater.downloader.downloadProgressStream.listen((
+      progress,
+    ) {
+      add(ApkDownloadUpdateProgress(progress));
+    });
 
     on<ApkDownloadUpdateProgress>((event, emit) {
       emit(ApkDownloadState(event.progress));

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:github_apk_updater/github_apk_updater.dart';
+import 'package:github_updater/github_updater.dart';
 import 'package:streamkeys/desktop/utils/process_runner.dart';
 
 class WindowsUpdaterLauncher {

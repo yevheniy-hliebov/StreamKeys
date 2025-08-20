@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:github_apk_updater/models/github_release_info.dart';
+import 'package:github_updater/github_updater.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
 import 'package:streamkeys/core/constants/typography.dart';
 import 'package:streamkeys/mobile/features/app_update/bloc/apk_download_bloc.dart';

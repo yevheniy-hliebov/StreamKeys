@@ -44,9 +44,9 @@ dependencies:
   args: ^2.7.0
   archive: ^4.0.7
   flutter_markdown_plus: ^1.0.3
-  github_apk_updater:
+  github_updater:
     git:
-      url: https://github.com/yevheniy-hliebov/github_apk_updater.git
+      url: https://github.com/yevheniy-hliebov/github_updater.git
       ref: main
 
 dev_dependencies:
