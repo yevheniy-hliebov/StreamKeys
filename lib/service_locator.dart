@@ -17,6 +17,7 @@ import 'package:streamkeys/desktop/features/settings/data/services/http_server_p
 import 'package:streamkeys/desktop/features/streamerbot/data/models/streamerbot_connection_data.dart';
 import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_service.dart';
 import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_web_socket.dart';
+import 'package:streamkeys/desktop/features/twitch/data/services/twitch_token_service.dart';
 import 'package:streamkeys/desktop/utils/launch_file_or_app_service.dart';
 import 'package:streamkeys/desktop/utils/process_runner.dart';
 import 'package:streamkeys/mobile/features/api_connection/data/models/api_connection_data.dart';
@@ -34,6 +35,7 @@ export 'package:streamkeys/desktop/features/obs/data/services/obs_service.dart';
 export 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbot_service.dart';
 export 'package:streamkeys/mobile/features/buttons/data/services/http_buttons_api.dart';
 export 'package:streamkeys/core/app_update/data/services/app_update_service.dart';
+export 'package:streamkeys/desktop/features/twitch/data/services/twitch_token_service.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -108,6 +110,10 @@ Future<void> initServiceLocator() async {
       () => streamerBotSecureStorage,
     );
     sl.registerLazySingleton<StreamerBotService>(() => streamerBot);
+
+    sl.registerLazySingleton<TwitchTokenService>(
+      () => TwitchTokenService(secureStorage),
+    );
   }
 
   if (Platform.isAndroid) {

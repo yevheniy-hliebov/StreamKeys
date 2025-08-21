@@ -1,6 +1,6 @@
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
-import 'package:streamkeys/desktop/server/api_router.dart';
+import 'package:streamkeys/desktop/server/routers/api_router.dart';
 
 class ServerRouter {
   final _router = Router();

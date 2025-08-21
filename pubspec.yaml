@@ -66,3 +66,4 @@ flutter:
     - assets/hidmacros/xpl/
     - assets/sounds/
     - assets/click_button.exe
+    - assets/html/twitch_redirect.html
