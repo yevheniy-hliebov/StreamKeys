@@ -11,7 +11,10 @@ class ApiRouter {
   final _router = Router();
   final _keyController = KeyController();
   final _gridDeckController = GridDeckController();
-  final _twitchController = TwitchController(sl<TwitchTokenService>());
+  final _twitchController = TwitchController(
+    sl<TwitchTokenService>(),
+    sl<TwitchAuthChecker>(),
+  );
 
   ApiRouter() {
     _router.get('/', (Request request) => Response.ok('API Worked!'));

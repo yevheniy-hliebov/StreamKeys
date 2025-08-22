@@ -6,8 +6,9 @@ import 'package:streamkeys/service_locator.dart';
 
 class TwitchController extends BaseController {
   final TwitchTokenService _tokenService;
+  final TwitchAuthChecker _authChecker;
 
-  TwitchController(this._tokenService);
+  TwitchController(this._tokenService, this._authChecker);
 
   Future<Response> redirect(Request request, bool isBot) async {
     String html = await rootBundle.loadString(
@@ -29,8 +30,10 @@ class TwitchController extends BaseController {
 
       if (isBot) {
         await _tokenService.saveBotToken(token);
+        _authChecker.refreshBot();
       } else {
         await _tokenService.saveBroadcastToken(token);
+        _authChecker.refreshBroadcaster();
       }
 
       return Response.ok('Token saved');

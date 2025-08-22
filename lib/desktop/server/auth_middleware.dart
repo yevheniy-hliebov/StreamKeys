@@ -4,7 +4,8 @@ import 'package:streamkeys/service_locator.dart';
 Middleware authMiddleware() {
   return (Handler innerHandler) {
     return (Request request) async {
-      if (request.url.path == 'api/twitch' || request.url.path == 'api/twitch/save') {
+      final paths = ['api/twitch', 'api/twitch/bot', 'api/twitch/save'];
+      if (paths.contains(request.url.path)) {
         return innerHandler(request);
       }
 
