@@ -15,12 +15,10 @@ class TwitchSendMessageForm extends StatefulWidget {
   });
 
   @override
-  State<TwitchSendMessageForm> createState() =>
-      _TwitchSendMessageFormState();
+  State<TwitchSendMessageForm> createState() => _TwitchSendMessageFormState();
 }
 
-class _TwitchSendMessageFormState
-    extends State<TwitchSendMessageForm> {
+class _TwitchSendMessageFormState extends State<TwitchSendMessageForm> {
   late TextEditingController textController;
   late bool isBot;
 
@@ -67,4 +65,3 @@ class _TwitchSendMessageFormState
     );
   }
 }
-

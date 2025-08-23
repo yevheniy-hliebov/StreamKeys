@@ -7,8 +7,11 @@ class TwitchRouter {
   final TwitchController _controller;
 
   TwitchRouter(this._controller) {
-    _router.get('/', (Request request) => _controller.redirect(request, false)); 
-    _router.get('/bot', (Request request) => _controller.redirect(request, true));
+    _router.get('/', (Request request) => _controller.redirect(request, false));
+    _router.get(
+      '/bot',
+      (Request request) => _controller.redirect(request, true),
+    );
     _router.get('/save', _controller.saveToken);
   }
 

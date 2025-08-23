@@ -23,10 +23,7 @@ class TwitchUserInfo extends Equatable {
     );
   }
 
-  static bool areSameAccount(
-    TwitchUserInfo? broadcaster,
-    TwitchUserInfo? bot,
-  ) {
+  static bool areSameAccount(TwitchUserInfo? broadcaster, TwitchUserInfo? bot) {
     if (broadcaster == null || bot == null) return false;
     if (broadcaster.login == bot.login) return true;
     return false;

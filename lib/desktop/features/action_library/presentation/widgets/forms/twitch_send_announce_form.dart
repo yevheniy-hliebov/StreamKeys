@@ -17,12 +17,10 @@ class TwitchSendAnnounceForm extends StatefulWidget {
   });
 
   @override
-  State<TwitchSendAnnounceForm> createState() =>
-      _TwitchSendAnnounceFormState();
+  State<TwitchSendAnnounceForm> createState() => _TwitchSendAnnounceFormState();
 }
 
-class _TwitchSendAnnounceFormState
-    extends State<TwitchSendAnnounceForm> {
+class _TwitchSendAnnounceFormState extends State<TwitchSendAnnounceForm> {
   late TextEditingController textController;
   late int indexColor;
   late bool isBot;

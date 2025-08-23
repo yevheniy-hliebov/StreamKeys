@@ -11,15 +11,12 @@ class TwitchSendMessageAction extends BindingAction {
   final String text;
   final bool isBot;
 
-  TwitchSendMessageAction({
-    String? id,
-    this.text = '',
-    this.isBot = false,
-  }) : super(
-         id: id ?? const Uuid().v4(),
-         type: ActionTypes.twitchSendMessageToChat,
-         name: 'Send Message to Chat',
-       );
+  TwitchSendMessageAction({String? id, this.text = '', this.isBot = false})
+    : super(
+        id: id ?? const Uuid().v4(),
+        type: ActionTypes.twitchSendMessageToChat,
+        name: 'Send Message to Chat',
+      );
 
   @override
   String get dialogTitle => 'Enter text to send to chat';

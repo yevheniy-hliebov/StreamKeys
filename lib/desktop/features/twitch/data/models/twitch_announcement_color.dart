@@ -1,7 +1,1 @@
-enum TwitchAnnouncementColor {
-  blue,
-  green,
-  orange,
-  purple,
-  primary,
-}
+enum TwitchAnnouncementColor { blue, green, orange, purple, primary }

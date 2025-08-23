@@ -38,7 +38,7 @@ class TwitchSettingsScreen extends StatelessWidget with PageTab {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(Spacing.md),
+      padding: const EdgeInsets.all(Spacing.md),
       child: Column(
         spacing: Spacing.md,
         children: [

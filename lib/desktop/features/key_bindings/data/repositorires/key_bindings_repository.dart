@@ -9,7 +9,9 @@ class KeyBindingsRepository {
   late LocalJsonFileManager deckJsonFile;
 
   KeyBindingsRepository(this.deckType) {
-    deckJsonFile = LocalJsonFileManager.storage('${deckType.name}_deck${kDebugMode ? '_dev' : ''}.json');
+    deckJsonFile = LocalJsonFileManager.storage(
+      '${deckType.name}_deck${kDebugMode ? '_dev' : ''}.json',
+    );
   }
 
   Future<(String, KeyBindingPagesMap)> getKeyMap() async {
