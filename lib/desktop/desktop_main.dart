@@ -19,9 +19,13 @@ import 'package:streamkeys/desktop/features/settings/presentation/screens/genera
 import 'package:streamkeys/desktop/features/settings/presentation/screens/hidmacros_screen.dart';
 import 'package:streamkeys/desktop/features/settings/presentation/screens/settings_screen.dart';
 import 'package:streamkeys/desktop/features/settings/presentation/screens/http_server_config_screen.dart';
+import 'package:streamkeys/desktop/features/twitch/presentation/screens/twitch_settings_screen.dart';
 import 'package:streamkeys/desktop/features/streamerbot/bloc/connection/streamerbot_connection_bloc.dart';
 import 'package:streamkeys/desktop/features/streamerbot/presentation/screens/streamerbot_settings_screen.dart';
 import 'package:streamkeys/desktop/features/streamerbot/presentation/widgets/streamerbot_connection_status_indicator.dart';
+import 'package:streamkeys/desktop/features/twitch/bloc/twitch_bloc.dart';
+import 'package:streamkeys/desktop/features/twitch/data/services/twitch_auth_service.dart';
+import 'package:streamkeys/desktop/features/twitch/presentation/widgets/twitch_connection_status_indicator.dart';
 import 'package:streamkeys/desktop/server/server.dart';
 import 'package:streamkeys/service_locator.dart';
 
@@ -72,6 +76,14 @@ void desktopMain() async {
     }
   }
 
+  final twitchTokenService = sl<TwitchTokenService>();
+  final twitchBloc = TwitchBloc(
+    TwitchAuthService(twitchTokenService),
+    sl<TwitchAuthChecker>(),
+  );
+
+  twitchBloc.add(TwitchStartChecking());
+
   runApp(
     App(
       providersBuilder: (context) => [
@@ -84,6 +96,7 @@ void desktopMain() async {
         BlocProvider<StreamerBotConnectionBloc>(
           create: (context) => StreamerBotConnectionBloc(streamerBot),
         ),
+        BlocProvider<TwitchBloc>(create: (context) => twitchBloc),
       ],
       home: CursorStatus(
         child: DashboardScreen(
@@ -97,6 +110,7 @@ void desktopMain() async {
                 HttpServerConfigScreen(),
                 ObsSettingsScreen(),
                 StreamerBotSettingsScreen(),
+                TwitchSettingsScreen(),
                 HidMacrosScreen(),
               ],
             ),
@@ -110,6 +124,7 @@ void desktopMain() async {
                 ),
               ),
             ),
+            const TwitchConnectionStatusIndicator(),
             const StreamerBotConnectionStatusIndicator(),
             const ObsConnectionStatusIndicator(),
           ],

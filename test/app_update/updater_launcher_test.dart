@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_apk_updater/github_apk_updater.dart';
+import 'package:github_updater/github_updater.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:streamkeys/core/app_update/data/services/windows_updater_launcher.dart';

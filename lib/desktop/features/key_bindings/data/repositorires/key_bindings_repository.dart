@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_json_keys.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_type.dart';
 import 'package:streamkeys/desktop/features/key_bindings/data/models/key_binding_data.dart';
@@ -8,7 +9,9 @@ class KeyBindingsRepository {
   late LocalJsonFileManager deckJsonFile;
 
   KeyBindingsRepository(this.deckType) {
-    deckJsonFile = LocalJsonFileManager.storage('${deckType.name}_deck.json');
+    deckJsonFile = LocalJsonFileManager.storage(
+      '${deckType.name}_deck${kDebugMode ? '_dev' : ''}.json',
+    );
   }
 
   Future<(String, KeyBindingPagesMap)> getKeyMap() async {

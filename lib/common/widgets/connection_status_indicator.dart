@@ -26,6 +26,10 @@ class ConnectionStatusIndicator extends StatelessWidget {
         connectionText = 'Connected';
         statusColor = AppColors.of(context).success;
         break;
+      case ConnectionStatus.partiallyConnected:
+        connectionText = 'Partially connected';
+        statusColor = AppColors.of(context).warning;
+        break;
       case ConnectionStatus.connecting:
         connectionText = 'Connecting...';
         statusColor = AppColors.of(context).warning;

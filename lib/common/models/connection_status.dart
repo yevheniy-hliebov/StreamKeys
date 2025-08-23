@@ -1,1 +1,6 @@
-enum ConnectionStatus { notConnected, connecting, connected }
+enum ConnectionStatus {
+  notConnected,
+  connecting,
+  connected,
+  partiallyConnected,
+}

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:shelf/shelf.dart';
 import 'package:streamkeys/common/models/typedef.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_json_keys.dart';
@@ -13,7 +14,7 @@ import 'package:mime/mime.dart';
 
 class GridDeckController extends BaseController {
   final jsonHelper = LocalJsonFileManager.storage(
-    '${DeckType.grid.name}_deck.json',
+    '${DeckType.grid.name}_deck${kDebugMode ? '_dev' : ''}.json',
   );
 
   Future<Response> getButtons(Request request) async {

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:streamkeys/common/models/typedef.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_json_keys.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_page.dart';
@@ -13,7 +14,9 @@ class DeckPageListRepository {
     if (jsonFile != null) {
       _jsonFile = jsonFile;
     } else {
-      _jsonFile = LocalJsonFileManager.storage('${deckType.name}_deck.json');
+      _jsonFile = LocalJsonFileManager.storage(
+        '${deckType.name}_deck${kDebugMode ? '_dev' : ''}.json',
+      );
     }
   }
 

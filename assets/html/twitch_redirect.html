@@ -1,0 +1,18 @@
+<html>
+  <body>
+    <h1>Twitch auth complete. You can close this window.</h1>
+    <script>
+      const isBot = 'boolIsBot';
+      const hash = window.location.hash.substr(1);
+      if (hash) {
+        window.history.replaceState(null, '', window.location.pathname);
+
+        const params = new URLSearchParams(hash);
+        const token = params.get('access_token');
+        if (token) {
+          fetch('/api/twitch/save?access_token=' + token + '&bot=' + isBot);
+        }
+      }
+    </script>
+  </body>
+</html>
