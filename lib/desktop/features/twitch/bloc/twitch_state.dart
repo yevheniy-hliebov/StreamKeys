@@ -1,15 +1,15 @@
 part of 'twitch_bloc.dart';
 
 class TwitchState extends Equatable {
-  final TwitchUserStatus broadcaster;
-  final TwitchUserStatus bot;
+  final TwitchUserInfo? broadcaster;
+  final TwitchUserInfo? bot;
 
   const TwitchState({
-    this.broadcaster = const TwitchUserStatus(connected: false),
-    this.bot = const TwitchUserStatus(connected: false),
+    this.broadcaster,
+    this.bot,
   });
 
-  TwitchState copyWith({TwitchUserStatus? broadcaster, TwitchUserStatus? bot}) {
+  TwitchState copyWith({TwitchUserInfo? broadcaster, TwitchUserInfo? bot}) {
     return TwitchState(
       broadcaster: broadcaster ?? this.broadcaster,
       bot: bot ?? this.bot,
@@ -17,5 +17,5 @@ class TwitchState extends Equatable {
   }
 
   @override
-  List<Object> get props => [broadcaster, bot];
+  List<Object?> get props => [broadcaster, bot];
 }

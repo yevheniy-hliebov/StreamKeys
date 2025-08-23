@@ -12,9 +12,9 @@ class TwitchConnectionStatusIndicator extends StatelessWidget {
     return BlocBuilder<TwitchBloc, TwitchState>(
       builder: (context, state) {
         ConnectionStatus status;
-        if (state.broadcaster.connected && state.bot.connected) {
+        if (state.broadcaster != null && state.bot != null) {
           status = ConnectionStatus.connected;
-        } else if (state.broadcaster.connected || state.bot.connected) {
+        } else if (state.broadcaster != null || state.bot != null) {
           status = ConnectionStatus.partiallyConnected;
         } else {
           status = ConnectionStatus.notConnected;
@@ -47,7 +47,7 @@ class TwitchConnectionStatusIndicator extends StatelessWidget {
                 PopupMenuItem(
                   child: ConnectionStatusIndicator(
                     label: 'Broadcaster',
-                    status: state.broadcaster.connected
+                    status: state.broadcaster != null
                         ? ConnectionStatus.connected
                         : ConnectionStatus.notConnected,
                   ),
@@ -55,7 +55,7 @@ class TwitchConnectionStatusIndicator extends StatelessWidget {
                 PopupMenuItem(
                   child: ConnectionStatusIndicator(
                     label: 'Bot',
-                    status: state.bot.connected
+                    status: state.bot != null
                         ? ConnectionStatus.connected
                         : ConnectionStatus.notConnected,
                   ),

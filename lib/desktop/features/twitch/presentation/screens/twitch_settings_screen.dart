@@ -87,9 +87,9 @@ class TwitchUserCard extends StatelessWidget {
       ),
       child: BlocBuilder<TwitchBloc, TwitchState>(
         builder: (context, state) {
-          final userStatus = isBot ? state.bot : state.broadcaster;
+          final userInfo = isBot ? state.bot : state.broadcaster;
 
-          if (!userStatus.connected) {
+          if (userInfo == null) {
             return _buildLogin(context);
           } else {
             return Column(
@@ -105,7 +105,7 @@ class TwitchUserCard extends StatelessWidget {
                         width: 60,
                         height: 60,
                         child: Image.network(
-                          userStatus.avatarUrl ?? '',
+                          userInfo.avatarUrl,
                           errorBuilder: (context, error, stackTrace) {
                             return Container(
                               width: 40,
@@ -129,9 +129,7 @@ class TwitchUserCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            (userStatus.displayName ?? '').characters.join(
-                              '\u200B',
-                            ),
+                            (userInfo.displayName).characters.join('\u200B'),
                             style: AppTypography.bodyStrong,
                             maxLines: 2,
                             softWrap: true,
