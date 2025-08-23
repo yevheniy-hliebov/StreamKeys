@@ -50,4 +50,11 @@ class BindingActionIcons {
   Widget get streamerbot {
     return Image.asset('$assetsPath/streamerbot.png', fit: BoxFit.contain);
   }
+
+  // Twitch
+  Widget get twitch {
+    return _getSvgPicture('twitch.svg', isColorChangeAllowed: false);
+  }
+
+  Widget get twitchSendMessageToChat => _getSvgPicture('send_message.svg');
 }

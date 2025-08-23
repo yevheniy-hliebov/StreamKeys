@@ -3,6 +3,7 @@ import 'package:streamkeys/desktop/features/action_library/data/models/binding_a
 import 'package:streamkeys/desktop/features/action_library/data/models/library/obs/obs_category.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/streamerbot/streamerbot_category.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/system/system_category.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/library/twitch/twitch_category.dart';
 
 abstract class BindingActionCategory {
   final String name;
@@ -15,6 +16,7 @@ abstract class BindingActionCategory {
   static List<BindingActionCategory> library = const [
     SystemCategory(),
     ObsCategory(),
+    TwitchCategory(),
     StreamerBotCategory(),
   ];
 }

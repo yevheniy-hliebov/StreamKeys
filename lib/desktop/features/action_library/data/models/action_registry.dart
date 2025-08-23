@@ -7,6 +7,7 @@ import 'package:streamkeys/desktop/features/action_library/data/models/library/o
 import 'package:streamkeys/desktop/features/action_library/data/models/library/streamerbot/do_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/system/launch_file_or_app_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/system/website_action.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/library/twitch/twitch_send_message_to_chat_acton.dart';
 
 class ActionTypes {
   static const website = 'website';
@@ -20,6 +21,8 @@ class ActionTypes {
   static const obsScreenshot = 'obs_screenshot';
 
   static const streamerBotDoAction = 'streamerbot_do_action';
+
+  static const twitchSendMessageToChat = 'twitch_send_message_to_chat';
 }
 
 void registerBindingActions() {
@@ -43,5 +46,9 @@ void registerBindingActions() {
   BindingAction.register(
     ActionTypes.streamerBotDoAction,
     StreamerBotDoAction.fromJson,
+  );
+  BindingAction.register(
+    ActionTypes.twitchSendMessageToChat,
+    TwitchSendMessageToChatAction.fromJson,
   );
 }
