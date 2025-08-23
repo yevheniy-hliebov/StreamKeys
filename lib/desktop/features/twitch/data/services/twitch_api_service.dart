@@ -10,7 +10,7 @@ class TwitchApiService {
   final TwitchAuthChecker _authChecker;
 
   const TwitchApiService(this._authChecker);
-  
+
   Future<void> sendMessage({
     required String message,
     bool isBot = false,
@@ -52,6 +52,45 @@ class TwitchApiService {
         'color': color.name,
       },
       'Twitch: Announcement sent ✅',
+    );
+  }
+
+  Future<String?> getUserIdByLogin(String login) async {
+    final token = _authChecker.tokenService.cachedBroadcastToken;
+    if (token == null) throw Exception('Missing broadcast token.');
+
+    final response = await http.get(
+      Uri.parse(
+        'https://api.twitch.tv/helix/users?login=${login.toLowerCase()}',
+      ),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Client-Id': TwitchAuthService.clientId,
+      },
+    );
+
+    if (response.statusCode != 200) return null;
+
+    final data = jsonDecode(response.body)['data'] as List<dynamic>;
+    if (data.isEmpty) return null;
+
+    return data[0]['id'] as String;
+  }
+
+  Future<void> sendShoutout(String toBroadcasterId) async {
+    final accessToken = _getAccessToken(false);
+    final fromBroadcasterId = _getBroadcasterId();
+    final moderatorId = _getUserId(false);
+
+    await _post(
+      Uri.parse('https://api.twitch.tv/helix/chat/shoutouts'),
+      accessToken,
+      {
+        'from_broadcaster_id': fromBroadcasterId,
+        'to_broadcaster_id': toBroadcasterId,
+        'moderator_id': moderatorId,
+      },
+      'Twitch: Shoutout sent ✅',
     );
   }
 

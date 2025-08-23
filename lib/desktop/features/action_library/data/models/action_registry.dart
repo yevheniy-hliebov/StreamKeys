@@ -7,8 +7,9 @@ import 'package:streamkeys/desktop/features/action_library/data/models/library/o
 import 'package:streamkeys/desktop/features/action_library/data/models/library/streamerbot/do_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/system/launch_file_or_app_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/system/website_action.dart';
-import 'package:streamkeys/desktop/features/action_library/data/models/library/twitch/twitch_send_announcement_to_chat_action.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/library/twitch/twitch_send_announcement_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/twitch/twitch_send_message_acton.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/library/twitch/twitch_shoutout_action.dart';
 
 class ActionTypes {
   static const website = 'website';
@@ -23,9 +24,9 @@ class ActionTypes {
 
   static const streamerBotDoAction = 'streamerbot_do_action';
 
-  static const twitchSendMessageToChat = 'twitch_send_message_to_chat';
-  static const twitchSendAnnouncementToChat =
-      'twitch_send_announcement_to_chat';
+  static const twitchSendMessageToChat = 'twitch_send_message';
+  static const twitchSendAnnouncement = 'twitch_send_announcement';
+  static const twitchShoutout = 'twitch_shoutout';
 }
 
 void registerBindingActions() {
@@ -58,7 +59,11 @@ void registerBindingActions() {
     TwitchSendMessageAction.fromJson,
   );
   BindingAction.register(
-    ActionTypes.twitchSendAnnouncementToChat,
+    ActionTypes.twitchSendAnnouncement,
     TwitchSendAnnouncementAction.fromJson,
+  );
+  BindingAction.register(
+    ActionTypes.twitchShoutout,
+    TwitchShoutoutAction.fromJson,
   );
 }

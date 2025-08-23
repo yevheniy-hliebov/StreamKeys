@@ -3,26 +3,26 @@ import 'package:streamkeys/common/widgets/buttons/custom_dropdown_button.dart';
 import 'package:streamkeys/common/widgets/forms/field_label.dart';
 import 'package:streamkeys/common/widgets/tiles/checkbox_tile.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
-import 'package:streamkeys/desktop/features/action_library/data/models/library/twitch/twitch_send_announcement_to_chat_action.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/library/twitch/twitch_send_announcement_action.dart';
 import 'package:streamkeys/desktop/features/twitch/data/models/twitch_announcement_color.dart';
 
-class TwitchSendAnnounceToChatForm extends StatefulWidget {
+class TwitchSendAnnounceForm extends StatefulWidget {
   final TwitchSendAnnouncementAction initialAction;
   final void Function(TwitchSendAnnouncementAction action)? onUpdated;
 
-  const TwitchSendAnnounceToChatForm({
+  const TwitchSendAnnounceForm({
     super.key,
     required this.initialAction,
     this.onUpdated,
   });
 
   @override
-  State<TwitchSendAnnounceToChatForm> createState() =>
-      _TwitchSendAnnounceToChatFormState();
+  State<TwitchSendAnnounceForm> createState() =>
+      _TwitchSendAnnounceFormState();
 }
 
-class _TwitchSendAnnounceToChatFormState
-    extends State<TwitchSendAnnounceToChatForm> {
+class _TwitchSendAnnounceFormState
+    extends State<TwitchSendAnnounceForm> {
   late TextEditingController textController;
   late int indexColor;
   late bool isBot;

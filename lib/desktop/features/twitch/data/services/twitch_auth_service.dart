@@ -15,6 +15,7 @@ class TwitchAuthService {
     'user:bot',
     'channel:bot',
     'moderator:manage:announcements',
+    'moderator:manage:shoutouts',
     'channel:manage:broadcast',
   ];
 

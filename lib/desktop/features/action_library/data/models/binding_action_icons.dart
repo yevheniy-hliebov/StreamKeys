@@ -60,4 +60,6 @@ class BindingActionIcons {
 
   Widget get twitchSendAnnouncementToChat =>
       _getSvgPicture('send_announcement.svg');
+
+  Widget get twitchShoutout => _getSvgPicture('shoutout.svg');
 }

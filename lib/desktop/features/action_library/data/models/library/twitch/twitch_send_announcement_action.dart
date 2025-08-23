@@ -3,7 +3,7 @@ import 'package:streamkeys/common/models/typedef.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/action_registry.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action_icons.dart';
-import 'package:streamkeys/desktop/features/action_library/presentation/widgets/forms/twitch_send_announce_to_chat_form.dart';
+import 'package:streamkeys/desktop/features/action_library/presentation/widgets/forms/twitch_send_announce_form.dart';
 import 'package:streamkeys/desktop/features/twitch/data/models/twitch_announcement_color.dart';
 import 'package:streamkeys/service_locator.dart';
 import 'package:uuid/uuid.dart';
@@ -20,7 +20,7 @@ class TwitchSendAnnouncementAction extends BindingAction {
     this.isBot = false,
   }) : super(
          id: id ?? const Uuid().v4(),
-         type: ActionTypes.twitchSendAnnouncementToChat,
+         type: ActionTypes.twitchSendAnnouncement,
          name: 'Send Announcement',
        );
 
@@ -74,7 +74,7 @@ class TwitchSendAnnouncementAction extends BindingAction {
     BuildContext context, {
     void Function(BindingAction updatedAction)? onUpdated,
   }) {
-    return TwitchSendAnnounceToChatForm(
+    return TwitchSendAnnounceForm(
       initialAction: this,
       onUpdated: (newValue) {
         onUpdated?.call(newValue);
