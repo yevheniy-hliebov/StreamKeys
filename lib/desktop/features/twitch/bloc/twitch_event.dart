@@ -20,8 +20,8 @@ class TwitchLogout extends TwitchEvent {
 class TwitchStartChecking extends TwitchEvent {}
 
 class TwitchChangeStatus extends TwitchEvent {
-  final TwitchUserInfo? broadcaster;
-  final TwitchUserInfo? bot;
+  final TwitchUserInfo? userInfo;
+  final bool isBot;
 
-  const TwitchChangeStatus({this.broadcaster, this.bot});
+  const TwitchChangeStatus({this.userInfo, this.isBot = false});
 }

@@ -4,15 +4,15 @@ class TwitchState extends Equatable {
   final TwitchUserInfo? broadcaster;
   final TwitchUserInfo? bot;
 
-  const TwitchState({
-    this.broadcaster,
-    this.bot,
-  });
+  const TwitchState({this.broadcaster, this.bot});
 
-  TwitchState copyWith({TwitchUserInfo? broadcaster, TwitchUserInfo? bot}) {
+  TwitchState copyWith({
+    ValueGetter<TwitchUserInfo?>? broadcaster,
+    ValueGetter<TwitchUserInfo?>? bot,
+  }) {
     return TwitchState(
-      broadcaster: broadcaster ?? this.broadcaster,
-      bot: bot ?? this.bot,
+      broadcaster: broadcaster != null ? broadcaster() : this.broadcaster,
+      bot: bot != null ? bot() : this.bot,
     );
   }
 
