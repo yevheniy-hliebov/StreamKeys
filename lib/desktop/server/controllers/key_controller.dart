@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:shelf/shelf.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_json_keys.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_type.dart';
@@ -12,7 +13,7 @@ class KeyController extends BaseController {
     DeckType dekcType,
   ) async {
     final jsonHelper = LocalJsonFileManager.storage(
-      '${dekcType.name}_deck.json',
+      '${dekcType.name}_deck${kDebugMode ? '_dev' : ''}.json',
     );
 
     try {
