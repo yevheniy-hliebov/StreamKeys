@@ -11,8 +11,9 @@ class TwitchAuthService {
   static const baseRedirectUrl = 'http://localhost:${Server.port}/api/twitch';
   static const clientId = '9s8aqg4s08xhjgjr6b6l85f8i7xx38';
   static const List<String> scopes = [
-    'chat:read',
-    'chat:edit',
+    'user:write:chat',
+    'user:bot',
+    'channel:bot',
     'channel:manage:broadcast',
   ];
 

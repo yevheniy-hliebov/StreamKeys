@@ -11,6 +11,9 @@ class TwitchTokenService {
   String? _cachedBotToken;
   String? _cachedBroadcastToken;
 
+  String? get cachedBotToken => _cachedBotToken;
+  String? get cachedBroadcastToken => _cachedBroadcastToken;
+
   Future<void> saveBotToken(String token) async {
     _cachedBotToken = token;
     await _storage.write(key: _botTokenKey, value: token);
