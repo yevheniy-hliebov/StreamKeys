@@ -14,6 +14,7 @@ class TwitchAuthService {
     'user:write:chat',
     'user:bot',
     'channel:bot',
+    'moderator:manage:announcements',
     'channel:manage:broadcast',
   ];
 
