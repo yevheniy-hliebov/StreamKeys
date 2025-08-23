@@ -3,26 +3,29 @@ import 'package:streamkeys/common/models/typedef.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/action_registry.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action_icons.dart';
-import 'package:streamkeys/desktop/features/action_library/presentation/widgets/forms/twitch_send_message_to_chat_form.dart';
+import 'package:streamkeys/desktop/features/action_library/presentation/widgets/forms/twitch_send_announce_to_chat_form.dart';
+import 'package:streamkeys/desktop/features/twitch/data/models/twitch_announcement_color.dart';
 import 'package:streamkeys/service_locator.dart';
 import 'package:uuid/uuid.dart';
 
-class TwitchSendMessageToChatAction extends BindingAction {
+class TwitchSendAnnouncementAction extends BindingAction {
   final String text;
+  final TwitchAnnouncementColor color;
   final bool isBot;
 
-  TwitchSendMessageToChatAction({
+  TwitchSendAnnouncementAction({
     String? id,
     this.text = '',
+    this.color = TwitchAnnouncementColor.primary,
     this.isBot = false,
   }) : super(
          id: id ?? const Uuid().v4(),
-         type: ActionTypes.twitchSendMessageToChat,
-         name: 'Send Message to Chat',
+         type: ActionTypes.twitchSendAnnouncementToChat,
+         name: 'Send Announcement',
        );
 
   @override
-  String get dialogTitle => 'Enter text to send to chat';
+  String get dialogTitle => 'Enter announcement text to send to chat';
 
   @override
   String get label {
@@ -36,30 +39,34 @@ class TwitchSendMessageToChatAction extends BindingAction {
 
   @override
   Widget getIcon(BuildContext context) {
-    return BindingActionIcons.of(context).twitchSendMessageToChat;
+    return BindingActionIcons.of(context).twitchSendAnnouncementToChat;
   }
 
   @override
   Json toJson() {
-    return {'type': type, 'text': text, 'is_bot': isBot};
+    return {'type': type, 'text': text, 'color': color.name, 'is_bot': isBot};
   }
 
-  factory TwitchSendMessageToChatAction.fromJson(Json json) {
-    return TwitchSendMessageToChatAction(
+  factory TwitchSendAnnouncementAction.fromJson(Json json) {
+    final colorString = json['color'];
+    final color = TwitchAnnouncementColor.values.byName(colorString);
+
+    return TwitchSendAnnouncementAction(
       text: json['text'] as String,
+      color: color,
       isBot: json['is_bot'] as bool? ?? false,
     );
   }
 
   @override
   BindingAction copy() {
-    return TwitchSendMessageToChatAction(text: text, isBot: isBot);
+    return TwitchSendAnnouncementAction(text: text, color: color, isBot: isBot);
   }
 
   @override
   Future<void> execute({Object? data}) async {
     final twitchApi = sl<TwitchApiService>();
-    await twitchApi.sendMessage(message: text, isBot: isBot);
+    await twitchApi.sendAnnouncement(message: text, color: color, isBot: isBot);
   }
 
   @override
@@ -67,7 +74,7 @@ class TwitchSendMessageToChatAction extends BindingAction {
     BuildContext context, {
     void Function(BindingAction updatedAction)? onUpdated,
   }) {
-    return TwitchSendMessageToChatForm(
+    return TwitchSendAnnounceToChatForm(
       initialAction: this,
       onUpdated: (newValue) {
         onUpdated?.call(newValue);
@@ -76,5 +83,5 @@ class TwitchSendMessageToChatAction extends BindingAction {
   }
 
   @override
-  List<Object?> get props => [id, type, name, text, isBot];
+  List<Object?> get props => [id, type, name, text, color, isBot];
 }

@@ -7,7 +7,8 @@ import 'package:streamkeys/desktop/features/action_library/data/models/library/o
 import 'package:streamkeys/desktop/features/action_library/data/models/library/streamerbot/do_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/system/launch_file_or_app_action.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/library/system/website_action.dart';
-import 'package:streamkeys/desktop/features/action_library/data/models/library/twitch/twitch_send_message_to_chat_acton.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/library/twitch/twitch_send_announcement_to_chat_action.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/library/twitch/twitch_send_message_acton.dart';
 
 class ActionTypes {
   static const website = 'website';
@@ -23,6 +24,8 @@ class ActionTypes {
   static const streamerBotDoAction = 'streamerbot_do_action';
 
   static const twitchSendMessageToChat = 'twitch_send_message_to_chat';
+  static const twitchSendAnnouncementToChat =
+      'twitch_send_announcement_to_chat';
 }
 
 void registerBindingActions() {
@@ -31,6 +34,7 @@ void registerBindingActions() {
     ActionTypes.launcFileOrApp,
     LaunchFileOrAppAction.fromJson,
   );
+
   BindingAction.register(
     ActionTypes.setActiveScene,
     SetActiveSceneAction.fromJson,
@@ -43,12 +47,18 @@ void registerBindingActions() {
   BindingAction.register(ActionTypes.obsScreenshot, ScreenshotAction.fromJson);
   BindingAction.register(ActionTypes.obsRecord, RecordOrStreamAction.fromJson);
   BindingAction.register(ActionTypes.obsStream, RecordOrStreamAction.fromJson);
+
   BindingAction.register(
     ActionTypes.streamerBotDoAction,
     StreamerBotDoAction.fromJson,
   );
+
   BindingAction.register(
     ActionTypes.twitchSendMessageToChat,
-    TwitchSendMessageToChatAction.fromJson,
+    TwitchSendMessageAction.fromJson,
+  );
+  BindingAction.register(
+    ActionTypes.twitchSendAnnouncementToChat,
+    TwitchSendAnnouncementAction.fromJson,
   );
 }

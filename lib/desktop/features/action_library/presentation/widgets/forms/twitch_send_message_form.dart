@@ -2,25 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/forms/field_label.dart';
 import 'package:streamkeys/common/widgets/tiles/checkbox_tile.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
-import 'package:streamkeys/desktop/features/action_library/data/models/library/twitch/twitch_send_message_to_chat_acton.dart';
+import 'package:streamkeys/desktop/features/action_library/data/models/library/twitch/twitch_send_message_acton.dart';
 
-class TwitchSendMessageToChatForm extends StatefulWidget {
-  final TwitchSendMessageToChatAction initialAction;
-  final void Function(TwitchSendMessageToChatAction action)? onUpdated;
+class TwitchSendMessageForm extends StatefulWidget {
+  final TwitchSendMessageAction initialAction;
+  final void Function(TwitchSendMessageAction action)? onUpdated;
 
-  const TwitchSendMessageToChatForm({
+  const TwitchSendMessageForm({
     super.key,
     required this.initialAction,
     this.onUpdated,
   });
 
   @override
-  State<TwitchSendMessageToChatForm> createState() =>
-      _TwitchSendMessageToChatFormState();
+  State<TwitchSendMessageForm> createState() =>
+      _TwitchSendMessageFormState();
 }
 
-class _TwitchSendMessageToChatFormState
-    extends State<TwitchSendMessageToChatForm> {
+class _TwitchSendMessageFormState
+    extends State<TwitchSendMessageForm> {
   late TextEditingController textController;
   late bool isBot;
 
@@ -63,7 +63,7 @@ class _TwitchSendMessageToChatFormState
 
   void _onUpdate() {
     widget.onUpdated?.call(
-      TwitchSendMessageToChatAction(text: textController.text, isBot: isBot),
+      TwitchSendMessageAction(text: textController.text, isBot: isBot),
     );
   }
 }

@@ -29,7 +29,7 @@ class DragableBindingActionTile extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadiusGeometry.circular(8),
           child: Container(
-            width: 200,
+            width: 250,
             height: 50,
             color: AppColors.of(context).background,
             alignment: Alignment.center,

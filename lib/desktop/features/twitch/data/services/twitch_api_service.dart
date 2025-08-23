@@ -10,6 +10,7 @@ class TwitchApiService {
   final TwitchAuthChecker _authChecker;
 
   const TwitchApiService(this._authChecker);
+  
   Future<void> sendMessage({
     required String message,
     bool isBot = false,
@@ -30,7 +31,7 @@ class TwitchApiService {
     );
   }
 
-  Future<void> sendAnnouncementToChat({
+  Future<void> sendAnnouncement({
     required String message,
     TwitchAnnouncementColor color = TwitchAnnouncementColor.primary,
     bool isBot = false,
