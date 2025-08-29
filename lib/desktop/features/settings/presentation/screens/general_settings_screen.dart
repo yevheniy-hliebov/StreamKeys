@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/common/widgets/tabs/page_tab.dart';
-import 'package:streamkeys/common/widgets/forms/theme_mode_switch.dart';
+import 'package:streamkeys/common/widgets/theme/theme_switch_tile.dart';
 import 'package:streamkeys/core/app_update/presentation/widgets/update_dialog.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
-import 'package:streamkeys/core/theme/bloc/theme_mode_bloc.dart';
 import 'package:streamkeys/core/app_update/presentation/widgets/app_version_tile.dart';
 import 'package:streamkeys/service_locator.dart';
 
@@ -30,26 +28,7 @@ class GeneralSettingsScreen extends StatelessWidget with PageTab {
           spacing: Spacing.xs,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            BlocBuilder<ThemeModeBloc, ThemeMode>(
-              builder: (context, themeMode) {
-                return ListTile(
-                  title: const Text(
-                    'Theme mode',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Transform.scale(
-                    scale: 0.8,
-                    child: ThemeModeSwitch(
-                      themeMode: themeMode,
-                      onChanged: (themeMode) {
-                        final bloc = context.read<ThemeModeBloc>();
-                        bloc.add(ThemeModeChange(themeMode));
-                      },
-                    ),
-                  ),
-                );
-              },
-            ),
+            const ThemeSwitchTile(),
             AppVersionTile(
               onTap: () async {
                 final appUpdateService = sl<AppUpdateService>();
