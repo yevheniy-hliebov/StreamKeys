@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:streamkeys/common/widgets/forms/theme_mode_switch.dart';
+import 'package:streamkeys/common/widgets/theme/theme_mode_switch.dart';
 
 void main() {
   testWidgets('ThemeModeSwitch triggers onChanged with correct value', (WidgetTester tester) async {
