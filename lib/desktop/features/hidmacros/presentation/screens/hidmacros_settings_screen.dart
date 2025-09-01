@@ -4,8 +4,8 @@ import 'package:streamkeys/desktop/features/deck/presentation/widgets/deck_devid
 import 'package:streamkeys/desktop/features/hidmacros/presentation/widgets/hid_macros_controls_panel.dart';
 import 'package:streamkeys/desktop/features/hidmacros/presentation/widgets/hid_macros_keyboard_panel.dart';
 
-class HidMacrosScreen extends StatelessWidget with PageTab {
-  const HidMacrosScreen({super.key});
+class HidMacrosSettingsScreen extends StatelessWidget with PageTab {
+  const HidMacrosSettingsScreen({super.key});
 
   @override
   Widget get pageView => this;
@@ -14,7 +14,13 @@ class HidMacrosScreen extends StatelessWidget with PageTab {
   String get label => 'HID Macros';
 
   @override
-  Widget get icon => const SizedBox();
+  Widget get icon {
+    return SizedBox(
+      width: 18,
+      height: 18,
+      child: Image.asset('assets/action_icons/hidmacros.png'),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

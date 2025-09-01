@@ -16,7 +16,7 @@ import 'package:streamkeys/desktop/features/obs/bloc/connection/obs_connection_b
 import 'package:streamkeys/desktop/features/obs/presentations/screen/obs_settings_screen.dart';
 import 'package:streamkeys/desktop/features/obs/presentations/widgets/obs_connection_status_indicator.dart';
 import 'package:streamkeys/desktop/features/settings/presentation/screens/general_settings_screen.dart';
-import 'package:streamkeys/desktop/features/settings/presentation/screens/hidmacros_screen.dart';
+import 'package:streamkeys/desktop/features/hidmacros/presentation/screens/hidmacros_settings_screen.dart';
 import 'package:streamkeys/desktop/features/settings/presentation/screens/settings_screen.dart';
 import 'package:streamkeys/desktop/features/settings/presentation/screens/http_server_config_screen.dart';
 import 'package:streamkeys/desktop/features/twitch/presentation/screens/twitch_settings_screen.dart';
@@ -111,7 +111,7 @@ void desktopMain() async {
                 ObsSettingsScreen(),
                 StreamerBotSettingsScreen(),
                 TwitchSettingsScreen(),
-                HidMacrosScreen(),
+                HidMacrosSettingsScreen(),
               ],
             ),
           ],
