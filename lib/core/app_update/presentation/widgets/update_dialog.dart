@@ -14,10 +14,7 @@ class UpdateDialog extends StatelessWidget {
     final appUpdateService = sl<AppUpdateService>();
 
     return AlertDialog(
-      title: Text(
-        'New Version Available (${update.tagName})',
-        style: TextTheme.of(context).titleMedium,
-      ),
+      title: Text('New Version Available (${update.tagName})'),
       content: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 500, maxHeight: 500),
         child: SingleChildScrollView(
@@ -49,20 +46,20 @@ class UpdateDialog extends StatelessWidget {
             appUpdateService.setIgnoreVersion(update.tagName);
             Navigator.of(context).pop();
           },
-          child: Text('Ignore this version', style: TextTheme.of(context).bodyMedium),
+          child: const Text('Ignore this version'),
         ),
         OutlinedButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('Remind me later', style: TextTheme.of(context).bodyMedium),
+          child: const Text('Remind me later'),
         ),
         FilledButton(
           onPressed: () async {
             Navigator.of(context).pop();
             await appUpdateService.launchUpdate(update);
           },
-          child: Text('Update', style: TextTheme.of(context).bodyMedium),
+          child: const Text('Update'),
         ),
       ],
     );
@@ -81,12 +78,9 @@ class UpdateDialog extends StatelessWidget {
   static Future<void> showNoUpdatesDialog(BuildContext context) {
     return showDialog(
       context: context,
-      builder: (_) => AlertDialog(
-        title: Text('No Updates', style: TextTheme.of(context).titleMedium),
-        content: Text(
-          'You have the latest version.',
-          style: TextTheme.of(context).bodyMedium,
-        ),
+      builder: (_) => const AlertDialog(
+        title: Text('No Updates'),
+        content: Text('You have the latest version.'),
       ),
     );
   }

@@ -30,7 +30,13 @@ class CustomDropdownButton extends StatelessWidget {
           isExpanded: true,
           value: index,
           items: List.generate(itemCount, (index) {
-            return DropdownMenuItem(value: index, child: itemBuilder(index));
+            return DropdownMenuItem(
+              value: index,
+              child: DefaultTextStyle.merge(
+                style: Theme.of(context).textTheme.bodyMedium!,
+                child: itemBuilder(index),
+              ),
+            );
           }),
           onChanged: onChanged,
           buttonStyleData: _getButtonStyle(context),

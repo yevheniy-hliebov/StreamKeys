@@ -26,13 +26,21 @@ class AppTheme {
       outlinedButtonTheme: AppOutlinedButtonThemeData.getTheme(colors),
       filledButtonTheme: AppFilledButtonThemeData.getTheme(colors),
       switchTheme: AppSwitchThemeData.getTheme(colors),
-      dialogTheme: DialogThemeData(backgroundColor: colors.background),
+      dialogTheme: DialogThemeData(
+        backgroundColor: colors.background,
+        titleTextStyle: AppTextTheme.theme.bodyLarge,
+        contentTextStyle: AppTextTheme.theme.bodyMedium,
+      ),
       popupMenuTheme: PopupMenuThemeData(
         color: colors.background,
         menuPadding: EdgeInsets.zero,
+        labelTextStyle: WidgetStatePropertyAll(AppTextTheme.theme.bodyMedium),
       ),
       checkboxTheme: AppCheckboxThemeData.getTheme(colors),
       textTheme: AppTextTheme.theme,
+      listTileTheme: ListTileThemeData(
+        titleTextStyle: AppTextTheme.theme.labelSmall,
+      ),
     );
   }
 }

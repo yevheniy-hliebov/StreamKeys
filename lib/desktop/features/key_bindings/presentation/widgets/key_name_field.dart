@@ -47,7 +47,6 @@ class _KeyNameFieldState extends State<KeyNameField> {
         TextFormField(
           controller: controller,
           onChanged: widget.onChanged,
-          style: TextTheme.of(context).bodyMedium,
           decoration: const InputDecoration(hintText: 'Enter a name'),
         ),
       ],

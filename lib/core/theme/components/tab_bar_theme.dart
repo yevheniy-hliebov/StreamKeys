@@ -9,6 +9,8 @@ class AppTabThemeData {
       dividerHeight: 0,
       labelColor: colors.onPrimary,
       unselectedLabelColor: colors.onSurface,
+      labelStyle: AppTextTheme.theme.labelSmall,
+      unselectedLabelStyle: AppTextTheme.theme.labelSmall,
       tabAlignment: TabAlignment.fill,
       indicatorSize: TabBarIndicatorSize.tab,
       indicatorColor: Colors.transparent,

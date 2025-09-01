@@ -15,10 +15,7 @@ class ApiConnectionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(
-        'HTTP Server connection',
-        style: TextTheme.of(context).bodyLarge,
-      ),
+      title: const Text('HTTP Server connection'),
       onTap: () async {
         final result = await ApiConnectionDialog.showConfigDialog(
           context,

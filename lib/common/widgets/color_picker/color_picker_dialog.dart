@@ -13,7 +13,7 @@ class ColorPickerDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: AppColors.of(context).background,
-      title: Text('Select a color', style: TextTheme.of(context).bodyLarge),
+      title: const Text('Select a color'),
       content: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 400),
         child: ColorPickerControls(controller: controller),
@@ -25,7 +25,7 @@ class ColorPickerDialog extends StatelessWidget {
               Navigator.of(context).pop();
             }
           },
-          child: Text('Cancel', style: TextTheme.of(context).bodyMedium),
+          child: const Text('Cancel'),
         ),
         FilledButton(
           onPressed: () {
@@ -33,7 +33,7 @@ class ColorPickerDialog extends StatelessWidget {
               Navigator.of(context).pop(controller.pickerColor);
             }
           },
-          child: Text('Select', style: TextTheme.of(context).bodyMedium),
+          child: const Text('Select'),
         ),
       ],
     );

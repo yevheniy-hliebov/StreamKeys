@@ -11,10 +11,10 @@ class AppVersionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onTap,
-      title: Text('Check For Update', style: TextTheme.of(context).labelSmall),
+      title: const Text('Check For Update'),
       trailing: Text(
         AppVersion.appVersion,
-        style: TextTheme.of(context).labelSmall?.copyWith(
+        style: TextTheme.of(context).bodyMedium?.copyWith(
           color: AppColors.of(context).onSurface,
         ),
       ),
