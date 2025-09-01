@@ -31,6 +31,7 @@ class AppTheme {
         color: colors.background,
         menuPadding: EdgeInsets.zero,
       ),
+      checkboxTheme: AppCheckboxThemeData.getTheme(colors),
     );
   }
 }

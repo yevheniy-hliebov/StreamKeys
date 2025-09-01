@@ -10,3 +10,4 @@ part 'input_decoration_theme_data.dart';
 part 'outlined_button_theme_data.dart';
 part 'filled_button_theme_data.dart';
 part 'switch_theme_data.dart';
+part 'checkbox_theme_data.dart';
