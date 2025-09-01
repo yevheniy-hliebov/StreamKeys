@@ -25,7 +25,7 @@ class GridDeckScreen extends StatelessWidget with PageTab {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) =>
+      create: (context) =>
           GridKeyBindingsBloc(context.read<GridDeckPageListBloc>())
             ..add(KeyBindingsInit()),
       child: DeckLayout(

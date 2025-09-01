@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:streamkeys/core/constants/typography.dart';
 
 class FieldLabel extends StatelessWidget {
   final String text;
@@ -8,6 +7,6 @@ class FieldLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text, style: AppTypography.captionStrong);
+    return Text(text, style: TextTheme.of(context).bodyLarge);
   }
 }

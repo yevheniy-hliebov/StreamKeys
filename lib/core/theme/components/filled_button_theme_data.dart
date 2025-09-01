@@ -6,7 +6,7 @@ class AppFilledButtonThemeData {
   static FilledButtonThemeData getTheme(AppColorsData colors) {
     return FilledButtonThemeData(
       style: FilledButton.styleFrom(
-        textStyle: AppTypography.body,
+        textStyle: AppTextTheme.theme.bodyMedium,
         shape: _borderRadius,
         padding: const EdgeInsets.symmetric(
           horizontal: Spacing.lg,

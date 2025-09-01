@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/forms/field_label.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
-import 'package:streamkeys/core/constants/typography.dart';
 
 class KeyNameField extends StatefulWidget {
   final String initialValue;
@@ -48,7 +47,6 @@ class _KeyNameFieldState extends State<KeyNameField> {
         TextFormField(
           controller: controller,
           onChanged: widget.onChanged,
-          style: AppTypography.body,
           decoration: const InputDecoration(hintText: 'Enter a name'),
         ),
       ],
