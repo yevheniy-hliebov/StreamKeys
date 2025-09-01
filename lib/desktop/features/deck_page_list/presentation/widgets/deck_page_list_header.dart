@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
-import 'package:streamkeys/core/constants/typography.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/presentation/widgets/deck_page_list_actions.dart';
 
 class DeckPageListHeader extends StatelessWidget {
@@ -29,7 +28,7 @@ class DeckPageListHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         spacing: Spacing.xs,
         children: <Widget>[
-          const Text('Pages', style: AppTypography.bodyStrong),
+          Text('Pages', style: TextTheme.of(context).bodyLarge),
           DeckPageListActions(
             onPressedAdd: onPressedAdd,
             onPressedEdit: onPressedEdit,

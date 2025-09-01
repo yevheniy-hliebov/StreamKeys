@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/common/widgets/placeholders/loader_placeholder.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
-import 'package:streamkeys/core/constants/typography.dart';
 import 'package:streamkeys/mobile/features/api_connection/bloc/api_connection_bloc.dart';
 import 'package:streamkeys/mobile/features/api_connection/data/models/api_connection_data.dart';
 import 'package:streamkeys/mobile/features/api_connection/presentation/widgets/api_connection_form.dart';
@@ -26,7 +25,7 @@ class ApiConnectionGate extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text('HTTP connection', style: AppTypography.subtitle),
+                  Text('HTTP connection', style: TextTheme.of(context).titleSmall),
                   ApiConnectionForm(
                     initialData: data ?? const ApiConnectionData(),
                     onUpdated: (data) {

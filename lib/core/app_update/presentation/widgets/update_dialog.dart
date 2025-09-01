@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:github_updater/github_updater.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
-import 'package:streamkeys/core/constants/typography.dart';
 import 'package:streamkeys/service_locator.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 
@@ -15,10 +14,7 @@ class UpdateDialog extends StatelessWidget {
     final appUpdateService = sl<AppUpdateService>();
 
     return AlertDialog(
-      title: Text(
-        'New Version Available (${update.tagName})',
-        style: AppTypography.title,
-      ),
+      title: Text('New Version Available (${update.tagName})'),
       content: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 500, maxHeight: 500),
         child: SingleChildScrollView(
@@ -50,20 +46,20 @@ class UpdateDialog extends StatelessWidget {
             appUpdateService.setIgnoreVersion(update.tagName);
             Navigator.of(context).pop();
           },
-          child: const Text('Ignore this version', style: AppTypography.body),
+          child: const Text('Ignore this version'),
         ),
         OutlinedButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: const Text('Remind me later', style: AppTypography.body),
+          child: const Text('Remind me later'),
         ),
         FilledButton(
           onPressed: () async {
             Navigator.of(context).pop();
             await appUpdateService.launchUpdate(update);
           },
-          child: const Text('Update', style: AppTypography.body),
+          child: const Text('Update'),
         ),
       ],
     );
@@ -83,11 +79,8 @@ class UpdateDialog extends StatelessWidget {
     return showDialog(
       context: context,
       builder: (_) => const AlertDialog(
-        title: Text('No Updates', style: AppTypography.title),
-        content: Text(
-          'You have the latest version.',
-          style: AppTypography.body,
-        ),
+        title: Text('No Updates'),
+        content: Text('You have the latest version.'),
       ),
     );
   }

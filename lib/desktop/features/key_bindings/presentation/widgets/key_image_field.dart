@@ -5,7 +5,6 @@ import 'package:streamkeys/common/widgets/forms/field_label.dart';
 import 'package:streamkeys/common/widgets/image/image_preview.dart';
 import 'package:streamkeys/core/constants/colors.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
-import 'package:streamkeys/core/constants/typography.dart';
 import 'package:streamkeys/desktop/utils/helper_functions.dart';
 
 class KeyImageField extends StatefulWidget {
@@ -88,10 +87,10 @@ class _KeyImageFieldState extends State<KeyImageField> {
   }
 
   Widget _buildButtonText() {
-    return const Text(
+    return Text(
       'Upload\nyour\nimage',
       textAlign: TextAlign.center,
-      style: AppTypography.caption,
+      style: TextTheme.of(context).bodySmall,
     );
   }
 }

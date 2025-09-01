@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:streamkeys/core/constants/typography.dart';
 import 'package:streamkeys/mobile/features/api_connection/data/models/api_connection_data.dart';
 import 'package:streamkeys/mobile/features/api_connection/presentation/widgets/api_connection_dialog.dart';
 
@@ -16,10 +15,7 @@ class ApiConnectionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: const Text(
-        'HTTP Server connection',
-        style: AppTypography.bodyStrong,
-      ),
+      title: const Text('HTTP Server connection'),
       onTap: () async {
         final result = await ApiConnectionDialog.showConfigDialog(
           context,

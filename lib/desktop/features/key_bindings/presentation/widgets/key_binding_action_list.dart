@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/forms/field_label.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
-import 'package:streamkeys/core/constants/typography.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/binding_action.dart';
 import 'package:streamkeys/desktop/features/key_bindings/presentation/widgets/binding_action_drop_zone.dart';
 import 'package:streamkeys/desktop/features/key_bindings/presentation/widgets/binding_action_tile.dart';
@@ -38,6 +37,7 @@ class KeyBindingActionList extends StatelessWidget {
               child: BindingActionDropZone(
                 onActionAdded: onActionAdded,
                 child: _buildPlaceholder(
+                  context,
                   child: ReorderableListView.builder(
                     buildDefaultDragHandles: false,
                     itemCount: actions.length,
@@ -70,12 +70,12 @@ class KeyBindingActionList extends StatelessWidget {
     );
   }
 
-  Widget _buildPlaceholder({required Widget child}) {
+  Widget _buildPlaceholder(BuildContext context, {required Widget child}) {
     if (actions.isEmpty) {
-      return const Center(
+      return Center(
         child: Text(
           'Drag an action from right, place it on the button or here',
-          style: AppTypography.bodyStrong,
+          style: TextTheme.of(context).bodyMedium,
         ),
       );
     }

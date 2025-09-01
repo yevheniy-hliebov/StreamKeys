@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/color_picker/custom_color_picker.dart';
 import 'package:streamkeys/core/constants/colors.dart';
-import 'package:streamkeys/core/constants/typography.dart';
 
 class ColorPickerDialog extends StatelessWidget {
   late final ColorPickerController controller;
@@ -14,7 +13,7 @@ class ColorPickerDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: AppColors.of(context).background,
-      title: const Text('Select a color', style: AppTypography.bodyStrong),
+      title: const Text('Select a color'),
       content: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 400),
         child: ColorPickerControls(controller: controller),
@@ -26,7 +25,7 @@ class ColorPickerDialog extends StatelessWidget {
               Navigator.of(context).pop();
             }
           },
-          child: const Text('Cancel', style: AppTypography.body),
+          child: const Text('Cancel'),
         ),
         FilledButton(
           onPressed: () {
@@ -34,7 +33,7 @@ class ColorPickerDialog extends StatelessWidget {
               Navigator.of(context).pop(controller.pickerColor);
             }
           },
-          child: const Text('Select', style: AppTypography.body),
+          child: const Text('Select'),
         ),
       ],
     );

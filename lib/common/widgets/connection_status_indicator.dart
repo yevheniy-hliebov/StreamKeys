@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:streamkeys/common/models/connection_status.dart';
 import 'package:streamkeys/core/constants/colors.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
-import 'package:streamkeys/core/constants/typography.dart';
 
 class ConnectionStatusIndicator extends StatelessWidget {
   final String label;
@@ -62,7 +61,7 @@ class ConnectionStatusIndicator extends StatelessWidget {
               ),
               Text(
                 label,
-                style: AppTypography.caption.copyWith(
+                style: TextTheme.of(context).bodySmall?.copyWith(
                   color: AppColors.of(context).onSurface,
                 ),
               ),

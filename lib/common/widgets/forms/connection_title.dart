@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/common/models/connection_status.dart';
 import 'package:streamkeys/core/constants/colors.dart';
-import 'package:streamkeys/core/constants/typography.dart';
 
 class ConnectionTitle extends StatelessWidget {
   final String title;
@@ -31,10 +30,10 @@ class ConnectionTitle extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title, style: AppTypography.bodyStrong),
+          Text(title, style: TextTheme.of(context).bodyLarge),
           Text(
             connectionStatus,
-            style: AppTypography.caption.copyWith(color: statusColor),
+            style: TextTheme.of(context).bodySmall?.copyWith(color: statusColor),
           ),
         ],
       ),
