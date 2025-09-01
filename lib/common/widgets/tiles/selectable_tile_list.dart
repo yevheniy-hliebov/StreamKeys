@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:streamkeys/common/widgets/helpers/for.dart';
 import 'package:streamkeys/core/constants/colors.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
-import 'package:streamkeys/core/constants/typography.dart';
 
 class SelectableTileList<T> extends StatelessWidget {
   final String title;
@@ -29,7 +28,7 @@ class SelectableTileList<T> extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       spacing: Spacing.md,
       children: [
-        Text(title, style: AppTypography.captionStrong),
+        Text(title, style: TextTheme.of(context).bodyLarge),
         Container(
           decoration: BoxDecoration(
             color: AppColors.of(context).surface,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:github_updater/github_updater.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
-import 'package:streamkeys/core/constants/typography.dart';
 import 'package:streamkeys/service_locator.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 
@@ -17,7 +16,7 @@ class UpdateDialog extends StatelessWidget {
     return AlertDialog(
       title: Text(
         'New Version Available (${update.tagName})',
-        style: AppTypography.title,
+        style: TextTheme.of(context).titleMedium,
       ),
       content: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 500, maxHeight: 500),
@@ -50,20 +49,20 @@ class UpdateDialog extends StatelessWidget {
             appUpdateService.setIgnoreVersion(update.tagName);
             Navigator.of(context).pop();
           },
-          child: const Text('Ignore this version', style: AppTypography.body),
+          child: Text('Ignore this version', style: TextTheme.of(context).bodyMedium),
         ),
         OutlinedButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: const Text('Remind me later', style: AppTypography.body),
+          child: Text('Remind me later', style: TextTheme.of(context).bodyMedium),
         ),
         FilledButton(
           onPressed: () async {
             Navigator.of(context).pop();
             await appUpdateService.launchUpdate(update);
           },
-          child: const Text('Update', style: AppTypography.body),
+          child: Text('Update', style: TextTheme.of(context).bodyMedium),
         ),
       ],
     );
@@ -82,11 +81,11 @@ class UpdateDialog extends StatelessWidget {
   static Future<void> showNoUpdatesDialog(BuildContext context) {
     return showDialog(
       context: context,
-      builder: (_) => const AlertDialog(
-        title: Text('No Updates', style: AppTypography.title),
+      builder: (_) => AlertDialog(
+        title: Text('No Updates', style: TextTheme.of(context).titleMedium),
         content: Text(
           'You have the latest version.',
-          style: AppTypography.body,
+          style: TextTheme.of(context).bodyMedium,
         ),
       ),
     );

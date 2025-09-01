@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streamkeys/core/constants/colors.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
-import 'package:streamkeys/core/constants/typography.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/data/models/deck_page.dart';
 
 class DeckPageListTile extends StatelessWidget {
@@ -49,7 +48,7 @@ class DeckPageListTile extends StatelessWidget {
     if (isEditing && isCurrent) {
       return _buildTextField(context);
     }
-    return Text(page.name, style: AppTypography.body);
+    return Text(page.name, style: TextTheme.of(context).bodyMedium);
   }
 
   TextFormField _buildTextField(BuildContext context) {

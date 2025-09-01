@@ -16,7 +16,7 @@ class AppOutlinedButtonThemeData {
         side: WidgetStateProperty.all(_borderSide(colors.outline)),
         foregroundColor: WidgetStateProperty.all(colors.onBackground),
         textStyle: WidgetStateProperty.all(
-          AppTypography.body.copyWith(color: colors.onBackground),
+          AppTextTheme.theme.bodyMedium?.copyWith(color: colors.onBackground),
         ),
         backgroundColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.hovered)) {

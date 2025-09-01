@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:streamkeys/core/constants/typography.dart';
 import 'package:streamkeys/core/app_update/presentation/widgets/update_dialog.dart';
 import 'package:streamkeys/core/app_update/presentation/widgets/version_status_menu.dart';
 import 'package:streamkeys/service_locator.dart';
@@ -29,7 +28,7 @@ class AppVersionStatus extends StatelessWidget {
       onCheckUpdate: checkUpdateHandler,
       child: Text(
         appUpdateService.getCurrentVersion(),
-        style: AppTypography.captionStrong,
+        style: TextTheme.of(context).labelSmall,
       ),
     );
   }

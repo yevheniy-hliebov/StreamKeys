@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:native_device_orientation/native_device_orientation.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
-import 'package:streamkeys/core/constants/typography.dart';
 
 class AppShell extends StatelessWidget {
   final Widget? leading;
@@ -23,7 +22,7 @@ class AppShell extends StatelessWidget {
     return NativeDeviceOrientedWidget(
       useSensor: true,
       portrait: (context) {
-        return builder(_appBar, true, false);
+        return builder(_buildAppBar(context), true, false);
       },
       landscapeLeft: (context) {
         return builder(_sideBar(context, true), false, true);
@@ -40,11 +39,11 @@ class AppShell extends StatelessWidget {
     );
   }
 
-  Widget get _appBar {
+  Widget _buildAppBar(BuildContext context) {
     return AppBar(
       leading: leading,
       centerTitle: true,
-      title: Text(title, style: AppTypography.subtitle),
+      title: Text(title, style: TextTheme.of(context).titleSmall),
       actions: actions,
     );
   }
@@ -56,7 +55,7 @@ class AppShell extends StatelessWidget {
       quarterTurns: isLeft ? 3 : 1,
       child: Text(
         title,
-        style: AppTypography.subtitle,
+        style: TextTheme.of(context).titleSmall,
         textAlign: TextAlign.center,
       ),
     );

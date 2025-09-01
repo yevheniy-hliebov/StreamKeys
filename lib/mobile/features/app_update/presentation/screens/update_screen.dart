@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:github_updater/github_updater.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
-import 'package:streamkeys/core/constants/typography.dart';
 import 'package:streamkeys/mobile/features/app_update/bloc/apk_download_bloc.dart';
 import 'package:streamkeys/mobile/features/dashboard/presentation/widgets/app_shell.dart';
 
@@ -39,10 +38,10 @@ class _UpdateScreenState extends State<UpdateScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
+              Text(
                 'Download apk file',
                 textAlign: TextAlign.center,
-                style: AppTypography.bodyStrong,
+                style: TextTheme.of(context).bodyLarge,
               ),
               Text(
                 'Progress: ${state.progress ?? 0}%',

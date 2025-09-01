@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:streamkeys/common/widgets/tabs/page_tab.dart';
 import 'package:streamkeys/core/constants/colors.dart';
 import 'package:streamkeys/core/constants/spacing.dart';
-import 'package:streamkeys/core/constants/typography.dart';
 import 'package:streamkeys/desktop/features/twitch/bloc/twitch_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -53,11 +52,11 @@ class TwitchSettingsScreen extends StatelessWidget with PageTab {
           ),
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 200 * 2 + Spacing.xs),
-            child: const Text(
+            child: Text(
               'Connect your Twitch account separately for Broadcaster and Bot. '
               'Broadcaster login allows you to manage your stream: change title, category, make announcements, and clear chat. '
               'Bot login is optional - it allows sending messages or making announcements in chat on behalf of the bot.',
-              style: AppTypography.caption,
+              style: TextTheme.of(context).bodySmall,
               textAlign: TextAlign.justify,
             ),
           ),
@@ -130,12 +129,12 @@ class TwitchUserCard extends StatelessWidget {
                         children: [
                           Text(
                             (userInfo.displayName).characters.join('\u200B'),
-                            style: AppTypography.bodyStrong,
+                            style: TextTheme.of(context).bodyLarge,
                             maxLines: 2,
                             softWrap: true,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          Text(roleName, style: AppTypography.caption),
+                          Text(roleName, style: TextTheme.of(context).bodySmall),
                         ],
                       ),
                     ),
@@ -160,7 +159,7 @@ class TwitchUserCard extends StatelessWidget {
       spacing: Spacing.xs,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(roleName, style: AppTypography.body),
+        Text(roleName, style: TextTheme.of(context).bodyMedium),
         FilledButton(
           onPressed: () {
             context.read<TwitchBloc>().add(TwitchLogin(isBot: isBot));
