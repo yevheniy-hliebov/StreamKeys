@@ -6,12 +6,15 @@ import 'package:streamkeys/core/cursor_status/widgets/cursor_status.dart';
 import 'package:streamkeys/desktop/features/action_library/data/models/action_registry.dart';
 import 'package:streamkeys/core/app_update/presentation/widgets/app_version_status.dart';
 import 'package:streamkeys/core/app_update/presentation/widgets/update_dialog.dart';
+import 'package:streamkeys/desktop/features/connection/bloc/integration_connection_bloc.dart';
 import 'package:streamkeys/desktop/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:streamkeys/common/widgets/tabs/page_tab.dart';
 import 'package:streamkeys/desktop/features/deck/presentation/screens/grid_deck_screen.dart';
 import 'package:streamkeys/desktop/features/deck/presentation/screens/keyboard_deck_screen.dart';
 import 'package:streamkeys/desktop/features/deck_page_list/bloc/deck_page_list_bloc.dart';
+import 'package:streamkeys/desktop/features/hidmacros/bloc/connection/hidmacros_connection_bloc.dart';
 import 'package:streamkeys/desktop/features/hidmacros/bloc/hidmacros_bloc.dart';
+import 'package:streamkeys/desktop/features/hidmacros/presentation/widgets/hidmacros_connection_status_indicator.dart';
 import 'package:streamkeys/desktop/features/obs/bloc/connection/obs_connection_bloc.dart';
 import 'package:streamkeys/desktop/features/obs/presentations/screen/obs_settings_screen.dart';
 import 'package:streamkeys/desktop/features/obs/presentations/widgets/obs_connection_status_indicator.dart';
@@ -90,6 +93,12 @@ void desktopMain() async {
         BlocProvider<GridDeckPageListBloc>(create: (_) => gridDeckBloc),
         BlocProvider<KeyboardDeckPageListBloc>(create: (_) => keyboardDeckBloc),
         BlocProvider<HidMacrosBloc>(create: (context) => hidmacrosBloc),
+        BlocProvider<HidMacrosConnectionBloc>(
+          create: (context) => HidMacrosConnectionBloc(
+            subcription: hidmacros.statusMonitor.status,
+            check: hidmacros.statusMonitor.checkStatus,
+          )..add(IntegrationConnectionCheck()),
+        ),
         BlocProvider<ObsConnectionBloc>(
           create: (context) => ObsConnectionBloc(obs),
         ),
@@ -124,6 +133,7 @@ void desktopMain() async {
                 ),
               ),
             ),
+            const HidMacrosStatusIndicator(),
             const TwitchConnectionStatusIndicator(),
             const StreamerBotConnectionStatusIndicator(),
             const ObsConnectionStatusIndicator(),

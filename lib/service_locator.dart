@@ -90,6 +90,7 @@ Future<void> initServiceLocator() async {
       logger: logger,
       process: hidmacrosProcess,
     );
+
     final hidmacrosXml = HidMacrosXmlService();
     final hidMacrosPreferences = HidMacrosPreferences(sharedPreferences);
 

@@ -1,13 +1,17 @@
+import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_connection_watcher.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_process.dart';
 import 'package:streamkeys/desktop/utils/logger.dart';
 import 'package:streamkeys/service_locator.dart';
 
 class HidMacrosService {
-  final IHidMacrosProcess process;
   final ILogger _logger;
+  final IHidMacrosProcess process;
+  late final IHidMacrosStatusMonitor statusMonitor;
 
-  const HidMacrosService({required this.process, required ILogger logger})
-    : _logger = logger;
+  HidMacrosService({required ILogger logger, required this.process})
+    : _logger = logger {
+    statusMonitor = HidMacrosStatusMonitor(process);
+  }
 
   Future<void> startAndEnsureConfig() async {
     await process.start();
