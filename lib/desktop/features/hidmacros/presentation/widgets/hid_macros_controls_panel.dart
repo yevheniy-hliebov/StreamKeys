@@ -39,7 +39,7 @@ class HidMacrosControlsPanel extends StatelessWidget {
                   ),
                   const SizedBox(width: Spacing.xs),
                   OutlinedButton(
-                    onPressed: hidmacros.process.restart,
+                    onPressed: () => hidmacros.process.restart(shouldStart: true),
                     child: const Text('Restart'),
                   ),
                   const SizedBox(width: Spacing.xs),
