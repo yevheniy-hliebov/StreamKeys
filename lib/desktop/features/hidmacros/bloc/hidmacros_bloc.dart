@@ -42,7 +42,7 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
     await _repository.init();
 
     hidmacrosConfig = hidmacrosConfig.copyWith(
-      autoStart: _repository.getAutoStart(),
+      autoStart: _hidmacros.autoStartPrefs.getAutoStart(),
       minimizeToTray: _repository.getMinimizeToTray(),
       startMinimized: _repository.getStartMinimized(),
     );
@@ -60,7 +60,7 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
     Emitter<HidMacrosState> emit,
   ) async {
     hidmacrosConfig = hidmacrosConfig.copyWith(autoStart: event.enabled);
-    await _repository.saveAutoStart(event.enabled);
+    await _hidmacros.autoStartPrefs.setAutoStart(event.enabled);
 
     _emitLoaded(emit);
   }

@@ -43,8 +43,7 @@ void desktopMain() async {
   server.start();
 
   final hidmacros = sl<HidMacrosService>();
-  final hidmacrosPrefs = sl<HidMacrosPreferences>();
-  if (hidmacrosPrefs.getAutoStart()) {
+  if (hidmacros.autoStartPrefs.getAutoStart()) {
     await hidmacros.startAndEnsureConfig();
   }
 

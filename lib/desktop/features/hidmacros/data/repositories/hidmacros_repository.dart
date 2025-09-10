@@ -14,10 +14,6 @@ class HidMacrosRepository {
 
   Future<void> init() async => _xml.read();
 
-  Future<void> saveAutoStart(bool value) => _keyboardPrefs.saveAutoStart(value);
-
-  bool getAutoStart() => _keyboardPrefs.getAutoStart();
-
   Future<void> setMinimizeToTray(bool enabled) async {
     _xml.setMinimizeToTray(enabled);
     await _xml.save();

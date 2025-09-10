@@ -8,6 +8,7 @@ import 'package:streamkeys/core/storage/generic_secure_storage.dart';
 import 'package:streamkeys/core/app_update/data/services/app_update_preferences.dart';
 import 'package:streamkeys/core/app_update/data/services/app_update_service.dart';
 import 'package:streamkeys/core/app_update/data/services/windows_updater_launcher.dart';
+import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_auto_start_service.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_preferences.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_process.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_service.dart';
@@ -86,9 +87,12 @@ Future<void> initServiceLocator() async {
       logger: logger,
     );
 
+    final hidmacrosAutoStartPrefs = HidMacrosAutoStartPreferences(sharedPreferences);
+
     final hidmacros = HidMacrosService(
       logger: logger,
       process: hidmacrosProcess,
+      autoStartPrefs: hidmacrosAutoStartPrefs,
     );
 
     final hidmacrosXml = HidMacrosXmlService();
