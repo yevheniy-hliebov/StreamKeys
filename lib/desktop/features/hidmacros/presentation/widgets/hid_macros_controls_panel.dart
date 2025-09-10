@@ -34,17 +34,17 @@ class HidMacrosControlsPanel extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   OutlinedButton(
-                    onPressed: hidmacros.start,
+                    onPressed: hidmacros.process.start,
                     child: const Text('Start'),
                   ),
                   const SizedBox(width: Spacing.xs),
                   OutlinedButton(
-                    onPressed: hidmacros.restart,
+                    onPressed: hidmacros.process.restart,
                     child: const Text('Restart'),
                   ),
                   const SizedBox(width: Spacing.xs),
                   OutlinedButton(
-                    onPressed: hidmacros.stop,
+                    onPressed: hidmacros.process.stop,
                     child: const Text('Stop'),
                   ),
                 ],

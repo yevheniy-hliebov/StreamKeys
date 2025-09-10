@@ -38,9 +38,9 @@ class _ServerPasswordFieldState extends State<ServerPasswordField> {
     final password = await _passwordService.generateAndSavePassword();
     _controller.text = password;
 
-    await _hidmacros.restart(
-      autoStart: sl<HidMacrosPreferences>().getAutoStart(),
-      waitDuration: const Duration(seconds: 5),
+    await _hidmacros.process.restart(
+      shouldStart: sl<HidMacrosPreferences>().getAutoStart(),
+      timoutAfterStop: const Duration(seconds: 5),
       onBetween: () async {
         _hidmacrosXml.updateApiPassword(password);
         await _hidmacrosXml.save();

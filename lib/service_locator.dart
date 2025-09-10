@@ -9,6 +9,7 @@ import 'package:streamkeys/core/app_update/data/services/app_update_preferences.
 import 'package:streamkeys/core/app_update/data/services/app_update_service.dart';
 import 'package:streamkeys/core/app_update/data/services/windows_updater_launcher.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_preferences.dart';
+import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_process.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_service.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_xml_service.dart';
 import 'package:streamkeys/desktop/features/obs/data/models/obs_connection_data.dart';
@@ -20,7 +21,10 @@ import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbo
 import 'package:streamkeys/desktop/features/twitch/data/services/twitch_api_service.dart';
 import 'package:streamkeys/desktop/features/twitch/data/services/twitch_auth_checker.dart';
 import 'package:streamkeys/desktop/features/twitch/data/services/twitch_token_service.dart';
+import 'package:streamkeys/desktop/utils/helper_functions.dart';
 import 'package:streamkeys/desktop/utils/launch_file_or_app_service.dart';
+import 'package:streamkeys/desktop/utils/logger.dart';
+import 'package:streamkeys/desktop/utils/nircmd.dart';
 import 'package:streamkeys/desktop/utils/process_runner.dart';
 import 'package:streamkeys/mobile/features/api_connection/data/models/api_connection_data.dart';
 import 'package:streamkeys/mobile/features/buttons/data/services/http_buttons_api.dart';
@@ -70,7 +74,22 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton<AppUpdateService>(() => appUpdateService);
 
   if (Platform.isWindows) {
-    final hidmacros = HidMacrosService(RealProcessRunner());
+    final logger = Logger();
+    final assetsPath = HelperFunctions.getAssetsFolderPath();
+
+    final Nircmd nircmd = Nircmd(logger: logger, assetsPath: assetsPath);
+
+    final hidmacrosProcess = HidMacrosProcess(
+      assetsPath: assetsPath,
+      runner: RealProcessRunner(),
+      nircmd: nircmd.getFile(),
+      logger: logger,
+    );
+
+    final hidmacros = HidMacrosService(
+      logger: logger,
+      process: hidmacrosProcess,
+    );
     final hidmacrosXml = HidMacrosXmlService();
     final hidMacrosPreferences = HidMacrosPreferences(sharedPreferences);
 
