@@ -9,7 +9,6 @@ import 'package:streamkeys/core/app_update/data/services/app_update_preferences.
 import 'package:streamkeys/core/app_update/data/services/app_update_service.dart';
 import 'package:streamkeys/core/app_update/data/services/windows_updater_launcher.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_auto_start_service.dart';
-import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_preferences.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_process.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_service.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_xml_service.dart';
@@ -35,7 +34,6 @@ export 'package:flutter_secure_storage/flutter_secure_storage.dart';
 export 'package:streamkeys/core/storage/generic_secure_storage.dart';
 export 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_service.dart';
 export 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_xml_service.dart';
-export 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_preferences.dart';
 export 'package:streamkeys/desktop/features/settings/data/services/http_server_password_service.dart';
 export 'package:streamkeys/desktop/utils/launch_file_or_app_service.dart';
 export 'package:streamkeys/desktop/features/obs/data/services/obs_service.dart';
@@ -96,7 +94,6 @@ Future<void> initServiceLocator() async {
     );
 
     final hidmacrosXml = HidMacrosXmlService();
-    final hidMacrosPreferences = HidMacrosPreferences(sharedPreferences);
 
     final apiPasswordService = HttpServerPasswordService(secureStorage);
 
@@ -121,7 +118,6 @@ Future<void> initServiceLocator() async {
 
     sl.registerLazySingleton<HidMacrosService>(() => hidmacros);
     sl.registerLazySingleton<HidMacrosXmlService>(() => hidmacrosXml);
-    sl.registerLazySingleton<HidMacrosPreferences>(() => hidMacrosPreferences);
 
     sl.registerLazySingleton<HttpServerPasswordService>(
       () => apiPasswordService,

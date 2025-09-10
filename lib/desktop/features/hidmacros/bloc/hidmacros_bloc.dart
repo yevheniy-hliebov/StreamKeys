@@ -19,10 +19,12 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
   KeyboardType? selectedKeyboardType;
   HidMacrosConfig hidmacrosConfig = const HidMacrosConfig();
 
-  HidMacrosBloc({HidMacrosRepository? repository, HidMacrosService? hidmacros})
-    : _repository = repository ?? HidMacrosRepository(),
-      _hidmacros = hidmacros ?? sl<HidMacrosService>(),
-      super(HidMacrosInitial()) {
+  HidMacrosBloc({
+    required HidMacrosRepository repository,
+    required HidMacrosService hidmacros,
+  }) : _repository = repository,
+       _hidmacros = hidmacros,
+       super(HidMacrosInitial()) {
     on<HidMacrosLoadEvent>(_load);
 
     on<HidMacrosToggleAutoStartEvent>(_toogleAutoStart);
