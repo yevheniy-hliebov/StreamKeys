@@ -14,8 +14,6 @@ import 'package:streamkeys/desktop/features/deck/presentation/screens/keyboard_d
 import 'package:streamkeys/desktop/features/deck_page_list/bloc/deck_page_list_bloc.dart';
 import 'package:streamkeys/desktop/features/hidmacros/bloc/connection/hidmacros_connection_bloc.dart';
 import 'package:streamkeys/desktop/features/hidmacros/bloc/hidmacros_bloc.dart';
-import 'package:streamkeys/desktop/features/hidmacros/data/repositories/hidmacros_repository.dart';
-import 'package:streamkeys/desktop/features/hidmacros/data/services/keyboard_service.dart';
 import 'package:streamkeys/desktop/features/hidmacros/presentation/widgets/hidmacros_connection_status_indicator.dart';
 import 'package:streamkeys/desktop/features/obs/bloc/connection/obs_connection_bloc.dart';
 import 'package:streamkeys/desktop/features/obs/presentations/screen/obs_settings_screen.dart';
@@ -45,19 +43,11 @@ void desktopMain() async {
   server.start();
 
   final hidmacros = sl<HidMacrosService>();
-  if (hidmacros.autoStartPrefs.getAutoStart()) {
-    await hidmacros.startAndEnsureConfig();
-  }
+  await hidmacros.ensureConfigAndStart();
 
   final gridDeckBloc = GridDeckPageListBloc();
   final keyboardDeckBloc = KeyboardDeckPageListBloc();
-  final hidmacrosBloc = HidMacrosBloc(
-    hidmacros: hidmacros,
-    repository: HidMacrosRepository(
-      keyboardService: KeyboardService(sl<SharedPreferences>()),
-      xmlService: sl<HidMacrosXmlService>(),
-    ),
-  );
+  final hidmacrosBloc = HidMacrosBloc(hidmacros: hidmacros);
 
   gridDeckBloc.add(DeckPageListInit());
   keyboardDeckBloc.add(DeckPageListInit());

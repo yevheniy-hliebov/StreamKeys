@@ -17,7 +17,6 @@ class _ServerPasswordFieldState extends State<ServerPasswordField> {
   bool _isLoading = false;
   final _passwordService = sl<HttpServerPasswordService>();
   final _hidmacros = sl<HidMacrosService>();
-  final _hidmacrosXml = sl<HidMacrosXmlService>();
 
   @override
   void initState() {
@@ -42,8 +41,8 @@ class _ServerPasswordFieldState extends State<ServerPasswordField> {
       shouldStart: _hidmacros.autoStartPrefs.getAutoStart(),
       timoutAfterStop: const Duration(seconds: 5),
       onBetween: () async {
-        _hidmacrosXml.updateApiPassword(password);
-        await _hidmacrosXml.save();
+        _hidmacros.config.macros.updatePasswordInMacros(password);
+        await _hidmacros.config.save();
       },
     );
 
