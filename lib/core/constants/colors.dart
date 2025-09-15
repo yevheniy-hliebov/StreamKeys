@@ -19,6 +19,8 @@ class AppColors {
     outlineVariant: Color(0xFF797979),
     keyButtonBackground: Color(0xFFF5F5F5),
     shadow: Color(0xFF000000),
+    disabledFill: Color(0xFFDADADA),
+    onDisabled: Color(0xFF9A9A9A),
   );
 
   /// Returns color palette for dark theme.
@@ -38,6 +40,8 @@ class AppColors {
     outlineVariant: Color(0xFF202020),
     keyButtonBackground: Color(0xFF3E3E3E),
     shadow: Color(0xFF000000),
+    disabledFill: Color(0xFF4A4A4A),
+    onDisabled: Color(0xFF828282),
   );
 
   /// Returns theme-specific color palette based on [Brightness].
@@ -63,6 +67,8 @@ class AppColorsData {
   final Color outlineVariant;
   final Color keyButtonBackground;
   final Color shadow;
+  final Color disabledFill;
+  final Color onDisabled;
 
   const AppColorsData({
     required this.primary,
@@ -80,5 +86,7 @@ class AppColorsData {
     required this.outlineVariant,
     required this.keyButtonBackground,
     required this.shadow,
+    required this.disabledFill,
+    required this.onDisabled,
   });
 }

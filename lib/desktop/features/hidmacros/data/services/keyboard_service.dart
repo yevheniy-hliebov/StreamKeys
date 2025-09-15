@@ -22,7 +22,7 @@ class KeyboardService implements IKeyboardService {
 
   static const _selectedKeyboardIdKey = 'selected_keyboard_id';
   static const _selectedKeyboardNameKey = 'selected_keyboard_name';
-  static const _keyboardTypeKey = 'keyboard_type';
+  static const _keyboardTypeKey = 'selected_keyboard_type';
 
   @override
   Future<List<String>> getIds() async {
