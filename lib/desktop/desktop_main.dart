@@ -47,7 +47,7 @@ void desktopMain() async {
 
   final gridDeckBloc = GridDeckPageListBloc();
   final keyboardDeckBloc = KeyboardDeckPageListBloc();
-  final hidmacrosBloc = HidMacrosBloc(hidmacros: hidmacros);
+  final hidmacrosBloc = HidMacrosBloc(repo: HidMacrosRepository(hidmacros));
 
   gridDeckBloc.add(DeckPageListInit());
   keyboardDeckBloc.add(DeckPageListInit());
