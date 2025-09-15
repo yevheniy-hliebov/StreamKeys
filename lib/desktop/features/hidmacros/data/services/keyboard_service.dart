@@ -32,15 +32,18 @@ class KeyboardService implements IKeyboardService {
 
   @override
   Future<void> setSelectedKeyboard(KeyboardDevice keyboard) async {
-    await _prefs.setString(_selectedKeyboardIdKey, keyboard.systemId);
+    await _prefs.setString(_selectedKeyboardIdKey, Uri.encodeComponent(keyboard.systemId));
     await _prefs.setString(_selectedKeyboardNameKey, keyboard.name);
   }
 
   @override
   KeyboardDevice? getSelectedKeyboard() {
-    final id = _prefs.getString(_selectedKeyboardIdKey);
+    final encodedId = _prefs.getString(_selectedKeyboardIdKey);
     final name = _prefs.getString(_selectedKeyboardNameKey);
-    if (id == null || name == null) return null;
+    
+    if (encodedId  == null || name == null) return null;
+
+    final id = Uri.decodeComponent(encodedId);
     return KeyboardDevice(name, id);
   }
 
