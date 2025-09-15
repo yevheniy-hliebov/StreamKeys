@@ -5,8 +5,9 @@ import 'package:streamkeys/desktop/utils/process_runner.dart';
 
 abstract class IHidMacrosProcess {
   Future<void> start();
-  Future<void> stop();
+  Future<void> stop({bool force = false});
   Future<void> restart({
+    bool force = false,
     Duration timoutAfterStop,
     Future<void> Function()? onBetween,
     bool shouldStart,
@@ -68,13 +69,13 @@ class HidMacrosProcess implements IHidMacrosProcess {
   }
 
   @override
-  Future<void> stop() async {
+  Future<void> stop({bool force = false}) async {
     if (_nircmd == null) return;
 
     try {
       final result = await _runner.run(_nircmd.path, [
         'elevatecmd',
-        'closeprocess',
+        force ? 'killprocess' : 'closeprocess',
         _filename,
       ]);
 
@@ -90,12 +91,13 @@ class HidMacrosProcess implements IHidMacrosProcess {
 
   @override
   Future<void> restart({
+    bool force = false,
     Duration timoutAfterStop = const Duration(seconds: 5),
     Future<void> Function()? onBetween,
     bool shouldStart = false,
   }) async {
     if (await getStatus()) {
-      await stop();
+      await stop(force: force);
       _log('Stopped. ${shouldStart ? 'Restarting...' : ''}');
     }
 
