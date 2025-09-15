@@ -9,16 +9,22 @@ sealed class HidMacrosEvent extends Equatable {
 
 class HidMacrosLoadEvent extends HidMacrosEvent {}
 
+class HidMacrosSelectKeyboardEvent extends HidMacrosEvent {
+  final KeyboardDevice keyboard;
+
+  const HidMacrosSelectKeyboardEvent(this.keyboard);
+}
+
 class HidMacrosSelectKeyboardTypeEvent extends HidMacrosEvent {
   final KeyboardType type;
 
   const HidMacrosSelectKeyboardTypeEvent(this.type);
 }
 
-class HidMacrosSelectKeyboardEvent extends HidMacrosEvent {
-  final KeyboardDevice keyboard;
+class HidMacrosSelectKeyboardTypeAndSaveEvent extends HidMacrosEvent {
+  final KeyboardType type;
 
-  const HidMacrosSelectKeyboardEvent(this.keyboard);
+  const HidMacrosSelectKeyboardTypeAndSaveEvent(this.type);
 }
 
 class HidMacrosToggleAutoStartEvent extends HidMacrosEvent {
@@ -38,3 +44,7 @@ class HidMacrosToggleStartMinizedEvent extends HidMacrosEvent {
 
   const HidMacrosToggleStartMinizedEvent(this.enabled);
 }
+
+class HidMacrosApplyChangesEvent extends HidMacrosEvent {}
+
+class HidMacrosCancelChangesEvent extends HidMacrosEvent {}

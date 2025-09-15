@@ -1,34 +1,74 @@
 part of 'hidmacros_bloc.dart';
 
-sealed class HidMacrosState extends Equatable {
-  const HidMacrosState();
-
-  @override
-  List<Object?> get props => [];
-}
-
-final class HidMacrosInitial extends HidMacrosState {}
-
-class HidMacrosLoaded extends HidMacrosState {
+class HidMacrosState extends Equatable {
   final List<KeyboardDevice> keyboards;
   final KeyboardDevice? selectedKeyboard;
   final KeyboardType? selectedKeyboardType;
-  final HidMacrosConfig hidmacrosConfig;
+  final HidMacrosStartupOptions options;
+  final bool autoStart;
+  final bool isLoading;
 
-  const HidMacrosLoaded({
-    required this.keyboards,
+  final KeyboardDevice? savedKeyboard;
+  final KeyboardType? savedKeyboardType;
+  final HidMacrosStartupOptions savedOptions;
+  final bool savedAutoStart;
+
+  const HidMacrosState({
+    this.keyboards = const [],
     this.selectedKeyboard,
     this.selectedKeyboardType,
-    this.hidmacrosConfig = const HidMacrosConfig(),
+    this.options = const HidMacrosStartupOptions(),
+    this.autoStart = false,
+    this.isLoading = false,
+    this.savedKeyboard,
+    this.savedKeyboardType,
+    this.savedOptions = const HidMacrosStartupOptions(),
+    this.savedAutoStart = false,
   });
+
+  bool get hasChanges =>
+      autoStart != savedAutoStart ||
+      options != savedOptions ||
+      selectedKeyboard != savedKeyboard ||
+      selectedKeyboardType != savedKeyboardType;
+
+  HidMacrosState copyWith({
+    List<KeyboardDevice>? keyboards,
+    KeyboardDevice? selectedKeyboard,
+    KeyboardType? selectedKeyboardType,
+    HidMacrosStartupOptions? options,
+    bool? autoStart,
+    bool? isLoading,
+    KeyboardDevice? savedKeyboard,
+    KeyboardType? savedKeyboardType,
+    HidMacrosStartupOptions? savedOptions,
+    bool? savedAutoStart,
+  }) {
+    return HidMacrosState(
+      keyboards: keyboards ?? this.keyboards,
+      selectedKeyboard: selectedKeyboard ?? this.selectedKeyboard,
+      selectedKeyboardType: selectedKeyboardType ?? this.selectedKeyboardType,
+      options: options ?? this.options,
+      autoStart: autoStart ?? this.autoStart,
+      isLoading: isLoading ?? this.isLoading,
+      savedKeyboard: savedKeyboard ?? this.savedKeyboard,
+      savedKeyboardType: savedKeyboardType ?? this.savedKeyboardType,
+      savedOptions: savedOptions ?? this.savedOptions,
+      savedAutoStart: savedAutoStart ?? this.savedAutoStart,
+    );
+  }
 
   @override
   List<Object?> get props => [
     keyboards,
     selectedKeyboard,
     selectedKeyboardType,
-    hidmacrosConfig,
+    options,
+    autoStart,
+    isLoading,
+    savedKeyboard,
+    savedKeyboardType,
+    savedOptions,
+    savedAutoStart,
   ];
 }
-
-class HidMacrosLoading extends HidMacrosState {}

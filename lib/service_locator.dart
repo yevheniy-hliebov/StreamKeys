@@ -8,9 +8,12 @@ import 'package:streamkeys/core/storage/generic_secure_storage.dart';
 import 'package:streamkeys/core/app_update/data/services/app_update_preferences.dart';
 import 'package:streamkeys/core/app_update/data/services/app_update_service.dart';
 import 'package:streamkeys/core/app_update/data/services/windows_updater_launcher.dart';
-import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_preferences.dart';
+import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_auto_start_service.dart';
+import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_config.dart';
+import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_process.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_service.dart';
-import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_xml_service.dart';
+import 'package:streamkeys/desktop/features/hidmacros/data/services/keyboard_service.dart';
+import 'package:streamkeys/desktop/features/hidmacros/data/services/keycodes.dart';
 import 'package:streamkeys/desktop/features/obs/data/models/obs_connection_data.dart';
 import 'package:streamkeys/desktop/features/obs/data/services/obs_service.dart';
 import 'package:streamkeys/desktop/features/settings/data/services/http_server_password_service.dart';
@@ -20,7 +23,10 @@ import 'package:streamkeys/desktop/features/streamerbot/data/services/streamerbo
 import 'package:streamkeys/desktop/features/twitch/data/services/twitch_api_service.dart';
 import 'package:streamkeys/desktop/features/twitch/data/services/twitch_auth_checker.dart';
 import 'package:streamkeys/desktop/features/twitch/data/services/twitch_token_service.dart';
+import 'package:streamkeys/desktop/utils/helper_functions.dart';
 import 'package:streamkeys/desktop/utils/launch_file_or_app_service.dart';
+import 'package:streamkeys/desktop/utils/logger.dart';
+import 'package:streamkeys/desktop/utils/nircmd.dart';
 import 'package:streamkeys/desktop/utils/process_runner.dart';
 import 'package:streamkeys/mobile/features/api_connection/data/models/api_connection_data.dart';
 import 'package:streamkeys/mobile/features/buttons/data/services/http_buttons_api.dart';
@@ -29,8 +35,6 @@ export 'package:shared_preferences/shared_preferences.dart';
 export 'package:flutter_secure_storage/flutter_secure_storage.dart';
 export 'package:streamkeys/core/storage/generic_secure_storage.dart';
 export 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_service.dart';
-export 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_xml_service.dart';
-export 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_preferences.dart';
 export 'package:streamkeys/desktop/features/settings/data/services/http_server_password_service.dart';
 export 'package:streamkeys/desktop/utils/launch_file_or_app_service.dart';
 export 'package:streamkeys/desktop/features/obs/data/services/obs_service.dart';
@@ -70,11 +74,40 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton<AppUpdateService>(() => appUpdateService);
 
   if (Platform.isWindows) {
-    final hidmacros = HidMacrosService(RealProcessRunner());
-    final hidmacrosXml = HidMacrosXmlService();
-    final hidMacrosPreferences = HidMacrosPreferences(sharedPreferences);
-
     final apiPasswordService = HttpServerPasswordService(secureStorage);
+
+    final logger = Logger();
+    final assetsPath = HelperFunctions.getAssetsFolderPath();
+
+    final Nircmd nircmd = Nircmd(logger: logger, assetsPath: assetsPath);
+
+    final hidmacrosProcess = HidMacrosProcess(
+      assetsPath: assetsPath,
+      runner: RealProcessRunner(),
+      nircmd: nircmd.getFile(),
+      logger: logger,
+    );
+
+    final hidmacrosAutoStartPrefs = HidMacrosAutoStartPreferences(
+      sharedPreferences,
+    );
+
+    final keyKodes = KeyCodes();
+    await keyKodes.init();
+
+    final hidmacrosConfig = HidMacrosConfig(
+      assetPath: assetsPath,
+      keyCodes: keyKodes,
+      getPassword: apiPasswordService.loadOrCreatePassword,
+    );
+
+    final hidmacros = HidMacrosService(
+      logger: logger,
+      process: hidmacrosProcess,
+      config: hidmacrosConfig,
+      keyboardService: KeyboardService(sharedPreferences),
+      autoStartPrefs: hidmacrosAutoStartPrefs,
+    );
 
     final launchFileOrAppService = LaunchFileOrAppService(RealProcessRunner());
 
@@ -96,8 +129,6 @@ Future<void> initServiceLocator() async {
     );
 
     sl.registerLazySingleton<HidMacrosService>(() => hidmacros);
-    sl.registerLazySingleton<HidMacrosXmlService>(() => hidmacrosXml);
-    sl.registerLazySingleton<HidMacrosPreferences>(() => hidMacrosPreferences);
 
     sl.registerLazySingleton<HttpServerPasswordService>(
       () => apiPasswordService,

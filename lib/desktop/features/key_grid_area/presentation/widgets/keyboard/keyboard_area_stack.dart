@@ -16,46 +16,59 @@ class KeyboardAreaStack extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HidMacrosBloc, HidMacrosState>(
       builder: (context, state) {
-        if (state is HidMacrosLoaded) {
-          if (state.selectedKeyboard == null) {
-            return const _CenteredConstrained(child: SelectKeyboard());
-          } else if (state.selectedKeyboardType == null) {
-            return const _CenteredConstrained(child: SelectKeyboardType());
-          } else {
-            return Stack(
-              children: [
-                KeyGridArea(
-                  child: KeyboardAreaWrapper(
-                    keyboardType: state.selectedKeyboardType!,
-                  ),
-                ),
-                Positioned(
-                  top: Spacing.md,
-                  left: Spacing.md,
-                  child: CustomDropdownButton(
-                    index: KeyboardType.values.indexOf(
-                      state.selectedKeyboardType!,
-                    ),
-                    itemCount: KeyboardType.values.length,
-                    itemBuilder: (index) {
-                      return Text(KeyboardType.values[index].name);
-                    },
-                    onChanged: (int? newIndex) {
-                      if (newIndex == null) return;
-                      final keyboardType = KeyboardType.values[newIndex];
-                      context.read<HidMacrosBloc>().add(
-                        HidMacrosSelectKeyboardTypeEvent(keyboardType),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            );
-          }
-        } else if (state is HidMacrosLoading) {
-          return const Center(child: CircularProgressIndicator());
+        if (state.selectedKeyboard == null) {
+          return _CenteredConstrained(
+            child: SelectKeyboard(
+              keyboards: state.keyboards,
+              selectedKeyboard: state.selectedKeyboard,
+              onTap: (keyboard) {
+                context.read<HidMacrosBloc>().add(
+                  HidMacrosSelectKeyboardEvent(keyboard),
+                );
+              },
+            ),
+          );
+        } else if (state.selectedKeyboardType == null) {
+          return _CenteredConstrained(
+            child: SelectKeyboardType(
+              selectedType: state.selectedKeyboardType,
+              onTap: (type) {
+                context.read<HidMacrosBloc>().add(
+                  HidMacrosSelectKeyboardTypeAndSaveEvent(type),
+                );
+              },
+            ),
+          );
         } else {
-          return const SizedBox();
+          return Stack(
+            children: [
+              KeyGridArea(
+                child: KeyboardAreaWrapper(
+                  keyboardType: state.selectedKeyboardType!,
+                ),
+              ),
+              Positioned(
+                top: Spacing.md,
+                left: Spacing.md,
+                child: CustomDropdownButton(
+                  index: KeyboardType.values.indexOf(
+                    state.selectedKeyboardType!,
+                  ),
+                  itemCount: KeyboardType.values.length,
+                  itemBuilder: (index) {
+                    return Text(KeyboardType.values[index].name);
+                  },
+                  onChanged: (int? newIndex) {
+                    if (newIndex == null) return;
+                    final keyboardType = KeyboardType.values[newIndex];
+                    context.read<HidMacrosBloc>().add(
+                      HidMacrosSelectKeyboardTypeAndSaveEvent(keyboardType),
+                    );
+                  },
+                ),
+              ),
+            ],
+          );
         }
       },
     );

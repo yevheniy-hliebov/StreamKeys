@@ -1,56 +1,70 @@
+import 'package:streamkeys/desktop/features/hidmacros/data/models/hidmacros_startup_options.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/models/keyboard_device.dart';
+import 'package:streamkeys/desktop/features/hidmacros/data/services/hidmacros_service.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_type.dart';
-import 'package:streamkeys/service_locator.dart';
 
-class HidMacrosRepository {
-  final HidMacrosPreferences _keyboardPrefs;
-  final HidMacrosXmlService _xml;
+abstract class IHidMacrosRepository {
+  Future<void> read();
+  Future<bool> getAutoStart();
+  Future<HidMacrosStartupOptions> getStartupOptions();
+  Future<List<KeyboardDevice>> getKeyboards();
+  KeyboardDevice? getSelectedKeyboard();
+  KeyboardType? getSelectedKeyboardType();
+  Future<void> applyChanges({
+    required KeyboardDevice? selectedKeyboard,
+    required KeyboardType? selectedType,
+    required HidMacrosStartupOptions options,
+    required bool autoStart,
+  });
+}
 
-  HidMacrosRepository({
-    HidMacrosPreferences? keyboardPrefs,
-    HidMacrosXmlService? xmlService,
-  }) : _keyboardPrefs = keyboardPrefs ?? sl<HidMacrosPreferences>(),
-       _xml = xmlService ?? sl<HidMacrosXmlService>();
+class HidMacrosRepository implements IHidMacrosRepository {
+  final HidMacrosService _hidmacros;
 
-  Future<void> init() async => _xml.read();
+  HidMacrosRepository(this._hidmacros);
 
-  Future<void> saveAutoStart(bool value) => _keyboardPrefs.saveAutoStart(value);
-
-  bool getAutoStart() => _keyboardPrefs.getAutoStart();
-
-  Future<void> setMinimizeToTray(bool enabled) async {
-    _xml.setMinimizeToTray(enabled);
-    await _xml.save();
+  @override
+  Future<void> read() async {
+    await _hidmacros.config.read();
   }
 
-  bool getMinimizeToTray() => _xml.getMinimizeToTray();
-
-  Future<void> setStartMinimized(bool enabled) async {
-    _xml.setStartMinimized(enabled);
-    await _xml.save();
+  @override
+  Future<bool> getAutoStart() async {
+    return _hidmacros.autoStartPrefs.getAutoStart();
   }
 
-  bool getStartMinimized() => _xml.getStartMinimized();
-
-  List<KeyboardDevice> getDeviceList() {
-    return _xml.getDevices();
+  @override
+  Future<HidMacrosStartupOptions> getStartupOptions() async {
+    return _hidmacros.config.startup.getStartupOptions();
   }
 
-  Future<void> select({
-    required KeyboardDevice keyboard,
-    required KeyboardType type,
-  }) async {
-    await _keyboardPrefs.saveKeyboard(keyboard);
-    await _keyboardPrefs.saveKeyboardType(type);
-    await _xml.regenerateMacros(
-      keyboard: keyboard,
-      type: type,
-      apiPassword: await sl<HttpServerPasswordService>().loadOrCreatePassword(),
+  @override
+  Future<List<KeyboardDevice>> getKeyboards() {
+    return _hidmacros.config.devices.getDevices();
+  }
+
+  @override
+  KeyboardDevice? getSelectedKeyboard() {
+    return _hidmacros.keyboardService.getSelectedKeyboard();
+  }
+
+  @override
+  KeyboardType? getSelectedKeyboardType() {
+    return _hidmacros.keyboardService.getKeyboardType();
+  }
+
+  @override
+  Future<void> applyChanges({
+    required KeyboardDevice? selectedKeyboard,
+    required KeyboardType? selectedType,
+    required HidMacrosStartupOptions options,
+    required bool autoStart,
+  }) {
+    return _hidmacros.applyChanges(
+      selectedKeyboard: selectedKeyboard,
+      selectedType: selectedType,
+      options: options,
+      autoStart: autoStart,
     );
-    await _xml.save();
   }
-
-  KeyboardDevice? getSelectedKeyboard() => _keyboardPrefs.getSelectedKeyboard();
-
-  KeyboardType? getSelectedKeyboardType() => _keyboardPrefs.getKeyboardType();
 }

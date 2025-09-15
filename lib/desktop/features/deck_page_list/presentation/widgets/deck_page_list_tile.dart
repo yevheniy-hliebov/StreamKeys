@@ -36,6 +36,7 @@ class DeckPageListTile extends StatelessWidget {
         onTap: onSelect,
         trailing: trailing,
         textColor: colors.onBackground,
+        titleTextStyle: TextTheme.of(context).bodyMedium,
         selectedTileColor: colors.primary,
         selectedColor: colors.onPrimary,
         selected: isCurrent,
@@ -48,7 +49,7 @@ class DeckPageListTile extends StatelessWidget {
     if (isEditing && isCurrent) {
       return _buildTextField(context);
     }
-    return Text(page.name, style: TextTheme.of(context).bodyMedium);
+    return Text(page.name);
   }
 
   TextFormField _buildTextField(BuildContext context) {
