@@ -1,31 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:streamkeys/common/widgets/tiles/selectable_tile_list.dart';
-import 'package:streamkeys/desktop/features/hidmacros/bloc/hidmacros_bloc.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/models/keyboard_device.dart';
 
 class SelectKeyboard extends StatelessWidget {
-  const SelectKeyboard({super.key});
+  final List<KeyboardDevice> keyboards;
+  final KeyboardDevice? selectedKeyboard;
+  final void Function(KeyboardDevice keyboard)? onTap;
+
+  const SelectKeyboard({
+    super.key,
+    required this.keyboards,
+    this.selectedKeyboard,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HidMacrosBloc, HidMacrosState>(
-      builder: (context, state) {
-        if (state is! HidMacrosLoaded) return const SizedBox();
-
-        return SelectableTileList<KeyboardDevice>(
-          title: 'Select a keyboard',
-          items: state.keyboards,
-          selectedItem: state.selectedKeyboard,
-          getLabel: (k) => k.name,
-          getTooltip: (k) => k.systemId,
-          onTap: (keyboard) {
-            context.read<HidMacrosBloc>().add(
-              HidMacrosSelectKeyboardEvent(keyboard),
-            );
-          },
-        );
-      },
+    return SelectableTileList<KeyboardDevice>(
+      title: 'Select a keyboard',
+      items: keyboards,
+      selectedItem: selectedKeyboard,
+      getLabel: (k) => k.name,
+      getTooltip: (k) => k.systemId,
+      onTap: onTap,
     );
   }
 }

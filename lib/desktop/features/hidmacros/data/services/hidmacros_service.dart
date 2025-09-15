@@ -68,7 +68,6 @@ class HidMacrosService {
     }
 
     if (selectedKeyboard != null && selectedType != null) {
-      _log('setMacros');
       await config.macros.setMacros(selectedKeyboard, selectedType);
     }
 
@@ -77,6 +76,8 @@ class HidMacrosService {
     await autoStartPrefs.setAutoStart(autoStart);
 
     await config.save();
+
+    _log('Changes applied');
 
     if (autoStart) {
       await process.start();
