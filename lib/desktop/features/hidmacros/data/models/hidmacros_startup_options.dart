@@ -1,28 +1,24 @@
 import 'package:equatable/equatable.dart';
 
-class HidMacrosConfig extends Equatable {
-  final bool autoStart;
+class HidMacrosStartupOptions extends Equatable {
   final bool minimizeToTray;
   final bool startMinimized;
 
-  const HidMacrosConfig({
-    this.autoStart = false,
+  const HidMacrosStartupOptions({
     this.minimizeToTray = false,
     this.startMinimized = false,
   });
 
-  HidMacrosConfig copyWith({
-    bool? autoStart,
+  HidMacrosStartupOptions copyWith({
     bool? minimizeToTray,
     bool? startMinimized,
   }) {
-    return HidMacrosConfig(
-      autoStart: autoStart ?? this.autoStart,
+    return HidMacrosStartupOptions(
       minimizeToTray: minimizeToTray ?? this.minimizeToTray,
       startMinimized: startMinimized ?? this.startMinimized,
     );
   }
 
   @override
-  List<Object?> get props => [autoStart, minimizeToTray, startMinimized];
+  List<Object?> get props => [minimizeToTray, startMinimized];
 }

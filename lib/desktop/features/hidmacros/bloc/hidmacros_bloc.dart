@@ -1,85 +1,87 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:streamkeys/desktop/features/hidmacros/data/models/hidmacros_config.dart';
+import 'package:streamkeys/desktop/features/hidmacros/data/models/hidmacros_startup_options.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/models/keyboard_device.dart';
 import 'package:streamkeys/desktop/features/hidmacros/data/repositories/hidmacros_repository.dart';
 import 'package:streamkeys/desktop/features/key_grid_area/data/models/keyboard_type.dart';
-import 'package:streamkeys/service_locator.dart';
 
 part 'hidmacros_event.dart';
 part 'hidmacros_state.dart';
 
 class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
-  final HidMacrosRepository _repository;
-  final HidMacrosService _hidmacros;
+  final IHidMacrosRepository _repo;
 
-  List<KeyboardDevice> keyboards = [];
-  KeyboardDevice? selectedKeyboard;
-  KeyboardType? selectedKeyboardType;
-  HidMacrosConfig hidmacrosConfig = const HidMacrosConfig();
-
-  HidMacrosBloc({HidMacrosRepository? repository, HidMacrosService? hidmacros})
-    : _repository = repository ?? HidMacrosRepository(),
-      _hidmacros = hidmacros ?? sl<HidMacrosService>(),
-      super(HidMacrosInitial()) {
+  HidMacrosBloc({required IHidMacrosRepository repo})
+    : _repo = repo,
+      super(const HidMacrosState()) {
     on<HidMacrosLoadEvent>(_load);
 
-    on<HidMacrosToggleAutoStartEvent>(_toogleAutoStart);
-    on<HidMacrosToggleMinimizeToTrayEvent>(_toggleMinimizedToTray);
+    on<HidMacrosToggleAutoStartEvent>(_toggleAutoStart);
+    on<HidMacrosToggleMinimizeToTrayEvent>(_toggleMinimizeToTray);
     on<HidMacrosToggleStartMinizedEvent>(_toggleStartMinimized);
 
     on<HidMacrosSelectKeyboardEvent>(_selectKeyboard);
     on<HidMacrosSelectKeyboardTypeEvent>(_selectKeyboardType);
+    on<HidMacrosSelectKeyboardTypeAndSaveEvent>(_selectKeyboardTypeAndSave);
+
+    on<HidMacrosApplyChangesEvent>(_applyChanges);
+    on<HidMacrosCancelChangesEvent>(_cancelChanges);
   }
 
   Future<void> _load(
     HidMacrosLoadEvent event,
     Emitter<HidMacrosState> emit,
   ) async {
-    emit(HidMacrosLoading());
+    final autoStart = await _repo.getAutoStart();
 
-    await _repository.init();
+    await _repo.read();
+    final options = await _repo.getStartupOptions();
+    final keyboards = await _repo.getKeyboards();
+    final keyboard = _repo.getSelectedKeyboard();
+    final type = _repo.getSelectedKeyboardType();
 
-    hidmacrosConfig = hidmacrosConfig.copyWith(
-      autoStart: _repository.getAutoStart(),
-      minimizeToTray: _repository.getMinimizeToTray(),
-      startMinimized: _repository.getStartMinimized(),
+    emit(
+      HidMacrosState(
+        keyboards: keyboards,
+        selectedKeyboard: keyboard,
+        selectedKeyboardType: type,
+        options: options,
+        autoStart: autoStart,
+        savedKeyboard: keyboard,
+        savedKeyboardType: type,
+        savedOptions: options,
+        savedAutoStart: autoStart,
+      ),
     );
-
-    keyboards = _repository.getDeviceList();
-
-    selectedKeyboard = _repository.getSelectedKeyboard();
-    selectedKeyboardType = _repository.getSelectedKeyboardType();
-
-    _emitLoaded(emit);
   }
 
-  Future<void> _toogleAutoStart(
+  Future<void> _toggleAutoStart(
     HidMacrosToggleAutoStartEvent event,
     Emitter<HidMacrosState> emit,
   ) async {
-    hidmacrosConfig = hidmacrosConfig.copyWith(autoStart: event.enabled);
-    await _repository.saveAutoStart(event.enabled);
-
-    _emitLoaded(emit);
+    emit(state.copyWith(autoStart: event.enabled));
   }
 
-  Future<void> _toggleMinimizedToTray(event, emit) async {
-    hidmacrosConfig = hidmacrosConfig.copyWith(minimizeToTray: event.enabled);
-    _emitLoaded(emit);
-    _hidmacros.restart(
-      autoStart: hidmacrosConfig.autoStart,
-      onBetween: () async => _repository.setMinimizeToTray(event.enabled),
+  Future<void> _toggleMinimizeToTray(
+    HidMacrosToggleMinimizeToTrayEvent event,
+    Emitter<HidMacrosState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        options: state.options.copyWith(minimizeToTray: event.enabled),
+      ),
     );
   }
 
-  Future<void> _toggleStartMinimized(event, emit) async {
-    hidmacrosConfig = hidmacrosConfig.copyWith(startMinimized: event.enabled);
-    _emitLoaded(emit);
-    _hidmacros.restart(
-      autoStart: hidmacrosConfig.autoStart,
-      onBetween: () => _repository.setStartMinimized(event.enabled),
+  Future<void> _toggleStartMinimized(
+    HidMacrosToggleStartMinizedEvent event,
+    Emitter<HidMacrosState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        options: state.options.copyWith(startMinimized: event.enabled),
+      ),
     );
   }
 
@@ -87,43 +89,73 @@ class HidMacrosBloc extends Bloc<HidMacrosEvent, HidMacrosState> {
     HidMacrosSelectKeyboardEvent event,
     Emitter<HidMacrosState> emit,
   ) async {
-    emit(HidMacrosLoading());
-    selectedKeyboard = event.keyboard;
-
-    final type = selectedKeyboardType ?? KeyboardType.numpad;
-
-    await _hidmacros.restart(
-      autoStart: hidmacrosConfig.autoStart,
-      onBetween: () => _repository.select(keyboard: event.keyboard, type: type),
-    );
-
-    _emitLoaded(emit);
+    emit(state.copyWith(selectedKeyboard: event.keyboard));
   }
 
   Future<void> _selectKeyboardType(
     HidMacrosSelectKeyboardTypeEvent event,
     Emitter<HidMacrosState> emit,
   ) async {
-    emit(HidMacrosLoading());
-    selectedKeyboardType = event.type;
-
-    final keyboard = selectedKeyboard ?? keyboards[0];
-
-    await _hidmacros.restart(
-      autoStart: hidmacrosConfig.autoStart,
-      onBetween: () => _repository.select(keyboard: keyboard, type: event.type),
-    );
-
-    _emitLoaded(emit);
+    emit(state.copyWith(selectedKeyboardType: event.type));
   }
 
-  void _emitLoaded(Emitter<HidMacrosState> emit) {
+  Future<void> _selectKeyboardTypeAndSave(
+    HidMacrosSelectKeyboardTypeAndSaveEvent event,
+    Emitter<HidMacrosState> emit,
+  ) async {
+    final updated = state.copyWith(selectedKeyboardType: event.type);
+
+    await _repo.applyChanges(
+      selectedKeyboard: updated.selectedKeyboard,
+      selectedType: updated.selectedKeyboardType,
+      options: updated.options,
+      autoStart: updated.autoStart,
+    );
+
     emit(
-      HidMacrosLoaded(
-        keyboards: keyboards,
-        selectedKeyboard: selectedKeyboard,
-        selectedKeyboardType: selectedKeyboardType,
-        hidmacrosConfig: hidmacrosConfig,
+      updated.copyWith(
+        savedKeyboard: updated.selectedKeyboard,
+        savedKeyboardType: updated.selectedKeyboardType,
+        savedOptions: updated.options,
+        savedAutoStart: updated.autoStart,
+      ),
+    );
+  }
+
+  Future<void> _applyChanges(
+    HidMacrosApplyChangesEvent event,
+    Emitter<HidMacrosState> emit,
+  ) async {
+    emit(state.copyWith(isLoading: true));
+
+    await _repo.applyChanges(
+      selectedKeyboard: state.selectedKeyboard,
+      selectedType: state.selectedKeyboardType,
+      options: state.options,
+      autoStart: state.autoStart,
+    );
+
+    emit(
+      state.copyWith(
+        isLoading: false,
+        savedKeyboard: state.selectedKeyboard,
+        savedKeyboardType: state.selectedKeyboardType,
+        savedOptions: state.options,
+        savedAutoStart: state.autoStart,
+      ),
+    );
+  }
+
+  Future<void> _cancelChanges(
+    HidMacrosCancelChangesEvent event,
+    Emitter<HidMacrosState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        selectedKeyboard: state.savedKeyboard,
+        selectedKeyboardType: state.savedKeyboardType,
+        options: state.savedOptions,
+        autoStart: state.savedAutoStart,
       ),
     );
   }

@@ -12,22 +12,34 @@ class HidMacrosKeyboardPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HidMacrosBloc, HidMacrosState>(
       builder: (context, state) {
-        if (state is HidMacrosLoaded) {
-          return SingleChildScrollView(
-            child: Container(
-              margin: const EdgeInsets.all(Spacing.md),
-              constraints: const BoxConstraints(maxWidth: 400),
-              child: const Column(
-                spacing: Spacing.lg,
-                children: [SelectKeyboard(), SelectKeyboardType()],
-              ),
+        return SingleChildScrollView(
+          child: Container(
+            margin: const EdgeInsets.all(Spacing.md),
+            constraints: const BoxConstraints(maxWidth: 400),
+            child: Column(
+              spacing: Spacing.lg,
+              children: [
+                SelectKeyboard(
+                  keyboards: state.keyboards,
+                  selectedKeyboard: state.selectedKeyboard,
+                  onTap: (keyboard) {
+                    context.read<HidMacrosBloc>().add(
+                      HidMacrosSelectKeyboardEvent(keyboard),
+                    );
+                  },
+                ),
+                SelectKeyboardType(
+                  selectedType: state.selectedKeyboardType,
+                  onTap: (type) {
+                    context.read<HidMacrosBloc>().add(
+                      HidMacrosSelectKeyboardTypeEvent(type),
+                    );
+                  },
+                ),
+              ],
             ),
-          );
-        } else if (state is HidMacrosLoading) {
-          return const Center(child: CircularProgressIndicator());
-        } else {
-          return Text(state.runtimeType.toString());
-        }
+          ),
+        );
       },
     );
   }

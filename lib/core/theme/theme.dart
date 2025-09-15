@@ -39,7 +39,8 @@ class AppTheme {
       checkboxTheme: AppCheckboxThemeData.getTheme(colors),
       textTheme: AppTextTheme.theme,
       listTileTheme: ListTileThemeData(
-        titleTextStyle: AppTextTheme.theme.labelSmall,
+        titleTextStyle: AppTextTheme.theme.labelSmall?.copyWith(color: colors.onSurface),
+        selectedColor: colors.onPrimary,
       ),
     );
   }

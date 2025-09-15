@@ -13,14 +13,33 @@ class AppOutlinedButtonThemeData {
           ),
         ),
         shape: WidgetStateProperty.all(_borderRadius),
-        side: WidgetStateProperty.all(_borderSide(colors.outline)),
-        foregroundColor: WidgetStateProperty.all(colors.onBackground),
-        textStyle: WidgetStateProperty.all(
-          AppTextTheme.theme.bodyMedium?.copyWith(color: colors.onBackground),
-        ),
+        side: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.disabled)) {
+            return _borderSide(colors.outline.withValues(alpha: 0.6));
+          }
+          return _borderSide(colors.outline);
+        }),
+        foregroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.disabled)) {
+            return colors.onDisabled;
+          }
+          return colors.onBackground;
+        }),
+        textStyle: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.disabled)) {
+            return AppTextTheme.theme.bodyMedium?.copyWith(
+              color: colors.onDisabled,
+            );
+          }
+          return AppTextTheme.theme.bodyMedium?.copyWith(
+            color: colors.onBackground,
+          );
+        }),
         backgroundColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.hovered)) {
             return colors.overlay;
+          } else if (states.contains(WidgetState.disabled)) {
+            return colors.disabledFill;
           }
           return Colors.transparent;
         }),

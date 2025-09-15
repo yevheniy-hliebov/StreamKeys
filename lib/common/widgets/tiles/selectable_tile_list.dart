@@ -45,12 +45,12 @@ class SelectableTileList<T> extends StatelessWidget {
               generator: (index) {
                 final item = items[index];
                 final isSelected = item == selectedItem;
-                final tileColor = isSelected
-                    ? AppColors.of(context).primary
-                    : AppColors.of(context).surface;
 
                 final tile = ListTile(
-                  tileColor: tileColor,
+                  selected: isSelected,
+                  tileColor: AppColors.of(context).surface,
+                  selectedColor: AppColors.of(context).onPrimary,
+                  selectedTileColor: AppColors.of(context).primary,
                   onTap: () => onTap?.call(item),
                   title: Text(getLabel(item)),
                 );
